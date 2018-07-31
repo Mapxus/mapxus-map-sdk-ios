@@ -43,6 +43,10 @@ typedef NS_ENUM(NSUInteger, MXMStyle) {
 NS_ASSUME_NONNULL_BEGIN
 
 
+
+/**
+ MapxusMap主类
+ */
 @interface MapxusMap : NSObject
 
 

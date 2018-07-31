@@ -121,6 +121,8 @@
 		D684BDAB210020B1004E85D9 /* MXMPointAnnotation+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MXMPointAnnotation+Private.h"; sourceTree = "<group>"; };
 		D6E4DAF42110154500D15FF1 /* AFNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AFNetworking.framework; path = Carthage/Build/iOS/AFNetworking.framework; sourceTree = SOURCE_ROOT; };
 		D6E4DAF52110154500D15FF1 /* YYModel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YYModel.framework; path = Carthage/Build/iOS/YYModel.framework; sourceTree = SOURCE_ROOT; };
+		D6E4DAF621103D1C00D15FF1 /* IOS-Universal-Framework_aggregate.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "IOS-Universal-Framework_aggregate.sh"; sourceTree = "<group>"; };
+		D6E4DAF7211044B000D15FF1 /* document.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = document.sh; sourceTree = "<group>"; };
 		E6579208B1A4FF8AF02C7EFA /* Pods-MapxusMapSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDK/Pods-MapxusMapSDK.release.xcconfig"; sourceTree = "<group>"; };
 		FC5152F12353FD8E73AA6B8F /* Pods-MapxusMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,6 +160,8 @@
 		D641FC7D20F5DBDB00061AD4 = {
 			isa = PBXGroup;
 			children = (
+				D6E4DAF7211044B000D15FF1 /* document.sh */,
+				D6E4DAF621103D1C00D15FF1 /* IOS-Universal-Framework_aggregate.sh */,
 				D641FC8920F5DBDB00061AD4 /* MapxusMapSDK */,
 				D641FC9420F5DBDB00061AD4 /* MapxusMapSDKTests */,
 				D641FC8820F5DBDB00061AD4 /* Products */,
@@ -487,7 +491,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bash \"${PROJECT_DIR}/IOS-Universal-Framework_aggregate.sh\"";
+			shellScript = "bash \"${PROJECT_DIR}/IOS-Universal-Framework_aggregate.sh\"\nbash \"${PROJECT_DIR}/document.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
