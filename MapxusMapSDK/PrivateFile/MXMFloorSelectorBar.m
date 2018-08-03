@@ -35,9 +35,9 @@
     if (!_cellLabel) {
         _cellLabel = [[UILabel alloc] init];
         _cellLabel.textAlignment = NSTextAlignmentCenter;
-        _cellLabel.font = [UIFont systemFontOfSize:13];
+        _cellLabel.font = [UIFont systemFontOfSize:20];
         _cellLabel.adjustsFontSizeToFitWidth = YES;
-        _cellLabel.textColor = [UIColor colorWithRed:68.0/255.0 green:68.0/255.0 blue:68.0/255.0 alpha:1.0];
+        _cellLabel.textColor = [UIColor colorWithRed:187.0/255.0 green:187.0/255.0 blue:189.0/255.0 alpha:1.0];
     }
     return _cellLabel;
 }

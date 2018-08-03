@@ -12,6 +12,7 @@
 #import "MXMMapServices+Private.h"
 #import "MGLMapView+MXMSwizzle.h"
 #import "MXMPointAnnotation+Private.h"
+#import "UploadLogManager.h"
 
 
 
@@ -112,12 +113,15 @@
         self.mapView = mapView;
         self.mapView.mxmMap = self;
         [self commonInit];
+        [[UploadLogManager sharedInstance] clearExpiredLog];
     }
     return self;
 }
 
 - (void)commonInit
 {
+    self.showFloorBar = YES;
+    self.showBuildingListButton = YES;
     self.mapView.attributionButton.hidden = YES;
     self.mapView.logoView.hidden = YES;
     
@@ -150,9 +154,9 @@
     [self.mapView addConstraint:floorBarLeftLc];
     NSLayoutConstraint *floorBarBottomLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:30];
     [self.mapView addConstraint:floorBarBottomLc];
-    NSLayoutConstraint *floorBarWLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:52];
+    NSLayoutConstraint *floorBarWLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:42];
     [self.floorBar addConstraint:floorBarWLc];
-    NSLayoutConstraint *floorBarHLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:236.0f];
+    NSLayoutConstraint *floorBarHLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:210.0f];
     [self.floorBar addConstraint:floorBarHLc];
 
     

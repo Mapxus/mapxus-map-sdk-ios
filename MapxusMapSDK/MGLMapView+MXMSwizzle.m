@@ -10,6 +10,7 @@
 
 #import "MGLMapView+MXMSwizzle.h"
 #import "MapxusMap+Private.h"
+#import "UploadLogManager.h"
 
 static void *mapKey = &mapKey;
 
@@ -235,14 +236,28 @@ static void *mapKey = &mapKey;
 }
 - (void)hook_mapView:(MGLMapView *)mapView didUpdateUserLocation:(MGLUserLocation *)userLocation
 {
+    [[UploadLogManager sharedInstance] logInfo:LOGPOSITION logStr:@"start"];
+
+    [[UploadLogManager sharedInstance] logInfo:LOGPOSITION logStr:[NSString stringWithFormat:@"userTrackingMode :%ld", (long)mapView.userTrackingMode]?:@""];
+    
     if ((mapView.userTrackingMode != MGLUserTrackingModeNone) && userLocation.location.floor) { // 跟随模式且有楼层数据
         CGPoint locationPoint = [mapView convertCoordinate:userLocation.location.coordinate toPointToView:mapView];
+        
+        [[UploadLogManager sharedInstance] logInfo:LOGPOSITION logStr:[@"locationPoint: " stringByAppendingString:NSStringFromCGPoint(locationPoint)?:@""]];
+
         NSArray *buildingList = [mapView.mxmMap findOutBuildingAtPoint:locationPoint];
+        
         for (MXMGeoBuilding *b in buildingList) {
+            [[UploadLogManager sharedInstance] logInfo:LOGPOSITION logStr:b.identifier?:@""];
+            [[UploadLogManager sharedInstance] logInfo:LOGPOSITION logStr:[NSString stringWithFormat:@"%@", b.floors]?:@""];
+
             NSUInteger gf = [b.floors indexOfObject:b.ground_floor];
             NSInteger cf = userLocation.location.floor.level + gf;
+            [[UploadLogManager sharedInstance] logInfo:LOGPOSITION logStr:[NSString stringWithFormat:@"current floor index :%ld", (long)cf]];
+
             if (cf>=0 && cf<=b.floors.count) {
                 NSString *currentFloor = [b.floors objectAtIndex:cf];
+                [[UploadLogManager sharedInstance] logInfo:LOGPOSITION logStr:currentFloor?:@""];
                 [mapView.mxmMap selectBuilding:b.identifier floor:currentFloor shouldChangeUserTrackingMode:NO];
                 break;
             }
@@ -250,7 +265,10 @@ static void *mapKey = &mapKey;
         
     } else {
         [mapView.mxmMap updageLocationView];
+        [[UploadLogManager sharedInstance] logInfo:LOGPOSITION logStr:@"updageLocationView"];
     }
+    [[UploadLogManager sharedInstance] logInfo:LOGPOSITION logStr:@"end"];
+    
     [self hook_mapView:mapView didUpdateUserLocation:userLocation];
 }
 - (void)mapView:(MGLMapView *)mapView didUpdateUserLocation:(MGLUserLocation *)userLocation

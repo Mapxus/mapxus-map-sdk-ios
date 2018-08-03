@@ -60,6 +60,8 @@
 		D684BC9A20FEE1EC004E85D9 /* MXMPointAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = D684BC9820FEE1EC004E85D9 /* MXMPointAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D684BC9B20FEE1EC004E85D9 /* MXMPointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D684BC9920FEE1EC004E85D9 /* MXMPointAnnotation.m */; };
 		D684BDAC210020B1004E85D9 /* MXMPointAnnotation+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = D684BDAB210020B1004E85D9 /* MXMPointAnnotation+Private.h */; };
+		D6E4DAFA21106F4100D15FF1 /* UploadLogManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D6E4DAF821106F4100D15FF1 /* UploadLogManager.h */; };
+		D6E4DAFB21106F4100D15FF1 /* UploadLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E4DAF921106F4100D15FF1 /* UploadLogManager.m */; };
 		E0EEEC66CF0A3770AC26601B /* libPods-MapxusMapSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D442A46E71ACCCEF4FDD3C7 /* libPods-MapxusMapSDK.a */; };
 /* End PBXBuildFile section */
 
@@ -123,6 +125,8 @@
 		D6E4DAF52110154500D15FF1 /* YYModel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = YYModel.framework; path = Carthage/Build/iOS/YYModel.framework; sourceTree = SOURCE_ROOT; };
 		D6E4DAF621103D1C00D15FF1 /* IOS-Universal-Framework_aggregate.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "IOS-Universal-Framework_aggregate.sh"; sourceTree = "<group>"; };
 		D6E4DAF7211044B000D15FF1 /* document.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = document.sh; sourceTree = "<group>"; };
+		D6E4DAF821106F4100D15FF1 /* UploadLogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadLogManager.h; sourceTree = "<group>"; };
+		D6E4DAF921106F4100D15FF1 /* UploadLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadLogManager.m; sourceTree = "<group>"; };
 		E6579208B1A4FF8AF02C7EFA /* Pods-MapxusMapSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDK/Pods-MapxusMapSDK.release.xcconfig"; sourceTree = "<group>"; };
 		FC5152F12353FD8E73AA6B8F /* Pods-MapxusMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -256,6 +260,8 @@
 		D641FCC020FB876800061AD4 /* PrivateFile */ = {
 			isa = PBXGroup;
 			children = (
+				D6E4DAF821106F4100D15FF1 /* UploadLogManager.h */,
+				D6E4DAF921106F4100D15FF1 /* UploadLogManager.m */,
 				D641FCC420FB876800061AD4 /* KxMenu */,
 				D684BBCE20FC0FC4004E85D9 /* MXMConstants.h */,
 				D684BBCF20FC0FC4004E85D9 /* MXMConstants.m */,
@@ -316,6 +322,7 @@
 				D684BC4120FDB667004E85D9 /* MGLMapView+MXMSwizzle.h in Headers */,
 				D641FC9820F5DBDB00061AD4 /* MapxusMapSDK.h in Headers */,
 				D684BDAC210020B1004E85D9 /* MXMPointAnnotation+Private.h in Headers */,
+				D6E4DAFA21106F4100D15FF1 /* UploadLogManager.h in Headers */,
 				D684BBD020FC0FC4004E85D9 /* MXMConstants.h in Headers */,
 				D641FCD520FB876800061AD4 /* Constants.h in Headers */,
 				D684BBEF20FD5DF8004E85D9 /* MapxusMap+Private.h in Headers */,
@@ -515,6 +522,7 @@
 				D684BC4620FDEA02004E85D9 /* MXMSearchObj.m in Sources */,
 				D641FCD320FB876800061AD4 /* Constants.m in Sources */,
 				D684BBD520FC1207004E85D9 /* MXMFloorSelectorBar.m in Sources */,
+				D6E4DAFB21106F4100D15FF1 /* UploadLogManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
