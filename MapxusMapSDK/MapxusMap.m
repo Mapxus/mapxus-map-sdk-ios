@@ -199,9 +199,6 @@
             case MXMStyleMAPPYBEE:
                 self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/mappy_bee_icon/style?token=%@", MXMHOSTURL, token]];
                 break;
-            case MXMStyleOPENMAP:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/composite_icon/style?token=%@", MXMHOSTURL, token]];
-                break;
             default:
                 break;
         }
@@ -291,12 +288,13 @@
     // 筛选出『mBuilding』开头的layer
     for (MGLStyleLayer *theLayer in theLayers) {
         NSString *identifier = theLayer.identifier;
+//        NSLog(@"%@", identifier);
         if ([identifier hasPrefix:@"mBuilding"]) {
             [identifiersSet addObject:identifier];
         }
     }
     // 获取中心矩形内的建筑信息
-    NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesInRect:CGRectMake(point.x-50, point.y-50, 100, 100) inStyleLayersWithIdentifiers:identifiersSet predicate:nil];
+    NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesInRect:self.mapView.bounds inStyleLayersWithIdentifiers:identifiersSet predicate:nil];
     // 建筑信息去重
     NSMutableDictionary *resultBuildings = [NSMutableDictionary dictionary];
     for (id <MGLFeature> feature in theFeatures) {

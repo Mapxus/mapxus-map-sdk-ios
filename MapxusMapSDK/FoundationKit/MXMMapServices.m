@@ -9,6 +9,7 @@
 #import "MXMMapServices+Private.h"
 #import "Constants.h"
 #import <AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.h>
+#import "MXMURLProtocol.h"
 
 @import Mapbox;
 
@@ -30,8 +31,19 @@
     if (self) {
         [MGLAccountManager setAccessToken:MapboxAccessToken];
         [self setuppool];
+        [MXMURLProtocol start];
+        [self writeUUID];
     }
     return self;
+}
+
+- (void)writeUUID
+{
+    NSString *uuid = [[NSUserDefaults standardUserDefaults] objectForKey:@"MXMUUID"];
+    if ([uuid isEqualToString:@""] || uuid == nil) {
+        NSString *tUUID = [NSUUID UUID].UUIDString;
+        [[NSUserDefaults standardUserDefaults] setObject:tUUID forKey:@"MXMUUID"];
+    }
 }
 
 - (void)setuppool
@@ -75,6 +87,16 @@
     AWSCognitoIdentityUser *user = [pool currentUser];
     //    if (!user.isSignedIn) {
     [[user getSession:self.apiKey password:self.secret validationData:nil] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityUserSession *> * _Nonnull t) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(t.error){
+                NSLog(@"Authentication error: %@", t.error);
+            }else {
+                NSString *idToken = t.result.idToken.tokenString;
+                if (idToken) {
+                    [[NSUserDefaults standardUserDefaults] setObject:idToken forKey:@"MXMToken"];
+                }
+            }
+        });
         return nil;
     }];
     //    }
