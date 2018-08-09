@@ -21,11 +21,11 @@
 //NSString *const CognitoIdentityUserPoolId = @"ap-northeast-1_mDg62wkRF";
 //NSString *const CognitoIdentityUserPoolAppClientId = @"3ltqfl6as4kr3162a4eglt685m";
 //NSString *const CognitoIdentityUserPoolAppClientSecret = @"33b0g6dodchnmvm4ctuh6vso1u0sggqhvdn5q3j90nf7o42i5nj";
-//NSString *const MapboxAccessToken = @"pk.eyJ1Ijoib2dpcHMtZ3JvdXAiLCJhIjoiY2ozMnNxamh3MDA0NjMzbGY0dzZwMXhiMCJ9.pSSmzbmswdGGli5SI_cGng";
+//NSString *const MapboxAccessToken = @"pk.mapxus";
 
 // 生产环境
 AWSRegionType const CognitoIdentityUserPoolRegion = AWSRegionAPNortheast1;
 NSString *const CognitoIdentityUserPoolId = @"ap-northeast-1_RPVBGboLL";
 NSString *const CognitoIdentityUserPoolAppClientId = @"5rgr37a74t87ilv6nm19v5o7so";
 NSString *const CognitoIdentityUserPoolAppClientSecret = @"16cfl4f654ml3fprngc6j7sko4j31s6efv19rehrsebamr6847kt";
-NSString *const MapboxAccessToken = @"pk.eyJ1Ijoib2dpcHMtZ3JvdXAiLCJhIjoiY2ozMnNxamh3MDA0NjMzbGY0dzZwMXhiMCJ9.pSSmzbmswdGGli5SI_cGng";
+NSString *const MapboxAccessToken = @"pk.mapxus";

@@ -8,7 +8,7 @@ target 'MapxusMapSDK' do
   # Pods for MapxusMapSDK
   pod 'AWSCore', '~> 2.6.0'
   pod 'AWSCognitoIdentityProvider', '~> 2.6.0'
-  pod 'Mapbox-iOS-SDK', '~> 4.2'
+  pod 'Mapbox-iOS-SDK'
 
   target 'MapxusMapSDKTests' do
     inherit! :search_paths

@@ -70,6 +70,9 @@
                 NSLog(@"Authentication error: %@", t.error);
             }else {
                 NSString *idToken = t.result.idToken.tokenString;
+                if (idToken) {
+                    [[NSUserDefaults standardUserDefaults] setObject:idToken forKey:@"MXMToken"];
+                }
                 if (complete) {
                     complete(idToken);
                 }

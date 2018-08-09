@@ -83,7 +83,6 @@ static void Hook_Method(Class originalClass, SEL originalSel, Class replaceClass
 }
 
 - (NSURLSessionDataTask *)hook_dataTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
-//    NSLog(@"33");
     
     void (^customBlock)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (completionHandler) {
@@ -105,7 +104,6 @@ static void Hook_Method(Class originalClass, SEL originalSel, Class replaceClass
 
 - (void)none_URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
          didReceiveData:(NSData *)data {
-//    NSLog(@"11");
 }
 
 

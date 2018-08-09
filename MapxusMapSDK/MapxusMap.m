@@ -99,11 +99,8 @@
 
 #pragma mark end
 
-//- (void)setHiddenLogo:(BOOL)hiddenLogo
-//{
-//    _hiddenLogo = hiddenLogo;
-//    self.MXMLogo.hidden = hiddenLogo;
-//}
+
+
 
 - (instancetype)initWithMapView:(MGLMapView *)mapView
 {
@@ -188,16 +185,16 @@
     [[MXMMapServices sharedServices] getTokenComplete:^(NSString *token) {
         switch (style) {
             case MXMStyleCOMMON:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/common_icon/style?token=%@", MXMHOSTURL, token]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/common_v2/style?token=%@", MXMHOSTURL, token]];
                 break;
             case MXMStyleCHRISTMAS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/christmas_icon/style?token=%@", MXMHOSTURL, token]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/christmas_v2/style?token=%@", MXMHOSTURL, token]];
                 break;
             case MXMStyleHALLOWMAS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/halloween_icon/style?token=%@", MXMHOSTURL, token]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/halloween_v2/style?token=%@", MXMHOSTURL, token]];
                 break;
             case MXMStyleMAPPYBEE:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/mappy_bee_icon/style?token=%@", MXMHOSTURL, token]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/mappy_bee_v2/style?token=%@", MXMHOSTURL, token]];
                 break;
             default:
                 break;
@@ -230,7 +227,7 @@
     // 筛选出『m』开头的layer
     for (MGLStyleLayer *theLayer in theLayers) {
         NSString *identifier = theLayer.identifier;
-        if ([identifier hasPrefix:@"m"] && [theLayer isKindOfClass:[MGLSymbolStyleLayer class]]){
+        if ([identifier hasPrefix:@"maphive"] && [theLayer isKindOfClass:[MGLSymbolStyleLayer class]]){
             [identifiersSet addObject:identifier];
         }
     }
@@ -261,14 +258,14 @@
 #pragma mark end
 
 
+
+
 #pragma mark - 中心点室内数据筛选
 
 - (void)automaticAnalyseOfIndoorData
 {
-    // 拿到地图中心view坐标
-    CGPoint centerPoint = CGPointMake(self.mapView.bounds.size.width/2, self.mapView.bounds.size.height/2);
     // 查找当前中心view坐标的Building队列
-    self.buildings = [self findOutBuildingIntheRectWithCenterPoint:centerPoint];
+    self.buildings = [self findOutBuildingIntheRect];
     // 设置建筑选择按钮和楼层选择按钮是否显示
     self.buildingSelectBtn.hidden = !((self.buildings.count>=2)&&(self.mapView.zoomLevel>14));
     self.floorBar.hidden = !((self.buildings.count>=1)&&(self.mapView.zoomLevel>14));
@@ -279,7 +276,7 @@
     [self selectBuilding:defaultBuilding.identifier floor:defaultFloor shouldChangeUserTrackingMode:NO];
 }
 
-- (NSDictionary *)findOutBuildingIntheRectWithCenterPoint:(CGPoint)point
+- (NSDictionary *)findOutBuildingIntheRect
 {
     // 生成layer.identifier的存储集合
     NSMutableSet *identifiersSet = [NSMutableSet set];
@@ -288,8 +285,7 @@
     // 筛选出『mBuilding』开头的layer
     for (MGLStyleLayer *theLayer in theLayers) {
         NSString *identifier = theLayer.identifier;
-//        NSLog(@"%@", identifier);
-        if ([identifier hasPrefix:@"mBuilding"]) {
+        if ([identifier hasPrefix:@"maphive-building-fill"]) {
             [identifiersSet addObject:identifier];
         }
     }
@@ -306,6 +302,8 @@
     return [NSDictionary dictionaryWithDictionary:resultBuildings];
 }
 
+
+// 地图跟踪时使用
 - (NSArray<MXMGeoBuilding *> *)findOutBuildingAtPoint:(CGPoint)point
 {
     // 生成layer.identifier的存储集合
@@ -315,7 +313,7 @@
     // 筛选出『mBuilding』开头的layer
     for (MGLStyleLayer *theLayer in theLayers) {
         NSString *identifier = theLayer.identifier;
-        if ([identifier hasPrefix:@"mBuilding"]) {
+        if ([identifier hasPrefix:@"maphive-building-fill"]) {
             [identifiersSet addObject:identifier];
         }
     }
@@ -512,155 +510,40 @@
 - (void)filerBuildingId:(NSString *)buildingId Floor:(NSString *)floor {
     NSArray *arr = self.mapView.style.layers;
     for (MGLStyleLayer *k in arr) {
+        // 过滤不需要处理的layer
         if (![k isKindOfClass:[MGLVectorStyleLayer class]]) {
             continue;
         }
         MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
         NSString *ident = vk.identifier;
-        // 过滤以m[A-Z]开头的layer
-        NSString *regex = @"^m[A-Z].*$";
-        NSPredicate *test = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-        if (![test evaluateWithObject:ident]) {
+        if (![ident hasPrefix:@"maphive"] || [ident hasPrefix:@"maphive-building"]) {
             continue;
         }
         
-        NSArray *originalPre = [self getConstantFilterWithLayerIdentifier:ident];
-        if (originalPre.count == 0) {
-            continue;
-        }
+        // 处理剩下需要添加filter的layer
+        id originalPredicate = vk.predicate;
         NSMutableArray *mu = [NSMutableArray arrayWithCapacity:0];
-        // 添加基本过滤条件
-        [mu addObjectsFromArray:originalPre];
-        // 添加变量过滤条件
-        if (![ident containsString:@"mBuilding"]) {
-            NSPredicate *f = [NSPredicate predicateWithFormat:@"floor == %@", floor];
-            [mu addObject:f];
-            NSPredicate *b = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:building", buildingId];
-            [mu addObject:b];
+        if ([originalPredicate isKindOfClass:[NSCompoundPredicate class]]) {
+            NSArray *sub = ((NSCompoundPredicate *)originalPredicate).subpredicates;
+            for (NSCompoundPredicate *s in sub) {
+                NSString *str = s.predicateFormat;
+                if (![str containsString:@"floor =="] && ![str containsString:@"ref:building =="]) {
+                    [mu addObject:s];
+                }
+            }
+        } else {
+            [mu addObject:originalPredicate];
         }
-        if (mu.count) {
-            NSCompoundPredicate *reSetPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:mu];
-            // 重置过滤
-            vk.predicate = reSetPredicate;
-        }
+        NSPredicate *f = [NSPredicate predicateWithFormat:@"floor == %@", floor];
+        [mu addObject:f];
+        NSPredicate *b = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:building", buildingId];
+        [mu addObject:b];
+        NSCompoundPredicate *reSetPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:mu];
+        // 重置过滤
+        vk.predicate = reSetPredicate;
     }
 }
 
-- (NSArray<NSPredicate *> *)getConstantFilterWithLayerIdentifier:(NSString *)layerId
-{
-    NSMutableArray *subList = [NSMutableArray array];
-    if ([layerId isEqualToString:@"mFloorFill"]) {
-        NSPredicate *a = [NSPredicate predicateWithFormat:@"indoor == %@", @"floor"];
-        [subList addObject:a];
-    } else if ([layerId isEqualToString:@"mFloorLine"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"indoor == %@", @"floor"];
-        [subList addObject:i];
-    } else if ([layerId isEqualToString:@"mCorridorFill"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"indoor == %@", @"corridor"];
-        [subList addObject:i];
-    } else if ([layerId isEqualToString:@"mConnectorFill"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"indoor == %@", @"connector"];
-        [subList addObject:i];
-    } else if ([layerId isEqualToString:@"mConnectorLine"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"indoor == %@", @"connector"];
-        [subList addObject:i];
-    } else if ([layerId isEqualToString:@"mRoomFill"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"indoor == %@", @"room"];
-        [subList addObject:i];
-    } else if ([layerId isEqualToString:@"mExitFill"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"indoor == %@", @"gate"];
-        [subList addObject:i];
-        NSPredicate *t = [NSPredicate predicateWithFormat:@"area == yes"];
-        [subList addObject:t];
-    } else if ([layerId isEqualToString:@"mBarrierFill"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"indoor == %@", @"barrier"];
-        [subList addObject:i];
-        NSPredicate *t = [NSPredicate predicateWithFormat:@"area == yes"];
-        [subList addObject:t];
-    } else if ([layerId isEqualToString:@"mBarrierLine"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"indoor == %@", @"barrier"];
-        [subList addObject:i];
-    } else if ([layerId isEqualToString:@"mRoomLine"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"indoor == %@", @"room"];
-        [subList addObject:i];
-    } else if ([layerId isEqualToString:@"mExitLine"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"indoor == %@", @"gate"];
-        [subList addObject:i];
-    } else if ([layerId isEqualToString:@"mConnectorSymbol"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"connector != NIL"];
-        [subList addObject:i];
-    } else if ([layerId isEqualToString:@"mFacilitySymbol"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"facility != NIL"];
-        [subList addObject:i];
-    } else if ([layerId isEqualToString:@"mRoomSymbol"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"%K != NIL", @"room:restaurant"];
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"%K != NIL", @"room:shop"];
-        NSPredicate *r = [NSPredicate predicateWithFormat:@"%K != NIL", @"room"];
-        NSCompoundPredicate *comp = [NSCompoundPredicate orPredicateWithSubpredicates:@[i, e, r]];
-        [subList addObject:comp];
-    } else if ([layerId isEqualToString:@"mRestaurant"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"%K != NIL", @"room:restaurant"];
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"room == %@", @"restaurant"];
-        NSCompoundPredicate *comp = [NSCompoundPredicate orPredicateWithSubpredicates:@[i, e]];
-        [subList addObject:comp];
-    } else if ([layerId isEqualToString:@"mToilet-female"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"%K == \"female\"", @"room:toilet"];
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"%K == \"female\"", @"toilet"];
-        NSCompoundPredicate *comp = [NSCompoundPredicate orPredicateWithSubpredicates:@[i, e]];
-        [subList addObject:comp];
-    } else if ([layerId isEqualToString:@"mToilet-male"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"%K == \"male\"", @"room:toilet"];
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"%K == \"male\"", @"toilet"];
-        NSCompoundPredicate *comp = [NSCompoundPredicate orPredicateWithSubpredicates:@[i, e]];
-        [subList addObject:comp];
-    } else if ([layerId isEqualToString:@"mToilet-disable"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"%K == \"disable\"", @"room:toilet"];
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"%K == \"disable\"", @"toilet"];
-        NSCompoundPredicate *comp = [NSCompoundPredicate orPredicateWithSubpredicates:@[i, e]];
-        [subList addObject:comp];
-    } else if ([layerId isEqualToString:@"mToilet-nursery"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"%K == \"nursery\"", @"room:toilet"];
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"%K == \"nursery\"", @"toilet"];
-        NSCompoundPredicate *comp = [NSCompoundPredicate orPredicateWithSubpredicates:@[i, e]];
-        [subList addObject:comp];
-    } else if ([layerId isEqualToString:@"mShop"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"%K != NIL", @"room:shop"];
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"room == %@", @"shop"];
-        NSCompoundPredicate *comp = [NSCompoundPredicate orPredicateWithSubpredicates:@[i, e]];
-        [subList addObject:comp];
-    } else if ([layerId isEqualToString:@"mOutdoor"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"%K != NIL", @"room:outdoor"];
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"room == %@", @"outdoor"];
-        NSCompoundPredicate *comp = [NSCompoundPredicate orPredicateWithSubpredicates:@[i, e]];
-        [subList addObject:comp];
-    } else if ([layerId isEqualToString:@"mParking"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"%K != NIL", @"room:parking"];
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"room == %@", @"parking"];
-        NSCompoundPredicate *comp = [NSCompoundPredicate orPredicateWithSubpredicates:@[i, e]];
-        [subList addObject:comp];
-    } else if ([layerId isEqualToString:@"mTransport"]) {
-        NSPredicate *i = [NSPredicate predicateWithFormat:@"%K != NIL", @"room:transport"];
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"room == %@", @"transport"];
-        NSCompoundPredicate *comp = [NSCompoundPredicate orPredicateWithSubpredicates:@[i, e]];
-        [subList addObject:comp];
-    } else if ([layerId isEqualToString:@"mConnector-elevator-Customer"]) {
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"connector == %@", @"elevator_customer"];
-        [subList addObject:e];
-    } else if ([layerId isEqualToString:@"mConnector-elevator-goods"]) {
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"connector == %@", @"escalator_good"];
-        [subList addObject:e];
-    } else if ([layerId isEqualToString:@"mConnector-escalator"]) {
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"connector == %@", @"escalator"];
-        [subList addObject:e];
-    } else if ([layerId isEqualToString:@"mConnector-stairs"]) {
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"connector == %@", @"stairs"];
-        [subList addObject:e];
-    } else if ([layerId isEqualToString:@"mConnector-ramp"]) {
-        NSPredicate *e = [NSPredicate predicateWithFormat:@"connector == %@", @"ramp"];
-        [subList addObject:e];
-    }
-    return subList;
-}
 
 - (void)addMXMPointAnnotations:(NSArray<MXMPointAnnotation *> *)annotations
 {
