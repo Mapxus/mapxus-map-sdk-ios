@@ -34,15 +34,15 @@ typedef NS_ENUM(NSUInteger, MXMStyle) {
      MAPPYBEE风格
      */
     MXMStyleMAPPYBEE,
-    /**
-     openStreet风格
-     */
-    MXMStyleOPENMAP,
 };
 
 NS_ASSUME_NONNULL_BEGIN
 
 
+
+/**
+ MapxusMap主类
+ */
 @interface MapxusMap : NSObject
 
 
