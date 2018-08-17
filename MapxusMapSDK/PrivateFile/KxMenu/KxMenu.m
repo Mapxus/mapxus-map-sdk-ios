@@ -116,7 +116,9 @@ const CGFloat kArrowSize = 12.f;
 {
     for (UIView *v in self.subviews) {
         if ([v isKindOfClass:[KxMenuView class]] && [v respondsToSelector:@selector(dismissMenu:)]) {
-            [v performSelector:@selector(dismissMenu:) withObject:@(YES)];
+            CGPoint touchPoint = [recognizer locationInView:self];
+            if (!CGRectContainsPoint(v.frame, touchPoint))
+                [v performSelector:@selector(dismissMenu:) withObject:@(YES)];
         }
     }
 }
