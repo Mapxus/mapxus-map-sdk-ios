@@ -31,8 +31,8 @@
 		D641FC9820F5DBDB00061AD4 /* MapxusMapSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = D641FC8A20F5DBDB00061AD4 /* MapxusMapSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D641FCD320FB876800061AD4 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = D641FCBB20FB876800061AD4 /* Constants.m */; };
 		D641FCD520FB876800061AD4 /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = D641FCBD20FB876800061AD4 /* Constants.h */; };
-		D641FCDB20FB876800061AD4 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D641FCC520FB876800061AD4 /* KxMenu.m */; };
 		D641FCDC20FB876800061AD4 /* KxMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = D641FCC620FB876800061AD4 /* KxMenu.h */; };
+		D67F81222124365C00DF94D7 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D641FCC520FB876800061AD4 /* KxMenu.m */; };
 		D684BBC820FC03F7004E85D9 /* MXMGeoBuilding.h in Headers */ = {isa = PBXBuildFile; fileRef = D684BBC620FC03F7004E85D9 /* MXMGeoBuilding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D684BBC920FC03F7004E85D9 /* MXMGeoBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = D684BBC720FC03F7004E85D9 /* MXMGeoBuilding.m */; };
 		D684BBD020FC0FC4004E85D9 /* MXMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = D684BBCE20FC0FC4004E85D9 /* MXMConstants.h */; };
@@ -526,8 +526,8 @@
 				D684BC4A20FDEB33004E85D9 /* MXMHttpManager.m in Sources */,
 				D684BBD920FC3134004E85D9 /* MXMMapServices.m in Sources */,
 				D600996C21192B2A003947FA /* NSURLSession+PPSheep.m in Sources */,
+				D67F81222124365C00DF94D7 /* KxMenu.m in Sources */,
 				D684BC4E20FDEB59004E85D9 /* MXMCommonObj.m in Sources */,
-				D641FCDB20FB876800061AD4 /* KxMenu.m in Sources */,
 				D684BC4620FDEA02004E85D9 /* MXMSearchObj.m in Sources */,
 				D641FCD320FB876800061AD4 /* Constants.m in Sources */,
 				D684BBD520FC1207004E85D9 /* MXMFloorSelectorBar.m in Sources */,

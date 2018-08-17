@@ -19,6 +19,7 @@
 {
     self = [super init];
     if (self) {
+        self.backgroundColor = [UIColor clearColor];
         [self addSubview:self.cellLabel];
     }
     return self;
@@ -34,10 +35,11 @@
 {
     if (!_cellLabel) {
         _cellLabel = [[UILabel alloc] init];
+        _cellLabel.backgroundColor = [UIColor clearColor];
         _cellLabel.textAlignment = NSTextAlignmentCenter;
-        _cellLabel.font = [UIFont systemFontOfSize:13];
+        _cellLabel.font = [UIFont systemFontOfSize:28];
         _cellLabel.adjustsFontSizeToFitWidth = YES;
-        _cellLabel.textColor = [UIColor colorWithRed:68.0/255.0 green:68.0/255.0 blue:68.0/255.0 alpha:1.0];
+        _cellLabel.textColor = [UIColor lightGrayColor];
     }
     return _cellLabel;
 }
@@ -45,6 +47,7 @@
 
 @interface MXMFloorSelectorBar () <UIPickerViewDelegate, UIPickerViewDataSource>
 @property (nonatomic, strong) UIPickerView *pickerView;
+@property (nonatomic, strong) UIView *selectBox;
 @property (nonatomic, strong) NSMutableArray *dataSourceArr;
 @end
 
@@ -54,6 +57,12 @@
 {
     self = [super init];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
+        self.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.layer.shadowOffset = CGSizeMake(0, 2);
+        self.layer.shadowOpacity = 0.3;
+        self.layer.shadowRadius = 2;
+        [self addSubview:self.selectBox];
         [self addSubview:self.pickerView];
         [self.pickerView reloadAllComponents];
     }
@@ -63,6 +72,12 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    self.backgroundColor = [UIColor whiteColor];
+    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.layer.shadowOffset = CGSizeMake(0, 2);
+    self.layer.shadowOpacity = 0.3;
+    self.layer.shadowRadius = 2;
+    [self addSubview:self.selectBox];
     [self addSubview:self.pickerView];
     [self.pickerView reloadAllComponents];
 }
@@ -91,7 +106,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.pickerView.frame = CGRectMake(0, 10, self.bounds.size.width, self.bounds.size.height-20);
+    self.selectBox.frame = CGRectMake(0, (self.bounds.size.height-44)/2, self.bounds.size.width, 44);
+    self.pickerView.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
 }
 
 
@@ -131,7 +147,7 @@
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
 {
-    return 43;
+    return 42;
 }
 #pragma mark end
 
@@ -141,11 +157,20 @@
 {
     if (!_pickerView) {
         _pickerView = [[UIPickerView alloc] init];
-        _pickerView.backgroundColor = [UIColor whiteColor];
+        _pickerView.backgroundColor = [UIColor clearColor];
         _pickerView.delegate = self;
         _pickerView.dataSource = self;
     }
     return _pickerView;
+}
+
+- (UIView *)selectBox
+{
+    if (!_selectBox) {
+        _selectBox = [[UIView alloc] init];
+        _selectBox.backgroundColor = [UIColor colorWithRed:0.29 green:0.69 blue:0.83 alpha:1];
+    }
+    return _selectBox;
 }
 
 - (NSMutableArray *)dataSourceArr

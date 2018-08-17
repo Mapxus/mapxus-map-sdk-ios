@@ -34,7 +34,22 @@ typedef NS_ENUM(NSUInteger, MXMStyle) {
      MAPPYBEE风格
      */
     MXMStyleMAPPYBEE,
+    /**
+     蒂芙尼蓝风格
+     */
+    MXMStyleMAPXUS,
 };
+
+
+typedef NS_ENUM(NSInteger, MXMIndoorBarPosition) {
+    MXMIndoorBarPosition_center_left,
+    MXMIndoorBarPosition_center_right,
+    MXMIndoorBarPosition_lower_left,
+    MXMIndoorBarPosition_lower_right,
+    MXMIndoorBarPosition_upper_left,
+    MXMIndoorBarPosition_upper_right,
+};
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -51,6 +66,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, weak) id<MapxusMapDelegate> delegate;
 
+@property (nonatomic, assign) BOOL indoorControllerAlwaysHidden;
+
+@property (nonatomic, assign) MXMIndoorBarPosition indoorBarPosition;
 /**
  MapxusMap初始化函数，初始化只能调用此函数
 

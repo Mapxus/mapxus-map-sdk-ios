@@ -58,6 +58,9 @@
                fromRect:(CGRect)rect
               menuItems:(NSArray *)menuItems;
 
++ (NSString *)defaultItemIdentifier;
++ (void)setDefaultItemIdentifier:(NSString *)identifier;
+
 + (void) dismissMenu;
 
 + (UIColor *) tintColor;
