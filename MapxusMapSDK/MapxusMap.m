@@ -124,9 +124,10 @@
     return constraintToFind;
 }
 
-
-- (void)setIndoorBarPosition:(MXMIndoorBarPosition)indoorBarPosition
+- (void)setSelectorPosition:(MXMSelectorPosition)selectorPosition
 {
+    _selectorPosition = selectorPosition;
+
     NSLayoutConstraint *floorBarXLc = [self constraintWithIndientifer:@"floorBarXLc" InView:self.mapView];
     if (floorBarXLc) [self.mapView removeConstraint:floorBarXLc];
     NSLayoutConstraint *floorBarYLc = [self constraintWithIndientifer:@"floorBarYLc" InView:self.mapView];
@@ -134,9 +135,8 @@
     NSLayoutConstraint *buildingBtnXLc = [self constraintWithIndientifer:@"buildingBtnXLc" InView:self.mapView];
     if (buildingBtnXLc) [self.mapView removeConstraint:buildingBtnXLc];
 
-    _indoorBarPosition = indoorBarPosition;
-    switch (indoorBarPosition) {
-        case MXMIndoorBarPosition_center_left:
+    switch (selectorPosition) {
+        case MXMSelectorPositionCenterLeft:
         {
             floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
             floorBarXLc.identifier = @"floorBarXLc";
@@ -151,7 +151,7 @@
             [self.mapView addConstraint:buildingBtnXLc];
         }
             break;
-        case MXMIndoorBarPosition_center_right:
+        case MXMSelectorPositionCenterRight:
         {
             floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-10.0f];
             floorBarXLc.identifier = @"floorBarXLc";
@@ -166,7 +166,7 @@
             [self.mapView addConstraint:buildingBtnXLc];
         }
             break;
-        case MXMIndoorBarPosition_upper_left:
+        case MXMSelectorPositionUpperLeft:
         {
             floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
             floorBarXLc.identifier = @"floorBarXLc";
@@ -181,7 +181,7 @@
             [self.mapView addConstraint:buildingBtnXLc];
         }
             break;
-        case MXMIndoorBarPosition_upper_right:
+        case MXMSelectorPositionUpperRight:
         {
             floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-10.0f];
             floorBarXLc.identifier = @"floorBarXLc";
@@ -196,7 +196,7 @@
             [self.mapView addConstraint:buildingBtnXLc];
         }
             break;
-        case MXMIndoorBarPosition_lower_left:
+        case MXMSelectorPositionLowerLeft:
         {
             floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
             floorBarXLc.identifier = @"floorBarXLc";
@@ -211,7 +211,7 @@
             [self.mapView addConstraint:buildingBtnXLc];
         }
             break;
-        case MXMIndoorBarPosition_lower_right:
+        case MXMSelectorPositionLowerRight:
         {
             floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-10.0f];
             floorBarXLc.identifier = @"floorBarXLc";

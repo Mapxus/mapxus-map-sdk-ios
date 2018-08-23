@@ -41,13 +41,13 @@ typedef NS_ENUM(NSUInteger, MXMStyle) {
 };
 
 
-typedef NS_ENUM(NSInteger, MXMIndoorBarPosition) {
-    MXMIndoorBarPosition_center_left,
-    MXMIndoorBarPosition_center_right,
-    MXMIndoorBarPosition_lower_left,
-    MXMIndoorBarPosition_lower_right,
-    MXMIndoorBarPosition_upper_left,
-    MXMIndoorBarPosition_upper_right,
+typedef NS_ENUM(NSInteger, MXMSelectorPosition) {
+    MXMSelectorPositionCenterLeft,
+    MXMSelectorPositionCenterRight,
+    MXMSelectorPositionLowerLeft,
+    MXMSelectorPositionLowerRight,
+    MXMSelectorPositionUpperLeft,
+    MXMSelectorPositionUpperRight,
 };
 
 
@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL indoorControllerAlwaysHidden;
 
-@property (nonatomic, assign) MXMIndoorBarPosition indoorBarPosition;
+@property (nonatomic, assign) MXMSelectorPosition selectorPosition;
 /**
  MapxusMap初始化函数，初始化只能调用此函数
 
