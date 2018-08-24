@@ -10,26 +10,6 @@
 #import <objc/runtime.h>
 #import "MXMURLProtocol.h"
 
-//hook delegate方法
-static void Hook_Delegate_Method(Class originalClass, SEL originalSel, Class replaceClass, SEL replaceSel, SEL noneSel) {
-    Method originalMethod = class_getInstanceMethod(originalClass, originalSel);
-    Method replaceMethod = class_getInstanceMethod(replaceClass, replaceSel);
-    if (!originalMethod) {//没有实现delegate 方法
-        Method noneMethod = class_getInstanceMethod(replaceClass, noneSel);
-        BOOL didAddNoneMethod = class_addMethod(originalClass, originalSel, method_getImplementation(noneMethod), method_getTypeEncoding(noneMethod));
-        if (didAddNoneMethod) {
-//            NSLog(@"没有实现的delegate方法添加成功");
-        }
-        return;
-    }
-    BOOL didAddReplaceMethod = class_addMethod(originalClass, replaceSel, method_getImplementation(replaceMethod), method_getTypeEncoding(replaceMethod));
-    if (didAddReplaceMethod) {
-//        NSLog(@"hook 方法添加成功");
-        Method newMethod = class_getInstanceMethod(originalClass, replaceSel);
-        method_exchangeImplementations(originalMethod, newMethod);
-    }
-}
-
 //Hook 方法
 static void Hook_Method(Class originalClass, SEL originalSel, Class replaceClass, SEL replaceSel, BOOL isHookClassMethod) {
     
@@ -64,47 +44,28 @@ static void Hook_Method(Class originalClass, SEL originalSel, Class replaceClass
     }
 }
 
+
+
+
+
+
+
 @implementation NSURLSession (PPSheep)
 
 + (void)load {
     Class cls = [self class];
     Hook_Method(cls, @selector(sessionWithConfiguration:delegate:delegateQueue:), cls, @selector(hook_sessionWithConfiguration:delegate:delegateQueue:),YES);
-    
-    Hook_Method(cls, @selector(dataTaskWithRequest:completionHandler:), cls, @selector(hook_dataTaskWithRequest:completionHandler:),NO);
-    
 }
 
 + (NSURLSession *)hook_sessionWithConfiguration: (NSURLSessionConfiguration *)configuration delegate: (id<NSURLSessionDelegate>)delegate delegateQueue: (NSOperationQueue *)queue {
-    if (delegate) {
-        Hook_Delegate_Method([delegate class], @selector(URLSession:dataTask:didReceiveData:), [self class], @selector(hook_URLSession:dataTask:didReceiveData:), @selector(none_URLSession:dataTask:didReceiveData:));
-    }
     configuration.protocolClasses = @[[MXMURLProtocol class]];
-    return [self hook_sessionWithConfiguration: configuration delegate: delegate delegateQueue: queue];
+    return [self hook_sessionWithConfiguration:configuration delegate:delegate delegateQueue:queue];
 }
 
-- (NSURLSessionDataTask *)hook_dataTaskWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error))completionHandler {
-    
-    void (^customBlock)(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (completionHandler) {
-            completionHandler(data,response,error);
-        }
-        //做自己的处理
-    };
-    if (completionHandler) {
-        return [self hook_dataTaskWithRequest:request completionHandler:customBlock];
-    } else {
-        return [self hook_dataTaskWithRequest:request completionHandler:nil];
-    }
-}
-
-- (void)hook_URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
-         didReceiveData:(NSData *)data {
-    [self hook_URLSession:session dataTask:dataTask didReceiveData:data];
-}
-
-- (void)none_URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask
-         didReceiveData:(NSData *)data {
-}
 
 
 @end
+
+
+
+

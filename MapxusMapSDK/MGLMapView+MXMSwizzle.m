@@ -240,8 +240,8 @@ static void *mapKey = &mapKey;
         NSArray *buildingList = [mapView.mxmMap findOutBuildingAtPoint:locationPoint];
         for (MXMGeoBuilding *b in buildingList) {
             NSUInteger gf = [b.floors indexOfObject:b.ground_floor];
-            NSInteger cf = userLocation.location.floor.level + gf;
-            if (cf>=0 && cf<=b.floors.count) {
+            NSInteger cf = gf - userLocation.location.floor.level;
+            if (cf>=0 && cf<b.floors.count) {
                 NSString *currentFloor = [b.floors objectAtIndex:cf];
                 [mapView.mxmMap selectBuilding:b.identifier floor:currentFloor shouldChangeUserTrackingMode:NO];
                 break;
