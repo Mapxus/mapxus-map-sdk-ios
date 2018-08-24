@@ -41,12 +41,34 @@ typedef NS_ENUM(NSUInteger, MXMStyle) {
 };
 
 
+
+/**
+ 楼层控制器位置
+ */
 typedef NS_ENUM(NSInteger, MXMSelectorPosition) {
+    /**
+     楼层控制器在左边
+     */
     MXMSelectorPositionCenterLeft,
+    /**
+     楼层控制器在右边
+     */
     MXMSelectorPositionCenterRight,
+    /**
+     楼层控制器在左下角
+     */
     MXMSelectorPositionLowerLeft,
+    /**
+     楼层控制器在右下角
+     */
     MXMSelectorPositionLowerRight,
+    /**
+     楼层控制器在左上角
+     */
     MXMSelectorPositionUpperLeft,
+    /**
+     楼层控制器在右上角
+     */
     MXMSelectorPositionUpperRight,
 };
 

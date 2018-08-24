@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+
+/**
+ 瓦片中的建筑数据
+ */
 @interface MXMGeoBuilding : NSObject
 
 /// 建筑ID
