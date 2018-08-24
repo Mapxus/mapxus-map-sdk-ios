@@ -166,7 +166,7 @@
             [self.mapView addConstraint:buildingBtnXLc];
         }
             break;
-        case MXMSelectorPositionUpperLeft:
+        case MXMSelectorPositionTopLeft:
         {
             floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
             floorBarXLc.identifier = @"floorBarXLc";
@@ -181,7 +181,7 @@
             [self.mapView addConstraint:buildingBtnXLc];
         }
             break;
-        case MXMSelectorPositionUpperRight:
+        case MXMSelectorPositionTopRight:
         {
             floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-10.0f];
             floorBarXLc.identifier = @"floorBarXLc";
@@ -196,7 +196,7 @@
             [self.mapView addConstraint:buildingBtnXLc];
         }
             break;
-        case MXMSelectorPositionLowerLeft:
+        case MXMSelectorPositionBottomLeft:
         {
             floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
             floorBarXLc.identifier = @"floorBarXLc";
@@ -211,7 +211,7 @@
             [self.mapView addConstraint:buildingBtnXLc];
         }
             break;
-        case MXMSelectorPositionLowerRight:
+        case MXMSelectorPositionBottomRight:
         {
             floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-10.0f];
             floorBarXLc.identifier = @"floorBarXLc";
@@ -468,13 +468,26 @@
 #pragma mark - 控件筛选建筑
 
 - (void)selectBuildingOnClick:(UIButton *)sender {
+    NSTextAlignment alig = NSTextAlignmentLeft;
+    switch (self.selectorPosition) {
+        case MXMSelectorPositionTopRight:
+        case MXMSelectorPositionCenterRight:
+        case MXMSelectorPositionBottomRight:
+            alig = NSTextAlignmentRight;
+            break;
+        default:
+            break;
+    }
+    
     NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.buildings.count];
     for (MXMGeoBuilding *b in [self.buildings allValues]) {
-        [arr addObject:[KxMenuItem menuItem:b.name
-                                 identifier:b.identifier
-                                      image:nil
-                                     target:self
-                                     action:@selector(chooseItem:)]];
+        KxMenuItem *item = [KxMenuItem menuItem:b.name
+                                     identifier:b.identifier
+                                          image:nil
+                                         target:self
+                                         action:@selector(chooseItem:)];
+        item.alignment = alig;
+        [arr addObject:item];
     }
     [KxMenu setDefaultItemIdentifier:self.building.identifier];
     [KxMenu showMenuInView:self.mapView fromRect:sender.frame menuItems:arr];

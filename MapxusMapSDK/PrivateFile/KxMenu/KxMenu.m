@@ -515,8 +515,13 @@ typedef enum {
            forControlEvents:UIControlEventTouchUpInside];
         
         itemView.titleLabel.font = titleFont;
-        itemView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        itemView.contentEdgeInsets = UIEdgeInsetsMake(0, 18, 0, -18);
+        if (menuItem.alignment == NSTextAlignmentLeft) {
+            itemView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            itemView.contentEdgeInsets = UIEdgeInsetsMake(0, 18, 0, -18);
+        } else {
+            itemView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+            itemView.contentEdgeInsets = UIEdgeInsetsMake(0, -18, 0, 18);
+        }
         [itemView setTitle:menuItem.title forState:UIControlStateNormal];
         [itemView setTitleColor:(menuItem.foreColor ? menuItem.foreColor : [UIColor lightGrayColor]) forState:UIControlStateNormal];
         [itemView setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
