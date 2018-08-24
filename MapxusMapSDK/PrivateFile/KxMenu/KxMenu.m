@@ -514,44 +514,17 @@ typedef enum {
                      action:@selector(performAction:)
            forControlEvents:UIControlEventTouchUpInside];
         
+        itemView.titleLabel.font = titleFont;
+        itemView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        itemView.contentEdgeInsets = UIEdgeInsetsMake(0, 18, 0, -18);
+        [itemView setTitle:menuItem.title forState:UIControlStateNormal];
+        [itemView setTitleColor:(menuItem.foreColor ? menuItem.foreColor : [UIColor lightGrayColor]) forState:UIControlStateNormal];
+        [itemView setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [itemView setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [itemView setBackgroundImage:selectedImage forState:UIControlStateHighlighted];
         [itemView setBackgroundImage:selectedImage forState:UIControlStateSelected];
 
         [contentView addSubview:itemView];
-        
-        if (menuItem.title.length) {
-            
-            CGRect titleFrame;
-            
-            if (!menuItem.enabled && !menuItem.image) {
-                
-                titleFrame = (CGRect){
-                    kMarginX * 2,
-                    kMarginY,
-                    maxItemWidth - kMarginX * 4,
-                    maxItemHeight - kMarginY * 2
-                };
-                
-            } else {
-                
-                titleFrame = (CGRect){
-                    titleX,
-                    kMarginY,
-                    titleWidth,
-                    maxItemHeight - kMarginY * 2
-                };
-            }
-            
-            UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleFrame];
-            titleLabel.text = menuItem.title;
-            titleLabel.font = titleFont;
-            titleLabel.textAlignment = menuItem.alignment;
-            titleLabel.textColor = menuItem.foreColor ? menuItem.foreColor : [UIColor lightGrayColor];
-            titleLabel.backgroundColor = [UIColor clearColor];
-            titleLabel.autoresizingMask = UIViewAutoresizingNone;
-            //titleLabel.backgroundColor = [UIColor greenColor];
-            [itemView addSubview:titleLabel];            
-        }
         
         if (menuItem.image) {
             
