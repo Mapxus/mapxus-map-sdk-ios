@@ -113,6 +113,12 @@
     return self;
 }
 
+- (void)setIndoorControllerAlwaysHidden:(BOOL)indoorControllerAlwaysHidden
+{
+    _indoorControllerAlwaysHidden = indoorControllerAlwaysHidden;
+    [self automaticAnalyseOfIndoorData];
+}
+
 - (NSLayoutConstraint *)constraintWithIndientifer:(NSString *)identifer InView:(UIView *)view {
     NSLayoutConstraint * constraintToFind = nil;
     for (NSLayoutConstraint * constraint in view.constraints ) {
