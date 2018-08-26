@@ -34,7 +34,44 @@ typedef NS_ENUM(NSUInteger, MXMStyle) {
      MAPPYBEE风格
      */
     MXMStyleMAPPYBEE,
+    /**
+     蒂芙尼蓝风格
+     */
+    MXMStyleMAPXUS,
 };
+
+
+
+/**
+ 楼层控制器位置
+ */
+typedef NS_ENUM(NSInteger, MXMSelectorPosition) {
+    /**
+     楼层控制器在左边
+     */
+    MXMSelectorPositionCenterLeft,
+    /**
+     楼层控制器在右边
+     */
+    MXMSelectorPositionCenterRight,
+    /**
+     楼层控制器在左下角
+     */
+    MXMSelectorPositionBottomLeft,
+    /**
+     楼层控制器在右下角
+     */
+    MXMSelectorPositionBottomRight,
+    /**
+     楼层控制器在左上角
+     */
+    MXMSelectorPositionTopLeft,
+    /**
+     楼层控制器在右上角
+     */
+    MXMSelectorPositionTopRight,
+};
+
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -51,6 +88,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, weak) id<MapxusMapDelegate> delegate;
 
+@property (nonatomic, assign) BOOL indoorControllerAlwaysHidden;
+
+@property (nonatomic, assign) MXMSelectorPosition selectorPosition;
 /**
  MapxusMap初始化函数，初始化只能调用此函数
 

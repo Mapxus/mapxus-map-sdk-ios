@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+
+/**
+ 瓦片中的POI数据
+ */
 @interface MXMGeoPOI : NSObject
 
 /// POI的ID

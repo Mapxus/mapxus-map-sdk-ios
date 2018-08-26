@@ -14,6 +14,9 @@
 
 
 
+/**
+ 搜索接口管理器
+ */
 @interface MXMSearchAPI : NSObject
 
 /**

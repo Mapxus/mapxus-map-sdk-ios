@@ -15,6 +15,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+/**
+ MapxusMap相关代理
+ */
 @protocol MapxusMapDelegate <NSObject>
 
 @optional
