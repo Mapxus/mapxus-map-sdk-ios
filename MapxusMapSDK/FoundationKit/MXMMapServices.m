@@ -8,8 +8,10 @@
 
 #import "MXMMapServices+Private.h"
 #import "Constants.h"
-#import <AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.h>
+#import "MXMConstants.h"
+//#import <AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.h>
 #import "MXMURLProtocol.h"
+#import "MXMHttpManager.h"
 
 @import Mapbox;
 
@@ -86,23 +88,37 @@
 {
     self.apiKey = apiKey;
     self.secret = secret;
-    AWSCognitoIdentityUserPool *pool = [AWSCognitoIdentityUserPool CognitoIdentityUserPoolForKey:@"UserPool"];
-    AWSCognitoIdentityUser *user = [pool currentUser];
-    //    if (!user.isSignedIn) {
-    [[user getSession:self.apiKey password:self.secret validationData:nil] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityUserSession *> * _Nonnull t) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if(t.error){
-                NSLog(@"Authentication error: %@", t.error);
-            }else {
-                NSString *idToken = t.result.idToken.tokenString;
-                if (idToken) {
-                    [[NSUserDefaults standardUserDefaults] setObject:idToken forKey:@"MXMToken"];
-                }
-            }
-        });
-        return nil;
+//    AWSCognitoIdentityUserPool *pool = [AWSCognitoIdentityUserPool CognitoIdentityUserPoolForKey:@"UserPool"];
+//    AWSCognitoIdentityUser *user = [pool currentUser];
+//    //    if (!user.isSignedIn) {
+//    [[user getSession:self.apiKey password:self.secret validationData:nil] continueWithBlock:^id _Nullable(AWSTask<AWSCognitoIdentityUserSession *> * _Nonnull t) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if(t.error){
+//                NSLog(@"Authentication error: %@", t.error);
+//            }else {
+//                NSString *idToken = t.result.idToken.tokenString;
+//                if (idToken) {
+//                    [[NSUserDefaults standardUserDefaults] setObject:idToken forKey:@"MXMToken"];
+//                }
+//            }
+//        });
+//        return nil;
+//    }];
+//    //    }
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v1/user/verification"];
+
+    NSMutableDictionary *muDic = [NSMutableDictionary dictionary];
+    muDic[@"appId"] = apiKey;
+    muDic[@"secret"] = secret;
+    muDic[@"keyPlatform"] = @"IOS";
+    muDic[@"bundleId"] = [[NSBundle mainBundle] bundleIdentifier];
+
+    [MXMHttpManager MXMPOST:url parameters:muDic success:^(id respondObject) {
+        
+    } failure:^(NSError *error) {
+        
     }];
-    //    }
+    
 }
 
 
