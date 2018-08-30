@@ -88,16 +88,6 @@
     // get response
     NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
     
-    // authority error
-    if (response.statusCode == 401) {
-        NSURL *failingURL = afError.userInfo[NSURLErrorFailingURLErrorKey];
-        NSString *failingURLString = failingURL.absoluteString;
-        // login request
-        if (![failingURLString containsString:@"/api/v1/user/verification"]) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"kCTUserTokenInvalidNotification" object:nil];
-        }
-    }
-    
     NSMutableDictionary *info = [NSMutableDictionary dictionary];
     info[NSLocalizedDescriptionKey] = message;
     NSError *err = [NSError errorWithDomain:AFURLResponseSerializationErrorDomain code:response.statusCode userInfo:info];

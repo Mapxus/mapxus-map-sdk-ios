@@ -78,6 +78,22 @@ didReceiveResponse:(NSURLResponse *)response
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+    // 所有捕获的请求都检测statusCode，因为有部分请求如瓦片没有用MXMHttpManager请求
+    if ([task.response isKindOfClass:[NSHTTPURLResponse class]]) {
+        // get response
+        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        
+        // authority error
+        if (response.statusCode == 401) {
+            NSURL *failingURL = self.request.URL;
+            NSString *failingURLString = failingURL.absoluteString;
+            // login request did not request again
+            if (![failingURLString containsString:@"/api/v1/user/verification"]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"kCTUserTokenInvalidNotification" object:nil];
+            }
+        }
+    }
+    // go on what to do
     if (error) {
         [self.client URLProtocol:self didFailWithError:error];
     } else {
