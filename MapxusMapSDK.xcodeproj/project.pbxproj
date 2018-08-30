@@ -31,8 +31,6 @@
 		D641FC9120F5DBDB00061AD4 /* MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */; };
 		D641FC9620F5DBDB00061AD4 /* MapxusMapSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D641FC9520F5DBDB00061AD4 /* MapxusMapSDKTests.m */; };
 		D641FC9820F5DBDB00061AD4 /* MapxusMapSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = D641FC8A20F5DBDB00061AD4 /* MapxusMapSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D641FCD320FB876800061AD4 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = D641FCBB20FB876800061AD4 /* Constants.m */; };
-		D641FCD520FB876800061AD4 /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = D641FCBD20FB876800061AD4 /* Constants.h */; };
 		D641FCDC20FB876800061AD4 /* KxMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = D641FCC620FB876800061AD4 /* KxMenu.h */; };
 		D67F81222124365C00DF94D7 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D641FCC520FB876800061AD4 /* KxMenu.m */; };
 		D684BBC820FC03F7004E85D9 /* MXMGeoBuilding.h in Headers */ = {isa = PBXBuildFile; fileRef = D684BBC620FC03F7004E85D9 /* MXMGeoBuilding.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -96,8 +94,6 @@
 		D641FC9020F5DBDB00061AD4 /* MapxusMapSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapxusMapSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D641FC9520F5DBDB00061AD4 /* MapxusMapSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapxusMapSDKTests.m; sourceTree = "<group>"; };
 		D641FC9720F5DBDB00061AD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D641FCBB20FB876800061AD4 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
-		D641FCBD20FB876800061AD4 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		D641FCC520FB876800061AD4 /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
 		D641FCC620FB876800061AD4 /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
 		D684BBC620FC03F7004E85D9 /* MXMGeoBuilding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMGeoBuilding.h; sourceTree = "<group>"; };
@@ -254,19 +250,19 @@
 		D641FCBA20FB876800061AD4 /* FoundationKit */ = {
 			isa = PBXGroup;
 			children = (
+				D684BBCE20FC0FC4004E85D9 /* MXMConstants.h */,
+				D684BBCF20FC0FC4004E85D9 /* MXMConstants.m */,
 				D623B22021342EDB0066F095 /* JXJsonFunctionDefine.h */,
 				D623B21F21342EDB0066F095 /* JXJsonFunctionDefine.m */,
-				D641FCBD20FB876800061AD4 /* Constants.h */,
-				D641FCBB20FB876800061AD4 /* Constants.m */,
 				D684BC4720FDEB33004E85D9 /* MXMHttpManager.h */,
 				D684BC4820FDEB33004E85D9 /* MXMHttpManager.m */,
-				D684BBDA20FC31A0004E85D9 /* MXMMapServices+Private.h */,
-				D684BBD620FC3134004E85D9 /* MXMMapServices.h */,
-				D684BBD720FC3134004E85D9 /* MXMMapServices.m */,
 				D600996B21192B2A003947FA /* NSURLSession+PPSheep.h */,
 				D600996A21192B29003947FA /* NSURLSession+PPSheep.m */,
 				D60096B821145DA1003947FA /* MXMURLProtocol.h */,
 				D60096B921145DA1003947FA /* MXMURLProtocol.m */,
+				D684BBDA20FC31A0004E85D9 /* MXMMapServices+Private.h */,
+				D684BBD620FC3134004E85D9 /* MXMMapServices.h */,
+				D684BBD720FC3134004E85D9 /* MXMMapServices.m */,
 			);
 			path = FoundationKit;
 			sourceTree = "<group>";
@@ -275,8 +271,6 @@
 			isa = PBXGroup;
 			children = (
 				D641FCC420FB876800061AD4 /* KxMenu */,
-				D684BBCE20FC0FC4004E85D9 /* MXMConstants.h */,
-				D684BBCF20FC0FC4004E85D9 /* MXMConstants.m */,
 				D684BBD220FC1207004E85D9 /* MXMFloorSelectorBar.h */,
 				D684BBD320FC1207004E85D9 /* MXMFloorSelectorBar.m */,
 			);
@@ -337,7 +331,6 @@
 				D641FC9820F5DBDB00061AD4 /* MapxusMapSDK.h in Headers */,
 				D684BDAC210020B1004E85D9 /* MXMPointAnnotation+Private.h in Headers */,
 				D684BBD020FC0FC4004E85D9 /* MXMConstants.h in Headers */,
-				D641FCD520FB876800061AD4 /* Constants.h in Headers */,
 				D684BBEF20FD5DF8004E85D9 /* MapxusMap+Private.h in Headers */,
 				D600996D21192B2A003947FA /* NSURLSession+PPSheep.h in Headers */,
 				D684BBE620FCA4CD004E85D9 /* MXMMapProvider.h in Headers */,
@@ -537,7 +530,6 @@
 				D67F81222124365C00DF94D7 /* KxMenu.m in Sources */,
 				D684BC4E20FDEB59004E85D9 /* MXMCommonObj.m in Sources */,
 				D684BC4620FDEA02004E85D9 /* MXMSearchObj.m in Sources */,
-				D641FCD320FB876800061AD4 /* Constants.m in Sources */,
 				D684BBD520FC1207004E85D9 /* MXMFloorSelectorBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

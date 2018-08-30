@@ -10,7 +10,6 @@
 
 @interface MXMHttpManager : AFHTTPSessionManager
 
-+ (instancetype)sharedManager;
 
 + (NSURLSessionDataTask *)MXMGET:(NSString *)URLString
                       parameters:(NSDictionary *)dic

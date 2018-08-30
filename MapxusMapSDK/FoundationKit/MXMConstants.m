@@ -10,10 +10,12 @@
 
 
 // 生产环境
-NSString *const MXMHOSTURL = @"https://bms-api.maphive.cloud";
+//NSString *const MXMHOSTURL = @"https://bms-api.maphive.cloud";
 
 // 测试环境
 //NSString *const MXMHOSTURL = @"https://bms-api-test.maphive.io";
 
 // 开发环境
-//NSString *const MXMHOSTURL = @"https://bms-api-dev.maphive.io";
+NSString *const MXMHOSTURL = @"https://bms-api-dev.maphive.io";
+
+NSString *const MapboxAccessToken = @"pk.mapxus";

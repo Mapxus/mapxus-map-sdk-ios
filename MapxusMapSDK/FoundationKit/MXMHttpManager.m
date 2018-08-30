@@ -27,20 +27,17 @@
 + (NSURLSessionDataTask *)MXMGET:(NSString *)URLString
                       parameters:(NSDictionary *)dic
                          success:(void (^)(NSDictionary *content))success
-                         failure:(void (^)(NSError *))failure
+                         failure:(void (^)(NSError *error))failure
 {
     NSURLSessionDataTask *task = [[MXMHttpManager sharedManager] GET:URLString parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if ([responseObject isKindOfClass:[NSDictionary class]]) {
-            
-        } else {
-            
-        }
+        NSDictionary *result = DecodeDicFromDic(responseObject, @"result");
         if (success) {
-            success(responseObject);
+            success(result);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (failure) {
-            failure(error);
+        NSError *newError = [[MXMHttpManager sharedManager] _dealWithTask:task error:error];
+        if (failure && newError) {
+            failure(newError);
         }
     }];
     return task;
@@ -53,76 +50,59 @@
                           failure:(void (^)(NSError *error))failure
 {
     NSURLSessionDataTask *task = [[MXMHttpManager sharedManager] POST:URLString parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *result = DecodeDicFromDic(responseObject, @"result");
         if (success) {
-            success(responseObject);
+            success(result);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        if (failure) {
-            failure(error);
+        NSError *newError = [[MXMHttpManager sharedManager] _dealWithTask:task error:error];
+        if (failure && newError) {
+            failure(newError);
         }
     }];
     return task;
 }
 
-//+ (NSError *)formatAFObject:(id)object
-//{
-//    NSError *formattedError = nil;
-//
-//    if ([object isKindOfClass:[NSDictionary class]]) {
-//        NSError *businessErr = [self businessError:object];
-//        if (businessErr) {
-//            formattedError = businessErr;
-//        } else {
-//            formattedError = error;
-//        }
-//
-//    } else {
-//
-//        formattedError = error;
-//
-//    }
-//    return formattedError;
-//}
-//
-//+ (NSError *)businessError:(NSDictionary *)dic
-//{
-//    NSError *error = nil;
-//    NSInteger code = 0;
-//    if ([dic objectForKey:@"code"]) {
-//        code = [[dic objectForKey:@"code"] integerValue];
-//    }
-//
-//    if (code != 200) {
-//        if (code == 900001) {
-//            // 在跳到登录页前，取消所有http网络请求
-//            [self.operationQueue cancelAllOperations];
-//            // 跳转到登录页
-//            [(AppDelegate *)[UIApplication sharedApplication].delegate goLoginViewController];
-//        } else if (code == 900002) {
-//            // 在跳到登录页前，取消所有http网络请求
-//            [self.operationQueue cancelAllOperations];
-//            // 跳转到登录页
-//            [(AppDelegate *)[UIApplication sharedApplication].delegate goLoginViewController];
-//        }
-//
-//        //==== 错误码翻译
-//        NSMutableDictionary *mDic = [NSMutableDictionary dictionaryWithDictionary:dic];
-//        NSString *m = [self businessMsg:code];
-//        if (m) {
-//            [mDic setObject:m forKey:@"message"];
-//        }
-//        //==== 错误码翻译
-//
-//        id msg = [mDic objectForKey:@"message"];
-//        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-//        if (msg) {
-//            [userInfo setObject:msg forKey:NSLocalizedFailureReasonErrorKey];
-//        } else {
-//            [userInfo setObject:@"服务异常" forKey:NSLocalizedFailureReasonErrorKey];
-//        }
-//        error = [[NSError alloc] initWithDomain:NSOSStatusErrorDomain code:code userInfo:userInfo];
-//    }
-//    return error;
-//}
+
+
+- (NSError *)_dealWithTask:(NSURLSessionDataTask *)task error:(NSError *)afError
+{
+    // get response body
+    NSData *data = afError.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+    NSError *jsonError;
+    NSDictionary *dataDic;
+    if (data) {
+        id json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
+        if ([json isKindOfClass:[NSDictionary class]]) {
+            dataDic = json;
+        }
+    }
+    
+    
+    // get body message string
+    NSString *message = DecodeStringFromDic(dataDic, @"message");
+    if (message == nil) {
+        message = afError.userInfo[NSLocalizedDescriptionKey];
+    }
+    
+    // get response
+    NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+    
+    // authority error
+    if (response.statusCode == 401) {
+        NSURL *failingURL = afError.userInfo[NSURLErrorFailingURLErrorKey];
+        NSString *failingURLString = failingURL.absoluteString;
+        // login request
+        if (![failingURLString containsString:@"/api/v1/user/verification"]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kCTUserTokenInvalidNotification" object:nil];
+        }
+    }
+    
+    NSMutableDictionary *info = [NSMutableDictionary dictionary];
+    info[NSLocalizedDescriptionKey] = message;
+    NSError *err = [NSError errorWithDomain:AFURLResponseSerializationErrorDomain code:response.statusCode userInfo:info];
+    return err;
+}
+
 
 @end

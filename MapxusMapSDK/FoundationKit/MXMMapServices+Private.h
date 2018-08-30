@@ -7,9 +7,8 @@
 //
 
 #import "MXMMapServices.h"
-#import <AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.h>
 
-@interface MXMMapServices () <AWSCognitoIdentityInteractiveAuthenticationDelegate>
+@interface MXMMapServices ()
 
 @property (nonatomic, strong) NSString *apiKey;
 @property (nonatomic, strong) NSString *secret;

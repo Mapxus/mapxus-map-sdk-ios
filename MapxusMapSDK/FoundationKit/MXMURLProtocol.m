@@ -10,7 +10,7 @@
 
 static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
 
-@interface MXMURLProtocol () <NSURLSessionDataDelegate>
+@interface MXMURLProtocol () <NSURLSessionDataDelegate, NSURLSessionTaskDelegate>
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, strong) NSURLSessionDataTask *task;
 @end
@@ -34,7 +34,6 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
         return YES;
     }
     return NO;
-
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request
