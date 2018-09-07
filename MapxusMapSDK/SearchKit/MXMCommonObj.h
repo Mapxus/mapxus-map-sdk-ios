@@ -13,12 +13,10 @@
  地球经纬度坐标
  */
 @interface MXMGeoPoint : NSObject
-
 ///纬度（垂直方向）
-@property (nonatomic, assign) CGFloat latitude;
+@property (nonatomic, assign) double latitude;
 ///经度（水平方向）
-@property (nonatomic, assign) CGFloat longitude;
-
+@property (nonatomic, assign) double longitude;
 @end
 
 
@@ -26,16 +24,14 @@
  两点间的矩形区域
  */
 @interface MXMBoundingBox : NSObject
-
 /// 左下角纬度
-@property (nonatomic, assign) CGFloat min_latitude;
+@property (nonatomic, assign) double min_latitude;
 /// 左下角经度
-@property (nonatomic, assign) CGFloat min_longitude;
+@property (nonatomic, assign) double min_longitude;
 /// 右上角纬度
-@property (nonatomic, assign) CGFloat max_latitude;
+@property (nonatomic, assign) double max_latitude;
 /// 右上角经度
-@property (nonatomic, assign) CGFloat max_longitude;
-
+@property (nonatomic, assign) double max_longitude;
 @end
 
 
@@ -43,12 +39,10 @@
  建筑地址类
  */
 @interface MXMAddress : NSObject
-
 /// 房号
 @property (nonatomic, strong) NSString *housenumber;
 /// 街道名
 @property (nonatomic, strong) NSString *street;
-
 @end
 
 
@@ -56,7 +50,6 @@
  建筑信息类
  */
 @interface MXMBuilding : NSObject
-
 /// 建筑ID
 @property (nonatomic, strong) NSString *buildingId;
 /// 默认建筑名
@@ -83,7 +76,6 @@
 @property (nonatomic, strong) MXMGeoPoint *labelCenter;
 /// 建筑所有楼层
 @property (nonatomic, strong) NSArray *floors;
-
 @end
 
 
@@ -91,7 +83,6 @@
  POI信息类
  */
 @interface MXMPOI : NSObject
-
 /// 所在建筑ID
 @property (nonatomic, strong) NSString *buildingId;
 /// POI分类
@@ -122,7 +113,38 @@
 @property (nonatomic, strong) NSString *poiId;
 /// 店铺网址
 @property (nonatomic, strong) NSString *website;
+@end
 
+
+/**
+ <#Description#>
+ */
+@interface MXMManeuver :NSObject
+///
+@property (nonatomic, strong) MXMGeoPoint *location;
+///
+@property (nonatomic, strong) NSString *type;
+///
+@property (nonatomic, strong) NSString *modifier;
+///
+@property (nonatomic, strong) NSString *exit;
+@end
+
+
+/**
+ <#Description#>
+ */
+@interface MXMCoordinate : NSObject
+/// 节点经纬度
+@property (nonatomic, strong) MXMGeoPoint *location;
+///
+@property (nonatomic, strong) NSString *buildingId;
+///
+@property (nonatomic, strong) NSString *floor;
+///
+@property (nonatomic, assign) NSInteger angle;
+///
+@property (nonatomic, strong) NSString *type;
 @end
 
 
@@ -130,30 +152,69 @@
  路径节点
  */
 @interface MXMStep : NSObject
-
-/// 节点纬度
-@property (nonatomic, assign) CGFloat lat;
-/// 节点经度
-@property (nonatomic, assign) CGFloat lon;
+/// 距离
+@property (nonatomic, assign) double distance;
+/// 耗时
+@property (nonatomic, assign) double duration;
+///
+@property (nonatomic, strong) NSString *name;
+/// 行进方式
+@property (nonatomic, strong) NSString *mode;
+///
+@property (nonatomic, strong) MXMManeuver *maneuver;
+///
+@property (nonatomic, strong) NSArray<MXMCoordinate *> *coordinates;
 /// 节点所在建筑ID
 @property (nonatomic, strong) NSString *buildingId;
 /// 节点所在楼层
 @property (nonatomic, strong) NSString *floor;
-
 @end
+
 
 /**
  路径类
  */
-@interface MXMPath : NSObject
-
+@interface MXMLeg : NSObject
 /// 距离
-@property (nonatomic, assign) CGFloat distance;
+@property (nonatomic, assign) double distance;
 /// 耗时
-@property (nonatomic, assign) CGFloat duration;
+@property (nonatomic, assign) double duration;
+/// 路线描述
+@property (nonatomic, strong) NSString *summary;
 /// 路径
-@property (nonatomic, strong) NSArray<MXMStep *> *coordinates;
-
+@property (nonatomic, strong) NSArray<MXMStep *> *steps;
 @end
+
+
+/**
+ <#Description#>
+ */
+@interface MXMRoute : NSObject
+/// 距离
+@property (nonatomic, assign) double distance;
+/// 耗时
+@property (nonatomic, assign) double duration;
+/// 步行、骑行、驾车方案列表 AMapPath 数组
+@property (nonatomic, strong) NSArray<MXMLeg *> *legs;
+@end
+
+
+
+/**
+ <#Description#>
+ */
+@interface MXMWaypoint : NSObject
+///
+@property (nonatomic, strong) NSString *name;
+///
+@property (nonatomic, strong) MXMGeoPoint *location;
+@end
+
+
+
+
+
+
+
 
 

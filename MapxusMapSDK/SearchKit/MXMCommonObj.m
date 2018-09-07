@@ -7,6 +7,8 @@
 //
 
 #import "MXMCommonObj.h"
+#import "JXJsonFunctionDefine.h"
+#import <YYModel/YYModel.h>
 
 @implementation MXMGeoPoint
 
@@ -14,6 +16,10 @@
     return @{@"latitude" : @"lat",
              @"longitude" : @"lon",
              };
+}
+- (NSString *)description
+{
+    return [self yy_modelDescription];
 }
 
 @end
@@ -77,7 +83,6 @@
 
 
 @implementation MXMPOI
-
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"name_default" : @"name.default",
              @"name_en" : @"name.en",
@@ -86,22 +91,103 @@
              @"introduction" : @"description",
              };
 }
-
 @end
 
 
-
-@implementation MXMStep
-
-
-@end
-
-
-@implementation MXMPath
-
-+ (NSDictionary *)modelContainerPropertyGenericClass {
-    // value should be Class or Class name.
-    return @{@"coordinates" : [MXMStep class]};
+@implementation MXMManeuver
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    NSArray *location = DecodeArrayFromDic(dic, @"location");
+    if (location) {
+        _location = [[MXMGeoPoint alloc] init];
+        _location.longitude = [location.firstObject doubleValue];
+        _location.latitude = [location.lastObject doubleValue];
+    }
+    return YES;
+}
+- (NSString *)description
+{
+    return [self yy_modelDescription];
 }
 
 @end
+
+
+@implementation MXMCoordinate
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    NSNumber *lon = DecodeNumberFromDic(dic, @"lon");
+    NSNumber *lat = DecodeNumberFromDic(dic, @"lat");
+    _location = [[MXMGeoPoint alloc] init];
+    _location.longitude = [lon doubleValue];
+    _location.latitude = [lat doubleValue];
+    return YES;
+}
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
+@end
+
+
+@implementation MXMStep
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    // value should be Class or Class name.
+    return @{@"maneuver" : [MXMManeuver class],
+             @"coordinates" : [MXMCoordinate class]
+             };
+}
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
+@end
+
+
+@implementation MXMLeg
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    // value should be Class or Class name.
+    return @{@"steps" : [MXMStep class]};
+}
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+@end
+
+
+@implementation MXMRoute
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    // value should be Class or Class name.
+    return @{@"legs" : [MXMLeg class]};
+}
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+@end
+
+
+@implementation MXMWaypoint
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    NSArray *location = DecodeArrayFromDic(dic, @"location");
+    if (location) {
+        _location = [[MXMGeoPoint alloc] init];
+        _location.longitude = [location.firstObject doubleValue];
+        _location.latitude = [location.lastObject doubleValue];
+    }
+    return YES;
+}
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
+@end
+
+
+
+
+
+
+

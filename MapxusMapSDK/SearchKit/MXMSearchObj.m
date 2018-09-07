@@ -7,6 +7,7 @@
 //
 
 #import "MXMSearchObj.h"
+#import <YYModel/YYModel.h>
 
 @implementation MXMBuildingSearchRequest
 
@@ -46,13 +47,21 @@
 
 @implementation MXMRouteSearchResponse
 
-+ (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"routes" : @"legs"};
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    _total = _routes.count;
+    return YES;
 }
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
     // value should be Class or Class name.
-    return @{@"routes" : [MXMPath class]};
+    return @{@"routes" : [MXMRoute class],
+             @"waypoints" : [MXMWaypoint class]
+             };
+}
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
 }
 
 @end

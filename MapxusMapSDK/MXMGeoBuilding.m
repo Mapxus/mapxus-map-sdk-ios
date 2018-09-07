@@ -7,6 +7,7 @@
 //
 
 #import "MXMGeoBuilding.h"
+#import <YYModel/YYModel.h>
 
 @implementation MXMGeoBuilding
 
@@ -31,6 +32,11 @@
     }
     
     return YES;
+}
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
 }
 
 @end

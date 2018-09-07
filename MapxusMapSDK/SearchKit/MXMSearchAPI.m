@@ -85,14 +85,12 @@
 // 查找路径
 - (void)MXMRouteSearch:(MXMRouteSearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v1/route"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v2/route"];
     NSDictionary *dic = [request yy_modelToJSONObject];
     
     [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onRouteSearchDone:response:)]) {
-            NSArray *routes = DecodeArrayFromDic(content, @"routes");
-            NSDictionary *fristRoute = routes.firstObject;
-            MXMRouteSearchResponse *response = [MXMRouteSearchResponse yy_modelWithJSON:fristRoute];
+            MXMRouteSearchResponse *response = [MXMRouteSearchResponse yy_modelWithJSON:content];
             [self.delegate onRouteSearchDone:request response:response];
         }
     } failure:^(NSError *error) {
