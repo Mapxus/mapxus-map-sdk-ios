@@ -44,7 +44,6 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
     NSBundle *bundle = [NSBundle bundleForClass:[MXMURLProtocol class]];
     NSDictionary *infoDic = [bundle infoDictionary];
     NSString *version = [infoDic objectForKey:@"CFBundleShortVersionString"];
-    NSLog(@"version: %@", version);
     [mRequest setValue:version forHTTPHeaderField:@"sdkVersion"];
     [mRequest setValue:uuid forHTTPHeaderField:@"identifier"];
     [mRequest setValue:token forHTTPHeaderField:@"token"];
