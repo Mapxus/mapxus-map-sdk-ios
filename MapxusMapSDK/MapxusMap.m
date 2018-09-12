@@ -316,19 +316,19 @@
     [[MXMMapServices sharedServices] getTokenComplete:^(NSString *token) {
         switch (style) {
             case MXMStyleCOMMON:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/common_v2/style?token=%@", MXMHOSTURL, token]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v2/vector_tiles/topic/common_v2/style", MXMHOSTURL]];
                 break;
             case MXMStyleCHRISTMAS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/christmas_v2/style?token=%@", MXMHOSTURL, token]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v2/vector_tiles/topic/christmas_v2/style", MXMHOSTURL]];
                 break;
             case MXMStyleHALLOWMAS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/halloween_v2/style?token=%@", MXMHOSTURL, token]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v2/vector_tiles/topic/halloween_v2/style", MXMHOSTURL]];
                 break;
             case MXMStyleMAPPYBEE:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/mappy_bee_v2/style?token=%@", MXMHOSTURL, token]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v2/vector_tiles/topic/mappy_bee_v2/style", MXMHOSTURL]];
                 break;
             case MXMStyleMAPXUS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/vector_tiles/topic/mapxus_v2/style?token=%@", MXMHOSTURL, token]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v2/vector_tiles/topic/mapxus_v2/style", MXMHOSTURL]];
                 break;
             default:
                 break;
