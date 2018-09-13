@@ -113,6 +113,13 @@
     return self;
 }
 
+- (void)dealloc
+{
+    // 清除mapView对self的引用
+    _mapView.mxmMap = nil;
+    _mapView = nil;
+}
+
 - (void)setIndoorControllerAlwaysHidden:(BOOL)indoorControllerAlwaysHidden
 {
     _indoorControllerAlwaysHidden = indoorControllerAlwaysHidden;
@@ -617,7 +624,7 @@
     if (self.mapView.userLocation.location.floor) {
         NSUInteger gf = [self.building.floors indexOfObject:self.building.ground_floor];
         NSUInteger cf = [self.building.floors indexOfObject:self.floor];
-        if (self.mapView.userLocation.location.floor.level == (cf-gf)) {
+        if (self.mapView.userLocation.location.floor.level == (gf-cf)) {
             locationView.alpha = 1.0f;
         } else {
             locationView.alpha = 0.5f;
