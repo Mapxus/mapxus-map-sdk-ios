@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @import Mapbox;
 
-@interface MapxusMap () <MXMFloorSelectorBarDelegate, UIGestureRecognizerDelegate>
+@interface MapxusMap () <MXMFloorSelectorBarDelegate, UIGestureRecognizerDelegate, MXMSearchDelegate>
 
 @property (nonatomic, strong) MGLMapView *mapView;
 @property (nonatomic, strong) UIButton *buildingSelectBtn;

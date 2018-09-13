@@ -98,6 +98,8 @@ NS_ASSUME_NONNULL_BEGIN
  @return MapxusMap对象
  */
 - (instancetype)initWithMapView:(MGLMapView *)mapView;
+- (instancetype)initWithMapView:(MGLMapView *)mapView buildingId:(NSString *)buildingId;
+- (instancetype)initWithMapView:(MGLMapView *)mapView poiId:(NSString *)poiId;
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 

@@ -18,89 +18,52 @@
 @implementation MapxusMap
 
 
-#pragma mark - access
 
-- (UIButton *)buildingSelectBtn
+- (instancetype)initWithMapView:(MGLMapView *)mapView buildingId:(NSString *)buildingId
 {
-    if (!_buildingSelectBtn) {
-        _buildingSelectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _buildingSelectBtn.translatesAutoresizingMaskIntoConstraints = NO;
-        NSBundle *bundle = [NSBundle bundleForClass:[MapxusMap class]];
-        UIImage *image = [UIImage imageNamed:@"selectBuilding" inBundle:bundle compatibleWithTraitCollection:nil];
-        [_buildingSelectBtn setImage:image forState:UIControlStateNormal];
-        [_buildingSelectBtn addTarget:self action:@selector(selectBuildingOnClick:) forControlEvents:UIControlEventTouchUpInside];
+    self = [self initWithMapView:mapView];
+    if (self) {
+        MXMBuildingSearchRequest *re = [[MXMBuildingSearchRequest alloc] init];
+        re.buildingIds = @[buildingId];
+        
+        MXMSearchAPI *api = [[MXMSearchAPI alloc] init];
+        api.delegate = self;
+        [api MXMBuildingSearch:re];
     }
-    return _buildingSelectBtn;
+    return self;
 }
 
-- (MXMFloorSelectorBar *)floorBar
+- (void)onBuildingSearchDone:(MXMBuildingSearchRequest *)request response:(MXMBuildingSearchResponse *)response
 {
-    if (!_floorBar) {
-        _floorBar = [[MXMFloorSelectorBar alloc] init];
-        _floorBar.translatesAutoresizingMaskIntoConstraints = NO;
-        _floorBar.delegate = self;
+    NSLog(@"=====onBuildingSearchDone");
+    MXMBuilding *building = response.buildings.firstObject;
+    
+    MGLCoordinateBounds bounds = MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(building.bbox.min_latitude, building.bbox.min_longitude), CLLocationCoordinate2DMake(building.bbox.max_latitude, building.bbox.max_longitude));
+    self.mapView.visibleCoordinateBounds = bounds;
+}
+
+- (instancetype)initWithMapView:(MGLMapView *)mapView poiId:(NSString *)poiId
+{
+    self = [self initWithMapView:mapView];
+    if (self) {
+        MXMPOISearchRequest *re = [[MXMPOISearchRequest alloc] init];
+        re.POIIds = @[poiId];
+        MXMSearchAPI *api = [[MXMSearchAPI alloc] init];
+        api.delegate = self;
+        [api MXMPOISearch:re];
     }
-    return _floorBar;
+    return self;
 }
 
-- (UIImageView *)MXMLogo
+- (void)onPOISearchDone:(MXMPOISearchRequest *)request response:(MXMPOISearchResponse *)response
 {
-    if (!_MXMLogo) {
-        NSBundle *bundle = [NSBundle bundleForClass:[MapxusMap class]];
-        UIImage *image = [UIImage imageNamed:@"mapxusLogo" inBundle:bundle compatibleWithTraitCollection:nil];
-        _MXMLogo = [[UIImageView alloc] initWithImage:image];
-        _MXMLogo.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return _MXMLogo;
+    NSLog(@"=====onPOISearchDone");
+
+    MXMPOI *poi = response.pois.firstObject;
+    self.mapView.centerCoordinate = CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude);
+    [self selectBuilding:poi.buildingId floor:poi.floor];
+    self.mapView.zoomLevel = 18;
 }
-
-- (UIButton *)openStreetSourceBtn
-{
-    if (!_openStreetSourceBtn) {
-        _openStreetSourceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _openStreetSourceBtn.translatesAutoresizingMaskIntoConstraints = NO;
-        _openStreetSourceBtn.backgroundColor = [UIColor clearColor];
-        _openStreetSourceBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-        [_openStreetSourceBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [_openStreetSourceBtn setTitle:@"© OpenStreetMap contributors" forState:UIControlStateNormal];
-        [_openStreetSourceBtn addTarget:self action:@selector(showOpenStreeSourceWeb) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _openStreetSourceBtn;
-}
-
-- (void)showOpenStreeSourceWeb
-{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.openstreetmap.org/copyright"]];
-}
-
-- (NSMutableDictionary *)buildingSelectFloorDic
-{
-    if (!_buildingSelectFloorDic) {
-        _buildingSelectFloorDic = [NSMutableDictionary dictionary];
-    }
-    return _buildingSelectFloorDic;
-}
-
-- (NSMutableArray<NSString *> *)historicalBuildingIds
-{
-    if (!_historicalBuildingIds) {
-        _historicalBuildingIds = [NSMutableArray arrayWithCapacity:100];
-    }
-    return _historicalBuildingIds;
-}
-
-- (NSMutableArray *)mxmPointAnnotations
-{
-    if (!_mxmPointAnnotations) {
-        _mxmPointAnnotations = [NSMutableArray array];
-    }
-    return _mxmPointAnnotations;
-}
-
-#pragma mark end
-
-
-
 
 - (instancetype)initWithMapView:(MGLMapView *)mapView
 {
@@ -713,4 +676,99 @@
 }
 #pragma mark end
 
+
+
+
+
+
+
+
+
+#pragma mark - access
+
+- (UIButton *)buildingSelectBtn
+{
+    if (!_buildingSelectBtn) {
+        _buildingSelectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _buildingSelectBtn.translatesAutoresizingMaskIntoConstraints = NO;
+        NSBundle *bundle = [NSBundle bundleForClass:[MapxusMap class]];
+        UIImage *image = [UIImage imageNamed:@"selectBuilding" inBundle:bundle compatibleWithTraitCollection:nil];
+        [_buildingSelectBtn setImage:image forState:UIControlStateNormal];
+        [_buildingSelectBtn addTarget:self action:@selector(selectBuildingOnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _buildingSelectBtn;
+}
+
+- (MXMFloorSelectorBar *)floorBar
+{
+    if (!_floorBar) {
+        _floorBar = [[MXMFloorSelectorBar alloc] init];
+        _floorBar.translatesAutoresizingMaskIntoConstraints = NO;
+        _floorBar.delegate = self;
+    }
+    return _floorBar;
+}
+
+- (UIImageView *)MXMLogo
+{
+    if (!_MXMLogo) {
+        NSBundle *bundle = [NSBundle bundleForClass:[MapxusMap class]];
+        UIImage *image = [UIImage imageNamed:@"mapxusLogo" inBundle:bundle compatibleWithTraitCollection:nil];
+        _MXMLogo = [[UIImageView alloc] initWithImage:image];
+        _MXMLogo.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _MXMLogo;
+}
+
+- (UIButton *)openStreetSourceBtn
+{
+    if (!_openStreetSourceBtn) {
+        _openStreetSourceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _openStreetSourceBtn.translatesAutoresizingMaskIntoConstraints = NO;
+        _openStreetSourceBtn.backgroundColor = [UIColor clearColor];
+        _openStreetSourceBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        [_openStreetSourceBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [_openStreetSourceBtn setTitle:@"© OpenStreetMap contributors" forState:UIControlStateNormal];
+        [_openStreetSourceBtn addTarget:self action:@selector(showOpenStreeSourceWeb) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _openStreetSourceBtn;
+}
+
+- (void)showOpenStreeSourceWeb
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.openstreetmap.org/copyright"]];
+}
+
+- (NSMutableDictionary *)buildingSelectFloorDic
+{
+    if (!_buildingSelectFloorDic) {
+        _buildingSelectFloorDic = [NSMutableDictionary dictionary];
+    }
+    return _buildingSelectFloorDic;
+}
+
+- (NSMutableArray<NSString *> *)historicalBuildingIds
+{
+    if (!_historicalBuildingIds) {
+        _historicalBuildingIds = [NSMutableArray arrayWithCapacity:100];
+    }
+    return _historicalBuildingIds;
+}
+
+- (NSMutableArray *)mxmPointAnnotations
+{
+    if (!_mxmPointAnnotations) {
+        _mxmPointAnnotations = [NSMutableArray array];
+    }
+    return _mxmPointAnnotations;
+}
+
+
 @end
+
+
+
+
+
+
+
