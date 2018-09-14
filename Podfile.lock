@@ -9,7 +9,7 @@ PODS:
 DEPENDENCIES:
   - AWSCognitoIdentityProvider (~> 2.6.0)
   - AWSCore (~> 2.6.0)
-  - Mapbox-iOS-SDK (~> 4.2)
+  - Mapbox-iOS-SDK
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
