@@ -88,9 +88,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, weak) id<MapxusMapDelegate> delegate;
 
+
+/**
+ 一直隐藏地图控件，默认为NO
+ */
 @property (nonatomic, assign) BOOL indoorControllerAlwaysHidden;
 
+
+/**
+ 设置地图控件的位置，默认为`MXMSelectorPositionCenterLeft`
+ */
 @property (nonatomic, assign) MXMSelectorPosition selectorPosition;
+
 /**
  MapxusMap初始化函数，初始化只能调用此函数
 
