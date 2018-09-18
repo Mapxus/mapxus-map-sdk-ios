@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MGLMapView *mapView;
 @property (nonatomic, strong) UIButton *buildingSelectBtn;
 @property (nonatomic, strong) MXMFloorSelectorBar *floorBar;
-@property (nonatomic, strong) UIImageView *MXMLogo;
+@property (nonatomic, strong) UIButton *MXMLogo;
 @property (nonatomic, strong) UIButton *openStreetSourceBtn;
 
 @property (nonatomic, strong) NSMutableDictionary *buildingSelectFloorDic; // 保存运行期间看过大厦最后选中的对应楼层

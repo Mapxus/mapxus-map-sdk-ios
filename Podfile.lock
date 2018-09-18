@@ -1,5 +1,5 @@
 PODS:
-  - Mapbox-iOS-SDK (4.2.0)
+  - Mapbox-iOS-SDK (4.4.1)
 
 DEPENDENCIES:
   - Mapbox-iOS-SDK
@@ -9,7 +9,7 @@ SPEC REPOS:
     - Mapbox-iOS-SDK
 
 SPEC CHECKSUMS:
-  Mapbox-iOS-SDK: 706d52e3ad095e16944d9643f37d5a97627f6c19
+  Mapbox-iOS-SDK: e6a4f236c77f914ca2e19b929c6cc6b077ba1c4c
 
 PODFILE CHECKSUM: b907dc97ab292da6848acd665932f4142cfbf6b8
 

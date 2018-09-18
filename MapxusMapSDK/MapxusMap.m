@@ -72,6 +72,8 @@
         self.mapView = mapView;
         self.mapView.mxmMap = self;
         [self commonInit];
+        // 设默认样式
+        [self setMapSytle:MXMStyleCOMMON];
     }
     return self;
 }
@@ -258,8 +260,6 @@
     [self.buildingSelectBtn addConstraint:buiSelHLc];
     
     
-    // 设默认样式
-    [self setMapSytle:MXMStyleCOMMON];
     // 添加单击手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapToDo:)];
     tap.delegate = self;
@@ -709,15 +709,53 @@
     return _floorBar;
 }
 
-- (UIImageView *)MXMLogo
+- (UIButton *)MXMLogo
 {
     if (!_MXMLogo) {
         NSBundle *bundle = [NSBundle bundleForClass:[MapxusMap class]];
         UIImage *image = [UIImage imageNamed:@"mapxusLogo" inBundle:bundle compatibleWithTraitCollection:nil];
-        _MXMLogo = [[UIImageView alloc] initWithImage:image];
+        _MXMLogo = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_MXMLogo setImage:image forState:UIControlStateNormal];
         _MXMLogo.translatesAutoresizingMaskIntoConstraints = NO;
+        [_MXMLogo addTarget:self action:@selector(logoOnClickAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _MXMLogo;
+}
+
+- (void)logoOnClickAction:(UIButton *)sender
+{
+    
+    UIAlertController *attributionController = [UIAlertController alertControllerWithTitle:@"Mapxus Maps SDK for iOS"
+                                                                                   message:nil
+                                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *fristAction = [UIAlertAction actionWithTitle:@"© Mapxus"
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction * _Nonnull action) {
+                                                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mapxus.com"]];
+                                                        }];
+    [attributionController addAction:fristAction];
+    
+    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"© OpenStreeMap"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.openstreetmap.org/about/"]];
+                                                         }];
+    [attributionController addAction:secondAction];
+    
+    NSString *cancelTitle = @"Cancel";
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:NULL];
+    [attributionController addAction:cancelAction];
+    
+    attributionController.popoverPresentationController.sourceView = sender;
+    attributionController.popoverPresentationController.sourceRect = sender.frame;
+    
+    UIViewController *viewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    [viewController presentViewController:attributionController
+                                 animated:YES
+                               completion:NULL];
 }
 
 - (UIButton *)openStreetSourceBtn
