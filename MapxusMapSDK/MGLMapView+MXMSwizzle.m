@@ -185,22 +185,42 @@ static void *mapKey = &mapKey;
 - (void)exchangeRegionDidChangeWithDelegate:(id<MGLMapViewDelegate>)delegate
 {
     SEL oldSelector = @selector(mapView:regionDidChangeAnimated:);
+    SEL oldLongSelector = @selector(mapView:regionDidChangeWithReason:animated:);
+    
     SEL newSelector = @selector(hook_mapView:regionDidChangeAnimated:);
+    SEL newLongSelector = @selector(hook_mapView:regionDidChangeWithReason:animated:);
+
     Method oldMethod_del = class_getInstanceMethod([delegate class], oldSelector);
+    Method oldLongMethod_del = class_getInstanceMethod([delegate class], oldLongSelector);
+
     Method oldMethod_self = class_getInstanceMethod([self class], oldSelector);
     Method newMethod = class_getInstanceMethod([self class], newSelector);
-    
-    // 若未实现代理方法，则先添加代理方法
-    BOOL isSuccess = class_addMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
-    if (isSuccess) {
-        class_replaceMethod([delegate class], newSelector, class_getMethodImplementation([self class], oldSelector), method_getTypeEncoding(oldMethod_self));
-    } else {
+    Method newLongMethod = class_getInstanceMethod([self class], newLongSelector);
+
+    // 先判断有哪个方法
+    if (oldMethod_del) {
         // 若已实现代理方法，则添加 hook 方法并进行交换
         BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod_del));
         if (isVictory) {
             class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
         }
+    } else if (oldLongMethod_del) {
+        // 若已实现代理方法，则添加 hook 方法并进行交换
+        BOOL isVictory = class_addMethod([delegate class], newLongSelector, class_getMethodImplementation([delegate class], oldLongSelector), method_getTypeEncoding(oldLongSelector));
+        if (isVictory) {
+            class_replaceMethod([delegate class], oldLongSelector, class_getMethodImplementation([self class], newLongSelector), method_getTypeEncoding(newLongMethod));
+        }
+    } else {
+        // 若未实现代理方法，则先添加代理方法
+        BOOL isSuccess = class_addMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
+        if (isSuccess) {
+            class_replaceMethod([delegate class], newSelector, class_getMethodImplementation([self class], oldSelector), method_getTypeEncoding(oldMethod_self));
+        }
     }
+}
+- (void)mapView:(MGLMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    // 如果delegate两个方法都没有实现，需要先把本方法添加到delegate里，再实现交换
 }
 - (void)hook_mapView:(MGLMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
@@ -208,8 +228,11 @@ static void *mapKey = &mapKey;
     [mapView.mxmMap automaticAnalyseOfIndoorData];
     [self hook_mapView:mapView regionDidChangeAnimated:animated];
 }
-- (void)mapView:(MGLMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+- (void)hook_mapView:(MGLMapView *)mapView regionDidChangeWithReason:(MGLCameraChangeReason)reason animated:(BOOL)animated
 {
+    // 查找中心矩形可见Building
+    [mapView.mxmMap automaticAnalyseOfIndoorData];
+    [self hook_mapView:mapView regionDidChangeWithReason:reason animated:animated];
 }
 
 
