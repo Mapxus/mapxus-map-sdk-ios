@@ -10,13 +10,13 @@
 #import "MXMHttpManager.h"
 #import <YYModel/YYModel.h>
 #import "MXMConstants.h"
+#import "JXJsonFunctionDefine.h"
 
 @implementation MXMSearchAPI
 
 // 查找建筑
 - (void)MXMBuildingSearch:(MXMBuildingSearchRequest *)request
 {
-    
     NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v1/buildings"];
     
     NSMutableDictionary *dic = nil;
@@ -33,10 +33,9 @@
         }
     }
     
-    [MXMHttpManager MXMGET:url parameters:dic success:^(id respondObject) {
+    [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onBuildingSearchDone:response:)]) {
-            NSDictionary *result = respondObject[@"result"];
-            MXMBuildingSearchResponse *response = [MXMBuildingSearchResponse yy_modelWithJSON:result];
+            MXMBuildingSearchResponse *response = [MXMBuildingSearchResponse yy_modelWithJSON:content];
             [self.delegate onBuildingSearchDone:request response:response];
         }
     } failure:^(NSError *error) {
@@ -68,10 +67,9 @@
         }
     }
     
-    [MXMHttpManager MXMGET:url parameters:dic success:^(id respondObject) {
+    [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onPOISearchDone:response:)]) {
-            NSDictionary *result = respondObject[@"result"];
-            MXMPOISearchResponse *response = [MXMPOISearchResponse yy_modelWithJSON:result];
+            MXMPOISearchResponse *response = [MXMPOISearchResponse yy_modelWithJSON:content];
             [self.delegate onPOISearchDone:request response:response];
         }
     } failure:^(NSError *error) {
@@ -90,10 +88,9 @@
     NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v1/route"];
     NSDictionary *dic = [request yy_modelToJSONObject];
     
-    [MXMHttpManager MXMGET:url parameters:dic success:^(id respondObject) {
+    [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onRouteSearchDone:response:)]) {
-            NSDictionary *result = respondObject[@"result"];
-            NSArray *routes = result[@"routes"];
+            NSArray *routes = DecodeArrayFromDic(content, @"routes");
             NSDictionary *fristRoute = routes.firstObject;
             MXMRouteSearchResponse *response = [MXMRouteSearchResponse yy_modelWithJSON:fristRoute];
             [self.delegate onRouteSearchDone:request response:response];

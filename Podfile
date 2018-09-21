@@ -6,8 +6,8 @@ target 'MapxusMapSDK' do
   # use_frameworks!
 
   # Pods for MapxusMapSDK
-  pod 'AWSCore', '~> 2.6.0'
-  pod 'AWSCognitoIdentityProvider', '~> 2.6.0'
+#  pod 'AWSCore', '~> 2.6.0'
+#  pod 'AWSCognitoIdentityProvider', '~> 2.6.0'
   pod 'Mapbox-iOS-SDK'
 
   target 'MapxusMapSDKTests' do

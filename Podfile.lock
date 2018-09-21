@@ -1,29 +1,16 @@
 PODS:
-  - AWSCognitoIdentityProvider (2.6.26):
-    - AWSCognitoIdentityProviderASF (= 1.0.1)
-    - AWSCore (= 2.6.26)
-  - AWSCognitoIdentityProviderASF (1.0.1)
-  - AWSCore (2.6.26)
-  - Mapbox-iOS-SDK (4.2.0)
+  - Mapbox-iOS-SDK (4.4.1)
 
 DEPENDENCIES:
-  - AWSCognitoIdentityProvider (~> 2.6.0)
-  - AWSCore (~> 2.6.0)
   - Mapbox-iOS-SDK
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - AWSCognitoIdentityProvider
-    - AWSCognitoIdentityProviderASF
-    - AWSCore
     - Mapbox-iOS-SDK
 
 SPEC CHECKSUMS:
-  AWSCognitoIdentityProvider: 5be311431518b6630de040fbf62e1b4f2a71694b
-  AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
-  AWSCore: 0177bb7e5616d967277b398e7a05ed7a228e6158
-  Mapbox-iOS-SDK: 706d52e3ad095e16944d9643f37d5a97627f6c19
+  Mapbox-iOS-SDK: e6a4f236c77f914ca2e19b929c6cc6b077ba1c4c
 
-PODFILE CHECKSUM: 21cce766976ddbbfe008ebf6c75246fb588d823f
+PODFILE CHECKSUM: b907dc97ab292da6848acd665932f4142cfbf6b8
 
 COCOAPODS: 1.5.3

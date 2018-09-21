@@ -206,7 +206,7 @@ static void *mapKey = &mapKey;
         }
     } else if (oldLongMethod_del) {
         // 若已实现代理方法，则添加 hook 方法并进行交换
-        BOOL isVictory = class_addMethod([delegate class], newLongSelector, class_getMethodImplementation([delegate class], oldLongSelector), method_getTypeEncoding(oldLongSelector));
+        BOOL isVictory = class_addMethod([delegate class], newLongSelector, class_getMethodImplementation([delegate class], oldLongSelector), method_getTypeEncoding(oldLongMethod_del));
         if (isVictory) {
             class_replaceMethod([delegate class], oldLongSelector, class_getMethodImplementation([self class], newLongSelector), method_getTypeEncoding(newLongMethod));
         }

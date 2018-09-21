@@ -17,3 +17,5 @@ NSString *const MXMHOSTURL = @"https://bms-api.maphive.cloud";
 
 // 开发环境
 //NSString *const MXMHOSTURL = @"https://bms-api-dev.maphive.io";
+
+NSString *const MapboxAccessToken = @"pk.mapxus";
