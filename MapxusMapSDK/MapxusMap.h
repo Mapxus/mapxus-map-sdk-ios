@@ -155,7 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor;
 
 /**
- 添加地图标注，如需要添加室内点，必须调用些方法才会分层。
+ 添加地图标注，如需要添加室内点，必须调用此方法才会分层显示。
 
  @param annotations MXMPointAnnotation队列
  */
