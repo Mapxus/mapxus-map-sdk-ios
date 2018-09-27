@@ -351,10 +351,22 @@
 - (void)singleTapToDo:(id)sender
 {
     CGPoint point = [sender locationInView:self.mapView];
+    
+    /////////////////////////////////////////////////////
     CLLocationCoordinate2D coor = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:)]) {
+    NSSet *set = [[NSSet alloc] initWithObjects:@"maphive-floor-fill", nil];
+    NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:set predicate:nil];
+    id<MGLFeature> feature = theFeatures.firstObject;
+    NSString *floor = [feature attributeForKey:@"floor"];
+    NSString *buildingId = [feature attributeForKey:@"ref:building"];
+    MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:onFloor:inBuilding:)]) {
+        [self.delegate mapView:self didSingleTappedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
+    } else if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:)]) {
         [self.delegate mapView:self didSingleTappedAtCoordinate:coor];
     }
+    /////////////////////////////////////////////////////
+    
     [self findOutPOIAtPoint:point];
     // 切换建筑
     NSArray *pointBuildingList = [self findOutBuildingAtPoint:point];
@@ -362,37 +374,26 @@
     [self selectBuilding:building.identifier];
 }
 
-// 点击查找POI信息
-- (void)findOutPOIAtPoint:(CGPoint)point
-{
-    // 生成layer.identifier的存储集合
-    NSMutableSet *identifiersSet = [NSMutableSet set];
-    // 获取已加载style中的layers
-    NSArray<MGLStyleLayer *> *theLayers = self.mapView.style.layers;
-    // 筛选出『m』开头的layer
-    for (MGLStyleLayer *theLayer in theLayers) {
-        NSString *identifier = theLayer.identifier;
-        if ([identifier hasPrefix:@"maphive"] && [theLayer isKindOfClass:[MGLSymbolStyleLayer class]]){
-            [identifiersSet addObject:identifier];
-        }
-    }
-    // 获取中心矩形内的建筑信息
-    NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiersSet predicate:nil];
-    id<MGLFeature> fristM = theFeatures.firstObject;
-    MXMGeoPOI *poi = [MXMGeoPOI yy_modelWithJSON:fristM.attributes];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)]) {
-        [self.delegate mapView:self didTappedOnPOI:poi];
-    }
-}
-
 // 长按手势响应
 - (void)longPressAction:(id)sender
 {
     CGPoint point = [sender locationInView:self.mapView];
+    
+    /////////////////////////////////////////////////////
     CLLocationCoordinate2D coor = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:)]) {
+    NSSet *set = [[NSSet alloc] initWithObjects:@"maphive-floor-fill", nil];
+    NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:set predicate:nil];
+    id<MGLFeature> feature = theFeatures.firstObject;
+    NSString *floor = [feature attributeForKey:@"floor"];
+    NSString *buildingId = [feature attributeForKey:@"ref:building"];
+    MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)]) {
+        [self.delegate mapView:self didLongPressedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
+    } else if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:)]) {
         [self.delegate mapView:self didLongPressedAtCoordinate:coor];
     }
+    /////////////////////////////////////////////////////
+
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
@@ -410,7 +411,10 @@
 - (void)automaticAnalyseOfIndoorData
 {
     // 查找当前中心view坐标的Building队列
-    self.buildings = [self findOutBuildingIntheRect];
+    // 获取中心矩形内的建筑信息
+    CGSize mapSize = self.mapView.bounds.size;
+    CGRect rect = CGRectMake(mapSize.width/4, mapSize.height/4, mapSize.width/2, mapSize.height/2);
+    self.buildings = [self findOutBuildingIntheRect:rect];
     // 设置建筑选择按钮和楼层选择按钮是否显示
     self.buildingSelectBtn.hidden = self.indoorControllerAlwaysHidden || !((self.buildings.count>=2)&&(self.mapView.zoomLevel>15));
     self.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.buildings.count>=1)&&(self.mapView.zoomLevel>15));
@@ -421,7 +425,7 @@
     [self selectBuilding:defaultBuilding.identifier floor:defaultFloor shouldChangeUserTrackingMode:NO];
 }
 
-- (NSDictionary *)findOutBuildingIntheRect
+- (NSDictionary *)findOutBuildingIntheRect:(CGRect)rect
 {
     // 生成layer.identifier的存储集合
     NSMutableSet *identifiersSet = [NSMutableSet set];
@@ -434,9 +438,6 @@
             [identifiersSet addObject:identifier];
         }
     }
-    // 获取中心矩形内的建筑信息
-    CGSize mapSize = self.mapView.bounds.size;
-    CGRect rect = CGRectMake(mapSize.width/4, mapSize.height/4, mapSize.width/2, mapSize.height/2);
     NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:identifiersSet predicate:nil];
     // 建筑信息去重
     NSMutableDictionary *resultBuildings = [NSMutableDictionary dictionary];
@@ -476,7 +477,33 @@
     }
     return [resultBuildings allValues];
 }
+
+// 点击查找POI信息
+- (void)findOutPOIAtPoint:(CGPoint)point
+{
+    // 生成layer.identifier的存储集合
+    NSMutableSet *identifiersSet = [NSMutableSet set];
+    // 获取已加载style中的layers
+    NSArray<MGLStyleLayer *> *theLayers = self.mapView.style.layers;
+    // 筛选出『maphive』开头的layer
+    for (MGLStyleLayer *theLayer in theLayers) {
+        NSString *identifier = theLayer.identifier;
+        if ([identifier hasPrefix:@"maphive"] && [theLayer isKindOfClass:[MGLSymbolStyleLayer class]]){
+            [identifiersSet addObject:identifier];
+        }
+    }
+    // 获取中心点内的建筑信息
+    NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiersSet predicate:nil];
+    id<MGLFeature> fristM = theFeatures.firstObject;
+    MXMGeoPOI *poi = [MXMGeoPOI yy_modelWithJSON:fristM.attributes];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)]) {
+        [self.delegate mapView:self didTappedOnPOI:poi];
+    }
+}
+
 #pragma mark end
+
+
 
 #pragma mark - 控件筛选建筑
 
@@ -693,7 +720,9 @@
                 }
             }
         } else {
-            [mu addObject:originalPredicate];
+            if (originalPredicate) {
+                [mu addObject:originalPredicate];
+            }
         }
         NSPredicate *f = [NSPredicate predicateWithFormat:@"floor == %@", floor];
         [mu addObject:f];

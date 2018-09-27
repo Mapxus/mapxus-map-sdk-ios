@@ -7,6 +7,7 @@
 //
 
 #import "MXMGeoPOI.h"
+#import <YYModel/YYModel.h>
 
 @implementation MXMGeoPOI
 
@@ -15,5 +16,11 @@
              @"name_en" : @"name:en",
              @"name_zh" : @"name:zh"};
 }
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
 
 @end

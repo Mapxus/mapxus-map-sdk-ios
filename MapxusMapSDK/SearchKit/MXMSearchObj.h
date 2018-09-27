@@ -95,27 +95,37 @@
 /// 始点建筑楼层
 @property (nonatomic, strong) NSString *fromFloor;
 /// 始点经度
-@property (nonatomic, assign) CGFloat fromLon;
+@property (nonatomic, assign) double fromLon;
 /// 始点纬度
-@property (nonatomic, assign) CGFloat fromLat;
+@property (nonatomic, assign) double fromLat;
 /// 终点建筑
 @property (nonatomic, strong) NSString *toBuilding;
 /// 终点建筑楼层
 @property (nonatomic, strong) NSString *toFloor;
 /// 终点经度
-@property (nonatomic, assign) CGFloat toLon;
+@property (nonatomic, assign) double toLon;
 /// 终点纬度
-@property (nonatomic, assign) CGFloat toLat;
+@property (nonatomic, assign) double toLat;
 
 @end
+
 
 /**
  路线搜索结果
  */
 @interface MXMRouteSearchResponse : NSObject
-
-/// 路线`MXMPath`的队列
-@property (nonatomic, strong) NSArray<MXMPath *> *routes;
-
+/// 导航点
+@property (nonatomic, strong) NSArray<MXMWaypoint *> *waypoints;
+/// 返回结果个数
+@property (nonatomic, assign) NSInteger total;
+/// 路线`MXMRoute`的队列
+@property (nonatomic, strong) NSArray<MXMRoute *> *routes;
 @end
+
+
+
+
+
+
+
 
