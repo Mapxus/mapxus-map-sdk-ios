@@ -142,6 +142,10 @@ static void *mapKey = &mapKey;
 }
 - (void)hook_mapViewDidFinishLoadingMap:(MGLMapView *)mapView
 {
+    // 结束异步operation
+    if (mapView.mxmMap.externalLoadOperation) {
+        [mapView.mxmMap.externalLoadOperation finish];
+    }
     mapView.mxmMap.mapViewDidFinishLoadingMap = YES;
     // 查找中心矩形可见Building
     [mapView.mxmMap automaticAnalyseOfIndoorData];

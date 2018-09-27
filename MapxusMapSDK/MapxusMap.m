@@ -19,50 +19,98 @@
 
 
 
-- (instancetype)initWithMapView:(MGLMapView *)mapView buildingId:(NSString *)buildingId
+- (instancetype)initWithMapView:(MGLMapView *)mapView buildingId:(NSString *)buildingId floor:(nullable NSString *)floor
 {
-    self = [self initWithMapView:mapView];
+    self = [super init];
     if (self) {
-        MXMBuildingSearchRequest *re = [[MXMBuildingSearchRequest alloc] init];
-        re.buildingIds = @[buildingId];
+        self.mapView = mapView;
+        self.mapView.mxmMap = self;
+        [self commonInit];
+        __weak typeof(self) weakSelf = self;
+        MXMGetTokenOperation *getTokenOp = [[MXMGetTokenOperation alloc] init];
+        MXMSearchBuildingOperation *searchBuildingOp = [[MXMSearchBuildingOperation alloc] initWithBuildingId:buildingId floor:floor];
+        MXMLoadMapOperation *loadMapOp = [[MXMLoadMapOperation alloc] initWithBlock:^(NSString * _Nonnull token) {
+            [weakSelf setMapSytle:MXMStyleCOMMON];
+        }];
+        self.externalLoadOperation = loadMapOp;
+        MXMZoomToOperation *zoomOp = [[MXMZoomToOperation alloc] initWithBlock:^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, MGLCoordinateBounds bounds, CLLocationCoordinate2D centerPoint) {
+            weakSelf.mapView.visibleCoordinateBounds = bounds;
+            if (floor) {
+                [weakSelf selectBuilding:buildingId floor:floor];
+            } else {
+                [weakSelf selectBuilding:buildingId];
+            }
+        }];
         
-        MXMSearchAPI *api = [[MXMSearchAPI alloc] init];
-        api.delegate = self;
-        [api MXMBuildingSearch:re];
+        getTokenOp.complateBlock = ^(NSString * _Nonnull token) {
+            loadMapOp.token = token;
+        };
+        searchBuildingOp.complateBlock = ^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, MGLCoordinateBounds bounds) {
+            zoomOp.buildingId = buildingId;
+            zoomOp.floor = floor;
+            zoomOp.bounds = bounds;
+        };
+        
+        [searchBuildingOp addDependency:getTokenOp];
+        [loadMapOp addDependency:getTokenOp];
+        [zoomOp addDependency:searchBuildingOp];
+        [zoomOp addDependency:loadMapOp];
+        
+        self.initializeQueue = [[NSOperationQueue alloc] init];
+        [self.initializeQueue addOperation:getTokenOp];
+        [self.initializeQueue addOperation:searchBuildingOp];
+        [self.initializeQueue addOperation:loadMapOp];
+        [self.initializeQueue addOperation:zoomOp];
     }
     return self;
-}
-
-- (void)onBuildingSearchDone:(MXMBuildingSearchRequest *)request response:(MXMBuildingSearchResponse *)response
-{
-    NSLog(@"=====onBuildingSearchDone");
-    MXMBuilding *building = response.buildings.firstObject;
-    
-    MGLCoordinateBounds bounds = MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(building.bbox.min_latitude, building.bbox.min_longitude), CLLocationCoordinate2DMake(building.bbox.max_latitude, building.bbox.max_longitude));
-    self.mapView.visibleCoordinateBounds = bounds;
 }
 
 - (instancetype)initWithMapView:(MGLMapView *)mapView poiId:(NSString *)poiId
 {
-    self = [self initWithMapView:mapView];
+    self = [super init];
     if (self) {
-        MXMPOISearchRequest *re = [[MXMPOISearchRequest alloc] init];
-        re.POIIds = @[poiId];
-        MXMSearchAPI *api = [[MXMSearchAPI alloc] init];
-        api.delegate = self;
-        [api MXMPOISearch:re];
+        self.mapView = mapView;
+        self.mapView.mxmMap = self;
+        [self commonInit];
+        
+        __weak typeof(self) weakSelf = self;
+        MXMGetTokenOperation *getTokenOp = [[MXMGetTokenOperation alloc] init];
+        MXMSearchPOIOperation *searchPoiOp = [[MXMSearchPOIOperation alloc] initWithPoiId:poiId];
+        MXMLoadMapOperation *loadMapOp = [[MXMLoadMapOperation alloc] initWithBlock:^(NSString * _Nonnull token) {
+            [weakSelf setMapSytle:MXMStyleCOMMON];
+        }];
+        self.externalLoadOperation = loadMapOp;
+        MXMZoomToOperation *zoomOp = [[MXMZoomToOperation alloc] initWithBlock:^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, MGLCoordinateBounds bounds, CLLocationCoordinate2D centerPoint) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakSelf.mapView.centerCoordinate = centerPoint;
+                weakSelf.mapView.zoomLevel = 18;
+                if (floor) {
+                    [weakSelf selectBuilding:buildingId floor:floor];
+                } else {
+                    [weakSelf selectBuilding:buildingId];
+                }
+            });
+        }];
+        
+        getTokenOp.complateBlock = ^(NSString * _Nonnull token) {
+            loadMapOp.token = token;
+        };
+        searchPoiOp.complateBlock = ^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, CLLocationCoordinate2D centerPoint) {
+            zoomOp.buildingId = buildingId;
+            zoomOp.floor = floor;
+            zoomOp.centerPoint = centerPoint;
+        };
+        
+        [searchPoiOp addDependency:getTokenOp];
+        [loadMapOp addDependency:getTokenOp];
+        [zoomOp addDependency:searchPoiOp];
+        [zoomOp addDependency:loadMapOp];
+        
+        self.initializeQueue = [[NSOperationQueue alloc] init];
+        self.initializeQueue.maxConcurrentOperationCount = 4;
+        [self.initializeQueue addOperations:@[getTokenOp, searchPoiOp, loadMapOp, zoomOp] waitUntilFinished:NO];
     }
     return self;
-}
-
-- (void)onPOISearchDone:(MXMPOISearchRequest *)request response:(MXMPOISearchResponse *)response
-{
-    NSLog(@"=====onPOISearchDone");
-
-    MXMPOI *poi = response.pois.firstObject;
-    self.mapView.centerCoordinate = CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude);
-    [self selectBuilding:poi.buildingId floor:poi.floor];
-    self.mapView.zoomLevel = 18;
 }
 
 - (instancetype)initWithMapView:(MGLMapView *)mapView
