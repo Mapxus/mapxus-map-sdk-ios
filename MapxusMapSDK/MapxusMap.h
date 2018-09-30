@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MXMDefine.h"
+#import "MXMConfiguration.h"
 
 @class MGLMapView;
 @class MXMGeoBuilding;
@@ -14,68 +16,8 @@
 @protocol MGLMapViewDelegate;
 @protocol MapxusMapDelegate;
 
-/**
- BeeMap地图外观
- */
-typedef NS_ENUM(NSUInteger, MXMStyle) {
-    /**
-     默认类型
-     */
-    MXMStyleCOMMON,
-    /**
-     圣诞节风格
-     */
-    MXMStyleCHRISTMAS,
-    /**
-     万圣节风格
-     */
-    MXMStyleHALLOWMAS,
-    /**
-     MAPPYBEE风格
-     */
-    MXMStyleMAPPYBEE,
-    /**
-     蒂芙尼蓝风格
-     */
-    MXMStyleMAPXUS,
-};
-
-
-
-/**
- 楼层控制器位置
- */
-typedef NS_ENUM(NSInteger, MXMSelectorPosition) {
-    /**
-     楼层控制器在左边
-     */
-    MXMSelectorPositionCenterLeft,
-    /**
-     楼层控制器在右边
-     */
-    MXMSelectorPositionCenterRight,
-    /**
-     楼层控制器在左下角
-     */
-    MXMSelectorPositionBottomLeft,
-    /**
-     楼层控制器在右下角
-     */
-    MXMSelectorPositionBottomRight,
-    /**
-     楼层控制器在左上角
-     */
-    MXMSelectorPositionTopLeft,
-    /**
-     楼层控制器在右上角
-     */
-    MXMSelectorPositionTopRight,
-};
-
 
 NS_ASSUME_NONNULL_BEGIN
-
-
 
 /**
  MapxusMap主类
@@ -98,8 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return MapxusMap对象
  */
 - (instancetype)initWithMapView:(MGLMapView *)mapView;
-- (instancetype)initWithMapView:(MGLMapView *)mapView buildingId:(NSString *)buildingId floor:(nullable NSString *)floor;
-- (instancetype)initWithMapView:(MGLMapView *)mapView poiId:(NSString *)poiId;
+- (instancetype)initWithMapView:(MGLMapView *)mapView configuration:(nullable MXMConfiguration *)configuration;
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 

@@ -17,7 +17,6 @@
 }
 
 @property (nonatomic, strong) MXMSearchAPI *api;
-@property (nonatomic, strong) NSString *poiId;
 
 @end
 

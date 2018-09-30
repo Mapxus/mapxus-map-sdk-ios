@@ -46,6 +46,7 @@ static void *mapKey = &mapKey;
 
 - (void)hook_setDelegate:(id<MGLMapViewDelegate>)delegate
 {
+    [self exchangeFinishLoadingStyleWithDelegate:delegate];
     [self exchangeFinishRenderingFrameWithDelegate:delegate];
     [self exchangeWillStartLoadingMapWithDelegate:delegate];
     [self exchangeDidfinishLoadingMapWithDelegate:delegate];
@@ -53,6 +54,39 @@ static void *mapKey = &mapKey;
     [self exchangeRegionDidChangeWithDelegate:delegate];
     [self exchangeDidUpdateUserLocationWithDelegate:delegate];
     [self hook_setDelegate:delegate];
+}
+
+
+- (void)exchangeFinishLoadingStyleWithDelegate:(id<MGLMapViewDelegate>)delegate
+{
+    SEL oldSelector = @selector(mapView:didFinishLoadingStyle:);
+    SEL newSelector = @selector(hook_mapView:didFinishLoadingStyle:);
+    Method oldMethod_del = class_getInstanceMethod([delegate class], oldSelector);
+    Method oldMethod_self = class_getInstanceMethod([self class], oldSelector);
+    Method newMethod = class_getInstanceMethod([self class], newSelector);
+    
+    // 若未实现代理方法，则先添加代理方法
+    BOOL isSuccess = class_addMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
+    if (isSuccess) {
+        class_replaceMethod([delegate class], newSelector, class_getMethodImplementation([self class], oldSelector), method_getTypeEncoding(oldMethod_self));
+    } else {
+        // 若已实现代理方法，则添加 hook 方法并进行交换
+        BOOL isVictory = class_addMethod([delegate class], newSelector, class_getMethodImplementation([delegate class], oldSelector), method_getTypeEncoding(oldMethod_del));
+        if (isVictory) {
+            class_replaceMethod([delegate class], oldSelector, class_getMethodImplementation([self class], newSelector), method_getTypeEncoding(newMethod));
+        }
+    }
+}
+- (void)hook_mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style
+{
+    // 结束异步operation
+    if (mapView.mxmMap.externalLoadOperation) {
+        [mapView.mxmMap.externalLoadOperation finish];
+    }
+    [self hook_mapView:mapView didFinishLoadingStyle:style];
+}
+- (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style
+{
 }
 
 
@@ -142,10 +176,6 @@ static void *mapKey = &mapKey;
 }
 - (void)hook_mapViewDidFinishLoadingMap:(MGLMapView *)mapView
 {
-    // 结束异步operation
-    if (mapView.mxmMap.externalLoadOperation) {
-        [mapView.mxmMap.externalLoadOperation finish];
-    }
     mapView.mxmMap.mapViewDidFinishLoadingMap = YES;
     // 查找中心矩形可见Building
     [mapView.mxmMap automaticAnalyseOfIndoorData];
@@ -247,7 +277,7 @@ static void *mapKey = &mapKey;
             NSInteger cf = gf - userLocation.location.floor.level;
             if (cf>=0 && cf<b.floors.count) {
                 NSString *currentFloor = [b.floors objectAtIndex:cf];
-                [mapView.mxmMap selectBuilding:b.identifier floor:currentFloor shouldChangeUserTrackingMode:NO];
+                [mapView.mxmMap selectBuilding:b.identifier floor:currentFloor shouldZoomTo:NO shouldChangeUserTrackingMode:NO];
                 break;
             }
         }

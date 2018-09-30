@@ -17,111 +17,97 @@
 
 @implementation MapxusMap
 
-
-
-- (instancetype)initWithMapView:(MGLMapView *)mapView buildingId:(NSString *)buildingId floor:(nullable NSString *)floor
-{
-    self = [super init];
-    if (self) {
-        self.mapView = mapView;
-        self.mapView.mxmMap = self;
-        [self commonInit];
-        __weak typeof(self) weakSelf = self;
-        MXMGetTokenOperation *getTokenOp = [[MXMGetTokenOperation alloc] init];
-        MXMSearchBuildingOperation *searchBuildingOp = [[MXMSearchBuildingOperation alloc] initWithBuildingId:buildingId floor:floor];
-        MXMLoadMapOperation *loadMapOp = [[MXMLoadMapOperation alloc] initWithBlock:^(NSString * _Nonnull token) {
-            [weakSelf setMapSytle:MXMStyleCOMMON];
-        }];
-        self.externalLoadOperation = loadMapOp;
-        MXMZoomToOperation *zoomOp = [[MXMZoomToOperation alloc] initWithBlock:^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, MGLCoordinateBounds bounds, CLLocationCoordinate2D centerPoint) {
-            weakSelf.mapView.visibleCoordinateBounds = bounds;
-            if (floor) {
-                [weakSelf selectBuilding:buildingId floor:floor];
-            } else {
-                [weakSelf selectBuilding:buildingId];
-            }
-        }];
-        
-        getTokenOp.complateBlock = ^(NSString * _Nonnull token) {
-            loadMapOp.token = token;
-        };
-        searchBuildingOp.complateBlock = ^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, MGLCoordinateBounds bounds) {
-            zoomOp.buildingId = buildingId;
-            zoomOp.floor = floor;
-            zoomOp.bounds = bounds;
-        };
-        
-        [searchBuildingOp addDependency:getTokenOp];
-        [loadMapOp addDependency:getTokenOp];
-        [zoomOp addDependency:searchBuildingOp];
-        [zoomOp addDependency:loadMapOp];
-        
-        self.initializeQueue = [[NSOperationQueue alloc] init];
-        [self.initializeQueue addOperation:getTokenOp];
-        [self.initializeQueue addOperation:searchBuildingOp];
-        [self.initializeQueue addOperation:loadMapOp];
-        [self.initializeQueue addOperation:zoomOp];
-    }
-    return self;
-}
-
-- (instancetype)initWithMapView:(MGLMapView *)mapView poiId:(NSString *)poiId
-{
-    self = [super init];
-    if (self) {
-        self.mapView = mapView;
-        self.mapView.mxmMap = self;
-        [self commonInit];
-        
-        __weak typeof(self) weakSelf = self;
-        MXMGetTokenOperation *getTokenOp = [[MXMGetTokenOperation alloc] init];
-        MXMSearchPOIOperation *searchPoiOp = [[MXMSearchPOIOperation alloc] initWithPoiId:poiId];
-        MXMLoadMapOperation *loadMapOp = [[MXMLoadMapOperation alloc] initWithBlock:^(NSString * _Nonnull token) {
-            [weakSelf setMapSytle:MXMStyleCOMMON];
-        }];
-        self.externalLoadOperation = loadMapOp;
-        MXMZoomToOperation *zoomOp = [[MXMZoomToOperation alloc] initWithBlock:^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, MGLCoordinateBounds bounds, CLLocationCoordinate2D centerPoint) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf.mapView.centerCoordinate = centerPoint;
-                weakSelf.mapView.zoomLevel = 18;
-                if (floor) {
-                    [weakSelf selectBuilding:buildingId floor:floor];
-                } else {
-                    [weakSelf selectBuilding:buildingId];
-                }
-            });
-        }];
-        
-        getTokenOp.complateBlock = ^(NSString * _Nonnull token) {
-            loadMapOp.token = token;
-        };
-        searchPoiOp.complateBlock = ^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, CLLocationCoordinate2D centerPoint) {
-            zoomOp.buildingId = buildingId;
-            zoomOp.floor = floor;
-            zoomOp.centerPoint = centerPoint;
-        };
-        
-        [searchPoiOp addDependency:getTokenOp];
-        [loadMapOp addDependency:getTokenOp];
-        [zoomOp addDependency:searchPoiOp];
-        [zoomOp addDependency:loadMapOp];
-        
-        self.initializeQueue = [[NSOperationQueue alloc] init];
-        self.initializeQueue.maxConcurrentOperationCount = 4;
-        [self.initializeQueue addOperations:@[getTokenOp, searchPoiOp, loadMapOp, zoomOp] waitUntilFinished:NO];
-    }
-    return self;
-}
+#pragma mark - public
 
 - (instancetype)initWithMapView:(MGLMapView *)mapView
 {
+    return [self initWithMapView:mapView configuration:nil];
+}
+
+- (instancetype)initWithMapView:(MGLMapView *)mapView configuration:(nullable MXMConfiguration *)configuration
+{
     self = [super init];
     if (self) {
         self.mapView = mapView;
         self.mapView.mxmMap = self;
         [self commonInit];
-        // 设默认样式
-        [self setMapSytle:MXMStyleCOMMON];
+        if (configuration.poiId) {
+            __weak typeof(self) weakSelf = self;
+            __block CLLocationCoordinate2D poiCenter;
+            
+            MXMGetTokenOperation *getTokenOp = [[MXMGetTokenOperation alloc] init];
+            MXMLoadMapOperation *loadMapOp = [[MXMLoadMapOperation alloc] initWithBlock:^(NSString * _Nonnull token) {
+                [weakSelf setMapSytle:MXMStyleCOMMON];
+            }];
+            MXMSearchPOIOperation *searchPoiOp = [[MXMSearchPOIOperation alloc] initWithPoiId:configuration.poiId];
+            MXMSearchBuildingOperation *searchBuildingOp = [[MXMSearchBuildingOperation alloc] init];
+            
+            self.externalLoadOperation = loadMapOp;
+            
+            getTokenOp.complateBlock = ^(NSString * _Nonnull token) {
+                loadMapOp.token = token;
+            };
+            searchPoiOp.complateBlock = ^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, CLLocationCoordinate2D centerPoint) {
+                searchBuildingOp.buildingId = buildingId;
+                searchBuildingOp.floor = floor;
+                poiCenter = centerPoint;
+            };
+            searchBuildingOp.complateBlock = ^(MXMBuilding * _Nonnull building, NSString * _Nonnull floor, MGLCoordinateBounds bounds) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"%f, %f", poiCenter.latitude, poiCenter.longitude);
+                    weakSelf.mapView.centerCoordinate = poiCenter;
+                    weakSelf.mapView.zoomLevel = 19;
+                    MXMGeoBuilding *geoBuilding = [[MXMGeoBuilding alloc] init];
+                    geoBuilding.identifier = building.buildingId;
+                    NSMutableArray *floorStrs = [NSMutableArray array];
+                    for (MXMFloor *f in building.floors) {
+                        f.code ? [floorStrs addObject:f.code] : nil;
+                    }
+                    geoBuilding.floors = [[floorStrs reverseObjectEnumerator] allObjects];
+                    geoBuilding.ground_floor = floorStrs.firstObject;
+                    if (floor) {
+                        [weakSelf selectBuilding:geoBuilding floor:floor shouldChangeUserTrackingMode:YES];
+                    } else {
+                        NSString *defaultFloor = geoBuilding.ground_floor;//[self electDefaultFloorWithBuildingId:buildingId];
+                        [weakSelf selectBuilding:geoBuilding floor:defaultFloor shouldChangeUserTrackingMode:YES];
+                    }
+                });
+            };
+
+            [searchPoiOp addDependency:getTokenOp];
+            [loadMapOp addDependency:getTokenOp];
+            [searchBuildingOp addDependency:searchPoiOp];
+            [searchBuildingOp addDependency:loadMapOp];
+
+            self.initializeQueue = [[NSOperationQueue alloc] init];
+            [self.initializeQueue addOperations:@[getTokenOp, searchPoiOp, searchBuildingOp, loadMapOp] waitUntilFinished:NO];
+            
+            
+        } else if (configuration.buildingId) {
+            __weak typeof(self) weakSelf = self;
+            MXMGetTokenOperation *getTokenOp = [[MXMGetTokenOperation alloc] init];
+            MXMLoadMapOperation *loadMapOp = [[MXMLoadMapOperation alloc] initWithBlock:^(NSString * _Nonnull token) {
+                [weakSelf setMapSytle:configuration.defaultStyle];
+            }];
+            self.externalLoadOperation = loadMapOp;
+            MXMZoomToOperation *zoomOp = [[MXMZoomToOperation alloc] initWithBlock:^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, MGLCoordinateBounds bounds, CLLocationCoordinate2D centerPoint) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf selectBuilding:configuration.buildingId floor:configuration.floor shouldZoomTo:YES shouldChangeUserTrackingMode:YES];
+                });
+            }];
+
+            getTokenOp.complateBlock = ^(NSString * _Nonnull token) {
+                loadMapOp.token = token;
+            };
+            [loadMapOp addDependency:getTokenOp];
+            [zoomOp addDependency:loadMapOp];
+
+            self.initializeQueue = [[NSOperationQueue alloc] init];
+            [self.initializeQueue addOperations:@[getTokenOp, loadMapOp, zoomOp] waitUntilFinished:NO];
+        } else {
+            // 设默认样式
+            [self setMapSytle:configuration.defaultStyle];
+        }
     }
     return self;
 }
@@ -252,76 +238,6 @@
     [self.mapView layoutIfNeeded];
 }
 
-- (void)commonInit
-{
-    self.indoorControllerAlwaysHidden = NO;
-    self.mapView.attributionButton.hidden = YES;
-    self.mapView.logoView.hidden = YES;
-    
-    
-    [self.mapView addSubview:self.openStreetSourceBtn];
-    NSLayoutConstraint *openStreetRightLc = [NSLayoutConstraint constraintWithItem:self.openStreetSourceBtn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-10.0f];
-    [self.mapView addConstraint:openStreetRightLc];
-    NSLayoutConstraint *openStreetBottomLc = [NSLayoutConstraint constraintWithItem:self.openStreetSourceBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:-10.0f];
-    [self.mapView addConstraint:openStreetBottomLc];
-    NSLayoutConstraint *openStreetWLc = [NSLayoutConstraint constraintWithItem:self.openStreetSourceBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:190.0f];
-    [self.openStreetSourceBtn addConstraint:openStreetWLc];
-    NSLayoutConstraint *openStreetHLc = [NSLayoutConstraint constraintWithItem:self.openStreetSourceBtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:13.0f];
-    [self.openStreetSourceBtn addConstraint:openStreetHLc];
-    
-    
-    [self.mapView addSubview:self.MXMLogo];
-    NSLayoutConstraint *logoLeftLc = [NSLayoutConstraint constraintWithItem:self.MXMLogo attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
-    [self.mapView addConstraint:logoLeftLc];
-    NSLayoutConstraint *logoBottomLc = [NSLayoutConstraint constraintWithItem:self.MXMLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:-10.0f];
-    [self.mapView addConstraint:logoBottomLc];
-    NSLayoutConstraint *logoWLc = [NSLayoutConstraint constraintWithItem:self.MXMLogo attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:78.0f];
-    [self.MXMLogo addConstraint:logoWLc];
-    NSLayoutConstraint *logoHLc = [NSLayoutConstraint constraintWithItem:self.MXMLogo attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:14.0f];
-    [self.MXMLogo addConstraint:logoHLc];
-    
-    
-    // 添加楼层选择栏与约束
-    [self.mapView addSubview:self.floorBar];
-    NSLayoutConstraint *floorBarLeftLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
-    floorBarLeftLc.identifier = @"floorBarXLc";
-    [self.mapView addConstraint:floorBarLeftLc];
-    NSLayoutConstraint *floorBarBottomLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:30];
-    floorBarBottomLc.identifier = @"floorBarYLc";
-    [self.mapView addConstraint:floorBarBottomLc];
-    NSLayoutConstraint *floorBarWLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:42];
-    [self.floorBar addConstraint:floorBarWLc];
-    NSLayoutConstraint *floorBarHLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:200.0f];
-    [self.floorBar addConstraint:floorBarHLc];
-
-    
-    // 添加建筑选择按钮与约束
-    [self.mapView addSubview:self.buildingSelectBtn];
-    NSLayoutConstraint *buiSelLeftLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
-    buiSelLeftLc.identifier = @"buildingBtnXLc";
-    [self.mapView addConstraint:buiSelLeftLc];
-    NSLayoutConstraint *buiSelBottomLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.floorBar attribute:NSLayoutAttributeTop multiplier:1.0f constant:-4];
-    [self.mapView addConstraint:buiSelBottomLc];
-    NSLayoutConstraint *buiSelWLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:50.0f];
-    [self.buildingSelectBtn addConstraint:buiSelWLc];
-    NSLayoutConstraint *buiSelHLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:50.0f];
-    [self.buildingSelectBtn addConstraint:buiSelHLc];
-    
-    
-    // 添加单击手势
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapToDo:)];
-    tap.delegate = self;
-    [self.mapView addGestureRecognizer:tap];
-    // 添加长按手势
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction:)];
-    longPress.minimumPressDuration = 0.8;
-    longPress.delegate = self;
-    [self.mapView addGestureRecognizer:longPress];
-    // 长按失败才检测单击事件
-    [tap requireGestureRecognizerToFail:longPress];
-}
-
-
 - (void)setMapSytle:(MXMStyle)style
 {
     [[MXMMapServices sharedServices] getTokenComplete:^(NSString *token) {
@@ -344,7 +260,6 @@
             default:
                 break;
         }
-//        NSLog(@"%@", self.mapView.styleURL.absoluteString);
     }];
 }
 
@@ -363,7 +278,10 @@
     // 切换建筑
     NSArray *pointBuildingList = [self findOutBuildingAtPoint:point];
     MXMGeoBuilding *building = pointBuildingList.firstObject;
-    [self selectBuilding:building.identifier];
+    if (building) {
+        NSString *defaultFloor = [self electDefaultFloorWithBuildingId:building.identifier];
+        [self selectBuilding:building.identifier floor:defaultFloor shouldZoomTo:NO shouldChangeUserTrackingMode:YES];
+    }
 }
 
 // 点击查找POI信息
@@ -404,11 +322,6 @@
     return YES;
 }
 
-#pragma mark end
-
-
-
-
 #pragma mark - 中心点室内数据筛选
 
 - (void)automaticAnalyseOfIndoorData
@@ -422,7 +335,7 @@
     // 默认选中building，规则为优先选中之前选过的
     MXMGeoBuilding *defaultBuilding = [self electDefaultBuildingRecently];
     NSString *defaultFloor = [self electDefaultFloorWithBuildingId:defaultBuilding.identifier];
-    [self selectBuilding:defaultBuilding.identifier floor:defaultFloor shouldChangeUserTrackingMode:NO];
+    [self selectBuilding:defaultBuilding.identifier floor:defaultFloor shouldZoomTo:NO shouldChangeUserTrackingMode:NO];
 }
 
 - (NSDictionary *)findOutBuildingIntheRect
@@ -480,7 +393,6 @@
     }
     return [resultBuildings allValues];
 }
-#pragma mark end
 
 #pragma mark - 控件筛选建筑
 
@@ -518,12 +430,11 @@
 
 - (void)floorSelectorBarDidSelectFloor:(NSString *)floorName
 {
-    [self selectFloor:floorName];
+    [self selectBuilding:self.building.identifier floor:floorName shouldZoomTo:NO shouldChangeUserTrackingMode:YES];
 }
-#pragma mark end
-
 
 #pragma mark - 建筑筛选
+
 // 选举默认选中楼层，参考历史选中
 - (nullable NSString *)electDefaultFloorWithBuildingId:(nullable NSString *)buildingId
 {
@@ -570,16 +481,72 @@
 
 - (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor
 {
-    [self selectBuilding:buildingId floor:floor shouldChangeUserTrackingMode:YES];
+    [self selectBuilding:buildingId floor:floor shouldZoomTo:YES shouldChangeUserTrackingMode:YES];
 }
 
-- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldChangeUserTrackingMode:(BOOL)changeUserTrackingMode
+- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo shouldChangeUserTrackingMode:(BOOL)changeUserTrackingMode
 {
-    MXMGeoBuilding *building = [self.buildings objectForKey:buildingId];
-    // 没选中则不进行后续操作
-    if (building == nil || floor == nil) {
+    if (buildingId == nil) {
         return;
     }
+    MXMGeoBuilding *building = [self.buildings objectForKey:buildingId];
+    if (building) {
+        if (zoomTo) {
+            __weak typeof(self) weakSelf = self;
+            MXMSearchBuildingOperation *searchBuildingOp = [[MXMSearchBuildingOperation alloc] initWithBuildingId:buildingId floor:floor];
+            searchBuildingOp.complateBlock = ^(MXMBuilding * _Nonnull building, NSString * _Nonnull floor, MGLCoordinateBounds bounds) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.mapView.visibleCoordinateBounds = bounds;
+                    MXMGeoBuilding *geoBuilding = [[MXMGeoBuilding alloc] init];
+                    geoBuilding.identifier = building.buildingId;
+                    NSMutableArray *floorStrs = [NSMutableArray array];
+                    for (MXMFloor *f in building.floors) {
+                        f.code ? [floorStrs addObject:f.code] : nil;
+                    }
+                    geoBuilding.floors = [[floorStrs reverseObjectEnumerator] allObjects];
+                    geoBuilding.ground_floor = floorStrs.firstObject;
+                    if (floor) {
+                        [weakSelf selectBuilding:geoBuilding floor:floor shouldChangeUserTrackingMode:changeUserTrackingMode];
+                    } else {
+                        NSString *defaultFloor = geoBuilding.ground_floor;//[self electDefaultFloorWithBuildingId:buildingId];
+                        [weakSelf selectBuilding:geoBuilding floor:defaultFloor shouldChangeUserTrackingMode:changeUserTrackingMode];
+                    }
+                });
+            };
+            [self.initializeQueue addOperation:searchBuildingOp];
+        } else {
+            [self selectBuilding:building floor:floor shouldChangeUserTrackingMode:changeUserTrackingMode];
+        }
+    } else {
+        __weak typeof(self) weakSelf = self;
+        MXMSearchBuildingOperation *searchBuildingOp = [[MXMSearchBuildingOperation alloc] initWithBuildingId:buildingId floor:floor];
+        searchBuildingOp.complateBlock = ^(MXMBuilding * _Nonnull building, NSString * _Nonnull floor, MGLCoordinateBounds bounds) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (zoomTo) {
+                    weakSelf.mapView.visibleCoordinateBounds = bounds;
+                }
+                MXMGeoBuilding *geoBuilding = [[MXMGeoBuilding alloc] init];
+                geoBuilding.identifier = building.buildingId;
+                NSMutableArray *floorStrs = [NSMutableArray array];
+                for (MXMFloor *f in building.floors) {
+                    f.code ? [floorStrs addObject:f.code] : nil;
+                }
+                geoBuilding.floors = [[floorStrs reverseObjectEnumerator] allObjects];
+                geoBuilding.ground_floor = floorStrs.firstObject;
+                if (floor) {
+                    [weakSelf selectBuilding:geoBuilding floor:floor shouldChangeUserTrackingMode:changeUserTrackingMode];
+                } else {
+                    NSString *defaultFloor = geoBuilding.ground_floor;//[self electDefaultFloorWithBuildingId:buildingId];
+                    [weakSelf selectBuilding:geoBuilding floor:defaultFloor shouldChangeUserTrackingMode:changeUserTrackingMode];
+                }
+            });
+        };
+        [self.initializeQueue addOperation:searchBuildingOp];
+    }
+}
+
+- (void)selectBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeUserTrackingMode:(BOOL)changeUserTrackingMode
+{
     // 判断楼层名是否正确
     if (![building.floors containsObject:floor]) {
         return;
@@ -615,6 +582,57 @@
     }
     [self updageLocationView];
     [self filterMXMAnnotations];
+}
+
+// 地图数据过滤
+- (void)filerBuildingId:(NSString *)buildingId Floor:(NSString *)floor {
+    NSArray *arr = self.mapView.style.layers;
+    for (MGLStyleLayer *k in arr) {
+        // 过滤不需要处理的layer
+        if (![k isKindOfClass:[MGLVectorStyleLayer class]]) {
+            continue;
+        }
+        MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
+        NSString *ident = vk.identifier;
+        if (![ident hasPrefix:@"maphive"] || [ident hasPrefix:@"maphive-building"]) {
+            continue;
+        }
+        
+        // 处理剩下需要添加filter的layer
+        id originalPredicate = vk.predicate;
+        NSMutableArray *mu = [NSMutableArray arrayWithCapacity:0];
+        if ([originalPredicate isKindOfClass:[NSCompoundPredicate class]]) {
+            NSArray *sub = ((NSCompoundPredicate *)originalPredicate).subpredicates;
+            for (NSCompoundPredicate *s in sub) {
+                NSString *str = s.predicateFormat;
+                if (![str containsString:@"floor =="] && ![str containsString:@"ref:building =="]) {
+                    [mu addObject:s];
+                }
+            }
+        } else {
+            [mu addObject:originalPredicate];
+        }
+        NSPredicate *f = [NSPredicate predicateWithFormat:@"floor == %@", floor];
+        [mu addObject:f];
+        NSPredicate *b = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:building", buildingId];
+        [mu addObject:b];
+        NSCompoundPredicate *reSetPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:mu];
+        // 重置过滤
+        vk.predicate = reSetPredicate;
+    }
+}
+
+- (void)addMXMPointAnnotations:(NSArray<MXMPointAnnotation *> *)annotations
+{
+    [self.mxmPointAnnotations addObjectsFromArray:annotations];
+    [self.mapView addAnnotations:annotations];
+    [self filterMXMAnnotations];
+}
+
+- (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations
+{
+    [self.mxmPointAnnotations removeObjectsInArray:annotations];
+    [self.mapView removeAnnotations:annotations];
 }
 
 // 定位标注的显示状态
@@ -671,61 +689,6 @@
     [self.mapView addAnnotations:MXMAnns];
 }
 
-// 地图数据过滤
-- (void)filerBuildingId:(NSString *)buildingId Floor:(NSString *)floor {
-    NSArray *arr = self.mapView.style.layers;
-    for (MGLStyleLayer *k in arr) {
-        // 过滤不需要处理的layer
-        if (![k isKindOfClass:[MGLVectorStyleLayer class]]) {
-            continue;
-        }
-        MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
-        NSString *ident = vk.identifier;
-        if (![ident hasPrefix:@"maphive"] || [ident hasPrefix:@"maphive-building"]) {
-            continue;
-        }
-        
-        // 处理剩下需要添加filter的layer
-        id originalPredicate = vk.predicate;
-        NSMutableArray *mu = [NSMutableArray arrayWithCapacity:0];
-        if ([originalPredicate isKindOfClass:[NSCompoundPredicate class]]) {
-            NSArray *sub = ((NSCompoundPredicate *)originalPredicate).subpredicates;
-            for (NSCompoundPredicate *s in sub) {
-                NSString *str = s.predicateFormat;
-                if (![str containsString:@"floor =="] && ![str containsString:@"ref:building =="]) {
-                    [mu addObject:s];
-                }
-            }
-        } else {
-            [mu addObject:originalPredicate];
-        }
-        NSPredicate *f = [NSPredicate predicateWithFormat:@"floor == %@", floor];
-        [mu addObject:f];
-        NSPredicate *b = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:building", buildingId];
-        [mu addObject:b];
-        NSCompoundPredicate *reSetPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:mu];
-        // 重置过滤
-        vk.predicate = reSetPredicate;
-    }
-}
-
-
-- (void)addMXMPointAnnotations:(NSArray<MXMPointAnnotation *> *)annotations
-{
-    [self.mxmPointAnnotations addObjectsFromArray:annotations];
-    [self.mapView addAnnotations:annotations];
-    [self filterMXMAnnotations];
-}
-
-- (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations
-{
-    [self.mxmPointAnnotations removeObjectsInArray:annotations];
-    [self.mapView removeAnnotations:annotations];
-}
-#pragma mark end
-
-
-
 
 
 
@@ -733,6 +696,74 @@
 
 
 #pragma mark - access
+
+- (void)commonInit
+{
+    self.indoorControllerAlwaysHidden = NO;
+    self.mapView.attributionButton.hidden = YES;
+    self.mapView.logoView.hidden = YES;
+    
+    [self.mapView addSubview:self.openStreetSourceBtn];
+    NSLayoutConstraint *openStreetRightLc = [NSLayoutConstraint constraintWithItem:self.openStreetSourceBtn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-10.0f];
+    [self.mapView addConstraint:openStreetRightLc];
+    NSLayoutConstraint *openStreetBottomLc = [NSLayoutConstraint constraintWithItem:self.openStreetSourceBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:-10.0f];
+    [self.mapView addConstraint:openStreetBottomLc];
+    NSLayoutConstraint *openStreetWLc = [NSLayoutConstraint constraintWithItem:self.openStreetSourceBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:190.0f];
+    [self.openStreetSourceBtn addConstraint:openStreetWLc];
+    NSLayoutConstraint *openStreetHLc = [NSLayoutConstraint constraintWithItem:self.openStreetSourceBtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:13.0f];
+    [self.openStreetSourceBtn addConstraint:openStreetHLc];
+    
+    
+    [self.mapView addSubview:self.MXMLogo];
+    NSLayoutConstraint *logoLeftLc = [NSLayoutConstraint constraintWithItem:self.MXMLogo attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
+    [self.mapView addConstraint:logoLeftLc];
+    NSLayoutConstraint *logoBottomLc = [NSLayoutConstraint constraintWithItem:self.MXMLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:-10.0f];
+    [self.mapView addConstraint:logoBottomLc];
+    NSLayoutConstraint *logoWLc = [NSLayoutConstraint constraintWithItem:self.MXMLogo attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:78.0f];
+    [self.MXMLogo addConstraint:logoWLc];
+    NSLayoutConstraint *logoHLc = [NSLayoutConstraint constraintWithItem:self.MXMLogo attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:14.0f];
+    [self.MXMLogo addConstraint:logoHLc];
+    
+    
+    // 添加楼层选择栏与约束
+    [self.mapView addSubview:self.floorBar];
+    NSLayoutConstraint *floorBarLeftLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
+    floorBarLeftLc.identifier = @"floorBarXLc";
+    [self.mapView addConstraint:floorBarLeftLc];
+    NSLayoutConstraint *floorBarBottomLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:30];
+    floorBarBottomLc.identifier = @"floorBarYLc";
+    [self.mapView addConstraint:floorBarBottomLc];
+    NSLayoutConstraint *floorBarWLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:42];
+    [self.floorBar addConstraint:floorBarWLc];
+    NSLayoutConstraint *floorBarHLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:200.0f];
+    [self.floorBar addConstraint:floorBarHLc];
+    
+    
+    // 添加建筑选择按钮与约束
+    [self.mapView addSubview:self.buildingSelectBtn];
+    NSLayoutConstraint *buiSelLeftLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
+    buiSelLeftLc.identifier = @"buildingBtnXLc";
+    [self.mapView addConstraint:buiSelLeftLc];
+    NSLayoutConstraint *buiSelBottomLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.floorBar attribute:NSLayoutAttributeTop multiplier:1.0f constant:-4];
+    [self.mapView addConstraint:buiSelBottomLc];
+    NSLayoutConstraint *buiSelWLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:50.0f];
+    [self.buildingSelectBtn addConstraint:buiSelWLc];
+    NSLayoutConstraint *buiSelHLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:50.0f];
+    [self.buildingSelectBtn addConstraint:buiSelHLc];
+    
+    
+    // 添加单击手势
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapToDo:)];
+    tap.delegate = self;
+    [self.mapView addGestureRecognizer:tap];
+    // 添加长按手势
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressAction:)];
+    longPress.minimumPressDuration = 0.8;
+    longPress.delegate = self;
+    [self.mapView addGestureRecognizer:longPress];
+    // 长按失败才检测单击事件
+    [tap requireGestureRecognizerToFail:longPress];
+}
 
 - (UIButton *)buildingSelectBtn
 {

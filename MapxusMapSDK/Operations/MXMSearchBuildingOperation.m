@@ -17,8 +17,6 @@
 }
 
 @property (nonatomic, strong) MXMSearchAPI *api;
-@property (nonatomic, copy) NSString *buildingId;
-@property (nonatomic, copy) NSString *floor;
 
 @end
 
@@ -87,7 +85,7 @@
     MGLCoordinateBounds bounds = MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(building.bbox.min_latitude, building.bbox.min_longitude), CLLocationCoordinate2DMake(building.bbox.max_latitude, building.bbox.max_longitude));
 
     if (self.complateBlock) {
-        self.complateBlock(building.buildingId, self.floor, bounds);
+        self.complateBlock(building, self.floor, bounds);
     }
     [self finish];
 }

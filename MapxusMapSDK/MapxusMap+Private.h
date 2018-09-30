@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)automaticAnalyseOfIndoorData;
 - (void)updageLocationView;
 - (NSArray<MXMGeoBuilding *> *)findOutBuildingAtPoint:(CGPoint)point;
-- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldChangeUserTrackingMode:(BOOL)changeUserTrackingMode;
+- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo shouldChangeUserTrackingMode:(BOOL)changeUserTrackingMode;
 
 @end
 
