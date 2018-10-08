@@ -13,7 +13,7 @@
 NSString *const MXMHOSTURL = @"https://bms-api.maphive.cloud";
 
 // 测试环境
-//NSString *const MXMHOSTURL = @"https://bms-api-test.maphive.io";
+NSString *const MXMHOSTURL = @"https://bms-api-test.maphive.io";
 
 // 开发环境
 //NSString *const MXMHOSTURL = @"https://bms-api-dev.maphive.io";

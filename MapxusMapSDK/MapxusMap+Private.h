@@ -11,16 +11,22 @@
 #import "KxMenu.h"
 #import "MapxusMapSDK.h"
 
+#import "MXMGetTokenOperation.h"
+#import "MXMSearchBuildingOperation.h"
+#import "MXMSearchPOIOperation.h"
+#import "MXMLoadMapOperation.h"
+#import "MXMZoomToOperation.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @import Mapbox;
 
-@interface MapxusMap () <MXMFloorSelectorBarDelegate, UIGestureRecognizerDelegate>
+@interface MapxusMap () <MXMFloorSelectorBarDelegate, UIGestureRecognizerDelegate, MXMSearchDelegate>
 
 @property (nonatomic, strong) MGLMapView *mapView;
 @property (nonatomic, strong) UIButton *buildingSelectBtn;
 @property (nonatomic, strong) MXMFloorSelectorBar *floorBar;
-@property (nonatomic, strong) UIImageView *MXMLogo;
+@property (nonatomic, strong) UIButton *MXMLogo;
 @property (nonatomic, strong) UIButton *openStreetSourceBtn;
 
 @property (nonatomic, strong) NSMutableDictionary *buildingSelectFloorDic; // 保存运行期间看过大厦最后选中的对应楼层
@@ -35,10 +41,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readwrite) MXMGeoBuilding *building;
 @property (nonatomic, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
 
+@property (nonatomic, strong) NSOperationQueue *initializeQueue;
+@property (nonatomic, weak) MXMLoadMapOperation *externalLoadOperation;
+
 - (void)automaticAnalyseOfIndoorData;
 - (void)updageLocationView;
 - (NSArray<MXMGeoBuilding *> *)findOutBuildingAtPoint:(CGPoint)point;
-- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldChangeUserTrackingMode:(BOOL)changeUserTrackingMode;
+- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo shouldChangeUserTrackingMode:(BOOL)changeUserTrackingMode;
 
 @end
 

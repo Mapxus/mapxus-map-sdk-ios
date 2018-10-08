@@ -7,6 +7,7 @@
 //
 
 #import "MXMCommonObj.h"
+#import <YYModel/YYModel.h>
 
 @implementation MXMGeoPoint
 
@@ -42,6 +43,15 @@
 @end
 
 
+@implementation MXMFloor
+
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"floorId" : @"id",
+             };
+}
+
+
+@end
 
 
 @implementation MXMBuilding
@@ -58,20 +68,26 @@
              };
 }
 
-- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    NSArray *keys = [dic allKeys];
-    for (NSString *key in keys) {
-        if ([key isEqualToString:@"floors"] && [dic[key] isKindOfClass:[NSString class]]) {
-            //            if (_underground) {
-            //                _floors = [dic[key] componentsSeparatedByString:@","];
-            //            } else {
-            _floors = [[[dic[key] componentsSeparatedByString:@","] reverseObjectEnumerator] allObjects];
-            //            }
-        }
-    }
-    
-    return YES;
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    // value should be Class or Class name.
+    return @{@"floors" : [MXMFloor class]};
 }
+
+//- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+//    NSLog(@"%@", dic);
+//    NSArray *keys = [dic allKeys];
+//    for (NSString *key in keys) {
+//        if ([key isEqualToString:@"floors"] && [dic[key] isKindOfClass:[NSString class]]) {
+//            //            if (_underground) {
+//            //                _floors = [dic[key] componentsSeparatedByString:@","];
+//            //            } else {
+////            _floors = [[[dic[key] componentsSeparatedByString:@","] reverseObjectEnumerator] allObjects];
+//            //            }
+//        }
+//    }
+//
+//    return YES;
+//}
 
 @end
 
