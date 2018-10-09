@@ -53,6 +53,20 @@
 
 
 /**
+ 建筑物楼层
+ */
+@interface MXMFloor : NSObject
+
+/// 楼层名称
+@property (nonatomic, strong) NSString *code;
+/// 楼层Id
+@property (nonatomic, strong) NSString *floorId;
+/// 楼层序列号
+@property (nonatomic, strong) NSString *sequence;
+
+@end
+
+/**
  建筑信息类
  */
 @interface MXMBuilding : NSObject
@@ -82,7 +96,7 @@
 /// 标签经纬度
 @property (nonatomic, strong) MXMGeoPoint *labelCenter;
 /// 建筑所有楼层
-@property (nonatomic, strong) NSArray *floors;
+@property (nonatomic, strong) NSArray<MXMFloor *> *floors;
 
 @end
 
