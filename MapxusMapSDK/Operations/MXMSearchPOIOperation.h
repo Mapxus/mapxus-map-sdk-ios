@@ -13,8 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MXMSearchPOIOperation : NSOperation
 
-@property (nonatomic, copy) void (^complateBlock)(NSString *buildingId, NSString *floor, CLLocationCoordinate2D centerPoint);
 @property (nonatomic, copy) NSString *poiId;
+@property (nonatomic, copy) void (^complateBlock)(NSString *buildingId, NSString *floor, CLLocationCoordinate2D centerPoint);
 
 - (instancetype)initWithPoiId:(NSString *)poiId;
 

@@ -40,13 +40,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readwrite) NSString *floor;
 @property (nonatomic, readwrite) MXMGeoBuilding *building;
 @property (nonatomic, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
+@property (nonatomic, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *innerbuildings;
 
 @property (nonatomic, strong) NSOperationQueue *initializeQueue;
 @property (nonatomic, weak) MXMLoadMapOperation *externalLoadOperation;
 
+// 移动地图时自动选择建筑
 - (void)automaticAnalyseOfIndoorData;
+// 刷新定位点透明度
 - (void)updageLocationView;
+// 查找点坐标的建筑信息
 - (NSArray<MXMGeoBuilding *> *)findOutBuildingAtPoint:(CGPoint)point;
+// 选择建筑，在buildings里则不请求接口，不在则请求接口
 - (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo shouldChangeUserTrackingMode:(BOOL)changeUserTrackingMode;
 
 @end

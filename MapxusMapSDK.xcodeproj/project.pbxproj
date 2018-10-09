@@ -54,8 +54,6 @@
 		D684BBDB20FC31A0004E85D9 /* MXMMapServices+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = D684BBDA20FC31A0004E85D9 /* MXMMapServices+Private.h */; };
 		D684BBDE20FC3413004E85D9 /* MXMGeoPOI.h in Headers */ = {isa = PBXBuildFile; fileRef = D684BBDC20FC3413004E85D9 /* MXMGeoPOI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D684BBDF20FC3413004E85D9 /* MXMGeoPOI.m in Sources */ = {isa = PBXBuildFile; fileRef = D684BBDD20FC3413004E85D9 /* MXMGeoPOI.m */; };
-		D684BBE620FCA4CD004E85D9 /* MXMMapProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = D684BBE420FCA4CD004E85D9 /* MXMMapProvider.h */; };
-		D684BBE720FCA4CD004E85D9 /* MXMMapProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = D684BBE520FCA4CD004E85D9 /* MXMMapProvider.m */; };
 		D684BBEA20FCA9FB004E85D9 /* MapxusMap.h in Headers */ = {isa = PBXBuildFile; fileRef = D684BBE820FCA9FB004E85D9 /* MapxusMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D684BBEB20FCA9FB004E85D9 /* MapxusMap.m in Sources */ = {isa = PBXBuildFile; fileRef = D684BBE920FCA9FB004E85D9 /* MapxusMap.m */; };
 		D684BBED20FCE53C004E85D9 /* MapxusMapDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = D684BBEC20FCE53C004E85D9 /* MapxusMapDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -132,8 +130,6 @@
 		D684BBDD20FC3413004E85D9 /* MXMGeoPOI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMGeoPOI.m; sourceTree = "<group>"; };
 		D684BBE020FC39F3004E85D9 /* MGLMapView+MXMSwizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGLMapView+MXMSwizzle.h"; sourceTree = "<group>"; };
 		D684BBE120FC39F3004E85D9 /* MGLMapView+MXMSwizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MGLMapView+MXMSwizzle.m"; sourceTree = "<group>"; };
-		D684BBE420FCA4CD004E85D9 /* MXMMapProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMMapProvider.h; sourceTree = "<group>"; };
-		D684BBE520FCA4CD004E85D9 /* MXMMapProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMMapProvider.m; sourceTree = "<group>"; };
 		D684BBE820FCA9FB004E85D9 /* MapxusMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapxusMap.h; sourceTree = "<group>"; };
 		D684BBE920FCA9FB004E85D9 /* MapxusMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapxusMap.m; sourceTree = "<group>"; };
 		D684BBEC20FCE53C004E85D9 /* MapxusMapDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapxusMapDelegate.h; sourceTree = "<group>"; };
@@ -241,8 +237,6 @@
 				D617B69A215A290700CC6936 /* Operations */,
 				D641FC8A20F5DBDB00061AD4 /* MapxusMapSDK.h */,
 				D6DEAD88215E0AB9006F2CA2 /* MXMDefine.h */,
-				D684BBE420FCA4CD004E85D9 /* MXMMapProvider.h */,
-				D684BBE520FCA4CD004E85D9 /* MXMMapProvider.m */,
 				D684BBC620FC03F7004E85D9 /* MXMGeoBuilding.h */,
 				D684BBC720FC03F7004E85D9 /* MXMGeoBuilding.m */,
 				D684BBDC20FC3413004E85D9 /* MXMGeoPOI.h */,
@@ -387,7 +381,6 @@
 				D684BBD020FC0FC4004E85D9 /* MXMConstants.h in Headers */,
 				D684BBEF20FD5DF8004E85D9 /* MapxusMap+Private.h in Headers */,
 				D600996D21192B2A003947FA /* NSURLSession+PPSheep.h in Headers */,
-				D684BBE620FCA4CD004E85D9 /* MXMMapProvider.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,7 +570,6 @@
 				D617B6AA215A422E00CC6936 /* MXMLoadMapOperation.m in Sources */,
 				D684BC5220FDEB81004E85D9 /* MXMSearchAPI.m in Sources */,
 				D684BC9B20FEE1EC004E85D9 /* MXMPointAnnotation.m in Sources */,
-				D684BBE720FCA4CD004E85D9 /* MXMMapProvider.m in Sources */,
 				D684BC4A20FDEB33004E85D9 /* MXMHttpManager.m in Sources */,
 				D617B69E215A40C700CC6936 /* MXMSearchBuildingOperation.m in Sources */,
 				D623B22121342EDB0066F095 /* JXJsonFunctionDefine.m in Sources */,

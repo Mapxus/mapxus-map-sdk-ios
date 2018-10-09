@@ -21,7 +21,6 @@
 
 
 
-
 @implementation MXMBoundingBox
 
 + (NSDictionary *)modelCustomPropertyMapper {
@@ -33,8 +32,6 @@
 }
 
 @end
-
-
 
 
 
@@ -50,8 +47,8 @@
              };
 }
 
-
 @end
+
 
 
 @implementation MXMBuilding
@@ -69,7 +66,6 @@
 }
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    // value should be Class or Class name.
     return @{@"floors" : [MXMFloor class]};
 }
 
@@ -90,6 +86,7 @@
 //}
 
 @end
+
 
 
 @implementation MXMPOI
@@ -113,10 +110,10 @@
 @end
 
 
+
 @implementation MXMPath
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    // value should be Class or Class name.
     return @{@"coordinates" : [MXMStep class]};
 }
 

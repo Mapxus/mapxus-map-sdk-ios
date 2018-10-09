@@ -11,7 +11,9 @@
 @implementation MXMGeoPOI
 
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"name_cn" : @"name:cn",
+    return @{@"identifier" : @"osm:ref",
+             @"buildingId" : @"ref:building",
+             @"name_cn" : @"name:cn",
              @"name_en" : @"name:en",
              @"name_zh" : @"name:zh"};
 }

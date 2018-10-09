@@ -22,7 +22,7 @@
 
 - (void)start
 {
-    NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__);
+//    NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__);
     if (![self isCancelled]) {
         [self willChangeValueForKey:@"isExecuting"];
         executing = YES;
@@ -38,15 +38,13 @@
         
     } else {
         // If it's already been cancelled, mark the operation as finished.
-        [self willChangeValueForKey:@"isFinished"];
-        finished = YES;
-        [self didChangeValueForKey:@"isFinished"];
+        [self finish];
     }
 }
 
 - (void)finish
 {
-    NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__);
+//    NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__);
     [self willChangeValueForKey:@"isExecuting"];
     [self willChangeValueForKey:@"isFinished"];
     

@@ -34,7 +34,7 @@
 
 - (void)start
 {
-    NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__);
+//    NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__);
 
     if (![self isCancelled] && _buildingId) {
         [self willChangeValueForKey:@"isExecuting"];
@@ -49,15 +49,13 @@
         [self.api MXMBuildingSearch:re];
     } else {
         // If it's already been cancelled, mark the operation as finished.
-        [self willChangeValueForKey:@"isFinished"];
-        finished = YES;
-        [self didChangeValueForKey:@"isFinished"];
+        [self finish];
     }
 }
 
 - (void)finish
 {
-    NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__);
+//    NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__);
 
     self.api = nil;
     

@@ -24,9 +24,6 @@
 
 - (instancetype)initWithPoiId:(NSString *)poiId
 {
-    if (poiId == nil) {
-        return nil;
-    }
     self = [super init];
     if (self) {
         _poiId = poiId;
@@ -36,7 +33,7 @@
 
 - (void)start
 {
-    NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__);
+//    NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__);
 
     if (![self isCancelled] && _poiId) {
         [self willChangeValueForKey:@"isExecuting"];
@@ -51,15 +48,13 @@
         [self.api MXMPOISearch:re];
     } else {
         // If it's already been cancelled, mark the operation as finished.
-        [self willChangeValueForKey:@"isFinished"];
-        finished = YES;
-        [self didChangeValueForKey:@"isFinished"];
+        [self finish];
     }
 }
 
 - (void)finish
 {
-    NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__);
+//    NSLog((@"%s [Line %d] "), __PRETTY_FUNCTION__, __LINE__);
 
     self.api = nil;
     

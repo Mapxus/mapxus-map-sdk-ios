@@ -14,10 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MXMSearchBuildingOperation : NSOperation
 
-@property (nonatomic, copy) void (^complateBlock)(MXMBuilding *building, NSString *floor, MGLCoordinateBounds bounds);
 @property (nonatomic, copy) NSString *buildingId;
 @property (nonatomic, copy) NSString *floor;
-@property (nonatomic) CLLocationCoordinate2D *centerCoor;
+@property (nonatomic, copy) void (^complateBlock)(MXMBuilding *building, NSString *floor, MGLCoordinateBounds bounds);
 
 - (instancetype)initWithBuildingId:(NSString *)buildingId floor:(NSString *)floor;
 

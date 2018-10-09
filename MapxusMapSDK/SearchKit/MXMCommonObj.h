@@ -53,12 +53,15 @@
 
 
 /**
- <#Description#>
+ 建筑物楼层
  */
 @interface MXMFloor : NSObject
 
+/// 楼层名称
 @property (nonatomic, strong) NSString *code;
+/// 楼层Id
 @property (nonatomic, strong) NSString *floorId;
+/// 楼层序列号
 @property (nonatomic, strong) NSString *sequence;
 
 @end
