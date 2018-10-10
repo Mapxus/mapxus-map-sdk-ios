@@ -23,7 +23,7 @@
 
 
 /**
- 两点间的矩形区域
+ 两点的经纬线相交形成的矩形区域
  */
 @interface MXMBoundingBox : NSObject
 
@@ -89,7 +89,7 @@
 @property (nonatomic, strong) MXMAddress *address_cn;
 /// 繁体中文建筑地址
 @property (nonatomic, strong) MXMAddress *address_zh;
-/// 建筑类型
+/// 建筑类型，表示该建筑的分类，如cathedral,car_park,hospital,office,retail等
 @property (nonatomic, strong) NSString *type;
 /// 建筑所在外接矩形区域
 @property (nonatomic, strong) MXMBoundingBox *bbox;

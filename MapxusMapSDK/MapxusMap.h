@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  MapxusMap初始化函数
 
- @param mapView MapBox的mapView
+ @param mapView 绑定MGLMapView，引入MapBox作为地图渲染工具
  @return MapxusMap对象
  */
 - (instancetype)initWithMapView:(MGLMapView *)mapView;
@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  MapxusMap初始化函数
  
- @param mapView MapBox的mapView
+ @param mapView 绑定MGLMapView，引入MapBox作为地图渲染工具
  @param configuration 初始化参数，详情请看`MXMConfiguration`
  @return MapxusMap对象
  */
@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) MXMGeoBuilding *building;
 
 /**
- 返回当前MapView中所有可见建筑
+ 返回当前绑定的MGLMapView视窗中所有可见的已测量建筑
  */
 @property (nonatomic, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
 
@@ -96,14 +96,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)selectFloor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo;
 
 /**
- 选择建筑，地图默认会移动到该建筑区域
+ 选择建筑，楼层会自动切换到map从创建开始最近一次的楼层切换历史，如果没有，则切换到地面层，地图默认会移动到该建筑区域
  
  @param buildingId 要选中的建筑ID
  */
 - (void)selectBuilding:(nullable NSString *)buildingId;
 
 /**
- 选择建筑
+ 选择建筑，楼层会自动切换到map从创建开始最近一次的楼层切换历史，如果没有，则切换到地面层
  
  @param buildingId 要选中的建筑ID
  @param zoomTo 设置ID后是否缩放到该建筑占用整屏

@@ -552,7 +552,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bash \"${PROJECT_DIR}/IOS-Universal-Framework_aggregate.sh\"\nbash \"${PROJECT_DIR}/document.sh\"";
+			shellScript = "bash \"${PROJECT_DIR}/IOS-Universal-Framework_aggregate.sh\"\nbash \"${PROJECT_DIR}/document.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -24,30 +24,30 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 /**
  * @brief 单击地图时的回调
- * @param mapView 地图View
+ * @param mapView 响应的MapxusMap
  * @param coordinate 点击位置的经纬度
  */
 - (void)mapView:(MapxusMap *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate;
 
 /**
  * @brief 长按地图时的回调
- * @param mapView 地图View
+ * @param mapView 响应的MapxusMap
  * @param coordinate 点击位置的经纬度
  */
 - (void)mapView:(MapxusMap *)mapView didLongPressedAtCoordinate:(CLLocationCoordinate2D)coordinate;
 
 /**
  * @brief 改变选中楼层时调用此接口
- * @param mapView 地图View
+ * @param mapView 响应的MapxusMap
  * @param floorName 当前选中建筑楼层名字
- * @param building 当前选中建筑的信息，信息详细请参考`MXMIndoorBuilding`
+ * @param building 当前选中建筑的信息，信息详细请参考`MXMGeoBuilding`
  */
 - (void)mapView:(MapxusMap *)mapView didChangeFloor:(NSString *)floorName atBuilding:(MXMGeoBuilding *)building;
 
 /**
  * @brief 选中POI时调用此接口
- * @param mapView 地图View
- * @param poi 当前选中POI的信息，信息详细请参考`MXMIndoorPOI`
+ * @param mapView 响应的MapxusMap
+ * @param poi 当前选中POI的信息，信息详细请参考`MXMGeoPOI`
  */
 - (void)mapView:(MapxusMap *)mapView didTappedOnPOI:(nullable MXMGeoPOI *)poi;
 
