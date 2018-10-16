@@ -10,6 +10,7 @@
 #import "JXJsonFunctionDefine.h"
 #import <YYModel/YYModel.h>
 
+
 @implementation MXMGeoPoint
 
 + (NSDictionary *)modelCustomPropertyMapper {
@@ -17,15 +18,13 @@
              @"longitude" : @"lon",
              };
 }
+
 - (NSString *)description
 {
     return [self yy_modelDescription];
 }
 
 @end
-
-
-
 
 @implementation MXMBoundingBox
 
@@ -37,18 +36,35 @@
              };
 }
 
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
 @end
-
-
-
-
 
 @implementation MXMAddress
 
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
 @end
 
+@implementation MXMFloor
 
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"floorId" : @"id",
+             };
+}
 
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
+@end
 
 @implementation MXMBuilding
 
@@ -64,25 +80,35 @@
              };
 }
 
-- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    NSArray *keys = [dic allKeys];
-    for (NSString *key in keys) {
-        if ([key isEqualToString:@"floors"] && [dic[key] isKindOfClass:[NSString class]]) {
-            //            if (_underground) {
-            //                _floors = [dic[key] componentsSeparatedByString:@","];
-            //            } else {
-            _floors = [[[dic[key] componentsSeparatedByString:@","] reverseObjectEnumerator] allObjects];
-            //            }
-        }
-    }
-    
-    return YES;
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"floors" : [MXMFloor class]};
 }
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
+//- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+//    NSLog(@"%@", dic);
+//    NSArray *keys = [dic allKeys];
+//    for (NSString *key in keys) {
+//        if ([key isEqualToString:@"floors"] && [dic[key] isKindOfClass:[NSString class]]) {
+//            //            if (_underground) {
+//            //                _floors = [dic[key] componentsSeparatedByString:@","];
+//            //            } else {
+////            _floors = [[[dic[key] componentsSeparatedByString:@","] reverseObjectEnumerator] allObjects];
+//            //            }
+//        }
+//    }
+//
+//    return YES;
+//}
 
 @end
 
-
 @implementation MXMPOI
+
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"name_default" : @"name.default",
              @"name_en" : @"name.en",
@@ -91,10 +117,16 @@
              @"introduction" : @"description",
              };
 }
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
 @end
 
-
 @implementation MXMManeuver
+
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     NSArray *location = DecodeArrayFromDic(dic, @"location");
     if (location) {
@@ -104,6 +136,7 @@
     }
     return YES;
 }
+
 - (NSString *)description
 {
     return [self yy_modelDescription];
@@ -111,8 +144,8 @@
 
 @end
 
-
 @implementation MXMCoordinate
+
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     NSNumber *lon = DecodeNumberFromDic(dic, @"lon");
     NSNumber *lat = DecodeNumberFromDic(dic, @"lat");
@@ -121,6 +154,7 @@
     _location.latitude = [lat doubleValue];
     return YES;
 }
+
 - (NSString *)description
 {
     return [self yy_modelDescription];
@@ -128,14 +162,15 @@
 
 @end
 
-
 @implementation MXMStep
+
 + (NSDictionary *)modelContainerPropertyGenericClass {
     // value should be Class or Class name.
     return @{@"maneuver" : [MXMManeuver class],
              @"coordinates" : [MXMCoordinate class]
              };
 }
+
 - (NSString *)description
 {
     return [self yy_modelDescription];
@@ -143,32 +178,36 @@
 
 @end
 
-
 @implementation MXMLeg
+
 + (NSDictionary *)modelContainerPropertyGenericClass {
     // value should be Class or Class name.
     return @{@"steps" : [MXMStep class]};
 }
+
 - (NSString *)description
 {
     return [self yy_modelDescription];
 }
+
 @end
 
-
 @implementation MXMRoute
+
 + (NSDictionary *)modelContainerPropertyGenericClass {
     // value should be Class or Class name.
     return @{@"legs" : [MXMLeg class]};
 }
+
 - (NSString *)description
 {
     return [self yy_modelDescription];
 }
+
 @end
 
-
 @implementation MXMWaypoint
+
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     NSArray *location = DecodeArrayFromDic(dic, @"location");
     if (location) {
@@ -178,6 +217,7 @@
     }
     return YES;
 }
+
 - (NSString *)description
 {
     return [self yy_modelDescription];

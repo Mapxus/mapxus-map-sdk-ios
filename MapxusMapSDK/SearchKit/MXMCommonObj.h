@@ -21,7 +21,7 @@
 
 
 /**
- 两点间的矩形区域
+ 两点的经纬线相交形成的矩形区域
  */
 @interface MXMBoundingBox : NSObject
 /// 左下角纬度
@@ -47,6 +47,20 @@
 
 
 /**
+ 建筑物楼层
+ */
+@interface MXMFloor : NSObject
+
+/// 楼层名称
+@property (nonatomic, strong) NSString *code;
+/// 楼层Id
+@property (nonatomic, strong) NSString *floorId;
+/// 楼层序列号
+@property (nonatomic, strong) NSString *sequence;
+
+@end
+
+/**
  建筑信息类
  */
 @interface MXMBuilding : NSObject
@@ -68,14 +82,15 @@
 @property (nonatomic, strong) MXMAddress *address_cn;
 /// 繁体中文建筑地址
 @property (nonatomic, strong) MXMAddress *address_zh;
-/// 建筑类型
+/// 建筑类型，表示该建筑的分类，如cathedral,car_park,hospital,office,retail等
 @property (nonatomic, strong) NSString *type;
 /// 建筑所在外接矩形区域
 @property (nonatomic, strong) MXMBoundingBox *bbox;
 /// 标签经纬度
 @property (nonatomic, strong) MXMGeoPoint *labelCenter;
 /// 建筑所有楼层
-@property (nonatomic, strong) NSArray *floors;
+@property (nonatomic, strong) NSArray<MXMFloor *> *floors;
+
 @end
 
 

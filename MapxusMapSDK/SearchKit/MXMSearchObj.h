@@ -14,7 +14,7 @@
  */
 @interface MXMBuildingSearchRequest : NSObject
 
-/// 关键字，目前只支持单个关键字
+/// 关键字，目前只支持单个关键字查询
 @property (nonatomic, strong) NSString *keywords;
 /// 全球范围内搜索建筑，searchGlobal，bbox, center 三选一
 @property (nonatomic, assign) BOOL searchGlobal;
