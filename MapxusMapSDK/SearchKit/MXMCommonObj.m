@@ -13,6 +13,14 @@
 
 @implementation MXMGeoPoint
 
++ (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng
+{
+    MXMGeoPoint *point = [[MXMGeoPoint alloc] init];
+    point.latitude = lat;
+    point.longitude = lng;
+    return point;
+}
+
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"latitude" : @"lat",
              @"longitude" : @"lon",

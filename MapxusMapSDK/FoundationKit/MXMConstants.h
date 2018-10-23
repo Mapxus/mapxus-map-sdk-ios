@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 FOUNDATION_EXPORT NSString *const MXMHOSTURL;
+FOUNDATION_EXPORT NSString *const MXMBRMHOSTURL; // 压缩中间件服务器
 
 FOUNDATION_EXPORT NSString *const MapboxAccessToken;

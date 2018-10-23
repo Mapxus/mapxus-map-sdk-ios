@@ -68,6 +68,7 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
 }
 
 #pragma mark - NSURLSessionTaskDelegate
+
 - (void)URLSession:(NSURLSession *)session
           dataTask:(NSURLSessionDataTask *)dataTask
 didReceiveResponse:(NSURLResponse *)response
@@ -106,6 +107,7 @@ didReceiveResponse:(NSURLResponse *)response
 }
 
 #pragma mark - Lazy load
+
 - (NSURLSession *)session {
     if (!_session) {
         NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];

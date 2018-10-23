@@ -17,6 +17,9 @@
 @property (nonatomic, assign) double latitude;
 ///经度（水平方向）
 @property (nonatomic, assign) double longitude;
+
++ (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng;
+
 @end
 
 
@@ -43,6 +46,7 @@
 @property (nonatomic, strong) NSString *housenumber;
 /// 街道名
 @property (nonatomic, strong) NSString *street;
+
 @end
 
 

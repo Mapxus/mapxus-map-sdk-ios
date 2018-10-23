@@ -245,19 +245,19 @@
     [[MXMMapServices sharedServices] getTokenComplete:^(NSString *token) {
         switch (style) {
             case MXMStyleCOMMON:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/style/common_v2", @"https://brm-dev.maphive.io"]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/style/common_v2", MXMBRMHOSTURL]];
                 break;
             case MXMStyleCHRISTMAS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/style/christmas_v2", @"https://brm-dev.maphive.io"]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/style/christmas_v2", MXMBRMHOSTURL]];
                 break;
             case MXMStyleHALLOWMAS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/style/halloween_v2", @"https://brm-dev.maphive.io"]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/style/halloween_v2", MXMBRMHOSTURL]];
                 break;
             case MXMStyleMAPPYBEE:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/style/mappy_bee_v2", @"https://brm-dev.maphive.io"]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/style/mappy_bee_v2", MXMBRMHOSTURL]];
                 break;
             case MXMStyleMAPXUS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/style/mapxus_v2", @"https://brm-dev.maphive.io"]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v1/style/mapxus_v2", MXMBRMHOSTURL]];
                 break;
             default:
                 break;
