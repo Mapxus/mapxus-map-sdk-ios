@@ -9,22 +9,22 @@
 #import <Foundation/Foundation.h>
 
 /**
- BeeMap服务配置类
+ MapxusMapSDK服务类
  */
 @interface MXMMapServices : NSObject
 
 /**
- 生成BeeMap服务单例
+ 生成`MXMMapServices`单例
  
  @return MXMMapServices对象
  */
 + (instancetype)sharedServices;
 
 /**
- 注册BeeMap地图服务
+ 登录MapxusMapSDK地图服务，账号生成时会绑定对应的bundle id
  
- @param apiKey BeeMap账号
- @param secret BeeMap密码
+ @param apiKey MapxusMapSDK账号
+ @param secret MapxusMapSDK密码
  */
 - (void)registerWithApiKey:(NSString *)apiKey secret:(NSString *)secret;
 

@@ -20,7 +20,7 @@
 @interface MXMSearchAPI : NSObject
 
 /**
- 实现了 `MXMSearchDelegate` 协议的类指针
+ 实现了 `MXMSearchDelegate` 协议的对象指针
  */
 @property (nonatomic, weak) id<MXMSearchDelegate> delegate;
 
@@ -37,7 +37,7 @@
 - (void)MXMPOISearch:(MXMPOISearchRequest *)request;
 
 /**
- * @brief 建筑物内路线接口
+ * @brief 建筑物内路线查询接口
  * @param request 查询选项。具体属性字段请参考 `MXMRouteSearchRequest` 类。
  */
 - (void)MXMRouteSearch:(MXMRouteSearchRequest *)request;

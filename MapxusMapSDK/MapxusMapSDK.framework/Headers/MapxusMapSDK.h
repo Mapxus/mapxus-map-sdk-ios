@@ -18,12 +18,13 @@ FOUNDATION_EXPORT const unsigned char MapxusMapSDKVersionString[];
 
 #import "MXMMapServices.h"
 
+#import "MXMDefine.h"
 #import "MapxusMap.h"
+#import "MXMConfiguration.h"
 #import "MapxusMapDelegate.h"
 #import "MXMGeoBuilding.h"
 #import "MXMGeoPOI.h"
 #import "MXMPointAnnotation.h"
-#import "MXMConfiguration.h"
 
 #import "MXMSearchObj.h"
 #import "MXMCommonObj.h"

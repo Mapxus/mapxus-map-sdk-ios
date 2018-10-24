@@ -25,7 +25,7 @@ You can integrate through cocoapods. Add the following code in your Podfile:
 ```objectivec
 target 'MapxusMapSample' do
   use_frameworks!
-  pod 'MapxusMapSDK', '~> 2.0.0'
+  pod 'MapxusMapSDK', '~> 2.4.0'
 end
 ```
 

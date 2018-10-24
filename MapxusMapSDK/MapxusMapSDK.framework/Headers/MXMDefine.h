@@ -10,7 +10,7 @@
 #define MXMDefine_h
 
 /**
- BeeMap地图外观
+ MapxusMap地图外观
  */
 typedef NS_ENUM(NSUInteger, MXMStyle) {
     /**
