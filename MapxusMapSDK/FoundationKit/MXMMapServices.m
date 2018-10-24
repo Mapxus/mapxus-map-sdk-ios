@@ -89,11 +89,13 @@
     if (oldToken) {
         NSArray *textArr = [oldToken componentsSeparatedByString:@"."];
         if (textArr.count > 2) {
-            NSString *stringBase64 = textArr[1];
-            NSData *data = [[NSData alloc] initWithBase64EncodedString:stringBase64 options:NSDataBase64DecodingIgnoreUnknownCharacters];
+            NSString *claims = textArr[1];
+            //JWT is not padded with =, pad it if necessary
+            NSUInteger paddedLength = claims.length + (4 - (claims.length % 4)) % 4;;
+            claims = [claims stringByPaddingToLength:paddedLength withString:@"=" startingAtIndex:0];
+            NSData *claimsData = [[NSData alloc] initWithBase64EncodedString:claims options:NSDataBase64DecodingIgnoreUnknownCharacters];
             NSError *jsonError;
-            id json = [NSJSONSerialization JSONObjectWithData:(data?:[NSData data]) options:kNilOptions error:&jsonError];
-            
+            id json = [NSJSONSerialization JSONObjectWithData:(claimsData?:[NSData data]) options:kNilOptions error:&jsonError];
             if (jsonError == nil &&
                 [json isKindOfClass:[NSDictionary class]]) {
                 NSNumber *exp = DecodeNumberFromDic(json, @"exp");

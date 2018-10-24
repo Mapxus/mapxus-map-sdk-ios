@@ -30,7 +30,7 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
     NSString *scheme = [[request.URL scheme] lowercaseString];
     NSString *host = [[request.URL host] lowercaseString];
     if (([scheme isEqual:@"http"] || [scheme isEqualToString:@"https"]) &&
-        ([host containsString:@"maphive.io"] || [host containsString:@"maphive.cloud"])) {
+        ([host containsString:@"maphive.io"] || [host containsString:@"mapxus.cn"] || [host containsString:@"maphive.cloud"] || [host containsString:@"mapbox.com"])) {
         return YES;
     }
     return NO;
@@ -57,6 +57,11 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
 }
 
 - (void)startLoading {
+    NSString *host = [[self.request.URL host] lowercaseString];
+    if ([host containsString:@"mapbox.com"]) {
+        [self.task cancel];
+        return;
+    }
     NSMutableURLRequest *req = [[self request] mutableCopy];
     [NSURLProtocol setProperty:@YES forKey:URLProtocolHandledKey inRequest:req];
     self.task = [self.session dataTaskWithRequest:req];

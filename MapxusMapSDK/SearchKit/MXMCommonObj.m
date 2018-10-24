@@ -36,6 +36,17 @@
 
 @implementation MXMBoundingBox
 
++ (MXMBoundingBox *)boundingBoxWithMinLatitude:(double)min_lat minLongitude:(double)min_lng maxLatitude:(double)max_lat maxLongitude:(double)max_lng
+{
+    MXMBoundingBox *box = [[MXMBoundingBox alloc] init];
+    box.min_latitude = min_lat;
+    box.min_longitude = min_lng;
+    box.max_latitude = max_lat;
+    box.max_longitude = max_lng;
+    return box;
+}
+
+
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"min_latitude" : @"minLat",
              @"min_longitude" : @"minLon",

@@ -15,6 +15,7 @@
 
 /// annotation所在楼层
 @property (nonatomic, strong) NSString *floor;
+
 /// annotation所在建筑的id
 @property (nonatomic, strong) NSString *buildingId;
 
