@@ -1,16 +1,38 @@
 PODS:
-  - Mapbox-iOS-SDK (4.4.1)
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - Mapbox-iOS-SDK (4.5.0)
+  - YYModel (1.0.4)
 
 DEPENDENCIES:
+  - AFNetworking
   - Mapbox-iOS-SDK
+  - YYModel
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AFNetworking
     - Mapbox-iOS-SDK
+    - YYModel
 
 SPEC CHECKSUMS:
-  Mapbox-iOS-SDK: e6a4f236c77f914ca2e19b929c6cc6b077ba1c4c
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  Mapbox-iOS-SDK: fb9dde66106a8f10d351f9697ac198049c8e5511
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: b907dc97ab292da6848acd665932f4142cfbf6b8
+PODFILE CHECKSUM: b8b4fd8a08df85e92c550d3eadfd469e1c60531d
 
 COCOAPODS: 1.5.3

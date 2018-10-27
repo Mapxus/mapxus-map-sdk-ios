@@ -14,11 +14,11 @@ NSString *const MXMHOSTURL = @"https://api.mapxus.cn/bms";
 NSString *const MXMBRMHOSTURL = @"https://api.mapxus.cn/brm"; // 压缩中间件服务器
 
 // 测试环境
-//NSString *const MXMHOSTURL = @"https://bms-api-test.maphive.io";
-//NSString *const MXMBRMHOSTURL = @"https://brm-test.maphive.io"; // 压缩中间件服务器
+//NSString *const MXMHOSTURL = @"https://api-test.maphive.io/bms";
+//NSString *const MXMBRMHOSTURL = @"https://api-test.maphive.io/brm"; // 压缩中间件服务器
 
 // 开发环境
-//NSString *const MXMHOSTURL = @"https://bms-api-dev.maphive.io";
-//NSString *const MXMBRMHOSTURL = @"https://brm-dev.maphive.io"; // 压缩中间件服务器
+//NSString *const MXMHOSTURL = @"https://api-dev.maphive.io/bms";
+//NSString *const MXMBRMHOSTURL = @"https://api-dev.maphive.io/brm"; // 压缩中间件服务器
 
 NSString *const MapboxAccessToken = @"pk.mapxus";
