@@ -31,87 +31,65 @@
         self.mapView = mapView;
         self.mapView.mxmMap = self;
         [self commonInit];
-        if (configuration.poiId) {
-            __weak typeof(self) weakSelf = self;
-            __block CLLocationCoordinate2D poiCenter;
-            
-            MXMGetTokenOperation *getTokenOp = [[MXMGetTokenOperation alloc] init];
-            MXMLoadMapOperation *loadMapOp = [[MXMLoadMapOperation alloc] initWithBlock:^(NSString * _Nonnull token) {
-                [weakSelf setMapSytle:MXMStyleCOMMON];
-            }];
-            MXMSearchPOIOperation *searchPoiOp = [[MXMSearchPOIOperation alloc] initWithPoiId:configuration.poiId];
-            MXMSearchBuildingOperation *searchBuildingOp = [[MXMSearchBuildingOperation alloc] init];
-            self.externalLoadOperation = loadMapOp;
-            
-            getTokenOp.complateBlock = ^(NSString * _Nonnull token) {
-                loadMapOp.token = token;
-            };
-            searchPoiOp.complateBlock = ^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, CLLocationCoordinate2D centerPoint) {
-                searchBuildingOp.buildingId = buildingId;
-                searchBuildingOp.floor = floor;
-                poiCenter = centerPoint;
-            };
-            searchBuildingOp.complateBlock = ^(MXMBuilding * _Nonnull building, NSString * _Nonnull floor, MGLCoordinateBounds bounds) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.mapView setCenterCoordinate:poiCenter zoomLevel:19 animated:YES];
-                    
-                    MXMGeoBuilding *geoBuilding = [[MXMGeoBuilding alloc] init];
-                    geoBuilding.identifier = building.buildingId;
-                    geoBuilding.building = building.type;
-                    geoBuilding.name = building.name_default;
-                    geoBuilding.name_cn = building.name_cn;
-                    geoBuilding.name_en = building.name_en;
-                    geoBuilding.name_zh = building.name_zh;
-                    NSMutableArray *floorStrs = [NSMutableArray array];
-                    for (MXMFloor *f in building.floors) {
-                        f.code ? [floorStrs addObject:f.code] : nil;
-                    }
-                    geoBuilding.floors = [[floorStrs reverseObjectEnumerator] allObjects];
-                    geoBuilding.ground_floor = floorStrs.firstObject;
-                    if (floor) {
-                        [weakSelf selectBuilding:geoBuilding floor:floor shouldChangeUserTrackingMode:YES];
-                    } else {
-                        NSString *defaultFloor = [self electDefaultFloorWithBuildingId:building.buildingId]?:geoBuilding.ground_floor;
-                        [weakSelf selectBuilding:geoBuilding floor:defaultFloor shouldChangeUserTrackingMode:YES];
-                    }
-                });
-            };
-
-            [searchPoiOp addDependency:getTokenOp];
-            [loadMapOp addDependency:getTokenOp];
-            [searchBuildingOp addDependency:searchPoiOp];
-            [searchBuildingOp addDependency:loadMapOp];
-
-            self.initializeQueue = [[NSOperationQueue alloc] init];
-            [self.initializeQueue addOperations:@[getTokenOp, searchPoiOp, searchBuildingOp, loadMapOp] waitUntilFinished:NO];
-            
-        } else if (configuration.buildingId) {
-            __weak typeof(self) weakSelf = self;
-            MXMGetTokenOperation *getTokenOp = [[MXMGetTokenOperation alloc] init];
-            MXMLoadMapOperation *loadMapOp = [[MXMLoadMapOperation alloc] initWithBlock:^(NSString * _Nonnull token) {
-                [weakSelf setMapSytle:configuration.defaultStyle];
-            }];
-            self.externalLoadOperation = loadMapOp;
-            MXMZoomToOperation *zoomOp = [[MXMZoomToOperation alloc] initWithBlock:^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, MGLCoordinateBounds bounds, CLLocationCoordinate2D centerPoint) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf selectBuilding:configuration.buildingId floor:configuration.floor shouldZoomTo:YES shouldChangeUserTrackingMode:YES];
-                });
-            }];
-
-            getTokenOp.complateBlock = ^(NSString * _Nonnull token) {
-                loadMapOp.token = token;
-            };
-            [loadMapOp addDependency:getTokenOp];
-            [zoomOp addDependency:loadMapOp];
-
-            self.initializeQueue = [[NSOperationQueue alloc] init];
-            [self.initializeQueue addOperations:@[getTokenOp, loadMapOp, zoomOp] waitUntilFinished:NO];
-        } else {
-            // 设默认样式
-            [self setMapSytle:configuration.defaultStyle];
-        }
+        _isFristLoad = YES;
+        _initializeQueue = [[NSOperationQueue alloc] init];
+        _configuration = configuration;
+        [self setMapSytle:configuration.defaultStyle];
     }
     return self;
+}
+
+- (void)searchConfigurationInfo
+{
+    if (!_isFristLoad) {
+        _isFristLoad = NO;
+        return;
+    }
+    if (_configuration.poiId) {
+        __weak typeof(self) weakSelf = self;
+        __block CLLocationCoordinate2D poiCenter;
+        
+        MXMSearchPOIOperation *searchPoiOp = [[MXMSearchPOIOperation alloc] initWithPoiId:_configuration.poiId];
+        MXMSearchBuildingOperation *searchBuildingOp = [[MXMSearchBuildingOperation alloc] init];
+        
+        searchPoiOp.complateBlock = ^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, CLLocationCoordinate2D centerPoint) {
+            searchBuildingOp.buildingId = buildingId;
+            searchBuildingOp.floor = floor;
+            poiCenter = centerPoint;
+        };
+        searchBuildingOp.complateBlock = ^(MXMBuilding * _Nonnull building, NSString * _Nonnull floor, MGLCoordinateBounds bounds) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.mapView setCenterCoordinate:poiCenter zoomLevel:19 animated:YES];
+                
+                MXMGeoBuilding *geoBuilding = [[MXMGeoBuilding alloc] init];
+                geoBuilding.identifier = building.buildingId;
+                geoBuilding.building = building.type;
+                geoBuilding.name = building.name_default;
+                geoBuilding.name_cn = building.name_cn;
+                geoBuilding.name_en = building.name_en;
+                geoBuilding.name_zh = building.name_zh;
+                NSMutableArray *floorStrs = [NSMutableArray array];
+                for (MXMFloor *f in building.floors) {
+                    f.code ? [floorStrs addObject:f.code] : nil;
+                }
+                geoBuilding.floors = [[floorStrs reverseObjectEnumerator] allObjects];
+                geoBuilding.ground_floor = floorStrs.firstObject;
+                if (floor) {
+                    [weakSelf selectBuilding:geoBuilding floor:floor shouldChangeUserTrackingMode:YES];
+                } else {
+                    NSString *defaultFloor = [self electDefaultFloorWithBuildingId:building.buildingId]?:geoBuilding.ground_floor;
+                    [weakSelf selectBuilding:geoBuilding floor:defaultFloor shouldChangeUserTrackingMode:YES];
+                }
+            });
+        };
+        
+        [searchBuildingOp addDependency:searchPoiOp];
+        
+        [_initializeQueue addOperations:@[searchPoiOp, searchBuildingOp] waitUntilFinished:NO];
+        
+    } else if (_configuration.buildingId) {
+        [self selectBuilding:_configuration.buildingId floor:_configuration.floor shouldZoomTo:YES shouldChangeUserTrackingMode:YES];
+    }
 }
 
 - (void)setIndoorControllerAlwaysHidden:(BOOL)indoorControllerAlwaysHidden
@@ -574,7 +552,7 @@
                     }
                 });
             };
-            [self.initializeQueue addOperation:searchBuildingOp];
+            [_initializeQueue addOperation:searchBuildingOp];
         } else {
             [self selectBuilding:building floor:floor shouldChangeUserTrackingMode:changeUserTrackingMode];
         }
@@ -607,7 +585,7 @@
                 }
             });
         };
-        [self.initializeQueue addOperation:searchBuildingOp];
+        [_initializeQueue addOperation:searchBuildingOp];
     }
 }
 

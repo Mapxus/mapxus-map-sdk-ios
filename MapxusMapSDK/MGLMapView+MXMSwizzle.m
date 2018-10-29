@@ -80,9 +80,7 @@ static void *mapKey = &mapKey;
 - (void)hook_mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style
 {
     // 结束异步operation
-    if (mapView.mxmMap.externalLoadOperation) {
-        [mapView.mxmMap.externalLoadOperation finish];
-    }
+    [mapView.mxmMap searchConfigurationInfo];
     [self hook_mapView:mapView didFinishLoadingStyle:style];
 }
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style
