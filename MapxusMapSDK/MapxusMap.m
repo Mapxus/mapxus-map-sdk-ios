@@ -47,45 +47,49 @@
     }
     if (_configuration.poiId) {
         __weak typeof(self) weakSelf = self;
-        __block CLLocationCoordinate2D poiCenter;
+//        __block CLLocationCoordinate2D poiCenter;
         
         MXMSearchPOIOperation *searchPoiOp = [[MXMSearchPOIOperation alloc] initWithPoiId:_configuration.poiId];
-        MXMSearchBuildingOperation *searchBuildingOp = [[MXMSearchBuildingOperation alloc] init];
+//        MXMSearchBuildingOperation *searchBuildingOp = [[MXMSearchBuildingOperation alloc] init];
         
         searchPoiOp.complateBlock = ^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, CLLocationCoordinate2D centerPoint) {
-            searchBuildingOp.buildingId = buildingId;
-            searchBuildingOp.floor = floor;
-            poiCenter = centerPoint;
+//            searchBuildingOp.buildingId = buildingId;
+//            searchBuildingOp.floor = floor;
+//            poiCenter = centerPoint;
+            [weakSelf.mapView setCenterCoordinate:centerPoint zoomLevel:19 animated:YES];
+            [weakSelf selectBuilding:buildingId floor:floor shouldZoomTo:NO shouldChangeUserTrackingMode:YES];
         };
-        searchBuildingOp.complateBlock = ^(MXMBuilding * _Nonnull building, NSString * _Nonnull floor, MGLCoordinateBounds bounds) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.mapView setCenterCoordinate:poiCenter zoomLevel:19 animated:YES];
-                
-                MXMGeoBuilding *geoBuilding = [[MXMGeoBuilding alloc] init];
-                geoBuilding.identifier = building.buildingId;
-                geoBuilding.building = building.type;
-                geoBuilding.name = building.name_default;
-                geoBuilding.name_cn = building.name_cn;
-                geoBuilding.name_en = building.name_en;
-                geoBuilding.name_zh = building.name_zh;
-                NSMutableArray *floorStrs = [NSMutableArray array];
-                for (MXMFloor *f in building.floors) {
-                    f.code ? [floorStrs addObject:f.code] : nil;
-                }
-                geoBuilding.floors = [[floorStrs reverseObjectEnumerator] allObjects];
-                geoBuilding.ground_floor = floorStrs.firstObject;
-                if (floor) {
-                    [weakSelf selectBuilding:geoBuilding floor:floor shouldChangeUserTrackingMode:YES];
-                } else {
-                    NSString *defaultFloor = [self electDefaultFloorWithBuildingId:building.buildingId]?:geoBuilding.ground_floor;
-                    [weakSelf selectBuilding:geoBuilding floor:defaultFloor shouldChangeUserTrackingMode:YES];
-                }
-            });
-        };
+//        searchBuildingOp.complateBlock = ^(MXMBuilding * _Nonnull building, NSString * _Nonnull floor, MGLCoordinateBounds bounds) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [weakSelf.mapView setCenterCoordinate:poiCenter zoomLevel:19 animated:YES];
+//
+//                MXMGeoBuilding *geoBuilding = [[MXMGeoBuilding alloc] init];
+//                geoBuilding.identifier = building.buildingId;
+//                geoBuilding.building = building.type;
+//                geoBuilding.name = building.name_default;
+//                geoBuilding.name_cn = building.name_cn;
+//                geoBuilding.name_en = building.name_en;
+//                geoBuilding.name_zh = building.name_zh;
+//                NSMutableArray *floorStrs = [NSMutableArray array];
+//                for (MXMFloor *f in building.floors) {
+//                    f.code ? [floorStrs addObject:f.code] : nil;
+//                }
+//                geoBuilding.floors = [[floorStrs reverseObjectEnumerator] allObjects];
+//                geoBuilding.ground_floor = floorStrs.firstObject;
+//                if (floor) {
+//                    [weakSelf selectBuilding:geoBuilding floor:floor shouldChangeUserTrackingMode:YES];
+//                } else {
+//                    NSString *defaultFloor = [self electDefaultFloorWithBuildingId:building.buildingId]?:geoBuilding.ground_floor;
+//                    [weakSelf selectBuilding:geoBuilding floor:defaultFloor shouldChangeUserTrackingMode:YES];
+//                }
+//                weakSelf.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.building)&&(self.mapView.zoomLevel>15));
+//
+//            });
+//        };
+//
+//        [searchBuildingOp addDependency:searchPoiOp];
         
-        [searchBuildingOp addDependency:searchPoiOp];
-        
-        [_initializeQueue addOperations:@[searchPoiOp, searchBuildingOp] waitUntilFinished:NO];
+        [_initializeQueue addOperations:@[searchPoiOp] waitUntilFinished:NO];
         
     } else if (_configuration.buildingId) {
         [self selectBuilding:_configuration.buildingId floor:_configuration.floor shouldZoomTo:YES shouldChangeUserTrackingMode:YES];
@@ -550,11 +554,15 @@
                         NSString *defaultFloor = [self electDefaultFloorWithBuildingId:buildingId]?:geoBuilding.ground_floor;
                         [weakSelf selectBuilding:geoBuilding floor:defaultFloor shouldChangeUserTrackingMode:changeUserTrackingMode];
                     }
+                    weakSelf.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.building)&&(self.mapView.zoomLevel>15));
+
                 });
             };
             [_initializeQueue addOperation:searchBuildingOp];
         } else {
             [self selectBuilding:building floor:floor shouldChangeUserTrackingMode:changeUserTrackingMode];
+            
+            self.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.building)&&(self.mapView.zoomLevel>15));
         }
     } else {
         __weak typeof(self) weakSelf = self;
@@ -583,6 +591,8 @@
                     NSString *defaultFloor = [self electDefaultFloorWithBuildingId:buildingId]?:geoBuilding.ground_floor;
                     [weakSelf selectBuilding:geoBuilding floor:defaultFloor shouldChangeUserTrackingMode:changeUserTrackingMode];
                 }
+                weakSelf.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.building)&&(self.mapView.zoomLevel>15));
+
             });
         };
         [_initializeQueue addOperation:searchBuildingOp];
