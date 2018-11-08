@@ -12,7 +12,7 @@
 /**
  瓦片中的建筑数据
  */
-@interface MXMGeoBuilding : NSObject
+@interface MXMGeoBuilding : NSObject <NSCopying>
 
 /// 建筑ID
 @property (nonatomic, strong) NSString *identifier;
