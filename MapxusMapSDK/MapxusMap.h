@@ -78,12 +78,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  用户当前所在楼层，只有当`MGLMapView`的`userTrackingMode`不为`MGLUserTrackingModeNone`值才可信，没有室内数据时为nil
  */
-@property (nonatomic, copy, readonly, nullable) NSString *userLocationFloor;
+@property (nonatomic, copy, readonly) NSString *userLocationFloor;
 
 /**
  用户当前所在建筑，只有当`MGLMapView`的`userTrackingMode`不为`MGLUserTrackingModeNone`值才可信，没有室内数据时为nil
  */
-@property (nonatomic, copy, readonly, nullable) MXMGeoBuilding *userLocationBuilding;
+@property (nonatomic, copy, readonly) MXMGeoBuilding *userLocationBuilding;
 
 /**
  返回当前绑定的MGLMapView视窗中所有可见的已测量建筑
