@@ -307,6 +307,8 @@ static void *mapKey = &mapKey;
         
     } else {
         [mapView.mxmMap updageLocationView];
+        mapView.mxmMap.userLocationFloor = nil;
+        mapView.mxmMap.userLocationBuilding = nil;
     }
     [self hook_mapView:mapView didUpdateUserLocation:userLocation];
 }
