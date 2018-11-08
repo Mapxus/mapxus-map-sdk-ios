@@ -299,6 +299,8 @@ static void *mapKey = &mapKey;
             if (cf>=0 && cf<b.floors.count) {
                 NSString *currentFloor = [b.floors objectAtIndex:cf];
                 [mapView.mxmMap selectBuilding:b.identifier floor:currentFloor shouldZoomTo:NO shouldChangeUserTrackingMode:NO];
+                mapView.mxmMap.userLocationFloor = currentFloor;
+                mapView.mxmMap.userLocationBuilding = b;
                 break;
             }
         }
