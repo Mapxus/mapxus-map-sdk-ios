@@ -11,6 +11,23 @@
 
 @implementation MXMGeoBuilding
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    MXMGeoBuilding * copyedModel = [[self.class allocWithZone:zone] init];
+    copyedModel.identifier = self.identifier;
+    copyedModel.building = self.building;
+    copyedModel.name = self.name;
+    copyedModel.name_en = self.name_en;
+    copyedModel.name_cn = self.name_cn;
+    copyedModel.name_zh = self.name_zh;
+    copyedModel.floors = [self.floors copy];
+    copyedModel.ground_floor = self.ground_floor;
+    copyedModel.type = self.type;
+    copyedModel.underground = self.underground;
+    copyedModel.layer = self.layer;
+    return copyedModel;
+}
+
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"name_cn" : @"name:cn",
              @"name_en" : @"name:en",

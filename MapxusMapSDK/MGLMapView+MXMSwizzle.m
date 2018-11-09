@@ -299,12 +299,16 @@ static void *mapKey = &mapKey;
             if (cf>=0 && cf<b.floors.count) {
                 NSString *currentFloor = [b.floors objectAtIndex:cf];
                 [mapView.mxmMap selectBuilding:b.identifier floor:currentFloor shouldZoomTo:NO shouldChangeUserTrackingMode:NO];
+                mapView.mxmMap.userLocationFloor = currentFloor;
+                mapView.mxmMap.userLocationBuilding = b;
                 break;
             }
         }
         
     } else {
         [mapView.mxmMap updageLocationView];
+        mapView.mxmMap.userLocationFloor = nil;
+        mapView.mxmMap.userLocationBuilding = nil;
     }
     [self hook_mapView:mapView didUpdateUserLocation:userLocation];
 }

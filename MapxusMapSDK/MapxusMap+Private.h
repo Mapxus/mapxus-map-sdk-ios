@@ -41,10 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isMapReload;
 @property (nonatomic, assign) BOOL mapViewDidFinishLoadingMap; // 地图加载完地图
 
-@property (nonatomic, readwrite) NSString *floor;
-@property (nonatomic, readwrite) MXMGeoBuilding *building;
-@property (nonatomic, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
-@property (nonatomic, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *innerbuildings;
+@property (nonatomic, copy, readwrite) NSString *floor;
+@property (nonatomic, copy, readwrite) MXMGeoBuilding *building;
+@property (nonatomic, copy, readwrite, nullable) NSString *userLocationFloor;
+@property (nonatomic, copy, readwrite, nullable) MXMGeoBuilding *userLocationBuilding;
+@property (nonatomic, copy, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
+@property (nonatomic, copy, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *innerbuildings;
 
 // 移动地图时自动选择建筑
 - (void)automaticAnalyseOfIndoorData;
