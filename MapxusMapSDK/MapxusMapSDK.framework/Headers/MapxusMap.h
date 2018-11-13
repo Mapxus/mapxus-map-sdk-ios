@@ -68,17 +68,27 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  当前选中楼层
  */
-@property (nonatomic, readonly) NSString *floor;
+@property (nonatomic, copy, readonly) NSString *floor;
 
 /**
  当前选中建筑
  */
-@property (nonatomic, readonly) MXMGeoBuilding *building;
+@property (nonatomic, copy, readonly) MXMGeoBuilding *building;
+
+/**
+ 用户当前所在楼层，只有当`MGLMapView`的`userTrackingMode`不为`MGLUserTrackingModeNone`值才可信，没有室内数据时为nil
+ */
+@property (nonatomic, copy, readonly) NSString *userLocationFloor;
+
+/**
+ 用户当前所在建筑，只有当`MGLMapView`的`userTrackingMode`不为`MGLUserTrackingModeNone`值才可信，没有室内数据时为nil
+ */
+@property (nonatomic, copy, readonly) MXMGeoBuilding *userLocationBuilding;
 
 /**
  返回当前绑定的MGLMapView视窗中所有可见的已测量建筑
  */
-@property (nonatomic, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
+@property (nonatomic, copy, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
 
 /**
  选择当前选中建筑的楼层，地图默认会移动到该建筑区域
