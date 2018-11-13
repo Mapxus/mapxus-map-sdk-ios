@@ -10,6 +10,7 @@
 
 #import "MGLMapView+MXMSwizzle.h"
 #import "MapxusMap+Private.h"
+#import "MGLStyle+MXMFilter.h"
 
 static void *mapKey = &mapKey;
 
@@ -81,6 +82,10 @@ static void *mapKey = &mapKey;
 {
     // 结束异步operation
     [mapView.mxmMap searchConfigurationInfo];
+    // 修改地图语言
+    NSArray *languages = [NSLocale preferredLanguages];
+    NSString *currentLanguage = [languages objectAtIndex:0];
+    [style MXMlocalizeLabelsIntoLocale:currentLanguage];
     [self hook_mapView:mapView didFinishLoadingStyle:style];
 }
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style

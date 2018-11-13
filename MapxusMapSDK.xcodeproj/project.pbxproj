@@ -79,6 +79,8 @@
 		D6DEAD86215DFF43006F2CA2 /* MXMConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = D6DEAD84215DFF43006F2CA2 /* MXMConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D6DEAD87215DFF43006F2CA2 /* MXMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DEAD85215DFF43006F2CA2 /* MXMConfiguration.m */; };
 		D6DEAD89215E0BB9006F2CA2 /* MXMDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = D6DEAD88215E0AB9006F2CA2 /* MXMDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D6FD2473219A6700008762A0 /* MGLStyle+MXMFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D6FD2471219A6700008762A0 /* MGLStyle+MXMFilter.h */; };
+		D6FD2474219A6700008762A0 /* MGLStyle+MXMFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FD2472219A6700008762A0 /* MGLStyle+MXMFilter.m */; };
 		E051C9C4356642B95B506668 /* Pods_MapxusMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2EC7A5CED3DB4D2919A98B /* Pods_MapxusMapSDKTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -159,6 +161,8 @@
 		D6DEAD88215E0AB9006F2CA2 /* MXMDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMDefine.h; sourceTree = "<group>"; };
 		D6E4DAF621103D1C00D15FF1 /* IOS-Universal-Framework_aggregate.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "IOS-Universal-Framework_aggregate.sh"; sourceTree = "<group>"; };
 		D6E4DAF7211044B000D15FF1 /* document.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = document.sh; sourceTree = "<group>"; };
+		D6FD2471219A6700008762A0 /* MGLStyle+MXMFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGLStyle+MXMFilter.h"; sourceTree = "<group>"; };
+		D6FD2472219A6700008762A0 /* MGLStyle+MXMFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MGLStyle+MXMFilter.m"; sourceTree = "<group>"; };
 		E6579208B1A4FF8AF02C7EFA /* Pods-MapxusMapSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDK/Pods-MapxusMapSDK.release.xcconfig"; sourceTree = "<group>"; };
 		FC5152F12353FD8E73AA6B8F /* Pods-MapxusMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -258,6 +262,8 @@
 				D684BC9820FEE1EC004E85D9 /* MXMPointAnnotation.h */,
 				D684BC9920FEE1EC004E85D9 /* MXMPointAnnotation.m */,
 				D641FC8B20F5DBDB00061AD4 /* Info.plist */,
+				D6FD2471219A6700008762A0 /* MGLStyle+MXMFilter.h */,
+				D6FD2472219A6700008762A0 /* MGLStyle+MXMFilter.m */,
 			);
 			path = MapxusMapSDK;
 			sourceTree = "<group>";
@@ -366,6 +372,7 @@
 				D684BC4520FDEA02004E85D9 /* MXMSearchObj.h in Headers */,
 				D6DEAD89215E0BB9006F2CA2 /* MXMDefine.h in Headers */,
 				D684BC9A20FEE1EC004E85D9 /* MXMPointAnnotation.h in Headers */,
+				D6FD2473219A6700008762A0 /* MGLStyle+MXMFilter.h in Headers */,
 				D684BC4D20FDEB59004E85D9 /* MXMCommonObj.h in Headers */,
 				D684BBDE20FC3413004E85D9 /* MXMGeoPOI.h in Headers */,
 				D617B69D215A40C700CC6936 /* MXMSearchBuildingOperation.h in Headers */,
@@ -584,6 +591,7 @@
 				D617B6A2215A40DF00CC6936 /* MXMSearchPOIOperation.m in Sources */,
 				D617B6BA215B5E9E00CC6936 /* MXMZoomToOperation.m in Sources */,
 				D617B6A6215A40FB00CC6936 /* MXMGetTokenOperation.m in Sources */,
+				D6FD2474219A6700008762A0 /* MGLStyle+MXMFilter.m in Sources */,
 				D684BBD920FC3134004E85D9 /* MXMMapServices.m in Sources */,
 				D6DEAD87215DFF43006F2CA2 /* MXMConfiguration.m in Sources */,
 				D600996C21192B2A003947FA /* NSURLSession+PPSheep.m in Sources */,
