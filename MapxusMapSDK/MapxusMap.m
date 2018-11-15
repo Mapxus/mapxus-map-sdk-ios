@@ -47,50 +47,12 @@
     }
     if (_configuration.poiId) {
         __weak typeof(self) weakSelf = self;
-//        __block CLLocationCoordinate2D poiCenter;
-        
         MXMSearchPOIOperation *searchPoiOp = [[MXMSearchPOIOperation alloc] initWithPoiId:_configuration.poiId];
-//        MXMSearchBuildingOperation *searchBuildingOp = [[MXMSearchBuildingOperation alloc] init];
-        
         searchPoiOp.complateBlock = ^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, CLLocationCoordinate2D centerPoint) {
-//            searchBuildingOp.buildingId = buildingId;
-//            searchBuildingOp.floor = floor;
-//            poiCenter = centerPoint;
             [weakSelf.mapView setCenterCoordinate:centerPoint zoomLevel:19 animated:YES];
             [weakSelf selectBuilding:buildingId floor:floor shouldZoomTo:NO shouldChangeUserTrackingMode:YES];
         };
-//        searchBuildingOp.complateBlock = ^(MXMBuilding * _Nonnull building, NSString * _Nonnull floor, MGLCoordinateBounds bounds) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                [weakSelf.mapView setCenterCoordinate:poiCenter zoomLevel:19 animated:YES];
-//
-//                MXMGeoBuilding *geoBuilding = [[MXMGeoBuilding alloc] init];
-//                geoBuilding.identifier = building.buildingId;
-//                geoBuilding.building = building.type;
-//                geoBuilding.name = building.name_default;
-//                geoBuilding.name_cn = building.name_cn;
-//                geoBuilding.name_en = building.name_en;
-//                geoBuilding.name_zh = building.name_zh;
-//                NSMutableArray *floorStrs = [NSMutableArray array];
-//                for (MXMFloor *f in building.floors) {
-//                    f.code ? [floorStrs addObject:f.code] : nil;
-//                }
-//                geoBuilding.floors = [[floorStrs reverseObjectEnumerator] allObjects];
-//                geoBuilding.ground_floor = floorStrs.firstObject;
-//                if (floor) {
-//                    [weakSelf selectBuilding:geoBuilding floor:floor shouldChangeUserTrackingMode:YES];
-//                } else {
-//                    NSString *defaultFloor = [self electDefaultFloorWithBuildingId:building.buildingId]?:geoBuilding.ground_floor;
-//                    [weakSelf selectBuilding:geoBuilding floor:defaultFloor shouldChangeUserTrackingMode:YES];
-//                }
-//                weakSelf.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.building)&&(self.mapView.zoomLevel>15));
-//
-//            });
-//        };
-//
-//        [searchBuildingOp addDependency:searchPoiOp];
-        
         [_initializeQueue addOperations:@[searchPoiOp] waitUntilFinished:NO];
-        
     } else if (_configuration.buildingId) {
         [self selectBuilding:_configuration.buildingId floor:_configuration.floor shouldZoomTo:YES shouldChangeUserTrackingMode:YES];
     }
@@ -271,7 +233,7 @@
     /////////////////////////////////////////////////////
     
     // 查找点击的POI
-    [self findOutPOIAtPoint:point];
+    [self findOutPOIAtPoint:point coordinate:coor];
     // 切换建筑
     NSArray *pointBuildingList = [self findOutBuildingAtPoint:point];
     MXMGeoBuilding *building = pointBuildingList.firstObject;
@@ -386,7 +348,7 @@
 }
 
 // 查找指定点的POI信息
-- (void)findOutPOIAtPoint:(CGPoint)point
+- (void)findOutPOIAtPoint:(CGPoint)point coordinate:(CLLocationCoordinate2D)coor
 {
     // 生成layer.identifier的存储集合
     NSMutableSet *identifiersSet = [NSMutableSet set];
@@ -403,6 +365,7 @@
     NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiersSet predicate:nil];
     id<MGLFeature> fristM = theFeatures.firstObject;
     MXMGeoPOI *poi = [MXMGeoPOI yy_modelWithJSON:fristM.attributes];
+    poi.coordinate = coor;
     if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)]) {
         [self.delegate mapView:self didTappedOnPOI:poi];
     }
