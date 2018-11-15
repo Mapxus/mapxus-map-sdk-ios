@@ -12,7 +12,7 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
 
 @interface MXMURLProtocol () <NSURLSessionDataDelegate, NSURLSessionTaskDelegate>
 @property (nonatomic, strong) NSURLSession *session;
-@property (nonatomic, strong) NSURLSessionDataTask *task;
+@property (nonatomic, weak) NSURLSessionDataTask *task;
 @end
 
 @implementation MXMURLProtocol
@@ -64,6 +64,7 @@ static NSString * const URLProtocolHandledKey = @"URLProtocolHandledKey";
 
 - (void)stopLoading {
     [self.task cancel];
+    [self.session invalidateAndCancel];
 }
 
 #pragma mark - NSURLSessionTaskDelegate
