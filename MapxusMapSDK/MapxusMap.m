@@ -631,7 +631,9 @@
                 }
             }
         } else {
-            [mu addObject:originalPredicate];
+            if (originalPredicate) {
+                [mu addObject:originalPredicate];
+            }
         }
         NSPredicate *f = [NSPredicate predicateWithFormat:@"floor == %@", floor];
         [mu addObject:f];
