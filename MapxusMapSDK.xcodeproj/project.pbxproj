@@ -759,6 +759,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 55678E9E4DC880855D192936 /* Pods-MapxusMapSDK.debug.xcconfig */;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
@@ -777,6 +778,13 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-iquote",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking/AFNetworking.framework/Headers\"",
+					"-iquote",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/YYModel/YYModel.framework/Headers\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapxus.MapxusMapSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
@@ -788,6 +796,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E6579208B1A4FF8AF02C7EFA /* Pods-MapxusMapSDK.release.xcconfig */;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
@@ -805,6 +814,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-iquote",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking/AFNetworking.framework/Headers\"",
+					"-iquote",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/YYModel/YYModel.framework/Headers\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapxus.MapxusMapSDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
