@@ -82,6 +82,8 @@ static void *mapKey = &mapKey;
 {
     // 结束异步operation
     [mapView.mxmMap searchConfigurationInfo];
+    // 加载完style后重新设置outdoor
+    [mapView.mxmMap walkAroundOutdoor];
     // 修改地图语言
     NSArray *languages = [NSLocale preferredLanguages];
     NSString *currentLanguage = [languages objectAtIndex:0];

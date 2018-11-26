@@ -59,6 +59,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) MXMSelectorPosition selectorPosition;
 
 /**
+ 设置室外地图是否显示
+ */
+@property (nonatomic, assign) BOOL outdoorHidden;
+
+/**
  设置地图外观
  
  @param style 外观类型。具体属性字段请参考 `MXMStyle` 。

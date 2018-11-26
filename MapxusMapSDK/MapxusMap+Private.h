@@ -58,6 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo shouldChangeUserTrackingMode:(BOOL)changeUserTrackingMode;
 
 - (void)searchConfigurationInfo;
+- (void)walkAroundOutdoor;
 
 @end
 

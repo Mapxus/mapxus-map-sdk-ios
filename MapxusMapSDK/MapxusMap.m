@@ -34,6 +34,7 @@
         _isFristLoad = YES;
         _initializeQueue = [[NSOperationQueue alloc] init];
         _configuration = configuration;
+        _outdoorHidden = configuration.outdoorHidden;
         [self setMapSytle:configuration.defaultStyle];
     }
     return self;
@@ -184,6 +185,23 @@
     return constraintToFind;
 }
 
+- (void)setOutdoorHidden:(BOOL)outdoorHidden
+{
+    _outdoorHidden = outdoorHidden;
+    [self walkAroundOutdoor];
+}
+
+- (void)walkAroundOutdoor
+{
+    NSArray *arr = self.mapView.style.layers;
+    for (MGLStyleLayer *k in arr) {
+        NSString *ident = k.identifier;
+        if (![ident hasPrefix:@"maphive"]) {
+            k.visible = !_outdoorHidden;
+        }
+    }
+}
+
 - (void)setMapSytle:(MXMStyle)style
 {
     [[MXMMapServices sharedServices] getTokenComplete:^(NSString *token) {
@@ -201,7 +219,7 @@
                 self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v3/style/mappy_bee_v3", MXMBRMHOSTURL]];
                 break;
             case MXMStyleMAPXUS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v3/style/mapxus_v3", MXMBRMHOSTURL]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v3/style/mapxus_v4", MXMBRMHOSTURL]];
                 break;
             default:
                 break;
