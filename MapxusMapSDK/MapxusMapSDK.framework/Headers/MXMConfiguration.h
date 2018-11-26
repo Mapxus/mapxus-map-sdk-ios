@@ -14,6 +14,9 @@
  */
 @interface MXMConfiguration : NSObject
 
+/// 设置是否显示室外地图
+@property (nonatomic) BOOL outdoorHidden;
+
 /// 初始化地图样式，与其他条件可同时配置
 @property (nonatomic) MXMStyle defaultStyle;
 

@@ -14,7 +14,11 @@
  */
 typedef NS_ENUM(NSUInteger, MXMStyle) {
     /**
-     默认类型
+     MAPXUSMAP风格
+     */
+    MXMStyleMAPXUS,
+    /**
+     通用风格
      */
     MXMStyleCOMMON,
     /**
@@ -29,10 +33,6 @@ typedef NS_ENUM(NSUInteger, MXMStyle) {
      MAPPYBEE风格
      */
     MXMStyleMAPPYBEE,
-    /**
-     蒂芙尼蓝风格
-     */
-    MXMStyleMAPXUS,
 };
 
 
