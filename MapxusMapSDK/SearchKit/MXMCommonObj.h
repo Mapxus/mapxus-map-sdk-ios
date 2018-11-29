@@ -20,6 +20,9 @@
 ///经度（水平方向）
 @property (nonatomic, assign) double longitude;
 
+// 海拔高度
+@property (nonatomic, assign) double elevation;
+
 /**
  MXMGeoPoint工厂方法
  
@@ -28,6 +31,8 @@
  @return MXMGeoPoint对象
  */
 + (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng;
+
++ (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng elevation:(double)ele;
 
 @end
 
@@ -195,93 +200,33 @@
 
 
 /**
- 路线关键位置信息点
+ 指令
  */
-@interface MXMManeuver :NSObject
+@interface MXMInstruction : NSObject
 
-/// 关键位置经纬度
-@property (nonatomic, strong) MXMGeoPoint *location;
+@property (nonatomic, strong) NSString *buildingId;
+@property (nonatomic, assign) double distance;
+@property (nonatomic, assign) double heading;
+@property (nonatomic, assign) NSInteger sign;
+@property (nonatomic, strong) NSArray<NSNumber *> *interval;
+@property (nonatomic, strong) NSString *text;
+@property (nonatomic, assign) NSUInteger time;
+@property (nonatomic, strong) NSString *floor;
+@property (nonatomic, strong) NSString *streetName;
 
-/// 关键位置类型
+@end
+
+
+/**
+ 路径的几何图形
+ */
+@interface MXMGeometry : NSObject
+
+/// 路径几何图形的类型
 @property (nonatomic, strong) NSString *type;
 
-/// 关键位置方向
-@property (nonatomic, strong) NSString *modifier;
-
-@end
-
-
-/**
- 路线点，可用于画线
- */
-@interface MXMCoordinate : NSObject
-
-/// 节点经纬度
-@property (nonatomic, strong) MXMGeoPoint *location;
-
-/// 节点所属建筑
-@property (nonatomic, strong) NSString *buildingId;
-
-/// 节点所属楼层
-@property (nonatomic, strong) NSString *floor;
-
-/// 角度
-@property (nonatomic, assign) NSInteger angle;
-
-/// 类型
-@property (nonatomic, strong) NSString *type;
-
-@end
-
-
-/**
- 路段
- */
-@interface MXMStep : NSObject
-
-/// 距离
-@property (nonatomic, assign) double distance;
-
-/// 耗时
-@property (nonatomic, assign) double duration;
-
-/// 路段名
-@property (nonatomic, strong) NSString *name;
-
-/// 行进方式
-@property (nonatomic, strong) NSString *mode;
-
-/// 路段关键点
-@property (nonatomic, strong) MXMManeuver *maneuver;
-
-/// 路线点
-@property (nonatomic, strong) NSArray<MXMCoordinate *> *coordinates;
-
-/// 路段所在建筑ID
-@property (nonatomic, strong) NSString *buildingId;
-
-/// 路段所在楼层
-@property (nonatomic, strong) NSString *floor;
-
-@end
-
-
-/**
- 相邻途经点间的路线
- */
-@interface MXMLeg : NSObject
-
-/// 距离
-@property (nonatomic, assign) double distance;
-
-/// 耗时
-@property (nonatomic, assign) double duration;
-
-/// 路线描述
-@property (nonatomic, strong) NSString *summary;
-
-/// 路段
-@property (nonatomic, strong) NSArray<MXMStep *> *steps;
+/// 路线的坐标数组
+@property (nonatomic, strong) NSArray<MXMGeoPoint *> *coordinates;
 
 @end
 
@@ -289,38 +234,25 @@
 /**
  路线方案
  */
-@interface MXMRoute : NSObject
+@interface MXMPath : NSObject
 
-/// 距离
 @property (nonatomic, assign) double distance;
 
-/// 耗时
-@property (nonatomic, assign) double duration;
+@property (nonatomic, assign) double weight;
 
-/// 相邻途经点间的路线
-@property (nonatomic, strong) NSArray<MXMLeg *> *legs;
+@property (nonatomic, assign) NSUInteger time;
 
-@end
+@property (nonatomic, assign) BOOL pointsEncoded;
 
+@property (nonatomic, strong) MXMBoundingBox *bbox;
 
-/**
- 途经点
- */
-@interface MXMWaypoint : NSObject
+@property (nonatomic, strong) MXMGeometry *points;
 
-/// 途经点名字
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSArray<MXMInstruction *> *instructions;
 
-/// 途经点经纬度
-@property (nonatomic, strong) MXMGeoPoint *location;
+@property (nonatomic, assign) double ascend;
+
+@property (nonatomic, assign) double descend;
 
 @end
-
-
-
-
-
-
-
-
 

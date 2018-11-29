@@ -47,16 +47,11 @@
 
 @implementation MXMRouteSearchResponse
 
-- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    _total = _routes.count;
-    return YES;
-}
-
 + (NSDictionary *)modelContainerPropertyGenericClass {
     // value should be Class or Class name.
-    return @{@"routes" : [MXMRoute class],
-             @"waypoints" : [MXMWaypoint class]
-             };
+    return @{
+             @"paths" : [MXMPath class],
+            };
 }
 
 - (NSString *)description

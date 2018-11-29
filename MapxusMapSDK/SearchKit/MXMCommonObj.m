@@ -13,11 +13,21 @@
 
 @implementation MXMGeoPoint
 
+//
 + (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng
 {
     MXMGeoPoint *point = [[MXMGeoPoint alloc] init];
     point.latitude = lat;
     point.longitude = lng;
+    return point;
+}
+
++ (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng elevation:(double)ele
+{
+    MXMGeoPoint *point = [[MXMGeoPoint alloc] init];
+    point.latitude = lat;
+    point.longitude = lng;
+    point.elevation = ele;
     return point;
 }
 
@@ -34,6 +44,7 @@
 
 @end
 
+//
 @implementation MXMBoundingBox
 
 + (MXMBoundingBox *)boundingBoxWithMinLatitude:(double)min_lat minLongitude:(double)min_lng maxLatitude:(double)max_lat maxLongitude:(double)max_lng
@@ -62,6 +73,7 @@
 
 @end
 
+//
 @implementation MXMAddress
 
 - (NSString *)description
@@ -71,6 +83,7 @@
 
 @end
 
+//
 @implementation MXMFloor
 
 + (NSDictionary *)modelCustomPropertyMapper {
@@ -85,6 +98,7 @@
 
 @end
 
+//
 @implementation MXMBuilding
 
 + (NSDictionary *)modelCustomPropertyMapper {
@@ -126,6 +140,7 @@
 
 @end
 
+//
 @implementation MXMPOI
 
 + (NSDictionary *)modelCustomPropertyMapper {
@@ -144,49 +159,13 @@
 
 @end
 
-@implementation MXMManeuver
+//
+@implementation MXMInstruction
 
-- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    NSArray *location = DecodeArrayFromDic(dic, @"location");
-    if (location) {
-        _location = [[MXMGeoPoint alloc] init];
-        _location.longitude = [location.firstObject doubleValue];
-        _location.latitude = [location.lastObject doubleValue];
-    }
-    return YES;
-}
-
-- (NSString *)description
-{
-    return [self yy_modelDescription];
-}
-
-@end
-
-@implementation MXMCoordinate
-
-- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    NSNumber *lon = DecodeNumberFromDic(dic, @"lon");
-    NSNumber *lat = DecodeNumberFromDic(dic, @"lat");
-    _location = [[MXMGeoPoint alloc] init];
-    _location.longitude = [lon doubleValue];
-    _location.latitude = [lat doubleValue];
-    return YES;
-}
-
-- (NSString *)description
-{
-    return [self yy_modelDescription];
-}
-
-@end
-
-@implementation MXMStep
-
-+ (NSDictionary *)modelContainerPropertyGenericClass {
-    // value should be Class or Class name.
-    return @{@"maneuver" : [MXMManeuver class],
-             @"coordinates" : [MXMCoordinate class]
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{
+             @"buildingId" : @"building_id",
+             @"streetName" : @"street_name",
              };
 }
 
@@ -197,43 +176,23 @@
 
 @end
 
-@implementation MXMLeg
-
-+ (NSDictionary *)modelContainerPropertyGenericClass {
-    // value should be Class or Class name.
-    return @{@"steps" : [MXMStep class]};
-}
-
-- (NSString *)description
-{
-    return [self yy_modelDescription];
-}
-
-@end
-
-@implementation MXMRoute
-
-+ (NSDictionary *)modelContainerPropertyGenericClass {
-    // value should be Class or Class name.
-    return @{@"legs" : [MXMLeg class]};
-}
-
-- (NSString *)description
-{
-    return [self yy_modelDescription];
-}
-
-@end
-
-@implementation MXMWaypoint
+//
+@implementation MXMGeometry
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    NSArray *location = DecodeArrayFromDic(dic, @"location");
-    if (location) {
-        _location = [[MXMGeoPoint alloc] init];
-        _location.longitude = [location.firstObject doubleValue];
-        _location.latitude = [location.lastObject doubleValue];
+    NSArray *coordinates = DecodeArrayFromDic(dic, @"coordinates");
+    NSMutableArray *pointList = [NSMutableArray array];
+    for (NSArray *location in coordinates) {
+        // [lon,lat,elevation]
+        MXMGeoPoint *point;
+        if (location.count >= 3) {
+            point = [MXMGeoPoint locationWithLatitude:[location[1] doubleValue] longitude:[location[0] doubleValue] elevation:[location[2] doubleValue]];
+        } else {
+            point = [MXMGeoPoint locationWithLatitude:[location.lastObject doubleValue] longitude:[location.firstObject doubleValue]];
+        }
+        [pointList addObject:point];
     }
+    _coordinates = [pointList copy];
     return YES;
 }
 
@@ -244,9 +203,36 @@
 
 @end
 
+//
+@implementation MXMPath
 
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{
+             @"pointsEncoded" : @"points_encoded",
+             };
+}
 
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    // value should be Class or Class name.
+    return @{
+             @"instructions" : [MXMInstruction class],
+             };
+}
 
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    // minLon, minLat, maxLon, maxLat
+    NSArray *coordinates = DecodeArrayFromDic(dic, @"bbox");
+    MXMBoundingBox *box;
+    if (coordinates.count >= 4) {
+        box = [MXMBoundingBox boundingBoxWithMinLatitude:[coordinates[1] doubleValue] minLongitude:[coordinates[0] doubleValue] maxLatitude:[coordinates[3] doubleValue] maxLongitude:[coordinates[2] doubleValue]];
+    }
+    _bbox = box;
+    return YES;
+}
 
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
 
-
+@end

@@ -94,10 +94,29 @@
 // 查找路径
 - (void)MXMRouteSearch:(MXMRouteSearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v2/route"];
-    NSDictionary *dic = [request yy_modelToJSONObject];
+    //gh-dev.maphive.io/route/?point=23.026818%2C113.140125 &point=23.018602%2C113.144588 &type=json&locale=zh&vehicle=foot&weighting=fastest&elevation=false&key=
+
+    // 起始点
+    NSMutableArray *fristP = [NSMutableArray array];
+    [fristP addObject:@(request.fromLat)];
+    [fristP addObject:@(request.fromLon)];
+    if (request.fromBuilding) [fristP addObject:request.fromBuilding];
+    if (request.fromFloor) [fristP addObject:request.fromFloor];
+
+    NSMutableArray *secondP = [NSMutableArray array];
+    [secondP addObject:@(request.toLat)];
+    [secondP addObject:@(request.toLon)];
+    if (request.toBuilding) [secondP addObject:request.toBuilding];
+    if (request.toFloor) [secondP addObject:request.toFloor];
     
-    [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
+    NSString *url = @"https://gh-dev.maphive.io/route/";
+    NSString *points = [NSString stringWithFormat:@"?point=%@&point=%@", [fristP componentsJoinedByString:@","], [secondP componentsJoinedByString:@","]];
+    NSString *parameters = [NSString stringWithFormat:@"&type=%@&locale=%@&vehicle=%@&elevation=%@&weighting=fastest&points_encoded=false", request.type?:@"", request.locale?:@"", request.vehicle?:@"", request.elevation?@"true":@"false"];
+    
+    url = [NSString stringWithFormat:@"%@%@%@", url, points, parameters];
+    NSLog(@"%@", url);
+    [MXMHttpManager MXMGET:url parameters:nil success:^(NSDictionary *content) {
+        NSLog(@"%@", content);
         if (self.delegate && [self.delegate respondsToSelector:@selector(onRouteSearchDone:response:)]) {
             MXMRouteSearchResponse *response = [MXMRouteSearchResponse yy_modelWithJSON:content];
             [self.delegate onRouteSearchDone:request response:response];

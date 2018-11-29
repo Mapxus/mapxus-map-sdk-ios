@@ -130,22 +130,28 @@
 /// 终点纬度
 @property (nonatomic, assign) double toLat;
 
+/// wheelchair轮椅导航，默认是foot
+@property (nonatomic, strong) NSString *vehicle;
+
+/// zh-hk,zh-cn,en,默认en
+@property (nonatomic, strong) NSString *locale;
+
+/// gpx 或 json
+@property (nonatomic, strong) NSString *type;
+
+/// 三维结果 默认false
+@property (nonatomic, assign) BOOL elevation;
+
 @end
 
 
 /**
- 路线搜索结果，结果结构可参考[http://project-osrm.org/docs/v5.5.1/api/#result-objects]
+ 路线搜索结果
  */
 @interface MXMRouteSearchResponse : NSObject
 
-/// 途经点
-@property (nonatomic, strong) NSArray<MXMWaypoint *> *waypoints;
-
-/// 返回结果个数
-@property (nonatomic, assign) NSInteger total;
-
-/// 路线`MXMRoute`的队列
-@property (nonatomic, strong) NSArray<MXMRoute *> *routes;
+/// 路线`MXMPath`的队列
+@property (nonatomic, strong) NSArray<MXMPath *> *paths;
 
 @end
 
