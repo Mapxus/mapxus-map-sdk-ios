@@ -6,11 +6,8 @@ target 'MapxusMapSDK' do
    use_frameworks!
 
   # Pods for MapxusMapSDK
-#  pod 'AWSCore', '~> 2.6.0'
-#  pod 'AWSCognitoIdentityProvider', '~> 2.6.0'
   pod 'Mapbox-iOS-SDK'
-  pod 'AFNetworking'
-  pod 'YYModel'
+  pod 'MapxusBaseSDK', :path => '../mapxus-base-sdk-ios'
 
   target 'MapxusMapSDKTests' do
     inherit! :search_paths
