@@ -68,4 +68,67 @@ typedef NS_ENUM(NSInteger, MXMSelectorPosition) {
 };
 
 
+/**
+ 路由指令
+ */
+typedef NS_ENUM(NSInteger, MXMRouteSign) {
+    /**
+     下楼
+     */
+    MXMDownstairs = -100,
+    /**
+     靠左行
+     */
+    MXMKeepLeft = -7,
+    /**
+     向左急转
+     */
+    MXMTurnSharpLeft = -3,
+    /**
+     向左转
+     */
+    MXMTurnLeft = -2,
+    /**
+     轻微转左
+     */
+    MXMTurnSlightLeft = -1,
+    /**
+     继续向前
+     */
+    MXMContinueOnStreet = 0,
+    /**
+     轻微右转
+     */
+    MXMTurnSlightRight = 1,
+    /**
+     向右转
+     */
+    MXMTurnRight = 2,
+    /**
+     向右急转
+     */
+    MXMTurnSharpRight = 3,
+    /**
+     完成
+     */
+    MXMFinish = 4,
+    /**
+     到达途经点
+     */
+    MXMReachedVia = 5,
+    /**
+     使用环形路
+     */
+    MXMUseRoundabout = 6,
+    /**
+     靠右行
+     */
+    MXMKeepRight = 7,
+    /**
+     下楼
+     */
+    MXMUpstairs = 100,
+};
+
+
 #endif /* MXMDefine_h */

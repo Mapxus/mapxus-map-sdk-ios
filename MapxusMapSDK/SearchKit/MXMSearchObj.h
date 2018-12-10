@@ -17,13 +17,10 @@
 /// 关键字，目前只支持单个关键字查询
 @property (nonatomic, strong) NSString *keywords;
 
-/// 全球范围内搜索建筑，searchGlobal，bbox, center 三选一
-@property (nonatomic, assign) BOOL searchGlobal;
-
-/// bounding box，searchGlobal，bbox, center 三选一
+/// bounding box，searchGlobal，bbox, center 二选一
 @property (nonatomic, strong) MXMBoundingBox *bbox;
 
-/// 中心点，searchGlobal，bbox, center 三选一
+/// 中心点，searchGlobal，bbox, center 二选一
 @property (nonatomic, strong) MXMGeoPoint *center;
 
 /// 中心点范围内搜索距离，单位为km，必须配合center使用
@@ -130,17 +127,8 @@
 /// 终点纬度
 @property (nonatomic, assign) double toLat;
 
-/// wheelchair轮椅导航，默认是foot
-@property (nonatomic, strong) NSString *vehicle;
-
 /// zh-hk,zh-cn,en,默认en
 @property (nonatomic, strong) NSString *locale;
-
-/// gpx 或 json
-@property (nonatomic, strong) NSString *type;
-
-/// 三维结果 默认false
-@property (nonatomic, assign) BOOL elevation;
 
 @end
 
@@ -150,7 +138,7 @@
  */
 @interface MXMRouteSearchResponse : NSObject
 
-/// 路线`MXMPath`的队列
+/// 路线`MXMPath`的队列，不同的路线为不同的规划方案
 @property (nonatomic, strong) NSArray<MXMPath *> *paths;
 
 @end

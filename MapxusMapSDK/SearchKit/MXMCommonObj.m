@@ -206,12 +206,6 @@
 //
 @implementation MXMPath
 
-+ (NSDictionary *)modelCustomPropertyMapper {
-    return @{
-             @"pointsEncoded" : @"points_encoded",
-             };
-}
-
 + (NSDictionary *)modelContainerPropertyGenericClass {
     // value should be Class or Class name.
     return @{

@@ -668,12 +668,25 @@
     [self.mxmPointAnnotations addObjectsFromArray:annotations];
     [self.mapView addAnnotations:annotations];
     [self filterMXMAnnotations];
+    for (MXMPointAnnotation *a in annotations) {
+        [a addObserver:self forKeyPath:@"floor" options:NSKeyValueObservingOptionNew context:nil];
+    }
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"floor"]) {
+        [self filterMXMAnnotations];
+    }
 }
 
 - (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations
 {
     [self.mxmPointAnnotations removeObjectsInArray:annotations];
     [self.mapView removeAnnotations:annotations];
+    for (MXMPointAnnotation *a in annotations) {
+        [a removeObserver:self forKeyPath:@"floor"];
+    }
 }
 
 // 定位标注的显示状态
@@ -803,6 +816,14 @@
     [tap requireGestureRecognizerToFail:longPress];
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isDescendantOfView:self.floorBar]) {
+        return NO;
+    }
+    return YES;
+}
+
 - (UIButton *)buildingSelectBtn
 {
     if (!_buildingSelectBtn) {
@@ -923,6 +944,10 @@
     // 清除mapView对self的引用
     _mapView.mxmMap = nil;
     _mapView = nil;
+    // 清除监听
+    for (MXMPointAnnotation *a in self.mxmPointAnnotations) {
+        [a removeObserver:self forKeyPath:@"floor"];
+    }
 }
 
 
