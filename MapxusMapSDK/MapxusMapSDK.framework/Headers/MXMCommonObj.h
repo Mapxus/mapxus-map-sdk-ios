@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CGBase.h>
+#import "MXMDefine.h"
 
 /**
  地球经纬度坐标
@@ -20,6 +21,9 @@
 ///经度（水平方向）
 @property (nonatomic, assign) double longitude;
 
+// 海拔高度
+@property (nonatomic, assign) double elevation;
+
 /**
  MXMGeoPoint工厂方法
  
@@ -28,6 +32,16 @@
  @return MXMGeoPoint对象
  */
 + (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng;
+
+/**
+ MXMGeoPoint工厂方法
+
+ @param lat 纬度（垂直方向）
+ @param lng 经度（水平方向）
+ @param ele 海拔高度
+ @return MXMGeoPoint对象
+ */
++ (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng elevation:(double)ele;
 
 @end
 
@@ -195,93 +209,53 @@
 
 
 /**
- 路线关键位置信息点
+ 路线指令
  */
-@interface MXMManeuver :NSObject
+@interface MXMInstruction : NSObject
 
-/// 关键位置经纬度
-@property (nonatomic, strong) MXMGeoPoint *location;
-
-/// 关键位置类型
-@property (nonatomic, strong) NSString *type;
-
-/// 关键位置方向
-@property (nonatomic, strong) NSString *modifier;
-
-@end
-
-
-/**
- 路线点，可用于画线
- */
-@interface MXMCoordinate : NSObject
-
-/// 节点经纬度
-@property (nonatomic, strong) MXMGeoPoint *location;
-
-/// 节点所属建筑
+/// 本指令所在建筑的建筑id
 @property (nonatomic, strong) NSString *buildingId;
 
-/// 节点所属楼层
+/// 本指令所在建筑的楼层
 @property (nonatomic, strong) NSString *floor;
 
-/// 角度
-@property (nonatomic, assign) NSInteger angle;
+/// 路名
+@property (nonatomic, strong) NSString *streetName;
 
-/// 类型
+/// 本指令的距离，以米为单位(m)
+@property (nonatomic, assign) double distance;
+
+/// 方向，北向角度的顺时针方向以0到360度之间给出。
+@property (nonatomic, assign) double heading;
+
+/// 指令符号
+@property (nonatomic, assign) MXMRouteSign sign;
+
+/// 一个数组，包含该指令的点的第一个和最后一个索引(相对于path[0].points)。这有指明指令匹配路线的哪一部分。
+@property (nonatomic, strong) NSArray<NSNumber *> *interval;
+
+/// 描述用户遵循路线必须做的事情。语言取决于locale参数。
+@property (nonatomic, strong) NSString *text;
+
+/// 本指令的持续时间，单位为ms
+@property (nonatomic, assign) NSUInteger time;
+
+/// 连接类型，只有在sign为`MXMDownstairs`和`MXMUpstairs`才会返回，可能值有elevator_customer, elevator_good, escalator, ramp, stairs
 @property (nonatomic, strong) NSString *type;
 
 @end
 
 
 /**
- 路段
+ 路线的坐标信息
  */
-@interface MXMStep : NSObject
+@interface MXMGeometry : NSObject
 
-/// 距离
-@property (nonatomic, assign) double distance;
+/// 路线几何图形的类型
+@property (nonatomic, strong) NSString *type;
 
-/// 耗时
-@property (nonatomic, assign) double duration;
-
-/// 路段名
-@property (nonatomic, strong) NSString *name;
-
-/// 行进方式
-@property (nonatomic, strong) NSString *mode;
-
-/// 路段关键点
-@property (nonatomic, strong) MXMManeuver *maneuver;
-
-/// 路线点
-@property (nonatomic, strong) NSArray<MXMCoordinate *> *coordinates;
-
-/// 路段所在建筑ID
-@property (nonatomic, strong) NSString *buildingId;
-
-/// 路段所在楼层
-@property (nonatomic, strong) NSString *floor;
-
-@end
-
-
-/**
- 相邻途经点间的路线
- */
-@interface MXMLeg : NSObject
-
-/// 距离
-@property (nonatomic, assign) double distance;
-
-/// 耗时
-@property (nonatomic, assign) double duration;
-
-/// 路线描述
-@property (nonatomic, strong) NSString *summary;
-
-/// 路段
-@property (nonatomic, strong) NSArray<MXMStep *> *steps;
+/// 路线的坐标数组
+@property (nonatomic, strong) NSArray<MXMGeoPoint *> *coordinates;
 
 @end
 
@@ -289,38 +263,25 @@
 /**
  路线方案
  */
-@interface MXMRoute : NSObject
+@interface MXMPath : NSObject
 
-/// 距离
+/// 路线的总距离，以米为单位(m)
 @property (nonatomic, assign) double distance;
 
-/// 耗时
-@property (nonatomic, assign) double duration;
+/// 权重值
+@property (nonatomic, assign) double weight;
 
-/// 相邻途经点间的路线
-@property (nonatomic, strong) NSArray<MXMLeg *> *legs;
+/// 路线的总时间，单位为毫秒(ms)
+@property (nonatomic, assign) NSUInteger time;
 
-@end
+/// 路线的包围框
+@property (nonatomic, strong) MXMBoundingBox *bbox;
 
+/// 路线的坐标信息
+@property (nonatomic, strong) MXMGeometry *points;
 
-/**
- 途经点
- */
-@interface MXMWaypoint : NSObject
-
-/// 途经点名字
-@property (nonatomic, strong) NSString *name;
-
-/// 途经点经纬度
-@property (nonatomic, strong) MXMGeoPoint *location;
+/// 路线的指令信息组
+@property (nonatomic, strong) NSArray<MXMInstruction *> *instructions;
 
 @end
-
-
-
-
-
-
-
-
 
