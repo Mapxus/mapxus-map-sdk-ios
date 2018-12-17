@@ -17,10 +17,10 @@
 /// 关键字，目前只支持单个关键字查询
 @property (nonatomic, strong) NSString *keywords;
 
-/// bounding box，searchGlobal，bbox, center 二选一
+/// bbox, center 二选一
 @property (nonatomic, strong) MXMBoundingBox *bbox;
 
-/// 中心点，searchGlobal，bbox, center 二选一
+/// bbox, center 二选一
 @property (nonatomic, strong) MXMGeoPoint *center;
 
 /// 中心点范围内搜索距离，单位为km，必须配合center使用

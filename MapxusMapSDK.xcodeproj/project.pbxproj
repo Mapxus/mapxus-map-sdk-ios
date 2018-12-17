@@ -21,7 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		9C644954E4E8B951A1D9D7B2 /* Pods_MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B4F0FF77902EBC4B70407F4 /* Pods_MapxusMapSDK.framework */; };
+		3AD91DC4B866E5FC279D903F /* Pods_MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D6F952EAD585B3567D0F049 /* Pods_MapxusMapSDK.framework */; };
+		ABF85604A20F9DDD3D51C246 /* Pods_MapxusMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C6E6DB1C7CD374FB655D723 /* Pods_MapxusMapSDKTests.framework */; };
+		B03F714326AFDE5D17CF8C5E /* Pods_SDKExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6A6803DB139A751947CAD8 /* Pods_SDKExample.framework */; };
 		D60096BA21145DA1003947FA /* MXMURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = D60096B821145DA1003947FA /* MXMURLProtocol.h */; };
 		D60096BB21145DA1003947FA /* MXMURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = D60096B921145DA1003947FA /* MXMURLProtocol.m */; };
 		D600996C21192B2A003947FA /* NSURLSession+PPSheep.m in Sources */ = {isa = PBXBuildFile; fileRef = D600996A21192B29003947FA /* NSURLSession+PPSheep.m */; };
@@ -43,9 +45,20 @@
 		D625CE3C2180495000E61D3E /* NSString+Compare.h in Headers */ = {isa = PBXBuildFile; fileRef = D625CE3A2180495000E61D3E /* NSString+Compare.h */; };
 		D625CE3D2180495000E61D3E /* NSString+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = D625CE3B2180495000E61D3E /* NSString+Compare.m */; };
 		D641FC9120F5DBDB00061AD4 /* MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */; };
-		D641FC9620F5DBDB00061AD4 /* MapxusMapSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D641FC9520F5DBDB00061AD4 /* MapxusMapSDKTests.m */; };
 		D641FC9820F5DBDB00061AD4 /* MapxusMapSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = D641FC8A20F5DBDB00061AD4 /* MapxusMapSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D641FCDC20FB876800061AD4 /* KxMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = D641FCC620FB876800061AD4 /* KxMenu.h */; };
+		D65B569221C2454C00142732 /* MXMHttpManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B569121C2454C00142732 /* MXMHttpManagerTests.m */; };
+		D65B569421C245B300142732 /* MXMSearchAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B569321C245B300142732 /* MXMSearchAPITests.m */; };
+		D65B569621C2476100142732 /* MapxusMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B569521C2476100142732 /* MapxusMapTests.m */; };
+		D65B56C821C3AB4300142732 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B56C721C3AB4300142732 /* AppDelegate.m */; };
+		D65B56CB21C3AB4300142732 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B56CA21C3AB4300142732 /* ViewController.m */; };
+		D65B56CE21C3AB4300142732 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D65B56CC21C3AB4300142732 /* Main.storyboard */; };
+		D65B56D021C3AB4500142732 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D65B56CF21C3AB4500142732 /* Assets.xcassets */; };
+		D65B56D321C3AB4500142732 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D65B56D121C3AB4500142732 /* LaunchScreen.storyboard */; };
+		D65B56D621C3AB4500142732 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B56D521C3AB4500142732 /* main.m */; };
+		D65B56EC21C3B3ED00142732 /* MapxusMapIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B56EB21C3B3ED00142732 /* MapxusMapIntegrationTest.m */; };
+		D65B56FD21C7383700142732 /* MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */; };
+		D65B56FE21C7383700142732 /* MapxusMapSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D67F81222124365C00DF94D7 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D641FCC520FB876800061AD4 /* KxMenu.m */; };
 		D684BBC820FC03F7004E85D9 /* MXMGeoBuilding.h in Headers */ = {isa = PBXBuildFile; fileRef = D684BBC620FC03F7004E85D9 /* MXMGeoBuilding.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D684BBC920FC03F7004E85D9 /* MXMGeoBuilding.m in Sources */ = {isa = PBXBuildFile; fileRef = D684BBC720FC03F7004E85D9 /* MXMGeoBuilding.m */; };
@@ -79,9 +92,10 @@
 		D6DEAD86215DFF43006F2CA2 /* MXMConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = D6DEAD84215DFF43006F2CA2 /* MXMConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D6DEAD87215DFF43006F2CA2 /* MXMConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = D6DEAD85215DFF43006F2CA2 /* MXMConfiguration.m */; };
 		D6DEAD89215E0BB9006F2CA2 /* MXMDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = D6DEAD88215E0AB9006F2CA2 /* MXMDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D6EBB98C21C100B40059AD2D /* MXMMapServicesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EBB98B21C100B40059AD2D /* MXMMapServicesTests.m */; };
 		D6FD2473219A6700008762A0 /* MGLStyle+MXMFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D6FD2471219A6700008762A0 /* MGLStyle+MXMFilter.h */; };
 		D6FD2474219A6700008762A0 /* MGLStyle+MXMFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D6FD2472219A6700008762A0 /* MGLStyle+MXMFilter.m */; };
-		E051C9C4356642B95B506668 /* Pods_MapxusMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C2EC7A5CED3DB4D2919A98B /* Pods_MapxusMapSDKTests.framework */; };
+		E26D1766484B8667ABF0BA2D /* Pods_SDKExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C0AF2A3C439189D4602BA /* Pods_SDKExampleTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,13 +106,53 @@
 			remoteGlobalIDString = D641FC8620F5DBDB00061AD4;
 			remoteInfo = MapxusMapSDK;
 		};
+		D65B56DC21C3AB4500142732 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D641FC7E20F5DBDB00061AD4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D65B56C321C3AB4300142732;
+			remoteInfo = SDKExample;
+		};
+		D65B56E821C3AB5700142732 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D641FC7E20F5DBDB00061AD4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D65B56C321C3AB4300142732;
+			remoteInfo = SDKExample;
+		};
+		D65B56FF21C7383700142732 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D641FC7E20F5DBDB00061AD4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D641FC8620F5DBDB00061AD4;
+			remoteInfo = MapxusMapSDK;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		D65B570121C7383700142732 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D65B56FE21C7383700142732 /* MapxusMapSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		55678E9E4DC880855D192936 /* Pods-MapxusMapSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDK/Pods-MapxusMapSDK.debug.xcconfig"; sourceTree = "<group>"; };
-		60CB3600A2D7508C263C0D70 /* Pods-MapxusMapSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6B4F0FF77902EBC4B70407F4 /* Pods_MapxusMapSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapxusMapSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C2EC7A5CED3DB4D2919A98B /* Pods_MapxusMapSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapxusMapSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F1125263BF121049C457AE8 /* Pods-MapxusMapSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDK/Pods-MapxusMapSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		40170AAA7BAFABCC0B1D4A2A /* Pods-SDKExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SDKExampleTests/Pods-SDKExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4C6E6DB1C7CD374FB655D723 /* Pods_MapxusMapSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapxusMapSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		67D7794C21B588BDEEFAC10D /* Pods-SDKExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SDKExampleTests/Pods-SDKExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		83EC7D45606EA58294795AA8 /* Pods-SDKExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-SDKExample/Pods-SDKExample.release.xcconfig"; sourceTree = "<group>"; };
+		843DDC07A078F31964EAFE53 /* Pods-MapxusMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		89ADB969608E50E1AD4F3362 /* Pods-SDKExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SDKExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SDKExample/Pods-SDKExample.debug.xcconfig"; sourceTree = "<group>"; };
+		9D6F952EAD585B3567D0F049 /* Pods_MapxusMapSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapxusMapSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E6A6803DB139A751947CAD8 /* Pods_SDKExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D60096B821145DA1003947FA /* MXMURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMURLProtocol.h; sourceTree = "<group>"; };
 		D60096B921145DA1003947FA /* MXMURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMURLProtocol.m; sourceTree = "<group>"; };
 		D600996A21192B29003947FA /* NSURLSession+PPSheep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+PPSheep.m"; sourceTree = "<group>"; };
@@ -123,10 +177,26 @@
 		D641FC8A20F5DBDB00061AD4 /* MapxusMapSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapxusMapSDK.h; sourceTree = "<group>"; };
 		D641FC8B20F5DBDB00061AD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D641FC9020F5DBDB00061AD4 /* MapxusMapSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapxusMapSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D641FC9520F5DBDB00061AD4 /* MapxusMapSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapxusMapSDKTests.m; sourceTree = "<group>"; };
 		D641FC9720F5DBDB00061AD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D641FCC520FB876800061AD4 /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
 		D641FCC620FB876800061AD4 /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
+		D65B569121C2454C00142732 /* MXMHttpManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMHttpManagerTests.m; sourceTree = "<group>"; };
+		D65B569321C245B300142732 /* MXMSearchAPITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSearchAPITests.m; sourceTree = "<group>"; };
+		D65B569521C2476100142732 /* MapxusMapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapxusMapTests.m; sourceTree = "<group>"; };
+		D65B56C421C3AB4300142732 /* SDKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D65B56C621C3AB4300142732 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D65B56C721C3AB4300142732 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D65B56C921C3AB4300142732 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		D65B56CA21C3AB4300142732 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D65B56CD21C3AB4300142732 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D65B56CF21C3AB4500142732 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D65B56D221C3AB4500142732 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D65B56D421C3AB4500142732 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D65B56D521C3AB4500142732 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D65B56DB21C3AB4500142732 /* SDKExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SDKExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D65B56E121C3AB4500142732 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D65B56EA21C3B3ED00142732 /* MapxusMapIntegrationTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapxusMapIntegrationTest.h; sourceTree = "<group>"; };
+		D65B56EB21C3B3ED00142732 /* MapxusMapIntegrationTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapxusMapIntegrationTest.m; sourceTree = "<group>"; };
 		D684BBC620FC03F7004E85D9 /* MXMGeoBuilding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMGeoBuilding.h; sourceTree = "<group>"; };
 		D684BBC720FC03F7004E85D9 /* MXMGeoBuilding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMGeoBuilding.m; sourceTree = "<group>"; };
 		D684BBCE20FC0FC4004E85D9 /* MXMConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMConstants.h; sourceTree = "<group>"; };
@@ -161,10 +231,12 @@
 		D6DEAD88215E0AB9006F2CA2 /* MXMDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMDefine.h; sourceTree = "<group>"; };
 		D6E4DAF621103D1C00D15FF1 /* IOS-Universal-Framework_aggregate.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "IOS-Universal-Framework_aggregate.sh"; sourceTree = "<group>"; };
 		D6E4DAF7211044B000D15FF1 /* document.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = document.sh; sourceTree = "<group>"; };
+		D6EBB98B21C100B40059AD2D /* MXMMapServicesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMMapServicesTests.m; sourceTree = "<group>"; };
 		D6FD2471219A6700008762A0 /* MGLStyle+MXMFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGLStyle+MXMFilter.h"; sourceTree = "<group>"; };
 		D6FD2472219A6700008762A0 /* MGLStyle+MXMFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MGLStyle+MXMFilter.m"; sourceTree = "<group>"; };
-		E6579208B1A4FF8AF02C7EFA /* Pods-MapxusMapSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDK/Pods-MapxusMapSDK.release.xcconfig"; sourceTree = "<group>"; };
-		FC5152F12353FD8E73AA6B8F /* Pods-MapxusMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		D84C0AF2A3C439189D4602BA /* Pods_SDKExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA4B2E5697A78C160F9F7887 /* Pods-MapxusMapSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F1096D414467C19801305487 /* Pods-MapxusMapSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapxusMapSDK/Pods-MapxusMapSDK.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,7 +244,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C644954E4E8B951A1D9D7B2 /* Pods_MapxusMapSDK.framework in Frameworks */,
+				3AD91DC4B866E5FC279D903F /* Pods_MapxusMapSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,7 +253,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				D641FC9120F5DBDB00061AD4 /* MapxusMapSDK.framework in Frameworks */,
-				E051C9C4356642B95B506668 /* Pods_MapxusMapSDKTests.framework in Frameworks */,
+				ABF85604A20F9DDD3D51C246 /* Pods_MapxusMapSDKTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D65B56C121C3AB4300142732 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D65B56FD21C7383700142732 /* MapxusMapSDK.framework in Frameworks */,
+				B03F714326AFDE5D17CF8C5E /* Pods_SDKExample.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D65B56D821C3AB4500142732 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E26D1766484B8667ABF0BA2D /* Pods_SDKExampleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,8 +280,10 @@
 		26F43604E2ACB51E173A78FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6B4F0FF77902EBC4B70407F4 /* Pods_MapxusMapSDK.framework */,
-				8C2EC7A5CED3DB4D2919A98B /* Pods_MapxusMapSDKTests.framework */,
+				9D6F952EAD585B3567D0F049 /* Pods_MapxusMapSDK.framework */,
+				4C6E6DB1C7CD374FB655D723 /* Pods_MapxusMapSDKTests.framework */,
+				9E6A6803DB139A751947CAD8 /* Pods_SDKExample.framework */,
+				D84C0AF2A3C439189D4602BA /* Pods_SDKExampleTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -221,6 +312,8 @@
 				D6E4DAF621103D1C00D15FF1 /* IOS-Universal-Framework_aggregate.sh */,
 				D641FC8920F5DBDB00061AD4 /* MapxusMapSDK */,
 				D641FC9420F5DBDB00061AD4 /* MapxusMapSDKTests */,
+				D65B56C521C3AB4300142732 /* SDKExample */,
+				D65B56DE21C3AB4500142732 /* SDKExampleTests */,
 				D641FC8820F5DBDB00061AD4 /* Products */,
 				F1A9E248F88D1E4895FCCB46 /* Pods */,
 				26F43604E2ACB51E173A78FC /* Frameworks */,
@@ -232,6 +325,8 @@
 			children = (
 				D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */,
 				D641FC9020F5DBDB00061AD4 /* MapxusMapSDKTests.xctest */,
+				D65B56C421C3AB4300142732 /* SDKExample.app */,
+				D65B56DB21C3AB4500142732 /* SDKExampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -242,8 +337,8 @@
 				D684BC5320FE3212004E85D9 /* MapxusBundle */,
 				D641FCC020FB876800061AD4 /* PrivateFile */,
 				D641FCBA20FB876800061AD4 /* FoundationKit */,
-				D641FCB020FB876800061AD4 /* SearchKit */,
 				D617B69A215A290700CC6936 /* Operations */,
+				D641FCB020FB876800061AD4 /* SearchKit */,
 				D641FC8A20F5DBDB00061AD4 /* MapxusMapSDK.h */,
 				D6DEAD88215E0AB9006F2CA2 /* MXMDefine.h */,
 				D684BBC620FC03F7004E85D9 /* MXMGeoBuilding.h */,
@@ -271,7 +366,10 @@
 		D641FC9420F5DBDB00061AD4 /* MapxusMapSDKTests */ = {
 			isa = PBXGroup;
 			children = (
-				D641FC9520F5DBDB00061AD4 /* MapxusMapSDKTests.m */,
+				D65B569121C2454C00142732 /* MXMHttpManagerTests.m */,
+				D6EBB98B21C100B40059AD2D /* MXMMapServicesTests.m */,
+				D65B569321C245B300142732 /* MXMSearchAPITests.m */,
+				D65B569521C2476100142732 /* MapxusMapTests.m */,
 				D641FC9720F5DBDB00061AD4 /* Info.plist */,
 			);
 			path = MapxusMapSDKTests;
@@ -333,6 +431,32 @@
 			path = KxMenu;
 			sourceTree = "<group>";
 		};
+		D65B56C521C3AB4300142732 /* SDKExample */ = {
+			isa = PBXGroup;
+			children = (
+				D65B56C621C3AB4300142732 /* AppDelegate.h */,
+				D65B56C721C3AB4300142732 /* AppDelegate.m */,
+				D65B56C921C3AB4300142732 /* ViewController.h */,
+				D65B56CA21C3AB4300142732 /* ViewController.m */,
+				D65B56CC21C3AB4300142732 /* Main.storyboard */,
+				D65B56CF21C3AB4500142732 /* Assets.xcassets */,
+				D65B56D121C3AB4500142732 /* LaunchScreen.storyboard */,
+				D65B56D421C3AB4500142732 /* Info.plist */,
+				D65B56D521C3AB4500142732 /* main.m */,
+			);
+			path = SDKExample;
+			sourceTree = "<group>";
+		};
+		D65B56DE21C3AB4500142732 /* SDKExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				D65B56EA21C3B3ED00142732 /* MapxusMapIntegrationTest.h */,
+				D65B56EB21C3B3ED00142732 /* MapxusMapIntegrationTest.m */,
+				D65B56E121C3AB4500142732 /* Info.plist */,
+			);
+			path = SDKExampleTests;
+			sourceTree = "<group>";
+		};
 		D684BC5320FE3212004E85D9 /* MapxusBundle */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,10 +468,14 @@
 		F1A9E248F88D1E4895FCCB46 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				55678E9E4DC880855D192936 /* Pods-MapxusMapSDK.debug.xcconfig */,
-				E6579208B1A4FF8AF02C7EFA /* Pods-MapxusMapSDK.release.xcconfig */,
-				60CB3600A2D7508C263C0D70 /* Pods-MapxusMapSDKTests.debug.xcconfig */,
-				FC5152F12353FD8E73AA6B8F /* Pods-MapxusMapSDKTests.release.xcconfig */,
+				2F1125263BF121049C457AE8 /* Pods-MapxusMapSDK.debug.xcconfig */,
+				F1096D414467C19801305487 /* Pods-MapxusMapSDK.release.xcconfig */,
+				DA4B2E5697A78C160F9F7887 /* Pods-MapxusMapSDKTests.debug.xcconfig */,
+				843DDC07A078F31964EAFE53 /* Pods-MapxusMapSDKTests.release.xcconfig */,
+				89ADB969608E50E1AD4F3362 /* Pods-SDKExample.debug.xcconfig */,
+				83EC7D45606EA58294795AA8 /* Pods-SDKExample.release.xcconfig */,
+				40170AAA7BAFABCC0B1D4A2A /* Pods-SDKExampleTests.debug.xcconfig */,
+				67D7794C21B588BDEEFAC10D /* Pods-SDKExampleTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -400,7 +528,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D641FC9B20F5DBDB00061AD4 /* Build configuration list for PBXNativeTarget "MapxusMapSDK" */;
 			buildPhases = (
-				573B8AD0BD2F34D291895600 /* [CP] Check Pods Manifest.lock */,
+				AB9A58635E9B469F3C1091AC /* [CP] Check Pods Manifest.lock */,
 				D641FC8220F5DBDB00061AD4 /* Sources */,
 				D641FC8320F5DBDB00061AD4 /* Frameworks */,
 				D641FC8420F5DBDB00061AD4 /* Headers */,
@@ -419,20 +547,62 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D641FC9E20F5DBDB00061AD4 /* Build configuration list for PBXNativeTarget "MapxusMapSDKTests" */;
 			buildPhases = (
-				98E14A62212B725F7A359793 /* [CP] Check Pods Manifest.lock */,
+				18B67C16E1CA2014D277E72B /* [CP] Check Pods Manifest.lock */,
 				D641FC8C20F5DBDB00061AD4 /* Sources */,
 				D641FC8D20F5DBDB00061AD4 /* Frameworks */,
 				D641FC8E20F5DBDB00061AD4 /* Resources */,
-				2C90D6440E984B2645CF2EE3 /* [CP] Embed Pods Frameworks */,
+				516BBD9AF4D48E95515041E2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				D641FC9320F5DBDB00061AD4 /* PBXTargetDependency */,
+				D65B56E921C3AB5700142732 /* PBXTargetDependency */,
 			);
 			name = MapxusMapSDKTests;
 			productName = MapxusMapSDKTests;
 			productReference = D641FC9020F5DBDB00061AD4 /* MapxusMapSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D65B56C321C3AB4300142732 /* SDKExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D65B56E221C3AB4500142732 /* Build configuration list for PBXNativeTarget "SDKExample" */;
+			buildPhases = (
+				C6823BE4107FED62DCC0F5F3 /* [CP] Check Pods Manifest.lock */,
+				D65B56C021C3AB4300142732 /* Sources */,
+				D65B56C121C3AB4300142732 /* Frameworks */,
+				D65B56C221C3AB4300142732 /* Resources */,
+				C3202F3B44A4A63CE443E522 /* [CP] Embed Pods Frameworks */,
+				D65B570121C7383700142732 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D65B570021C7383700142732 /* PBXTargetDependency */,
+			);
+			name = SDKExample;
+			productName = SDKExample;
+			productReference = D65B56C421C3AB4300142732 /* SDKExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D65B56DA21C3AB4500142732 /* SDKExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D65B56E521C3AB4500142732 /* Build configuration list for PBXNativeTarget "SDKExampleTests" */;
+			buildPhases = (
+				4B0CDF830B9D3326FB98F74E /* [CP] Check Pods Manifest.lock */,
+				D65B56D721C3AB4500142732 /* Sources */,
+				D65B56D821C3AB4500142732 /* Frameworks */,
+				D65B56D921C3AB4500142732 /* Resources */,
+				EB9FAFBC00B5D36C734BDE82 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D65B56DD21C3AB4500142732 /* PBXTargetDependency */,
+			);
+			name = SDKExampleTests;
+			productName = SDKExampleTests;
+			productReference = D65B56DB21C3AB4500142732 /* SDKExampleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -453,6 +623,14 @@
 					};
 					D641FC8F20F5DBDB00061AD4 = {
 						CreatedOnToolsVersion = 9.4.1;
+						TestTargetID = D65B56C321C3AB4300142732;
+					};
+					D65B56C321C3AB4300142732 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					D65B56DA21C3AB4500142732 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = D65B56C321C3AB4300142732;
 					};
 				};
 			};
@@ -462,6 +640,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = D641FC7D20F5DBDB00061AD4;
 			productRefGroup = D641FC8820F5DBDB00061AD4 /* Products */;
@@ -469,8 +648,10 @@
 			projectRoot = "";
 			targets = (
 				D641FC8620F5DBDB00061AD4 /* MapxusMapSDK */,
-				D641FC8F20F5DBDB00061AD4 /* MapxusMapSDKTests */,
 				D62027932105DF1D00CD9F36 /* MapxusMapSDK-Universal */,
+				D641FC8F20F5DBDB00061AD4 /* MapxusMapSDKTests */,
+				D65B56C321C3AB4300142732 /* SDKExample */,
+				D65B56DA21C3AB4500142732 /* SDKExampleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -491,10 +672,63 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D65B56C221C3AB4300142732 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D65B56D321C3AB4500142732 /* LaunchScreen.storyboard in Resources */,
+				D65B56D021C3AB4500142732 /* Assets.xcassets in Resources */,
+				D65B56CE21C3AB4300142732 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D65B56D921C3AB4500142732 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2C90D6440E984B2645CF2EE3 /* [CP] Embed Pods Frameworks */ = {
+		18B67C16E1CA2014D277E72B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MapxusMapSDKTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B0CDF830B9D3326FB98F74E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SDKExampleTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		516BBD9AF4D48E95515041E2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -518,7 +752,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		573B8AD0BD2F34D291895600 /* [CP] Check Pods Manifest.lock */ = {
+		AB9A58635E9B469F3C1091AC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -536,7 +770,31 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		98E14A62212B725F7A359793 /* [CP] Check Pods Manifest.lock */ = {
+		C3202F3B44A4A63CE443E522 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SDKExample/Pods-SDKExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
+				"${BUILT_PRODUCTS_DIR}/YYModel/YYModel.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYModel.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SDKExample/Pods-SDKExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C6823BE4107FED62DCC0F5F3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -547,7 +805,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MapxusMapSDKTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SDKExample-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -566,6 +824,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "bash \"${PROJECT_DIR}/IOS-Universal-Framework_aggregate.sh\"\nbash \"${PROJECT_DIR}/document.sh\"\n";
+		};
+		EB9FAFBC00B5D36C734BDE82 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SDKExampleTests/Pods-SDKExampleTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/OCMock/OCMock.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OCMock.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SDKExampleTests/Pods-SDKExampleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -606,7 +882,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D641FC9620F5DBDB00061AD4 /* MapxusMapSDKTests.m in Sources */,
+				D6EBB98C21C100B40059AD2D /* MXMMapServicesTests.m in Sources */,
+				D65B569221C2454C00142732 /* MXMHttpManagerTests.m in Sources */,
+				D65B569621C2476100142732 /* MapxusMapTests.m in Sources */,
+				D65B569421C245B300142732 /* MXMSearchAPITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D65B56C021C3AB4300142732 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D65B56CB21C3AB4300142732 /* ViewController.m in Sources */,
+				D65B56D621C3AB4500142732 /* main.m in Sources */,
+				D65B56C821C3AB4300142732 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D65B56D721C3AB4500142732 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D65B56EC21C3B3ED00142732 /* MapxusMapIntegrationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,7 +915,41 @@
 			target = D641FC8620F5DBDB00061AD4 /* MapxusMapSDK */;
 			targetProxy = D641FC9220F5DBDB00061AD4 /* PBXContainerItemProxy */;
 		};
+		D65B56DD21C3AB4500142732 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D65B56C321C3AB4300142732 /* SDKExample */;
+			targetProxy = D65B56DC21C3AB4500142732 /* PBXContainerItemProxy */;
+		};
+		D65B56E921C3AB5700142732 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D65B56C321C3AB4300142732 /* SDKExample */;
+			targetProxy = D65B56E821C3AB5700142732 /* PBXContainerItemProxy */;
+		};
+		D65B570021C7383700142732 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D641FC8620F5DBDB00061AD4 /* MapxusMapSDK */;
+			targetProxy = D65B56FF21C7383700142732 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D65B56CC21C3AB4300142732 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D65B56CD21C3AB4300142732 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D65B56D121C3AB4500142732 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D65B56D221C3AB4500142732 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		D62027942105DF1D00CD9F36 /* Debug */ = {
@@ -757,14 +1088,14 @@
 		};
 		D641FC9C20F5DBDB00061AD4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55678E9E4DC880855D192936 /* Pods-MapxusMapSDK.debug.xcconfig */;
+			baseConfigurationReference = 2F1125263BF121049C457AE8 /* Pods-MapxusMapSDK.debug.xcconfig */;
 			buildSettings = {
 				BITCODE_GENERATION_MODE = marker;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -794,14 +1125,14 @@
 		};
 		D641FC9D20F5DBDB00061AD4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E6579208B1A4FF8AF02C7EFA /* Pods-MapxusMapSDK.release.xcconfig */;
+			baseConfigurationReference = F1096D414467C19801305487 /* Pods-MapxusMapSDK.release.xcconfig */;
 			buildSettings = {
 				BITCODE_GENERATION_MODE = bitcode;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -831,10 +1162,12 @@
 		};
 		D641FC9F20F5DBDB00061AD4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60CB3600A2D7508C263C0D70 /* Pods-MapxusMapSDKTests.debug.xcconfig */;
+			baseConfigurationReference = DA4B2E5697A78C160F9F7887 /* Pods-MapxusMapSDKTests.debug.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MapxusMapSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -843,16 +1176,20 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapxus.MapxusMapSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SDKExample.app/SDKExample";
 			};
 			name = Debug;
 		};
 		D641FCA020F5DBDB00061AD4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC5152F12353FD8E73AA6B8F /* Pods-MapxusMapSDKTests.release.xcconfig */;
+			baseConfigurationReference = 843DDC07A078F31964EAFE53 /* Pods-MapxusMapSDKTests.release.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MapxusMapSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -861,7 +1198,99 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mapxus.MapxusMapSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SDKExample.app/SDKExample";
+			};
+			name = Release;
+		};
+		D65B56E321C3AB4500142732 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89ADB969608E50E1AD4F3362 /* Pods-SDKExample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = SDKExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapxus.SDKExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D65B56E421C3AB4500142732 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 83EC7D45606EA58294795AA8 /* Pods-SDKExample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = SDKExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapxus.SDKExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D65B56E621C3AB4500142732 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40170AAA7BAFABCC0B1D4A2A /* Pods-SDKExampleTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
+				INFOPLIST_FILE = SDKExampleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapxus.SDKExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SDKExample.app/SDKExample";
+			};
+			name = Debug;
+		};
+		D65B56E721C3AB4500142732 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 67D7794C21B588BDEEFAC10D /* Pods-SDKExampleTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
+				INFOPLIST_FILE = SDKExampleTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mapxus.SDKExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SDKExample.app/SDKExample";
 			};
 			name = Release;
 		};
@@ -900,6 +1329,24 @@
 			buildConfigurations = (
 				D641FC9F20F5DBDB00061AD4 /* Debug */,
 				D641FCA020F5DBDB00061AD4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D65B56E221C3AB4500142732 /* Build configuration list for PBXNativeTarget "SDKExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D65B56E321C3AB4500142732 /* Debug */,
+				D65B56E421C3AB4500142732 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D65B56E521C3AB4500142732 /* Build configuration list for PBXNativeTarget "SDKExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D65B56E621C3AB4500142732 /* Debug */,
+				D65B56E721C3AB4500142732 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

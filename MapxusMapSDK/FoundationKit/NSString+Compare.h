@@ -10,13 +10,6 @@
 
 @interface NSString (Compare)
 
-/**
- *  判断字符串是否为空
- *
- *  @param string 检测目标字符
- *
- *  @return YES:字符串无有效值， NO:字符串有有效值
- */
 + (BOOL)isEmpty:(NSString *)string;
 
 
