@@ -27,7 +27,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D6EBB9D721C200B70059AD2D"
+               BlueprintIdentifier = "D65B56DA21C3AB4500142732"
                BuildableName = "SDKExampleTests.xctest"
                BlueprintName = "SDKExampleTests"
                ReferencedContainer = "container:MapxusMapSDK.xcodeproj">

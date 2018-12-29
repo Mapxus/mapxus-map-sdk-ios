@@ -1,12 +1,11 @@
 # Uncomment the next line to define a global platform for your project
  platform :ios, '9.0'
 
-use_frameworks!
+ use_frameworks!
 
-# Pods for MapxusMapSDK
-pod 'Mapbox-iOS-SDK'
-pod 'AFNetworking'
-pod 'YYModel'
+  # Pods for MapxusMapSDK
+  pod 'Mapbox-iOS-SDK'
+  pod 'MapxusBaseSDK', :path => '../mapxus-base-sdk-ios'
 
 target 'MapxusMapSDK' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks

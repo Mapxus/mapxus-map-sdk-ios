@@ -15,14 +15,16 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - Mapbox-iOS-SDK (4.6.0)
+  - MapxusBaseSDK (0.1.0):
+    - AFNetworking (~> 3.2.1)
+    - YYModel (~> 1.0.4)
   - OCMock (3.4.3)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
-  - AFNetworking
   - Mapbox-iOS-SDK
+  - MapxusBaseSDK (from `../mapxus-base-sdk-ios`)
   - OCMock
-  - YYModel
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -31,12 +33,17 @@ SPEC REPOS:
     - OCMock
     - YYModel
 
+EXTERNAL SOURCES:
+  MapxusBaseSDK:
+    :path: "../mapxus-base-sdk-ios"
+
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Mapbox-iOS-SDK: 204c04713477cf2a88c52c5a8eed1790eb75a02a
+  MapxusBaseSDK: 5b80cf1196029be1ededdadb6e49acc40a6c908a
   OCMock: 43565190abc78977ad44a61c0d20d7f0784d35ab
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 53124ddc81d9139a2136e699636493b28ffd61fb
+PODFILE CHECKSUM: cedc792df9ac3211b660e6be4b337a03e62cda20
 
 COCOAPODS: 1.5.2

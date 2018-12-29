@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <MapxusMapSDK/MapxusMapSDK.h>
+#import <MapxusBaseSDK/MapxusBaseSDK.h>
 
 @interface AppDelegate ()
 
