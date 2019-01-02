@@ -6,7 +6,7 @@
 //  Copyright © 2018年 MAPHIVE TECHNOLOGY LIMITED. All rights reserved.
 //
 
-#import "MXMFloorSelectorBar.h"
+#import "MXMFloorSelectorBar+Private.h"
 
 
 @interface CellView : UIView

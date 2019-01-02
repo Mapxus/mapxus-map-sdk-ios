@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MXMFloorSelectorBar.h"
 #import "MXMConfiguration.h"
 #import "MXMDefine.h"
 
@@ -47,6 +48,16 @@ NS_ASSUME_NONNULL_BEGIN
  MapxusMap的事件回调代理
  */
 @property (nonatomic, weak) id<MapxusMapDelegate> delegate;
+
+/**
+ 建筑选择按钮，在屏幕中心矩形区域出现多栋建筑时出现
+ */
+@property (nonatomic, strong, readonly) UIButton *buildingSelectButton;
+
+/**
+ 楼层选择器
+ */
+@property (nonatomic, strong, readonly) MXMFloorSelectorBar *floorBar;
 
 /**
  一直隐藏地图控件，默认为NO

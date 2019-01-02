@@ -87,7 +87,7 @@
             floorBarYLc.identifier = @"floorBarYLc";
             [self.mapView addConstraint:floorBarYLc];
             
-            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
+            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
             buildingBtnXLc.identifier = @"buildingBtnXLc";
             [self.mapView addConstraint:buildingBtnXLc];
         }
@@ -102,7 +102,7 @@
             floorBarYLc.identifier = @"floorBarYLc";
             [self.mapView addConstraint:floorBarYLc];
             
-            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-6];
+            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-6];
             buildingBtnXLc.identifier = @"buildingBtnXLc";
             [self.mapView addConstraint:buildingBtnXLc];
         }
@@ -117,7 +117,7 @@
             floorBarYLc.identifier = @"floorBarYLc";
             [self.mapView addConstraint:floorBarYLc];
             
-            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
+            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
             buildingBtnXLc.identifier = @"buildingBtnXLc";
             [self.mapView addConstraint:buildingBtnXLc];
         }
@@ -132,7 +132,7 @@
             floorBarYLc.identifier = @"floorBarYLc";
             [self.mapView addConstraint:floorBarYLc];
             
-            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-6];
+            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-6];
             buildingBtnXLc.identifier = @"buildingBtnXLc";
             [self.mapView addConstraint:buildingBtnXLc];
         }
@@ -147,7 +147,7 @@
             floorBarYLc.identifier = @"floorBarYLc";
             [self.mapView addConstraint:floorBarYLc];
             
-            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
+            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
             buildingBtnXLc.identifier = @"buildingBtnXLc";
             [self.mapView addConstraint:buildingBtnXLc];
         }
@@ -162,7 +162,7 @@
             floorBarYLc.identifier = @"floorBarYLc";
             [self.mapView addConstraint:floorBarYLc];
             
-            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-6];
+            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-6];
             buildingBtnXLc.identifier = @"buildingBtnXLc";
             [self.mapView addConstraint:buildingBtnXLc];
         }
@@ -195,10 +195,13 @@
 {
     NSArray *arr = self.mapView.style.layers;
     for (MGLStyleLayer *k in arr) {
-        NSString *ident = k.identifier;
-        if (![ident hasPrefix:@"maphive"]) {
-            k.visible = !_outdoorHidden;
+        if (![k isKindOfClass:[MGLForegroundStyleLayer class]]) {
+            continue;
         }
+        if (![((MGLForegroundStyleLayer *)k).sourceIdentifier isEqualToString:@"composite"]) {
+            continue;
+        }
+        k.visible = !_outdoorHidden;
     }
 }
 
@@ -302,7 +305,7 @@
     // 整屏可见建筑列表
     self.buildings = [self findOutBuildingIntheRect:self.mapView.bounds];
     // 设置建筑选择按钮和楼层选择按钮是否显示
-    self.buildingSelectBtn.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=2)&&(self.mapView.zoomLevel>15));
+    self.buildingSelectButton.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=2)&&(self.mapView.zoomLevel>15));
     self.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=1)&&(self.mapView.zoomLevel>15));
     self.isIndoor = !self.floorBar.isHidden;
     // 默认选中building，规则为优先选中之前选过的
@@ -418,7 +421,7 @@
         [arr addObject:item];
     }
     [KxMenu setDefaultItemIdentifier:self.building.identifier];
-    [KxMenu showMenuInView:self.mapView fromRect:sender.frame menuItems:arr];
+    [KxMenu showMenuInView:sender.superview fromRect:sender.frame menuItems:arr];
 }
 
 - (void)chooseItem:(KxMenuItem *)sender
@@ -682,8 +685,14 @@
 
 - (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations
 {
+    // 找交集
+    NSMutableSet *all = [NSMutableSet setWithArray:self.mapView.annotations];
+    NSMutableSet *mxms = [NSMutableSet setWithArray:annotations];
+    [all intersectSet:mxms];
+    NSArray *intersection = all.allObjects;
+    [self.mapView removeAnnotations:intersection];
+
     [self.mxmPointAnnotations removeObjectsInArray:annotations];
-    [self.mapView removeAnnotations:annotations];
     for (MXMPointAnnotation *a in annotations) {
         [a removeObserver:self forKeyPath:@"floor"];
     }
@@ -791,16 +800,16 @@
     
     
     // 添加建筑选择按钮与约束
-    [self.mapView addSubview:self.buildingSelectBtn];
-    NSLayoutConstraint *buiSelLeftLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
+    [self.mapView addSubview:self.buildingSelectButton];
+    NSLayoutConstraint *buiSelLeftLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
     buiSelLeftLc.identifier = @"buildingBtnXLc";
     [self.mapView addConstraint:buiSelLeftLc];
-    NSLayoutConstraint *buiSelBottomLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.floorBar attribute:NSLayoutAttributeTop multiplier:1.0f constant:-4];
+    NSLayoutConstraint *buiSelBottomLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.floorBar attribute:NSLayoutAttributeTop multiplier:1.0f constant:-4];
     [self.mapView addConstraint:buiSelBottomLc];
-    NSLayoutConstraint *buiSelWLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:50.0f];
-    [self.buildingSelectBtn addConstraint:buiSelWLc];
-    NSLayoutConstraint *buiSelHLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectBtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:50.0f];
-    [self.buildingSelectBtn addConstraint:buiSelHLc];
+    NSLayoutConstraint *buiSelWLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:50.0f];
+    [self.buildingSelectButton addConstraint:buiSelWLc];
+    NSLayoutConstraint *buiSelHLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:50.0f];
+    [self.buildingSelectButton addConstraint:buiSelHLc];
     
     
     // 添加单击手势
@@ -824,17 +833,17 @@
     return YES;
 }
 
-- (UIButton *)buildingSelectBtn
+- (UIButton *)buildingSelectButton
 {
-    if (!_buildingSelectBtn) {
-        _buildingSelectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _buildingSelectBtn.translatesAutoresizingMaskIntoConstraints = NO;
+    if (!_buildingSelectButton) {
+        _buildingSelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _buildingSelectButton.translatesAutoresizingMaskIntoConstraints = NO;
         NSBundle *bundle = [NSBundle bundleForClass:[MapxusMap class]];
         UIImage *image = [UIImage imageNamed:@"selectBuilding" inBundle:bundle compatibleWithTraitCollection:nil];
-        [_buildingSelectBtn setImage:image forState:UIControlStateNormal];
-        [_buildingSelectBtn addTarget:self action:@selector(selectBuildingOnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_buildingSelectButton setImage:image forState:UIControlStateNormal];
+        [_buildingSelectButton addTarget:self action:@selector(selectBuildingOnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _buildingSelectBtn;
+    return _buildingSelectButton;
 }
 
 - (MXMFloorSelectorBar *)floorBar

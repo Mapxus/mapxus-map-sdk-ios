@@ -7,7 +7,7 @@
 //
 
 #import "MapxusMap.h"
-#import "MXMFloorSelectorBar.h"
+#import "MXMFloorSelectorBar+Private.h"
 #import "KxMenu.h"
 #import "MapxusMapSDK.h"
 
@@ -28,8 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @property (nonatomic, strong) MGLMapView *mapView;
-@property (nonatomic, strong) UIButton *buildingSelectBtn;
-@property (nonatomic, strong) MXMFloorSelectorBar *floorBar;
+@property (nonatomic, strong, readwrite) UIButton *buildingSelectButton;
+@property (nonatomic, strong, readwrite) MXMFloorSelectorBar *floorBar;
 @property (nonatomic, strong) UIButton *MXMLogo;
 @property (nonatomic, strong) UIButton *openStreetSourceBtn;
 
