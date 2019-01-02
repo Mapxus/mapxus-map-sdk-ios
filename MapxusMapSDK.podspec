@@ -2,10 +2,10 @@
 Pod::Spec.new do |s|
 
   s.name         = "MapxusMapSDK"
-  s.version      = "2.7.0"
+  s.version      = "2.7.1"
   s.summary      = "Indoor map SDK."
   s.description  = <<-DESC
-  To be the largest global indoor map.
+                   To be the largest global indoor map.
                    DESC
   s.homepage     = "http://www.mapxus.com"
   s.license      = { :type => "MIT", :file => "LICENSE" }
