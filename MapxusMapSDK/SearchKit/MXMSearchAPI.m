@@ -57,12 +57,12 @@
 // 查找POI
 - (void)MXMPOISearch:(MXMPOISearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v1/pois"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v2/pois"];
     
     NSMutableDictionary *dic = nil;
     if (request.POIIds.count) {
         NSString *ids = [request.POIIds componentsJoinedByString:@","];
-        url = [url stringByAppendingString:[NSString stringWithFormat:@"/%@", ids]];
+        url = [NSString stringWithFormat:@"%@%@%@", MXMHOSTURL, @"/api/v1/pois/", ids];
     } else {
         dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
         if ([dic objectForKey:@"bbox"]) {
