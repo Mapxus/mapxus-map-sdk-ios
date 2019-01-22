@@ -26,8 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  单击地图时的回调，如果 - mapView:didSingleTappedAtCoordinate:onFloor:inBuilding: 实现了，则该方法不回调
  
- * @param mapView 响应的MapxusMap对象
- * @param coordinate 点击位置的经纬度
+ @param mapView 响应的MapxusMap对象
+ @param coordinate 点击位置的经纬度
  */
 - (void)mapView:(MapxusMap *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate DEPRECATED_ATTRIBUTE;
 
@@ -44,8 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  长按地图时的回调，如果 - mapView:didLongPressedAtCoordinate:onFloor:inBuilding: 实现了，则该方法不回调
  
- * @param mapView 响应的MapxusMap对象
- * @param coordinate 点击位置的经纬度
+ @param mapView 响应的MapxusMap对象
+ @param coordinate 点击位置的经纬度
  */
 - (void)mapView:(MapxusMap *)mapView didLongPressedAtCoordinate:(CLLocationCoordinate2D)coordinate DEPRECATED_ATTRIBUTE;
 
@@ -61,18 +61,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  改变选中建筑或楼层时调用此接口
- 
- * @param mapView 响应的MapxusMap对象
- * @param floorName 当前选中建筑楼层名字
- * @param building 当前选中建筑的信息，信息详细请参考`MXMGeoBuilding`
+
+ @param mapView 响应的MapxusMap对象
+ @param floorName 当前选中建筑楼层名字
+ @param building 当前选中建筑的信息，信息详细请参考`MXMGeoBuilding`
  */
 - (void)mapView:(MapxusMap *)mapView didChangeFloor:(NSString *)floorName atBuilding:(MXMGeoBuilding *)building;
 
 /**
  点击POI时调用此接口
- 
- * @param mapView 响应的MapxusMap对象
- * @param poi 当前选中POI的信息，信息详细请参考`MXMGeoPOI`
+
+ @param mapView 响应的MapxusMap对象
+ @param poi 当前选中POI的信息，信息详细请参考`MXMGeoPOI`
  */
 - (void)mapView:(MapxusMap *)mapView didTappedOnPOI:(nullable MXMGeoPOI *)poi;
 

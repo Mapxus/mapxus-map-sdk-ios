@@ -12,5 +12,4 @@
 
 + (BOOL)isEmpty:(NSString *)string;
 
-
 @end

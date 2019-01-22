@@ -26,6 +26,21 @@
 
 @implementation MXMPOISearchRequest
 
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"meterDistance" : @"distance",
+             };
+}
+
++ (NSArray *)modelPropertyBlacklist {
+    return @[@"distance"];
+}
+
+- (void)setDistance:(double)distance
+{
+    _distance = distance;
+    _meterDistance = distance * 1000;
+}
+
 @end
 
 @implementation MXMPOISearchResponse

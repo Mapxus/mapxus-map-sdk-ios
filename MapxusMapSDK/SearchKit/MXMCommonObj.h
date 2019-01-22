@@ -163,8 +163,14 @@
 /// 所在建筑ID
 @property (nonatomic, strong) NSString *buildingId;
 
+/// POI所在楼层
+@property (nonatomic, strong) NSString *floor;
+
+/// POI的经纬度
+@property (nonatomic, strong) MXMGeoPoint *location;
+
 /// POI分类
-@property (nonatomic, strong) NSString *category;
+@property (nonatomic, strong) NSArray *category;
 
 /// POI描述
 @property (nonatomic, strong) NSString *introduction;
@@ -172,14 +178,8 @@
 /// POI邮箱
 @property (nonatomic, strong) NSString *email;
 
-/// POI所在楼层
-@property (nonatomic, strong) NSString *floor;
-
 /// POI的ID
 @property (nonatomic, strong) NSString *id;
-
-/// POI的经纬度
-@property (nonatomic, strong) MXMGeoPoint *location;
 
 /// 默认POI名字
 @property (nonatomic, strong) NSString *name_default;
@@ -204,6 +204,9 @@
 
 /// 店铺网址
 @property (nonatomic, strong) NSString *website;
+
+/// 离请求中心点的距离
+@property (nonatomic, assign) double distance;
 
 @end
 

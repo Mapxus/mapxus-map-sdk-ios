@@ -57,12 +57,12 @@
 // 查找POI
 - (void)MXMPOISearch:(MXMPOISearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v1/pois"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v2/pois"];
     
     NSMutableDictionary *dic = nil;
     if (request.POIIds.count) {
         NSString *ids = [request.POIIds componentsJoinedByString:@","];
-        url = [url stringByAppendingString:[NSString stringWithFormat:@"/%@", ids]];
+        url = [NSString stringWithFormat:@"%@%@%@", MXMHOSTURL, @"/api/v1/pois/", ids];
     } else {
         dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
         if ([dic objectForKey:@"bbox"]) {
@@ -114,6 +114,7 @@
     NSString *url = [NSString stringWithFormat:@"%@%@%@%@", MXMHOSTURL, @"/api/v4/route", points, parameters];
     
     [MXMHttpManager MXMGET:url parameters:nil success:^(NSDictionary *content) {
+        NSLog(@"%@", content);
         if (self.delegate && [self.delegate respondsToSelector:@selector(onRouteSearchDone:response:)]) {
             MXMRouteSearchResponse *response = [MXMRouteSearchResponse yy_modelWithJSON:content];
             [self.delegate onRouteSearchDone:request response:response];
