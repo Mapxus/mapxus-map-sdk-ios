@@ -39,7 +39,7 @@
         _cellLabel.textAlignment = NSTextAlignmentCenter;
         _cellLabel.font = [UIFont systemFontOfSize:28];
         _cellLabel.adjustsFontSizeToFitWidth = YES;
-        _cellLabel.textColor = [UIColor lightGrayColor];
+        _cellLabel.textColor = [UIColor blackColor];
     }
     return _cellLabel;
 }
