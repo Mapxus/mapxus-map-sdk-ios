@@ -257,8 +257,15 @@
     [self findOutPOIAtPoint:point coordinate:coor];
     // 切换建筑
     NSArray *pointBuildingList = [self findOutBuildingAtPoint:point];
+    BOOL shouldChange = YES;
+    for (MXMGeoBuilding *inB in pointBuildingList) {
+        if ([inB.identifier isEqualToString:self.building.identifier]) {
+            shouldChange = NO;
+            break;
+        }
+    }
     MXMGeoBuilding *building = pointBuildingList.firstObject;
-    if (building) {
+    if (shouldChange && building) {
         NSString *defaultFloor = [self electDefaultFloorWithBuildingId:building.identifier];
         [self selectBuilding:building.identifier floor:defaultFloor shouldZoomTo:NO shouldChangeUserTrackingMode:YES];
     }
