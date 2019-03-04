@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MapxusMapSDK"
-  s.version      = "2.8.2"
+  s.version      = "2.8.3"
   s.summary      = "Indoor map SDK."
   s.description  = <<-DESC
                    To be the largest global indoor map.
