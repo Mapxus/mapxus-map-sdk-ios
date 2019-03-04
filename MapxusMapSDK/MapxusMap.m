@@ -305,8 +305,8 @@
     // 整屏可见建筑列表
     self.buildings = [self findOutBuildingIntheRect:self.mapView.bounds];
     // 设置建筑选择按钮和楼层选择按钮是否显示
-    self.buildingSelectButton.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=2)&&(self.mapView.zoomLevel>15));
-    self.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=1)&&(self.mapView.zoomLevel>15));
+    self.buildingSelectButton.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=2)&&(self.mapView.zoomLevel>15.7));
+    self.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=1)&&(self.mapView.zoomLevel>15.7));
     self.isIndoor = !self.floorBar.isHidden;
     // 默认选中building，规则为优先选中之前选过的
     MXMGeoBuilding *defaultBuilding = [self electDefaultBuildingRecently];
@@ -538,7 +538,7 @@
                         NSString *defaultFloor = [self electDefaultFloorWithBuildingId:buildingId]?:geoBuilding.ground_floor;
                         [weakSelf selectBuilding:geoBuilding floor:defaultFloor shouldChangeUserTrackingMode:changeUserTrackingMode];
                     }
-                    weakSelf.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.building)&&(self.mapView.zoomLevel>15));
+                    weakSelf.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.building)&&(self.mapView.zoomLevel>15.7));
 
                 });
             };
@@ -546,7 +546,7 @@
         } else {
             [self selectBuilding:building floor:floor shouldChangeUserTrackingMode:changeUserTrackingMode];
             
-            self.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.building)&&(self.mapView.zoomLevel>15));
+            self.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.building)&&(self.mapView.zoomLevel>15.7));
         }
     } else {
         __weak typeof(self) weakSelf = self;
@@ -575,7 +575,7 @@
                     NSString *defaultFloor = [self electDefaultFloorWithBuildingId:buildingId]?:geoBuilding.ground_floor;
                     [weakSelf selectBuilding:geoBuilding floor:defaultFloor shouldChangeUserTrackingMode:changeUserTrackingMode];
                 }
-                weakSelf.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.building)&&(self.mapView.zoomLevel>15));
+                weakSelf.floorBar.hidden = self.indoorControllerAlwaysHidden || !((self.building)&&(self.mapView.zoomLevel>15.7));
 
             });
         };

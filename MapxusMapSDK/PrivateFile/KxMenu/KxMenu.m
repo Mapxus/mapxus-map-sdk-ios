@@ -306,7 +306,7 @@ typedef enum {
             point.x = kMargin;
         
         if ((point.x + contentSize.width + kMargin) > outerWidth)
-            point.x = outerWidth - contentSize.width - kMargin;
+            point.x = kMargin;
         
         _arrowPosition = rectXM - point.x;
         //_arrowPosition = MAX(16, MIN(_arrowPosition, contentSize.width - 16));        
@@ -331,7 +331,7 @@ typedef enum {
             point.x = kMargin;
         
         if ((point.x + contentSize.width + kMargin) > outerWidth)
-            point.x = outerWidth - contentSize.width - kMargin;
+            point.x = kMargin;
         
         _arrowPosition = rectXM - point.x;
         _contentView.frame = (CGRect){CGPointZero, contentSize};
@@ -347,13 +347,17 @@ typedef enum {
         
         _arrowDirection = KxMenuViewArrowDirectionNone;
         
+        CGFloat fx = (outerWidth - contentSize.width)   * 0.5f;
+        if ((fx + contentSize.width + kMargin) > outerWidth)
+            fx = kMargin;
+        
         self.frame = (CGRect) {
             
-            (outerWidth - contentSize.width)   * 0.5f,
+            fx,
             (outerHeight - contentSize.height) * 0.5f,
             contentSize,
         };
-    }    
+    }
 }
 
 - (void)showMenuInView:(UIView *)view

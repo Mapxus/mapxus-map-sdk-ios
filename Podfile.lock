@@ -14,12 +14,12 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - Mapbox-iOS-SDK (4.7.1)
+  - Mapbox-iOS-SDK (4.9.0)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
   - AFNetworking
-  - Mapbox-iOS-SDK (~> 4.7.1)
+  - Mapbox-iOS-SDK
   - YYModel
 
 SPEC REPOS:
@@ -30,9 +30,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  Mapbox-iOS-SDK: f9292a75e8cd5eb828f4432623bfc48aac42146a
+  Mapbox-iOS-SDK: 225036950837cbe408e6b333e51cd6001c122499
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: ea63a83d8b9f34ba7d733afef21aae771805a367
+PODFILE CHECKSUM: efe34af5f2978a37967ca7c63554f41a547dfab2
 
 COCOAPODS: 1.5.2
