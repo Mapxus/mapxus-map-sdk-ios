@@ -70,9 +70,7 @@
 		D600961921DCAB8B00505880 /* MXMConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = D60095EB21DCAB8A00505880 /* MXMConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D63DED9B21F07607004A8589 /* MXMGeoPOITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D63DED9A21F07607004A8589 /* MXMGeoPOITests.m */; };
 		D641FC9120F5DBDB00061AD4 /* MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */; };
-		D65B569221C2454C00142732 /* MXMHttpManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B569121C2454C00142732 /* MXMHttpManagerTests.m */; };
 		D65B569421C245B300142732 /* MXMSearchAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B569321C245B300142732 /* MXMSearchAPITests.m */; };
-		D65B569621C2476100142732 /* MapxusMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B569521C2476100142732 /* MapxusMapTests.m */; };
 		D65B56C821C3AB4300142732 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B56C721C3AB4300142732 /* AppDelegate.m */; };
 		D65B56CB21C3AB4300142732 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B56CA21C3AB4300142732 /* ViewController.m */; };
 		D65B56CE21C3AB4300142732 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D65B56CC21C3AB4300142732 /* Main.storyboard */; };
@@ -83,7 +81,6 @@
 		D65B56FD21C7383700142732 /* MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */; };
 		D65B56FE21C7383700142732 /* MapxusMapSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D684BC5520FE324C004E85D9 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D684BC5420FE324C004E85D9 /* images.xcassets */; };
-		D6EBB98C21C100B40059AD2D /* MXMMapServicesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EBB98B21C100B40059AD2D /* MXMMapServicesTests.m */; };
 		E26D1766484B8667ABF0BA2D /* Pods_SDKExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D84C0AF2A3C439189D4602BA /* Pods_SDKExampleTests.framework */; };
 		F0960CF5B0C1E21BA2120266 /* Pods_MapxusMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12B445FBCB881754C64475C6 /* Pods_MapxusMapSDKTests.framework */; };
 /* End PBXBuildFile section */
@@ -195,9 +192,7 @@
 		D641FC8B20F5DBDB00061AD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D641FC9020F5DBDB00061AD4 /* MapxusMapSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapxusMapSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D641FC9720F5DBDB00061AD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D65B569121C2454C00142732 /* MXMHttpManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMHttpManagerTests.m; sourceTree = "<group>"; };
 		D65B569321C245B300142732 /* MXMSearchAPITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSearchAPITests.m; sourceTree = "<group>"; };
-		D65B569521C2476100142732 /* MapxusMapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapxusMapTests.m; sourceTree = "<group>"; };
 		D65B56C421C3AB4300142732 /* SDKExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SDKExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65B56C621C3AB4300142732 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D65B56C721C3AB4300142732 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -215,7 +210,6 @@
 		D684BC5420FE324C004E85D9 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		D6E4DAF621103D1C00D15FF1 /* IOS-Universal-Framework_aggregate.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "IOS-Universal-Framework_aggregate.sh"; sourceTree = "<group>"; };
 		D6E4DAF7211044B000D15FF1 /* document.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = document.sh; sourceTree = "<group>"; };
-		D6EBB98B21C100B40059AD2D /* MXMMapServicesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMMapServicesTests.m; sourceTree = "<group>"; };
 		D84C0AF2A3C439189D4602BA /* Pods_SDKExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -407,10 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				D63DED9A21F07607004A8589 /* MXMGeoPOITests.m */,
-				D65B569121C2454C00142732 /* MXMHttpManagerTests.m */,
-				D6EBB98B21C100B40059AD2D /* MXMMapServicesTests.m */,
 				D65B569321C245B300142732 /* MXMSearchAPITests.m */,
-				D65B569521C2476100142732 /* MapxusMapTests.m */,
 				D641FC9720F5DBDB00061AD4 /* Info.plist */,
 			);
 			path = MapxusMapSDKTests;
@@ -845,9 +836,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6EBB98C21C100B40059AD2D /* MXMMapServicesTests.m in Sources */,
-				D65B569221C2454C00142732 /* MXMHttpManagerTests.m in Sources */,
-				D65B569621C2476100142732 /* MapxusMapTests.m in Sources */,
 				D63DED9B21F07607004A8589 /* MXMGeoPOITests.m in Sources */,
 				D65B569421C245B300142732 /* MXMSearchAPITests.m in Sources */,
 			);
