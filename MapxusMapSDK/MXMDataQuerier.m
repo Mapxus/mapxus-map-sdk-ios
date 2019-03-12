@@ -1,0 +1,123 @@
+//
+//  MXMDataQuerier.m
+//  MapxusMapSDK
+//
+//  Created by Chenghao Guo on 2019/3/18.
+//  Copyright © 2019 MAPHIVE TECHNOLOGY LIMITED. All rights reserved.
+//
+
+#import "MXMDataQuerier.h"
+#import <YYModel/YYModel.h>
+#import "MGLStyleLayer+MXMFilter.h"
+
+@interface MXMDataQuerier ()
+
+@property (nonatomic, weak) MGLMapView *mapView;
+
+@end
+
+@implementation MXMDataQuerier
+
+- (instancetype)initWithMapView:(MGLMapView *)mapView
+{
+    self = [super init];
+    if (self) {
+        self.mapView = mapView;
+    }
+    return self;
+}
+
+
+// 查找给定区域的所有建筑
+- (NSDictionary *)findOutBuildingInTheRect:(CGRect)rect
+{
+    NSSet *identifiers = [self getBuildingLayerIdentifiersInLayers:self.mapView.style.layers];
+    NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:identifiers predicate:nil];
+    NSDictionary *buildings = [self buildingDeduplicationInFeatures:theFeatures];
+    return buildings;
+}
+
+// 查找给定点的所有建筑
+- (NSDictionary *)findOutBuildingAtPoint:(CGPoint)point
+{
+    NSSet *identifiers = [self getBuildingLayerIdentifiersInLayers:self.mapView.style.layers];
+    NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiers];
+    NSDictionary *buildings = [self buildingDeduplicationInFeatures:theFeatures];
+    return buildings;
+}
+
+- (NSSet *)getBuildingLayerIdentifiersInLayers:(NSArray<MGLStyleLayer *> *)layers
+{
+    NSMutableSet *identifiersSet = [NSMutableSet set];
+    // 筛选出『maphive-building-fill』开头的layer
+    for (MGLStyleLayer *theLayer in layers) {
+        if ([theLayer isBuildingFillLayer]) {
+            [identifiersSet addObject:theLayer.identifier];
+        }
+    }
+    
+    return [identifiersSet copy];
+}
+
+- (NSDictionary *)buildingDeduplicationInFeatures:(NSArray<id <MGLFeature>> *)features
+{
+    // 建筑信息去重
+    NSMutableDictionary *resultBuildings = [NSMutableDictionary dictionary];
+    for (id <MGLFeature> feature in features) {
+        NSString *theId = [feature attributeForKey:@"id"];
+        if (theId) {
+            [resultBuildings setObject:[MXMGeoBuilding yy_modelWithJSON:feature.attributes] forKey:theId];
+        }
+    }
+    
+    return [resultBuildings copy];
+}
+
+
+
+
+- (NSDictionary *)findOutPOIAtPoint:(CGPoint)point coordinate:(CLLocationCoordinate2D)coor
+{
+    NSSet *identifiers = [self getIndoorSymbolLayerIdentifiersInLayers:self.mapView.style.layers];
+    NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiers predicate:nil];
+    NSDictionary *pois = [self poiDeduplicationInFeatures:theFeatures setCoordinate:coor];
+    return pois;
+}
+
+- (NSSet *)getIndoorSymbolLayerIdentifiersInLayers:(NSArray<MGLStyleLayer *> *)layers
+{
+    NSMutableSet *identifiersSet = [NSMutableSet set];
+    // 筛选出『maphive-building-fill』开头的layer
+    for (MGLStyleLayer *theLayer in layers) {
+        if ([theLayer isIndoorSymbolLayer]) {
+            [identifiersSet addObject:theLayer.identifier];
+        }
+    }
+    
+    return [identifiersSet copy];
+}
+
+- (NSDictionary *)poiDeduplicationInFeatures:(NSArray<id <MGLFeature>> *)features setCoordinate:(CLLocationCoordinate2D)coor
+{
+    // 建筑信息去重
+    NSMutableDictionary *resultPOIs = [NSMutableDictionary dictionary];
+    for (id <MGLFeature> feature in features) {
+        NSString *theId = [feature attributeForKey:@"osm:ref"];
+        if (theId) {
+            MXMGeoPOI *poi = [MXMGeoPOI yy_modelWithJSON:feature.attributes];
+            poi.coordinate = coor;
+            [resultPOIs setObject:poi forKey:theId];
+        }
+    }
+    
+    return [resultPOIs copy];
+}
+
+- (NSArray<id <MGLFeature>> *)findOutFloorFeaturesAtPoint:(CGPoint)point
+{
+    NSSet *identifiers = [[NSSet alloc] initWithObjects:@"maphive-floor-fill", nil];
+    NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiers predicate:nil];
+    return theFeatures;
+}
+
+@end

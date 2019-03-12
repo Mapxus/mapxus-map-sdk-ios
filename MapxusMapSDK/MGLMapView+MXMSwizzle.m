@@ -152,7 +152,7 @@ static void *mapKey = &mapKey;
 - (void)hook_mapViewWillStartLoadingMap:(MGLMapView *)mapView
 {
     mapView.mxmMap.mapViewDidFinishLoadingMap = NO;
-    mapView.mxmMap.isMapReload = YES;
+    mapView.mxmMap.decider.isMapReload = YES;
     [self hook_mapViewWillStartLoadingMap:mapView];
 }
 - (void)mapViewWillStartLoadingMap:(MGLMapView *)mapView
@@ -299,7 +299,10 @@ static void *mapKey = &mapKey;
 - (void)hook_mapViewDidBecomeIdle:(MGLMapView *)mapView
 {
     // 查找中心矩形可见Building
-    [mapView.mxmMap automaticAnalyseOfIndoorData];
+    if (!mapView.mxmMap.regionBecomeIdle) {
+        mapView.mxmMap.regionBecomeIdle = YES;
+        [mapView.mxmMap idleAutomaticAnalyseOfIndoorData];
+    }
     [self hook_mapViewDidBecomeIdle:mapView];
 }
 - (void)mapViewDidBecomeIdle:(MGLMapView *)mapView
@@ -331,23 +334,8 @@ static void *mapKey = &mapKey;
 {
     if ((mapView.userTrackingMode != MGLUserTrackingModeNone) && userLocation.location.floor) { // 跟随模式且有楼层数据
         CGPoint locationPoint = [mapView convertCoordinate:userLocation.location.coordinate toPointToView:mapView];
-        NSArray *buildingList = [mapView.mxmMap findOutBuildingAtPoint:locationPoint];
-        for (MXMGeoBuilding *b in buildingList) {
-            NSUInteger gf = [b.floors indexOfObject:b.ground_floor];
-            NSInteger cf = gf - userLocation.location.floor.level;
-            if (cf>=0 && cf<b.floors.count) {
-                NSString *currentFloor = [b.floors objectAtIndex:cf];
-                [mapView.mxmMap selectBuilding:b.identifier floor:currentFloor shouldZoomTo:NO shouldChangeUserTrackingMode:NO];
-                if (![mapView.mxmMap.userLocationFloor isEqualToString:currentFloor]) {
-                    mapView.mxmMap.userLocationFloor = currentFloor;
-                }
-                if (![mapView.mxmMap.userLocationBuilding.identifier isEqualToString:b.identifier]) {
-                    mapView.mxmMap.userLocationBuilding = b;
-                }
-                break;
-            }
-        }
-        
+        NSDictionary *buildingDic = [mapView.mxmMap.dataQueryer findOutBuildingAtPoint:locationPoint];
+        [mapView.mxmMap.decider decideWithUserLocationLevel:userLocation.location.floor.level atPointBuildingDic:buildingDic];
     } else {
         [mapView.mxmMap updageLocationView];
         if (mapView.mxmMap.userLocationFloor != nil) {

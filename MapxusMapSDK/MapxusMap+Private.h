@@ -17,15 +17,23 @@
 #import "MXMLoadMapOperation.h"
 #import "MXMZoomToOperation.h"
 
+#import "MXMDecider.h"
+#import "MXMDataQuerier.h"
+#import "MXMAnnotationsHolder.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @import Mapbox;
 
-@interface MapxusMap () <MXMFloorSelectorBarDelegate, UIGestureRecognizerDelegate, MXMSearchDelegate> {
+@interface MapxusMap () <MXMFloorSelectorBarDelegate, UIGestureRecognizerDelegate, MXMSearchDelegate, MXMDeciderDelegate> {
     BOOL _isFristLoad;
     NSOperationQueue *_initializeQueue;
     MXMConfiguration *_configuration;
 }
+
+@property (nonatomic, strong) MXMDecider *decider;
+@property (nonatomic, strong) MXMDataQuerier *dataQueryer;
+@property (nonatomic, strong) MXMAnnotationsHolder *annHolder;
 
 @property (nonatomic, strong) MGLMapView *mapView;
 @property (nonatomic, strong, readwrite) UIButton *buildingSelectButton;
@@ -33,13 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) UIButton *MXMLogo;
 @property (nonatomic, strong) UIButton *openStreetSourceBtn;
 
-@property (nonatomic, strong) NSMutableDictionary *buildingSelectFloorDic; // 保存运行期间看过大厦最后选中的对应楼层
-@property (nonatomic, strong) NSMutableArray<NSString *> *historicalBuildingIds; // 保存运行期间看过的大厦Id，防止同一地点两栋大厦间互相切换
-@property (nonatomic, strong) NSMutableArray *mxmPointAnnotations;
-
 @property (nonatomic, assign) BOOL isIndoor;
-@property (nonatomic, assign) BOOL isMapReload;
 @property (nonatomic, assign) BOOL mapViewDidFinishLoadingMap; // 地图加载完地图
+@property (nonatomic, assign) BOOL regionBecomeIdle; //
 
 @property (nonatomic, copy, readwrite) NSString *floor;
 @property (nonatomic, copy, readwrite) MXMGeoBuilding *building;
@@ -50,13 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 移动地图时自动选择建筑
 - (void)automaticAnalyseOfIndoorData;
+- (void)idleAutomaticAnalyseOfIndoorData;
 // 刷新定位点透明度
 - (void)updageLocationView;
-// 查找点坐标的建筑信息
-- (NSArray<MXMGeoBuilding *> *)findOutBuildingAtPoint:(CGPoint)point;
-// 选择建筑，在buildings里则不请求接口，不在则请求接口
-- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo shouldChangeUserTrackingMode:(BOOL)changeUserTrackingMode;
-
 - (void)searchConfigurationInfo;
 - (void)walkAroundOutdoor;
 

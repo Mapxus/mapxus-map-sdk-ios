@@ -24,14 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 /**
- 单击地图时的回调，如果 - mapView:didSingleTappedAtCoordinate:onFloor:inBuilding: 实现了，则该方法不回调
- 
- @param mapView 响应的MapxusMap对象
- @param coordinate 点击位置的经纬度
- */
-- (void)mapView:(MapxusMap *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate DEPRECATED_ATTRIBUTE;
-
-/**
  单击地图时的回调
 
  @param mapView 响应的MapxusMap对象
@@ -41,13 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)mapView:(MapxusMap *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate onFloor:(nullable NSString *)floorName inBuilding:(nullable MXMGeoBuilding *)building;
 
-/**
- 长按地图时的回调，如果 - mapView:didLongPressedAtCoordinate:onFloor:inBuilding: 实现了，则该方法不回调
- 
- @param mapView 响应的MapxusMap对象
- @param coordinate 点击位置的经纬度
- */
-- (void)mapView:(MapxusMap *)mapView didLongPressedAtCoordinate:(CLLocationCoordinate2D)coordinate DEPRECATED_ATTRIBUTE;
 
 /**
  长按地图时的回调
