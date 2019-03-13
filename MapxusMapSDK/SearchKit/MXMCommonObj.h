@@ -15,13 +15,13 @@
  */
 @interface MXMGeoPoint : NSObject
 
-///纬度（垂直方向）
+/// 纬度（垂直方向）
 @property (nonatomic, assign) double latitude;
 
-///经度（水平方向）
+/// 经度（水平方向）
 @property (nonatomic, assign) double longitude;
 
-// 海拔高度
+/// 海拔高度
 @property (nonatomic, assign) double elevation;
 
 /**

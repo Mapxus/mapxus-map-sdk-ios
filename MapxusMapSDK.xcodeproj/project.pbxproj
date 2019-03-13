@@ -282,10 +282,10 @@
 			children = (
 				D60095C121DCAB8900505880 /* MXMCommonObj.h */,
 				D60095BD21DCAB8900505880 /* MXMCommonObj.m */,
-				D60095BE21DCAB8900505880 /* MXMSearchAPI.h */,
-				D60095C021DCAB8900505880 /* MXMSearchAPI.m */,
 				D60095C221DCAB8900505880 /* MXMSearchObj.h */,
 				D60095BF21DCAB8900505880 /* MXMSearchObj.m */,
+				D60095BE21DCAB8900505880 /* MXMSearchAPI.h */,
+				D60095C021DCAB8900505880 /* MXMSearchAPI.m */,
 			);
 			path = SearchKit;
 			sourceTree = "<group>";

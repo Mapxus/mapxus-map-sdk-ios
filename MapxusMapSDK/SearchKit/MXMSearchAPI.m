@@ -52,6 +52,22 @@
 }
 
 
+- (void)MXMPOICategorySearch:(MXMPOICategorySearchRequest *)request
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v2/pois/category"];
+    NSDictionary *dic = [request yy_modelToJSONObject];
+    
+    [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(onPOICategorySearchDone:response:)]) {
+            MXMPOICategorySearchResponse *response = [MXMPOICategorySearchResponse yy_modelWithJSON:content];
+            [self.delegate onPOICategorySearchDone:request response:response];
+        }
+    } failure:^(NSError *error) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
+            [self.delegate MXMSearchRequest:request didFailWithError:error];
+        }
+    }];
+}
 
 
 // 查找POI
@@ -67,9 +83,13 @@
         dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
         if ([dic objectForKey:@"bbox"]) {
             [dic setObject:[NSString stringWithFormat:@"%f,%f,%f,%f", request.bbox.min_longitude, request.bbox.min_latitude, request.bbox.max_longitude, request.bbox.max_latitude] forKey:@"bbox"];
+            [dic removeObjectForKey:@"distance"];
         }
         if ([dic objectForKey:@"center"]) {
             [dic setObject:[NSString stringWithFormat:@"%f,%f", request.center.longitude, request.center.latitude] forKey:@"center"];
+        }
+        if ([dic objectForKey:@"buildingId"]) {
+            [dic removeObjectForKey:@"distance"];
         }
         // keywords为空时，不传该参数，返回所有结果
         if ([NSString isEmpty:[dic objectForKey:@"keywords"]]) {
@@ -114,7 +134,6 @@
     NSString *url = [NSString stringWithFormat:@"%@%@%@%@", MXMHOSTURL, @"/api/v4/route", points, parameters];
     
     [MXMHttpManager MXMGET:url parameters:nil success:^(NSDictionary *content) {
-        NSLog(@"%@", content);
         if (self.delegate && [self.delegate respondsToSelector:@selector(onRouteSearchDone:response:)]) {
             MXMRouteSearchResponse *response = [MXMRouteSearchResponse yy_modelWithJSON:content];
             [self.delegate onRouteSearchDone:request response:response];

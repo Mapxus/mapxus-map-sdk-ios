@@ -9,6 +9,7 @@
 #import "MXMSearchObj.h"
 #import <YYModel/YYModel.h>
 
+
 @implementation MXMBuildingSearchRequest
 
 @end
@@ -19,6 +20,32 @@
 + (NSDictionary *)modelContainerPropertyGenericClass {
     // value should be Class or Class name.
     return @{@"buildings" : [MXMBuilding class]};
+}
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
+@end
+
+
+@implementation MXMPOICategorySearchRequest
+
+@end
+
+
+@implementation MXMPOICategorySearchResponse
+
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{
+             @"category" : @"result",
+             };
+}
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
 }
 
 @end
@@ -43,6 +70,7 @@
 
 @end
 
+
 @implementation MXMPOISearchResponse
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
@@ -50,12 +78,15 @@
     return @{@"pois" : [MXMPOI class]};
 }
 
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
 @end
 
 
-
 @implementation MXMRouteSearchRequest
-
 
 @end
 

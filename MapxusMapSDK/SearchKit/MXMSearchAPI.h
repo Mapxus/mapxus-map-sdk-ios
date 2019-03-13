@@ -31,6 +31,12 @@
 - (void)MXMBuildingSearch:(MXMBuildingSearchRequest *)request;
 
 /**
+ * @brief 建筑内POI分类查询接口
+ * @param request 查询选项。具体属性字段请参考 `MXMPOICategorySearchRequest` 类。
+ */
+- (void)MXMPOICategorySearch:(MXMPOICategorySearchRequest *)request;
+
+/**
  * @brief 建筑内POI信息查询接口
  * @param request 查询选项。具体属性字段请参考 `MXMPOISearchRequest` 类。
  */
@@ -64,21 +70,28 @@
 - (void)MXMSearchRequest:(id)request didFailWithError:(NSError *)error;
 
 /**
- * @brief 建筑物内路线接口
+ * @brief 建筑查询回调方法
  * @param request 查询选项。具体属性字段请参考 `MXMBuildingSearchRequest` 类。
  * @param response 查询结果。具体属性字段请参考 `MXMBuildingSearchResponse` 类。
  */
 - (void)onBuildingSearchDone:(MXMBuildingSearchRequest *)request response:(MXMBuildingSearchResponse *)response;
 
 /**
- * @brief 建筑物内路线接口
+ * @brief 建筑内POI分类查询回调方法
+ * @param request 查询选项。具体属性字段请参考 `MXMPOICategorySearchRequest` 类。
+ * @param response 查询结果。具体属性字段请参考 `MXMPOICategorySearchResponse` 类。
+ */
+- (void)onPOICategorySearchDone:(MXMPOICategorySearchRequest *)request response:(MXMPOICategorySearchResponse *)response;
+
+/**
+ * @brief 建筑内POI查询回调方法
  * @param request 查询选项。具体属性字段请参考 `MXMPOISearchRequest` 类。
  * @param response 查询结果。具体属性字段请参考 `MXMPOISearchResponse` 类。
  */
 - (void)onPOISearchDone:(MXMPOISearchRequest *)request response:(MXMPOISearchResponse *)response;
 
 /**
- * @brief 建筑物内路线接口
+ * @brief 建筑内路线回调方法
  * @param request 查询选项。具体属性字段请参考 `MXMRouteSearchRequest` 类。
  * @param response 查询结果。具体属性字段请参考 `MXMRouteSearchResponse` 类。
  */
