@@ -2,7 +2,7 @@
 
 ## 1. About Mapxus Map
 
-Mapxus Map SDK is a set of call interface for developing indoor map. Developers can easily install map features in their own IOS application, including displaying map, changing map style, map interaction, drawing on the map, searching building, searching POI, route planning, etc.
+Mapxus Map SDK is a set of call interface for developing indoor map. Developers can easily install map features in their own iOS application, including displaying map, changing map style, map interaction, drawing on the map, searching building, searching POI, route planning, etc.
 
 ### 1.1 Minimum IOS Version
 
@@ -25,7 +25,9 @@ You can integrate through cocoapods. Add the following code in your Podfile:
 ```objectivec
 target 'MapxusMapSample' do
   use_frameworks!
-  pod 'MapxusMapSDK', '~> 2.7.0'
+  pod 'MapxusBaseSDK', '~>0.1.0' # you can not write this line, because MapxusMapSDK will
+                                 # automatically depends on MapxusBaseSDK
+  pod 'MapxusMapSDK', '~> 3.1.0'
 end
 ```
 
@@ -33,7 +35,7 @@ end
 
 #### 2.2.1 Add MapxusMapSDK and its Dependencies
 
-**Copy** or **drag** **MapxusMapSDK.framework**, **AFNetworking.framework**, **YYModel.framework**, and **Mapbox.framework** file into project folder and add them in **General**->**Embedded Binaries** as shown in the picture. In addition, Mapbox.framework can be downloaded [here](https://www.mapbox.com/install/ios/).
+**Copy** or **drag** **MapxusMapSDK.framework**,**MapxusBaseSDK.framework**, **AFNetworking.framework**, **YYModel.framework**, and **Mapbox.framework** file into project folder and add them in **General**->**Embedded Binaries** as shown in the picture. In addition, Mapbox.framework can be downloaded [here](https://www.mapbox.com/install/ios/).
 
 AFNetworking.framework, YYModel.framework can also be managed by cocoapods or Carthage, but you have to generate **dynamic dependencies**. 
 
@@ -41,9 +43,8 @@ AFNetworking.framework, YYModel.framework can also be managed by cocoapods or Ca
 
 #### 2.2.2 Configure Your Porject
 
-1. Open **info.plist** file, and add **MGLMapboxMetricsEnabledSettingShownInApp**. Set Type as Boolean, and value YES。
-2. If you need to position, add **Privacy - Location Always Usage Description** or **Privacy - Location When In Use Usage Description** as value so as to acctivate position function.
-3. You can remove the simulator of AFNetworking.framework and YYModel.framework by copy-frameworks of Carthage. Configure Run Script as  the following picture:![image](https://dpw.maphive.cloud/images/digitalMap/ios/2.0.0/20180702062028.png)
+1. If you need to position, add **Privacy - Location Always Usage Description** or **Privacy - Location When In Use Usage Description** as value so as to acctivate position function.
+2. You can remove the simulator of AFNetworking.framework and YYModel.framework by copy-frameworks of Carthage. Configure Run Script as  the following picture:![image](https://dpw.maphive.cloud/images/digitalMap/ios/2.0.0/20180702062028.png)
 
 or remove it by writing Shell Script yourself.
 
@@ -61,7 +62,7 @@ Register your map in **AppDelegate**:
 }
 ```
 
-Add your map in ViewController（**Remarks:  `delegate` of `MGLMapView` is  not allowed to be `nul` **）：
+Add your map in ViewController（**Remarks:  `delegate` of `MGLMapView` is  not allowed to be `nil` **）：
 
 ```objectivec
 #import "SimpleMapViewController.h"
