@@ -115,25 +115,10 @@
 // 查找路径
 - (void)MXMRouteSearch:(MXMRouteSearchRequest *)request
 {
-    // 起始点
-    NSMutableArray *fristP = [NSMutableArray array];
-    [fristP addObject:@(request.fromLat)];
-    [fristP addObject:@(request.fromLon)];
-    if (request.fromBuilding) [fristP addObject:request.fromBuilding];
-    if (request.fromFloor) [fristP addObject:request.fromFloor];
-    // 终点
-    NSMutableArray *secondP = [NSMutableArray array];
-    [secondP addObject:@(request.toLat)];
-    [secondP addObject:@(request.toLon)];
-    if (request.toBuilding) [secondP addObject:request.toBuilding];
-    if (request.toFloor) [secondP addObject:request.toFloor];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v5/route"];
+    NSDictionary *dic = [request yy_modelToJSONObject];
     
-    NSString *points = [NSString stringWithFormat:@"?point=%@&point=%@", [fristP componentsJoinedByString:@","], [secondP componentsJoinedByString:@","]];
-    NSString *parameters = [NSString stringWithFormat:@"&type=%@&locale=%@&vehicle=%@&elevation=%@&weighting=fastest&points_encoded=false", @"json", request.locale?:@"", @"foot", @"false"];
-    
-    NSString *url = [NSString stringWithFormat:@"%@%@%@%@", MXMHOSTURL, @"/api/v4/route", points, parameters];
-    
-    [MXMHttpManager MXMGET:url parameters:nil success:^(NSDictionary *content) {
+    [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onRouteSearchDone:response:)]) {
             MXMRouteSearchResponse *response = [MXMRouteSearchResponse yy_modelWithJSON:content];
             [self.delegate onRouteSearchDone:request response:response];
