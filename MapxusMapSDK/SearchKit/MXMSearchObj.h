@@ -10,12 +10,13 @@
 #import "MXMCommonObj.h"
 
 /**
- 建筑搜索请求配置
+ 建筑搜索请求配置类
  
- 共有三种搜索模式：
- 1.指定方形区域内关键字搜索，参数组合为 keywords(可选)，bbox，offset，page；
- 2.指定圆形区域内关键字搜索，参数组合为 keywords(可选)，center，distance，offset，page；
- 3.指定建筑ID搜索，参数为 buildingIds。
+ 共有四种搜索模式：
+ 1.全球搜索，参数组合为 keywords(可选)，offset，page；
+ 2.指定方形区域内关键字搜索，参数组合为 keywords(可选)，bbox，offset，page；
+ 3.指定圆形区域内关键字搜索，参数组合为 keywords(可选)，center，distance，offset，page；
+ 4.指定建筑ID搜索，参数为 buildingIds。
  */
 @interface MXMBuildingSearchRequest : NSObject
 
@@ -78,7 +79,7 @@
 
 
 /**
- POI分类搜索请求
+ POI分类搜索请求类
  
  搜索指定建筑和楼层内所有的POI分类名，floor可不传，不传将搜索整栋建筑。
  */
@@ -105,7 +106,7 @@
 
 
 /**
- POI搜索请求配置
+ POI搜索请求配置类
  
  共有四种搜索模式：
  1.指定建筑与楼层内关键字搜索，参数组合为 keywords(可选)，buildingId，floor(可选)，offset，page，category(可选)；
