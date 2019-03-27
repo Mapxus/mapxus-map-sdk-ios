@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)MXMlocalizeLabelsIntoLocale:(nullable NSString *)localeLanguage;
 
+- (void)filerBuildingId:(NSString *)buildingId Floor:(NSString *)floor;
+
 @end
 
 NS_ASSUME_NONNULL_END

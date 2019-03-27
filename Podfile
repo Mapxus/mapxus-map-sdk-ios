@@ -13,6 +13,8 @@ target 'MapxusMapSDK' do
   target 'MapxusMapSDKTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'OCMock'
+
   end
 
 end
