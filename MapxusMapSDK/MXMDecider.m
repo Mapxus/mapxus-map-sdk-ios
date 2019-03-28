@@ -54,7 +54,7 @@
     [self specifyTheBuilding:defaultBuilding.identifier
                        floor:defaultFloor
                 shouldZoomTo:NO
-    shouldChangeTrackingMode:YES
+    shouldChangeTrackingMode:NO
          withRectBuildingDic:buildings];
 }
 
