@@ -267,13 +267,15 @@
     CLLocationCoordinate2D coor = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     // 查找点击楼层
     /////////////////////////////////////////////////////
-    NSArray<id <MGLFeature>> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
-    id<MGLFeature> feature = theFeatures.firstObject;
-    NSString *floor = [feature attributeForKey:@"floor"];
-    NSString *buildingId = [feature attributeForKey:@"ref:building"];
-    MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
     if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:onFloor:inBuilding:)]) {
+        NSArray<id <MGLFeature>> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+        id<MGLFeature> feature = theFeatures.firstObject;
+        NSString *floor = [feature attributeForKey:@"floor"];
+        NSString *buildingId = [feature attributeForKey:@"ref:building"];
+        MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
         [self.delegate mapView:self didSingleTappedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
+    } else if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:)]) {
+        [self.delegate mapView:self didSingleTappedAtCoordinate:coor];
     }
     /////////////////////////////////////////////////////
     // 切换建筑
@@ -284,22 +286,26 @@
 }
 
 // 长按手势响应
-- (void)longPressAction:(id)sender
+- (void)longPressAction:(UILongPressGestureRecognizer *)gesture
 {
-    // 转换坐标
-    CGPoint point = [sender locationInView:self.mapView];
-    CLLocationCoordinate2D coor = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
-    // 查找长按楼层
-    /////////////////////////////////////////////////////
-    NSArray<id <MGLFeature>> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
-    id<MGLFeature> feature = theFeatures.firstObject;
-    NSString *floor = [feature attributeForKey:@"floor"];
-    NSString *buildingId = [feature attributeForKey:@"ref:building"];
-    MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)]) {
-        [self.delegate mapView:self didLongPressedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        // 转换坐标
+        CGPoint point = [gesture locationInView:self.mapView];
+        CLLocationCoordinate2D coor = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+        // 查找长按楼层
+        /////////////////////////////////////////////////////
+        if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)]) {
+            NSArray<id <MGLFeature>> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+            id<MGLFeature> feature = theFeatures.firstObject;
+            NSString *floor = [feature attributeForKey:@"floor"];
+            NSString *buildingId = [feature attributeForKey:@"ref:building"];
+            MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
+            [self.delegate mapView:self didLongPressedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
+        } else if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:)]) {
+            [self.delegate mapView:self didLongPressedAtCoordinate:coor];
+        }
+        /////////////////////////////////////////////////////
     }
-    /////////////////////////////////////////////////////
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer

@@ -5,7 +5,7 @@
 
   # Pods for MapxusMapSDK
   pod 'Mapbox-iOS-SDK'
-  pod 'MapxusBaseSDK', :path => '../mapxus-base-sdk-ios'
+  pod 'MapxusBaseSDK'#, :path => '../mapxus-base-sdk-ios'
 
 target 'MapxusMapSDK' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
@@ -21,11 +21,6 @@ end
 
 target 'SDKExample' do
     
-    target 'SDKExampleTests' do
-        inherit! :search_paths
-        # Pods for testing
-        pod 'OCMock'
-    end
 end
 
 

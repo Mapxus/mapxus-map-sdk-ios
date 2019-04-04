@@ -43,6 +43,12 @@
 - (void)MXMPOISearch:(MXMPOISearchRequest *)request;
 
 /**
+ * @brief 建筑内搜索附近POI点并得出POI点相对手机方向的方位查询接口
+ * @param request 查询选项。具体属性字段请参考 `MXMOrientationPOISearchRequest` 类。
+ */
+- (void)MXMOrientationPOISearch:(MXMOrientationPOISearchRequest *)request;
+
+/**
  * @brief 建筑物内路线查询接口
  * @param request 查询选项。具体属性字段请参考 `MXMRouteSearchRequest` 类。
  */
@@ -89,6 +95,13 @@
  * @param response 查询结果。具体属性字段请参考 `MXMPOISearchResponse` 类。
  */
 - (void)onPOISearchDone:(MXMPOISearchRequest *)request response:(MXMPOISearchResponse *)response;
+
+/**
+ * @brief 建筑内搜索附近POI点并得出POI点相对手机方向的方位查询回调方法
+ * @param request 查询选项。具体属性字段请参考 `MXMOrientationPOISearchRequest` 类。
+ * @param response 查询结果。具体属性字段请参考 `MXMOrientationPOISearchResponse` 类。
+ */
+- (void)onOrientationPOISearchDone:(MXMOrientationPOISearchRequest *)request response:(MXMOrientationPOISearchResponse *)response;
 
 /**
  * @brief 建筑内路线回调方法

@@ -111,6 +111,28 @@
 
 
 
+- (void)MXMOrientationPOISearch:(MXMOrientationPOISearchRequest *)request
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMHOSTURL, @"/api/v2/pois/orientation"];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
+    if ([dic objectForKey:@"center"]) {
+        [dic setObject:[NSString stringWithFormat:@"%f,%f", request.center.longitude, request.center.latitude] forKey:@"center"];
+    }
+    
+    [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(onOrientationPOISearchDone:response:)]) {
+            MXMOrientationPOISearchResponse *response = [MXMOrientationPOISearchResponse yy_modelWithJSON:content];
+            [self.delegate onOrientationPOISearchDone:request response:response];
+        }
+    } failure:^(NSError *error) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
+            [self.delegate MXMSearchRequest:request didFailWithError:error];
+        }
+    }];
+}
+
+
 
 // 查找路径
 - (void)MXMRouteSearch:(MXMRouteSearchRequest *)request

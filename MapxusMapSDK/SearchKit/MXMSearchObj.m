@@ -14,7 +14,6 @@
 
 @end
 
-
 @implementation MXMBuildingSearchResponse
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
@@ -33,7 +32,6 @@
 @implementation MXMPOICategorySearchRequest
 
 @end
-
 
 @implementation MXMPOICategorySearchResponse
 
@@ -70,7 +68,6 @@
 
 @end
 
-
 @implementation MXMPOISearchResponse
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
@@ -86,10 +83,32 @@
 @end
 
 
-@implementation MXMRouteSearchRequest
+@implementation MXMOrientationPOISearchRequest
+@end
+
+@implementation MXMOrientationPOISearchResponse
+
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{
+             @"pois" : @"result",
+             };
+}
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    // value should be Class or Class name.
+    return @{@"result" : [MXMPOI class]};
+}
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
 
 @end
 
+
+@implementation MXMRouteSearchRequest
+@end
 
 @implementation MXMRouteSearchResponse
 

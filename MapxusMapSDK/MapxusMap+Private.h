@@ -11,11 +11,7 @@
 #import "KxMenu.h"
 #import "MapxusMapSDK.h"
 
-#import "MXMGetTokenOperation.h"
-#import "MXMSearchBuildingOperation.h"
 #import "MXMSearchPOIOperation.h"
-#import "MXMLoadMapOperation.h"
-#import "MXMZoomToOperation.h"
 
 #import "MXMDecider.h"
 #import "MXMDataQuerier.h"
