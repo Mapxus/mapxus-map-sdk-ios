@@ -10,168 +10,83 @@
 #import "MXMCommonObj.h"
 
 /**
- 建筑搜索请求配置
+ 建筑搜索请求配置类
  
- 共有三种搜索模式：
- 1.指定方形区域内关键字搜索，参数组合为 keywords(可选)，bbox，offset，page；
- 2.指定圆形区域内关键字搜索，参数组合为 keywords(可选)，center，distance，offset，page；
- 3.指定建筑ID搜索，参数为 buildingIds。
+ 共有四种搜索模式：
+ 1.全球搜索，参数组合为 keywords(可选)，offset，page；
+ 2.指定方形区域内关键字搜索，参数组合为 keywords(可选)，bbox，offset，page；
+ 3.指定圆形区域内关键字搜索，参数组合为 keywords(可选)，center，distance，offset，page；
+ 4.指定建筑ID搜索，参数为 buildingIds。
  */
 @interface MXMBuildingSearchRequest : NSObject
-
-/**
- 关键字
- 
- 目前只支持单个关键字查询
- */
+/// 关键字。目前只支持单个关键字查询
 @property (nonatomic, strong) NSString *keywords;
-
-/**
- 方形搜索区域
- 
- bbox与center 二选一进行搜索
- */
+/// 方形搜索区域。bbox与center 二选一进行搜索
 @property (nonatomic, strong) MXMBoundingBox *bbox;
-
-/**
- 圆形区域搜索中心
- 
- bbox与center 二选一进行搜索
- */
+/// 圆形区域搜索中心。bbox与center 二选一进行搜索
 @property (nonatomic, strong) MXMGeoPoint *center;
-
-/**
- 圆形区域搜索半径
- 
- 单位为km，必须配合center使用
- */
+/// 圆形区域搜索半径。单位为km，必须配合center使用
 @property (nonatomic, assign) double distance;
-
-/** 每页显示多少数据 */
+/// 每页显示多少数据
 @property (nonatomic, assign) NSUInteger offset;
-
-/** 页数 */
+/// 页数
 @property (nonatomic, assign) NSUInteger page;
-
-/**
- 查询的建筑id列表
- 
- 与其他的参数互斥
- */
+/// 查询的建筑id列表。与其他的参数互斥
 @property (nonatomic, strong) NSArray *buildingIds;
-
 @end
+
+
 
 
 /**
  建筑搜索结果
  */
 @interface MXMBuildingSearchResponse : NSObject
-
-/** 返回结果个数 */
+/// 返回结果个数
 @property (nonatomic, assign) NSInteger total;
-
-/** 返回的`MXMBuilding`队列 */
+/// 返回的`MXMBuilding`队列
 @property (nonatomic, strong) NSArray<MXMBuilding *> *buildings;
-
 @end
 
 
+
+
 /**
- POI分类搜索请求
+ POI分类搜索请求配置类
  
  搜索指定建筑和楼层内所有的POI分类名，floor可不传，不传将搜索整栋建筑。
  */
 @interface MXMPOICategorySearchRequest : NSObject
-
-/** 指定搜索建筑id */
+/// 指定搜索建筑id
 @property (nonatomic, strong) NSString *buildingId;
-
-/** 指定搜索楼层 */
+/// 指定搜索楼层
 @property (nonatomic, strong) NSString *floor;
-
 @end
+
+
 
 
 /**
  POI分类搜索结果
  */
 @interface MXMPOICategorySearchResponse : NSObject
-
-/** 分类名列表 */
+/// 分类名列表
 @property (nonatomic, strong) NSArray *category;
-
 @end
 
 
+
+
 /**
- POI搜索请求配置
+ POI搜索请求配置类
  
  共有四种搜索模式：
  1.指定建筑与楼层内关键字搜索，参数组合为 keywords(可选)，buildingId，floor(可选)，offset，page，category(可选)；
  2.指定方形区域内关键字搜索，参数组合为 keywords(可选)，bbox，offset，page，category(可选)；
  3.指定圆形区域内关键字搜索，参数组合为 keywords(可选)，center，meterDistance(或distance)，offset，page，category(可选)；
  4.指定建筑ID搜索，参数为 POIIds；
- */
-@interface MXMPOISearchRequest : NSObject
-
-/**
- 关键字
  
- 目前只支持单个关键字
- */
-@property (nonatomic, strong) NSString *keywords;
-
-/**
- 建筑id
- 
- buildingId，bbox, center 三选一
- */
-@property (nonatomic, strong) NSString *buildingId;
-
-/**
- 搜索楼层
-
- 必须配合buildingId使用
- */
-@property (nonatomic, strong) NSString *floor;
-
-/**
- 方形搜索区域
- 
- buildingId，bbox, center 三选一
- */
-@property (nonatomic, strong) MXMBoundingBox *bbox;
-
-/**
- 圆形区域搜索中心
- 
- buildingId，bbox, center 三选一
-*/
-@property (nonatomic, strong) MXMGeoPoint *center;
-
-/**
- 圆形区域搜索半径
- 
- 单位为km，必须配合center使用
- */
-@property (nonatomic, assign) double distance DEPRECATED_ATTRIBUTE;
-
-/**
- 圆形区域搜索半径
- 
- 单位为m，必须配合center使用
- */
-@property (nonatomic, assign) NSUInteger meterDistance;
-
-/** 每页显示多少数据 */
-@property (nonatomic, assign) NSUInteger offset;
-
-/** 页数 */
-@property (nonatomic, assign) NSUInteger page;
-
-/**
- 要过滤的类别
+ category参考值：
  
  | Key                            | 中文名         |
  | ------------------------------ | -------------- |
@@ -252,79 +167,114 @@
  | gate                           | 闸位           |
  | guest_services                 | 客户服务       |
  */
+@interface MXMPOISearchRequest : NSObject
+/// 关键字。目前只支持单个关键字
+@property (nonatomic, strong) NSString *keywords;
+/// 建筑id。buildingId，bbox, center 三选一
+@property (nonatomic, strong) NSString *buildingId;
+/// 搜索楼层。必须配合buildingId使用
+@property (nonatomic, strong) NSString *floor;
+/// 方形搜索区域。buildingId，bbox, center 三选一
+@property (nonatomic, strong) MXMBoundingBox *bbox;
+/// 圆形区域搜索中心。buildingId，bbox, center 三选一
+@property (nonatomic, strong) MXMGeoPoint *center;
+/// 圆形区域搜索半径。单位为km，必须配合center使用
+@property (nonatomic, assign) double distance DEPRECATED_ATTRIBUTE;
+/// 圆形区域搜索半径。单位为m，必须配合center使用
+@property (nonatomic, assign) NSUInteger meterDistance;
+/// 每页显示多少数据
+@property (nonatomic, assign) NSUInteger offset;
+/// 页数
+@property (nonatomic, assign) NSUInteger page;
+/// 要过滤的类别
 @property (nonatomic, strong) NSString *category;
-
-/**
- 查询的POI id列表
- 
- 与上面的参数互斥
- */
+/// 查询的POI id列表。与上面的参数互斥
 @property (nonatomic, strong) NSArray *POIIds;
-
 @end
+
+
 
 
 /**
  POI搜索结果
  */
 @interface MXMPOISearchResponse : NSObject
-
-/** 返回结果个数 */
+/// 返回结果个数
 @property (nonatomic, assign) NSInteger total;
-
-/** 返回的`MXMPOI`队列 */
+/// 返回的`MXMPOI`队列
 @property (nonatomic, strong) NSArray<MXMPOI *> *pois;
-
 @end
+
+
+
+
+/**
+ 给定地图偏转角度，搜索附近POI点并得出POI点相对手机方向的方位
+ */
+@interface MXMOrientationPOISearchRequest : NSObject
+/// 地图正北方向到手机指向的顺时针夹角，取值范围：[0,359]
+@property (nonatomic, assign) NSUInteger angle;
+/// 距离搜索类型（默认：Point）。Point：查找以center为圆心，distance为半径的圆包含的POI点；Polygon：查找以center为圆心，distance为半径的圆相交房间的POI信息
+@property (nonatomic, strong) NSString *distanceSearchType;
+/// 建筑ID
+@property (nonatomic, strong) NSString *buildingId;
+/// 搜索楼层
+@property (nonatomic, strong) NSString *floor;
+/// 中心点位置
+@property (nonatomic, strong) MXMGeoPoint *center;
+/// 圆形区域搜索半径。单位为m
+@property (nonatomic, assign) NSUInteger distance;
+@end
+
+
+
+
+/**
+ 中心点附近POI搜索结果
+ */
+@interface MXMOrientationPOISearchResponse : NSObject
+/// 返回的`MXMPOI`队列
+@property (nonatomic, strong) NSArray<MXMPOI *> *pois;
+@end
+
+
 
 
 /**
  路线搜索请求配置
  */
 @interface MXMRouteSearchRequest : NSObject
-
-/** 始点建筑 */
+/// 始点建筑
 @property (nonatomic, strong) NSString *fromBuilding;
-
-/** 始点建筑楼层 */
+/// 始点建筑楼层
 @property (nonatomic, strong) NSString *fromFloor;
-
-/** 始点经度 */
+/// 始点经度
 @property (nonatomic, assign) double fromLon;
-
-/** 始点纬度 */
+/// 始点纬度
 @property (nonatomic, assign) double fromLat;
-
-/** 终点建筑 */
+/// 终点建筑
 @property (nonatomic, strong) NSString *toBuilding;
-
-/** 终点建筑楼层 */
+/// 终点建筑楼层
 @property (nonatomic, strong) NSString *toFloor;
-
-/** 终点经度 */
+/// 终点经度
 @property (nonatomic, assign) double toLon;
-
-/** 终点纬度 */
+/// 终点纬度
 @property (nonatomic, assign) double toLat;
-
-/**
- 返回结果语言版本
- 
- 可选值为zh-HK,zh-CN,en。默认en
- */
+/// 返回结果语言版本。可选值为zh-HK,zh-CN,en。默认en
 @property (nonatomic, strong) NSString *locale;
-
+/// 终点设置在门前。设置为YES则终点只到POI店门终止
+@property (nonatomic, assign) BOOL toDoor;
 @end
+
+
 
 
 /**
  路线搜索结果
  */
 @interface MXMRouteSearchResponse : NSObject
-
-/** 路线`MXMPath`的队列，不同的路线为不同的规划方案 */
+/// 路线`MXMPath`的队列，不同的路线为不同的规划方案
 @property (nonatomic, strong) NSArray<MXMPath *> *paths;
-
 @end
 
 
