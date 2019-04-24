@@ -7,6 +7,7 @@
 //
 
 #import "MXMFloorSelectorBar+Private.h"
+#import "NSString+Compare.h"
 
 
 @interface CellView : UIView
@@ -45,13 +46,25 @@
 }
 @end
 
-@interface MXMFloorSelectorBar () <UIPickerViewDelegate, UIPickerViewDataSource>
+@interface MXMFloorSelectorBar () <UIPickerViewDelegate, UIPickerViewDataSource, UIPickerViewAccessibilityDelegate>
 @property (nonatomic, strong) UIPickerView *pickerView;
 @property (nonatomic, strong) UIView *selectBox;
 @property (nonatomic, strong) NSMutableArray *dataSourceArr;
 @end
 
 @implementation MXMFloorSelectorBar
+
+
+#pragma mark - UIPickerViewAccessibilityDelegate
+- (NSString *)pickerView:(UIPickerView *)pickerView accessibilityLabelForComponent:(NSInteger)component
+{
+    NSString *name = @"";
+    if (![NSString isEmpty:self.addVoiceOverLabel]) {
+        name = self.addVoiceOverLabel;
+    }
+    return name;
+}
+#pragma mark end
 
 - (instancetype)init
 {
@@ -181,4 +194,5 @@
     return _dataSourceArr;
 }
 #pragma mark end
+
 @end
