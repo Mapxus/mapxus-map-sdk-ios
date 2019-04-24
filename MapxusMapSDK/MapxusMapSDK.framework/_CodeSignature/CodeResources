@@ -6,7 +6,7 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		mKgqtb6GmSchYYtOwHazi1/KgbA=
+		ccPkeVNmBe4JT0Oy4tdTWByQU5o=
 		</data>
 		<key>Headers/MXMCommonObj.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/MXMFloorSelectorBar.h</key>
 		<data>
-		LVKD+KjFPvZtc1igJ5S/Y0RpFbM=
+		BSPx6HdzZQz2YFpU0HPH0CUhIWg=
 		</data>
 		<key>Headers/MXMGeoBuilding.h</key>
 		<data>
@@ -42,7 +42,7 @@
 		</data>
 		<key>Headers/MXMSearchObj.h</key>
 		<data>
-		+18du0gCt4P1q+hCPrux9YBhBCQ=
+		HXyOg3QIQEkAzZWyI+JMpWzxV10=
 		</data>
 		<key>Headers/MapxusMap.h</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		HIM0wmEeQUyhtAZ8d/sb4y1MftI=
+		wbYsCmkyLHD0PfzNbXTZKERxVxk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -71,11 +71,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mKgqtb6GmSchYYtOwHazi1/KgbA=
+			ccPkeVNmBe4JT0Oy4tdTWByQU5o=
 			</data>
 			<key>hash2</key>
 			<data>
-			yKDnppX2DFcgVxLFpS86tnLhlWpGNIenQegdqTA8crw=
+			sOQu0Q/mqChR2S0jNmLD9jNqOZ7i8GlYIK+h4W/sRFc=
 			</data>
 		</dict>
 		<key>Headers/MXMCommonObj.h</key>
@@ -115,11 +115,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			LVKD+KjFPvZtc1igJ5S/Y0RpFbM=
+			BSPx6HdzZQz2YFpU0HPH0CUhIWg=
 			</data>
 			<key>hash2</key>
 			<data>
-			ks+KNZQ0rPo7oqNBsJlLFZy+gD9j6Elrt8oIIsJXTC0=
+			pSba32bzkiq5BgjiQAhVsW/XAlXwoE9p9ZfpE9KwnzI=
 			</data>
 		</dict>
 		<key>Headers/MXMGeoBuilding.h</key>
@@ -170,11 +170,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			+18du0gCt4P1q+hCPrux9YBhBCQ=
+			HXyOg3QIQEkAzZWyI+JMpWzxV10=
 			</data>
 			<key>hash2</key>
 			<data>
-			bvAy1aYnTa1l5PJ+mnn53J5odvazzuu7D9qIw583aW0=
+			vmBb5uCk4L9vV4g2rv2KyHU2WXZ0GPJ8wzo8TDiNzI0=
 			</data>
 		</dict>
 		<key>Headers/MapxusMap.h</key>

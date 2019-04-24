@@ -10,4 +10,6 @@
 
 @interface MXMFloorSelectorBar : UIView
 
+@property (nonatomic, copy) NSString *addVoiceOverLabel;
+
 @end

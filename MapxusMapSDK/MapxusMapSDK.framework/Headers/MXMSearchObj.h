@@ -165,6 +165,7 @@
  | entry_gate                     | 入闸位         |
  | exit_gate                      | 出闸位         |
  | gate                           | 闸位           |
+ | type                           | 门口           |
  | guest_services                 | 客户服务       |
  */
 @interface MXMPOISearchRequest : NSObject
