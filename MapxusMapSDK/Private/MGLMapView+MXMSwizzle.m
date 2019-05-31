@@ -335,7 +335,15 @@ static void *mapKey = &mapKey;
     if ((mapView.userTrackingMode != MGLUserTrackingModeNone) && userLocation.location.floor) { // 跟随模式且有楼层数据
         CGPoint locationPoint = [mapView convertCoordinate:userLocation.location.coordinate toPointToView:mapView];
         NSDictionary *buildingDic = [mapView.mxmMap.dataQueryer findOutBuildingAtPoint:locationPoint];
-        [mapView.mxmMap.decider decideWithUserLocationLevel:userLocation.location.floor.level atPointBuildingDic:buildingDic];
+        MXMIndoorMapInfo *info = [mapView.mxmMap.decider decideWithUserLocationLevel:userLocation.location.floor.level atPointBuildingDic:buildingDic];
+        if (info) {
+            if (![info.floor isEqualToString:mapView.mxmMap.userLocationFloor]) {
+                mapView.mxmMap.userLocationFloor = info.floor;
+            }
+            if (![info.building.identifier isEqualToString:mapView.mxmMap.userLocationBuilding.identifier]) {
+                mapView.mxmMap.userLocationBuilding = info.building;
+            }
+        }
     } else {
         [mapView.mxmMap updageLocationView];
         if (mapView.mxmMap.userLocationFloor != nil) {

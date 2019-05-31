@@ -80,108 +80,59 @@
 {
     _selectorPosition = selectorPosition;
 
-    NSLayoutConstraint *floorBarXLc = [self _constraintWithIndientifer:@"floorBarXLc" InView:self.mapView];
-    if (floorBarXLc) [self.mapView removeConstraint:floorBarXLc];
-    NSLayoutConstraint *floorBarYLc = [self _constraintWithIndientifer:@"floorBarYLc" InView:self.mapView];
-    if (floorBarYLc) [self.mapView removeConstraint:floorBarYLc];
-    NSLayoutConstraint *buildingBtnXLc = [self _constraintWithIndientifer:@"buildingBtnXLc" InView:self.mapView];
-    if (buildingBtnXLc) [self.mapView removeConstraint:buildingBtnXLc];
+    [self _constraintWithIndientifer:@"floorBarXLc" InView:self.mapView].active = NO;
+    [self _constraintWithIndientifer:@"floorBarYLc" InView:self.mapView].active = NO;
 
+    NSLayoutConstraint *floorBarXLc;
+    NSLayoutConstraint *floorBarYLc;
+    
     switch (selectorPosition) {
         case MXMSelectorPositionCenterLeft:
         {
-            floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
-            floorBarXLc.identifier = @"floorBarXLc";
-            [self.mapView addConstraint:floorBarXLc];
-            
-            floorBarYLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:30];
-            floorBarYLc.identifier = @"floorBarYLc";
-            [self.mapView addConstraint:floorBarYLc];
-            
-            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
-            buildingBtnXLc.identifier = @"buildingBtnXLc";
-            [self.mapView addConstraint:buildingBtnXLc];
+            floorBarXLc = [self.floorBar.centerXAnchor constraintEqualToAnchor:self.mapView.leftAnchor constant:31];
+            floorBarYLc = [self.floorBar.centerYAnchor constraintEqualToAnchor:self.mapView.centerYAnchor constant:30];
         }
             break;
         case MXMSelectorPositionCenterRight:
         {
-            floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-10.0f];
-            floorBarXLc.identifier = @"floorBarXLc";
-            [self.mapView addConstraint:floorBarXLc];
-            
-            floorBarYLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:30];
-            floorBarYLc.identifier = @"floorBarYLc";
-            [self.mapView addConstraint:floorBarYLc];
-            
-            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-6];
-            buildingBtnXLc.identifier = @"buildingBtnXLc";
-            [self.mapView addConstraint:buildingBtnXLc];
+            floorBarXLc = [self.floorBar.centerXAnchor constraintEqualToAnchor:self.mapView.rightAnchor constant:-31];
+            floorBarYLc = [self.floorBar.centerYAnchor constraintEqualToAnchor:self.mapView.centerYAnchor constant:30];
         }
             break;
         case MXMSelectorPositionTopLeft:
         {
-            floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
-            floorBarXLc.identifier = @"floorBarXLc";
-            [self.mapView addConstraint:floorBarXLc];
-            
-            floorBarYLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeTop multiplier:1.0f constant:100];
-            floorBarYLc.identifier = @"floorBarYLc";
-            [self.mapView addConstraint:floorBarYLc];
-            
-            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
-            buildingBtnXLc.identifier = @"buildingBtnXLc";
-            [self.mapView addConstraint:buildingBtnXLc];
+            floorBarXLc = [self.floorBar.centerXAnchor constraintEqualToAnchor:self.mapView.leftAnchor constant:31];
+            floorBarYLc = [self.floorBar.topAnchor constraintEqualToAnchor:self.mapView.topAnchor constant:100];
         }
             break;
         case MXMSelectorPositionTopRight:
         {
-            floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-10.0f];
-            floorBarXLc.identifier = @"floorBarXLc";
-            [self.mapView addConstraint:floorBarXLc];
-            
-            floorBarYLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeTop multiplier:1.0f constant:100];
-            floorBarYLc.identifier = @"floorBarYLc";
-            [self.mapView addConstraint:floorBarYLc];
-            
-            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-6];
-            buildingBtnXLc.identifier = @"buildingBtnXLc";
-            [self.mapView addConstraint:buildingBtnXLc];
+            floorBarXLc = [self.floorBar.centerXAnchor constraintEqualToAnchor:self.mapView.rightAnchor constant:-31];
+            floorBarYLc = [self.floorBar.topAnchor constraintEqualToAnchor:self.mapView.topAnchor constant:100];
         }
             break;
         case MXMSelectorPositionBottomLeft:
         {
-            floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
-            floorBarXLc.identifier = @"floorBarXLc";
-            [self.mapView addConstraint:floorBarXLc];
-            
-            floorBarYLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:-50];
-            floorBarYLc.identifier = @"floorBarYLc";
-            [self.mapView addConstraint:floorBarYLc];
-            
-            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
-            buildingBtnXLc.identifier = @"buildingBtnXLc";
-            [self.mapView addConstraint:buildingBtnXLc];
+            floorBarXLc = [self.floorBar.centerXAnchor constraintEqualToAnchor:self.mapView.leftAnchor constant:31];
+            floorBarYLc = [self.floorBar.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-50];
         }
             break;
         case MXMSelectorPositionBottomRight:
         {
-            floorBarXLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-10.0f];
-            floorBarXLc.identifier = @"floorBarXLc";
-            [self.mapView addConstraint:floorBarXLc];
-            
-            floorBarYLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:-50];
-            floorBarYLc.identifier = @"floorBarYLc";
-            [self.mapView addConstraint:floorBarYLc];
-            
-            buildingBtnXLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-6];
-            buildingBtnXLc.identifier = @"buildingBtnXLc";
-            [self.mapView addConstraint:buildingBtnXLc];
+            floorBarXLc = [self.floorBar.centerXAnchor constraintEqualToAnchor:self.mapView.rightAnchor constant:-31];
+            floorBarYLc = [self.floorBar.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-50];
         }
             break;
 
         default:
             break;
     }
+    
+    floorBarXLc.identifier = @"floorBarXLc";
+    floorBarYLc.identifier = @"floorBarYLc";
+
+    [NSLayoutConstraint activateConstraints:@[floorBarXLc, floorBarYLc]];
+    
     [self.mapView layoutIfNeeded];
 }
 
@@ -217,19 +168,19 @@
     [[MXMMapServices sharedServices] getTokenComplete:^(NSString *token) {
         switch (style) {
             case MXMStyleCOMMON:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v3/style/common_v3", MXMBRMHOSTURL]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/common_v3", MXMAPIHOSTURL]];
                 break;
             case MXMStyleCHRISTMAS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v3/style/christmas_v3", MXMBRMHOSTURL]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/christmas_v3", MXMAPIHOSTURL]];
                 break;
             case MXMStyleHALLOWMAS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v3/style/halloween_v3", MXMBRMHOSTURL]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/halloween_v3", MXMAPIHOSTURL]];
                 break;
             case MXMStyleMAPPYBEE:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v3/style/mappy_bee_v3", MXMBRMHOSTURL]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/mappy_bee_v3", MXMAPIHOSTURL]];
                 break;
             case MXMStyleMAPXUS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/api/v3/style/mapxus_v4", MXMBRMHOSTURL]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/mapxus_v4", MXMAPIHOSTURL]];
                 break;
             default:
                 break;
@@ -315,18 +266,15 @@
 
 #pragma mark - MXMDeciderDelegate
 
-- (void)decideMapViewChangeBuilding:(nonnull MXMGeoBuilding *)building floor:(nonnull NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
+- (void)decideMapViewShouldChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
 {
     if (changeTrackingMode && (self.mapView.userTrackingMode != MGLUserTrackingModeNone)) {
         [self.mapView setUserTrackingMode:MGLUserTrackingModeNone];
-    } else {
-        if (![self.userLocationFloor isEqualToString:floor]) {
-            self.userLocationFloor = floor;
-        }
-        if (![self.userLocationBuilding.identifier isEqualToString:building.identifier]) {
-            self.userLocationBuilding = building;
-        }
     }
+}
+
+- (void)decideMapViewChangeBuilding:(nonnull MXMGeoBuilding *)building floor:(nonnull NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
+{
     self.building = building;
     self.floor = floor;
     [self.floorBar resetItems:building.floors defaultSelectRow:floor];
@@ -354,6 +302,9 @@
     self.floorBar.hidden = self.indoorControllerAlwaysHidden || !(show&&(self.mapView.zoomLevel>15.7));
     self.isIndoor = !self.floorBar.isHidden;
     [self.annHolder filterMXMAnnotationsWithBuilding:buildingId floor:floor indoorState:self.isIndoor];
+    if (self.delegate && [self.delegate respondsToSelector: @selector(mapView:indoorMapWithIn:building:floor:)]) {
+        [self.delegate mapView:self indoorMapWithIn:self.isIndoor building:buildingId floor:floor];
+    }
 }
 
 #pragma mark - 控件筛选建筑
@@ -437,8 +388,12 @@
     NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point coordinate:coor];
     NSArray *poiList = [poiDic allValues];
     MXMGeoPOI *poi = poiList.firstObject;
-    if (poi && self.delegate && [self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)]) {
+    if (poi && self.delegate &&
+        [self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)]) {
         [self.delegate mapView:self didTappedOnPOI:poi];
+    } else if (self.delegate &&
+               [self.delegate respondsToSelector:@selector(mapView:didTappedOnMapBlank:)]) {
+        [self.delegate mapView:self didTappedOnMapBlank:coor];
     }
 }
 
@@ -461,6 +416,11 @@
     if ([keyPath isEqualToString:@"floor"]) {
         [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier floor:self.floor indoorState:self.isIndoor];
     }
+}
+
+- (NSArray *)MXMAnnotations
+{
+    return [self.annHolder.mxmPointAnnotations copy];
 }
 
 - (void)addMXMPointAnnotations:(NSArray<MXMPointAnnotation *> *)annotations
@@ -488,52 +448,33 @@
 - (void)commonInit
 {
     [self.mapView addSubview:self.openStreetSourceBtn];
-    NSLayoutConstraint *openStreetRightLc = [NSLayoutConstraint constraintWithItem:self.openStreetSourceBtn attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeRight multiplier:1.0f constant:-10.0f];
-    [self.mapView addConstraint:openStreetRightLc];
-    NSLayoutConstraint *openStreetBottomLc = [NSLayoutConstraint constraintWithItem:self.openStreetSourceBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:-10.0f];
-    [self.mapView addConstraint:openStreetBottomLc];
-    NSLayoutConstraint *openStreetWLc = [NSLayoutConstraint constraintWithItem:self.openStreetSourceBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:190.0f];
-    [self.openStreetSourceBtn addConstraint:openStreetWLc];
-    NSLayoutConstraint *openStreetHLc = [NSLayoutConstraint constraintWithItem:self.openStreetSourceBtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:13.0f];
-    [self.openStreetSourceBtn addConstraint:openStreetHLc];
-    
-    
     [self.mapView addSubview:self.MXMLogo];
-    NSLayoutConstraint *logoLeftLc = [NSLayoutConstraint constraintWithItem:self.MXMLogo attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
-    [self.mapView addConstraint:logoLeftLc];
-    NSLayoutConstraint *logoBottomLc = [NSLayoutConstraint constraintWithItem:self.MXMLogo attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeBottom multiplier:1.0f constant:-10.0f];
-    [self.mapView addConstraint:logoBottomLc];
-    NSLayoutConstraint *logoWLc = [NSLayoutConstraint constraintWithItem:self.MXMLogo attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:78.0f];
-    [self.MXMLogo addConstraint:logoWLc];
-    NSLayoutConstraint *logoHLc = [NSLayoutConstraint constraintWithItem:self.MXMLogo attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:14.0f];
-    [self.MXMLogo addConstraint:logoHLc];
-    
-    
-    // 添加楼层选择栏与约束
-    [self.mapView addSubview:self.floorBar];
-    NSLayoutConstraint *floorBarLeftLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:10.0f];
-    floorBarLeftLc.identifier = @"floorBarXLc";
-    [self.mapView addConstraint:floorBarLeftLc];
-    NSLayoutConstraint *floorBarBottomLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:30];
-    floorBarBottomLc.identifier = @"floorBarYLc";
-    [self.mapView addConstraint:floorBarBottomLc];
-    NSLayoutConstraint *floorBarWLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:42];
-    [self.floorBar addConstraint:floorBarWLc];
-    NSLayoutConstraint *floorBarHLc = [NSLayoutConstraint constraintWithItem:self.floorBar attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:200.0f];
-    [self.floorBar addConstraint:floorBarHLc];
-    
-    
-    // 添加建筑选择按钮与约束
     [self.mapView addSubview:self.buildingSelectButton];
-    NSLayoutConstraint *buiSelLeftLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeLeft multiplier:1.0f constant:6];
-    buiSelLeftLc.identifier = @"buildingBtnXLc";
-    [self.mapView addConstraint:buiSelLeftLc];
-    NSLayoutConstraint *buiSelBottomLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.floorBar attribute:NSLayoutAttributeTop multiplier:1.0f constant:-4];
-    [self.mapView addConstraint:buiSelBottomLc];
-    NSLayoutConstraint *buiSelWLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:50.0f];
-    [self.buildingSelectButton addConstraint:buiSelWLc];
-    NSLayoutConstraint *buiSelHLc = [NSLayoutConstraint constraintWithItem:self.buildingSelectButton attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:kNilOptions multiplier:1.0f constant:50.0f];
-    [self.buildingSelectButton addConstraint:buiSelHLc];
+    [self.mapView addSubview:self.floorBar];
+    // 添加楼层选择栏与约束
+    NSLayoutConstraint *floorBarXLc = [self.floorBar.centerXAnchor constraintEqualToAnchor:self.mapView.leftAnchor constant:31.0f];
+    floorBarXLc.identifier = @"floorBarXLc";
+    NSLayoutConstraint * floorBarYLc = [self.floorBar.centerYAnchor constraintEqualToAnchor:self.mapView.centerYAnchor constant:30];
+    floorBarYLc.identifier = @"floorBarYLc";
+    
+    NSArray *layouts = @[[self.openStreetSourceBtn.widthAnchor constraintEqualToConstant:190.0f],
+      [self.openStreetSourceBtn.heightAnchor constraintEqualToConstant:13.0f],
+      [self.openStreetSourceBtn.trailingAnchor constraintEqualToAnchor:self.mapView.trailingAnchor constant:-10.0f],
+      [self.openStreetSourceBtn.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-10.0f],
+      [self.MXMLogo.widthAnchor constraintEqualToConstant:78.0f],
+      [self.MXMLogo.heightAnchor constraintEqualToConstant:14.0f],
+      [self.MXMLogo.leadingAnchor constraintEqualToAnchor:self.mapView.leadingAnchor constant:10.0f],
+      [self.MXMLogo.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-10.0f],
+      [self.buildingSelectButton.widthAnchor constraintEqualToConstant:50.0f],
+      [self.buildingSelectButton.heightAnchor constraintEqualToConstant:50.0f],
+      [self.buildingSelectButton.centerXAnchor constraintLessThanOrEqualToAnchor:self.floorBar.centerXAnchor],
+      [self.buildingSelectButton.bottomAnchor constraintEqualToAnchor:self.floorBar.topAnchor constant:-4],
+      [self.floorBar.widthAnchor constraintEqualToConstant:42],
+      [self.floorBar.heightAnchor constraintEqualToConstant:200.0f],
+      floorBarXLc,
+      floorBarYLc];
+    
+    [NSLayoutConstraint activateConstraints:layouts];
     
     
     // 添加单击手势
@@ -597,38 +538,23 @@
 
 - (void)logoOnClickAction:(UIButton *)sender
 {
+    UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"Mapxus Maps SDK for iOS" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertController *attributionController = [UIAlertController alertControllerWithTitle:@"Mapxus Maps SDK for iOS"
-                                                                                   message:nil
-                                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *fristAction = [UIAlertAction actionWithTitle:@"© Mapxus" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mapxus.com"]];
+    }];
+    [alertCtrl addAction:fristAction];
     
-    UIAlertAction *fristAction = [UIAlertAction actionWithTitle:@"© Mapxus"
-                                                          style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction * _Nonnull action) {
-                                                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mapxus.com"]];
-                                                        }];
-    [attributionController addAction:fristAction];
+    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"© OpenStreeMap" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.openstreetmap.org/about/"]];
+    }];
+    [alertCtrl addAction:secondAction];
     
-    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"© OpenStreeMap"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.openstreetmap.org/about/"]];
-                                                         }];
-    [attributionController addAction:secondAction];
-    
-    NSString *cancelTitle = @"Cancel";
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelTitle
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:NULL];
-    [attributionController addAction:cancelAction];
-    
-    attributionController.popoverPresentationController.sourceView = sender;
-    attributionController.popoverPresentationController.sourceRect = sender.frame;
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    [alertCtrl addAction:cancelAction];
     
     UIViewController *viewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-    [viewController presentViewController:attributionController
-                                 animated:YES
-                               completion:NULL];
+    [viewController presentViewController:alertCtrl animated:YES completion:nil];
 }
 
 - (UIButton *)openStreetSourceBtn

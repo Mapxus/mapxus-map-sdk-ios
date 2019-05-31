@@ -274,6 +274,8 @@
  路线搜索结果
  */
 @interface MXMRouteSearchResponse : NSObject
+/// 途经点列表
+@property (nonatomic, strong) NSArray<MXMIndoorPoint *> *wayPointList;
 /// 路线`MXMPath`的队列，不同的路线为不同的规划方案
 @property (nonatomic, strong) NSArray<MXMPath *> *paths;
 @end

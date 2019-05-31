@@ -21,4 +21,9 @@
                           success:(void (^)(NSDictionary *content))success
                           failure:(void (^)(NSError *error))failure;
 
++ (NSURLSessionDataTask *)MXMPOST:(NSString *)URLString
+                             data:(NSData *)bodyData
+                          success:(void (^)(NSDictionary *content))success
+                          failure:(void (^)(NSError *error))failure;
+
 @end

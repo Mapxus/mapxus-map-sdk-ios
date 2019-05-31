@@ -44,6 +44,30 @@
 
 @end
 
+
+
+@implementation MXMIndoorPoint
+
++ (MXMIndoorPoint *)locationWithLatitude:(double)lat longitude:(double)lng building:(NSString *)buildingId floor:(NSString *)floor
+{
+    MXMIndoorPoint *point = [[MXMIndoorPoint alloc] init];
+    point.latitude = lat;
+    point.longitude = lng;
+    point.buildingId = buildingId;
+    point.floor = floor;
+    return point;
+}
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
+@end
+
+
+
+
 //
 @implementation MXMBoundingBox
 

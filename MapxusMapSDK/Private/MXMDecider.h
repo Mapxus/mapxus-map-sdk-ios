@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MXMGeoBuilding.h"
+#import "MXMIndoorMapInfo.h"
 #import <Mapbox/Mapbox.h>
 
 @class MXMBoundingBox;
@@ -15,6 +16,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol MXMDeciderDelegate <NSObject>
+
+- (void)decideMapViewShouldChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode;
+
 
 - (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode;
 
@@ -47,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)decideAtPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
 
 // 定位时确定建筑
-- (void)decideWithUserLocationLevel:(NSInteger)level atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
+- (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
 
 // 指定建筑
 - (void)specifyTheBuilding:(NSString *)buildingId

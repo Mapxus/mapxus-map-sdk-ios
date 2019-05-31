@@ -9,6 +9,7 @@
 #import "MXMDataQuerier.h"
 #import <YYModel/YYModel.h>
 #import "MGLStyleLayer+MXMFilter.h"
+#import "JXJsonFunctionDefine.h"
 
 @interface MXMDataQuerier ()
 
@@ -80,7 +81,7 @@
 {
     NSSet *identifiers = [self getIndoorSymbolLayerIdentifiersInLayers:self.mapView.style.layers];
     NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiers predicate:nil];
-    NSDictionary *pois = [self poiDeduplicationInFeatures:theFeatures setCoordinate:coor];
+    NSDictionary *pois = [self poiDeduplicationInFeatures:theFeatures];
     return pois;
 }
 
@@ -97,15 +98,23 @@
     return [identifiersSet copy];
 }
 
-- (NSDictionary *)poiDeduplicationInFeatures:(NSArray<id <MGLFeature>> *)features setCoordinate:(CLLocationCoordinate2D)coor
+- (NSDictionary *)poiDeduplicationInFeatures:(NSArray<id <MGLFeature>> *)features
 {
     // 建筑信息去重
     NSMutableDictionary *resultPOIs = [NSMutableDictionary dictionary];
     for (id <MGLFeature> feature in features) {
         NSString *theId = [feature attributeForKey:@"osm:ref"];
         if (theId) {
+            // 解析POI经纬度
+            NSDictionary *geoDic = feature.geoJSONDictionary;
+            NSDictionary *geometry = DecodeDicFromDic(geoDic, @"geometry");
+            NSArray *coordList = DecodeArrayFromDic(geometry, @"coordinates");
+            NSNumber *lon = coordList.firstObject;
+            NSNumber *lat = coordList.lastObject;
+            CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(lat.doubleValue, lon.doubleValue);
+            
             MXMGeoPOI *poi = [MXMGeoPOI yy_modelWithJSON:feature.attributes];
-            poi.coordinate = coor;
+            poi.coordinate = coord;
             [resultPOIs setObject:poi forKey:theId];
         }
     }
