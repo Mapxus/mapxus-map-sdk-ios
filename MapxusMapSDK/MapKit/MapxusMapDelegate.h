@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)mapView:(MapxusMap *)mapView didTappedOnMapBlank:(CLLocationCoordinate2D)coordinate;
 
 /**
- 进入/退出室内场景回调
+ 进入/退出室内场景回调，同一结果可能会多次调用
 
  @param mapView 响应的MapxusMap对象
  @param flag 进入/退出室内场景标志，YES:进入；NO:退出
