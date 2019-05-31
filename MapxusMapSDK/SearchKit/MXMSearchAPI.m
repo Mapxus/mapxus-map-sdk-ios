@@ -142,7 +142,12 @@
     
     [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onRouteSearchDone:response:)]) {
+            // 途经点赋值
+            MXMIndoorPoint *startP = [MXMIndoorPoint locationWithLatitude:request.fromLat longitude:request.fromLon building:request.fromBuilding floor:request.fromFloor];
+            MXMIndoorPoint *endP = [MXMIndoorPoint locationWithLatitude:request.toLat longitude:request.toLon building:request.toBuilding floor:request.toFloor];
+
             MXMRouteSearchResponse *response = [MXMRouteSearchResponse yy_modelWithJSON:content];
+            response.wayPointList = @[startP, endP];
             [self.delegate onRouteSearchDone:request response:response];
         }
     } failure:^(NSError *error) {

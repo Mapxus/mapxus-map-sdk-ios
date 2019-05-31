@@ -13,7 +13,7 @@
 - (NSSet *)getBuildingLayerIdentifiersInLayers:(NSArray<MGLStyleLayer *> *)layers;
 - (NSDictionary *)buildingDeduplicationInFeatures:(NSArray<id <MGLFeature>> *)features;
 - (NSSet *)getIndoorSymbolLayerIdentifiersInLayers:(NSArray<MGLStyleLayer *> *)layers;
-- (NSDictionary *)poiDeduplicationInFeatures:(NSArray<id <MGLFeature>> *)features setCoordinate:(CLLocationCoordinate2D)coor;
+- (NSDictionary *)poiDeduplicationInFeatures:(NSArray<id <MGLFeature>> *)features;
 
 @end
 

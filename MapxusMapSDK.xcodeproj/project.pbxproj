@@ -75,6 +75,8 @@
 		D65B56FD21C7383700142732 /* MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */; };
 		D65B56FE21C7383700142732 /* MapxusMapSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D67DAB63224DC5A400924107 /* MXMSearchAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D67DAB62224DC5A400924107 /* MXMSearchAPITests.m */; };
+		D68019A822A0BE9600E2E27B /* MXMIndoorMapInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = D68019A622A0BE9600E2E27B /* MXMIndoorMapInfo.h */; };
+		D68019A922A0BE9600E2E27B /* MXMIndoorMapInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D68019A722A0BE9600E2E27B /* MXMIndoorMapInfo.m */; };
 		D682007922533D510075B339 /* MXMGeoPointTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D682007822533D510075B339 /* MXMGeoPointTests.m */; };
 		D682007B2254BB9C0075B339 /* MXMSearchPOIOperationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D682007A2254BB9C0075B339 /* MXMSearchPOIOperationTests.m */; };
 		D684BC5520FE324C004E85D9 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D684BC5420FE324C004E85D9 /* images.xcassets */; };
@@ -199,6 +201,8 @@
 		D65B56D421C3AB4500142732 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D65B56D521C3AB4500142732 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D67DAB62224DC5A400924107 /* MXMSearchAPITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXMSearchAPITests.m; sourceTree = "<group>"; };
+		D68019A622A0BE9600E2E27B /* MXMIndoorMapInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMIndoorMapInfo.h; sourceTree = "<group>"; };
+		D68019A722A0BE9600E2E27B /* MXMIndoorMapInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMIndoorMapInfo.m; sourceTree = "<group>"; };
 		D682007822533D510075B339 /* MXMGeoPointTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMGeoPointTests.m; sourceTree = "<group>"; };
 		D682007A2254BB9C0075B339 /* MXMSearchPOIOperationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSearchPOIOperationTests.m; sourceTree = "<group>"; };
 		D684BC5420FE324C004E85D9 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
@@ -452,6 +456,8 @@
 				D6428641223F7410003819E8 /* MGLStyleLayer+MXMFilter.m */,
 				D6E5389E2249C97900B98B1C /* MXMAnnotationsHolder.h */,
 				D6E5389F2249C97900B98B1C /* MXMAnnotationsHolder.m */,
+				D68019A622A0BE9600E2E27B /* MXMIndoorMapInfo.h */,
+				D68019A722A0BE9600E2E27B /* MXMIndoorMapInfo.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -489,6 +495,7 @@
 				D600960F21DCAB8B00505880 /* MXMDefine.h in Headers */,
 				D600961121DCAB8B00505880 /* MapxusMap.h in Headers */,
 				D6428646223F7E03003819E8 /* MXMDataQuerier.h in Headers */,
+				D68019A822A0BE9600E2E27B /* MXMIndoorMapInfo.h in Headers */,
 				D600961921DCAB8B00505880 /* MXMConfiguration.h in Headers */,
 				D60095F921DCAB8B00505880 /* MXMGeoPOI.h in Headers */,
 				D60095FA21DCAB8B00505880 /* MXMGeoBuilding.h in Headers */,
@@ -800,6 +807,7 @@
 				D60095F021DCAB8B00505880 /* MXMCommonObj.m in Sources */,
 				D6428643223F7410003819E8 /* MGLStyleLayer+MXMFilter.m in Sources */,
 				D600961621DCAB8B00505880 /* MXMPointAnnotation.m in Sources */,
+				D68019A922A0BE9600E2E27B /* MXMIndoorMapInfo.m in Sources */,
 				D6428647223F7E03003819E8 /* MXMDataQuerier.m in Sources */,
 				D6F745A5224364DA0086C891 /* MXMSearchBuildingOperation2.m in Sources */,
 				D60095FD21DCAB8B00505880 /* MXMSearchPOIOperation.m in Sources */,

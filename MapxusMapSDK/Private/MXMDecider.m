@@ -87,7 +87,7 @@
 }
 
 
-- (void)decideWithUserLocationLevel:(NSInteger)level atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+- (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
 {
     NSArray *buildingList = [buildings allValues];
     for (MXMGeoBuilding *b in buildingList) {
@@ -98,9 +98,10 @@
                         shouldZoomTo:NO
             shouldChangeTrackingMode:NO
                  withRectBuildingDic:buildings];
-            break;
+            return [[MXMIndoorMapInfo alloc] initWithBuilding:b floor:localFloor];
         }
     }
+    return nil;
 }
 
 
@@ -228,6 +229,10 @@
 // 主要作用是过滤空输入及保存历史
 - (void)selectBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
 {
+    // 无论是否
+    if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewShouldChangeBuilding:floor:shouldChangeTrackingMode:)]) {
+        [self.delegate decideMapViewShouldChangeBuilding:building floor:floor shouldChangeTrackingMode:changeTrackingMode];
+    }
     
     if (![self canGoOnFilterWithBuilding:building floor:floor currentBuilding:self.currentBuilding currentFloor:self.currentFloor andMapReload:self.isMapReload]) {
         return;

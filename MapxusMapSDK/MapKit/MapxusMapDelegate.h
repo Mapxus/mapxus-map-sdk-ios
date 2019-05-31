@@ -77,6 +77,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)mapView:(MapxusMap *)mapView didTappedOnMapBlank:(CLLocationCoordinate2D)coordinate;
 
+/**
+ 进入/退出室内场景回调
+
+ @param mapView 响应的MapxusMap对象
+ @param flag 进入/退出室内场景标志，YES:进入；NO:退出
+ @param buildingId 进入场景的建筑ID
+ @param floor 进入场景的楼层
+ */
+- (void)mapView:(MapxusMap *)mapView indoorMapWithIn:(BOOL)flag building:(NSString *)buildingId floor:(NSString *)floor;
+
 @end
 
 NS_ASSUME_NONNULL_END

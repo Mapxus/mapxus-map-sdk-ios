@@ -266,18 +266,15 @@
 
 #pragma mark - MXMDeciderDelegate
 
-- (void)decideMapViewChangeBuilding:(nonnull MXMGeoBuilding *)building floor:(nonnull NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
+- (void)decideMapViewShouldChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
 {
     if (changeTrackingMode && (self.mapView.userTrackingMode != MGLUserTrackingModeNone)) {
         [self.mapView setUserTrackingMode:MGLUserTrackingModeNone];
-    } else {
-        if (![self.userLocationFloor isEqualToString:floor]) {
-            self.userLocationFloor = floor;
-        }
-        if (![self.userLocationBuilding.identifier isEqualToString:building.identifier]) {
-            self.userLocationBuilding = building;
-        }
     }
+}
+
+- (void)decideMapViewChangeBuilding:(nonnull MXMGeoBuilding *)building floor:(nonnull NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
+{
     self.building = building;
     self.floor = floor;
     [self.floorBar resetItems:building.floors defaultSelectRow:floor];
@@ -305,6 +302,9 @@
     self.floorBar.hidden = self.indoorControllerAlwaysHidden || !(show&&(self.mapView.zoomLevel>15.7));
     self.isIndoor = !self.floorBar.isHidden;
     [self.annHolder filterMXMAnnotationsWithBuilding:buildingId floor:floor indoorState:self.isIndoor];
+    if (self.delegate && [self.delegate respondsToSelector: @selector(mapView:indoorMapWithIn:building:floor:)]) {
+        [self.delegate mapView:self indoorMapWithIn:self.isIndoor building:buildingId floor:floor];
+    }
 }
 
 #pragma mark - 控件筛选建筑
