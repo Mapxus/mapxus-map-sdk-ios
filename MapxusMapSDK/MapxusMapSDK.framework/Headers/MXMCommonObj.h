@@ -10,6 +10,9 @@
 #import <CoreGraphics/CGBase.h>
 #import "MXMDefine.h"
 
+
+
+
 /**
  地球经纬度坐标
  */
@@ -22,7 +25,6 @@
 @property (nonatomic, assign) double elevation;
 /**
  MXMGeoPoint工厂方法
- 
  @param lat 纬度（垂直方向）
  @param lng 经度（水平方向）
  @return MXMGeoPoint对象
@@ -30,13 +32,34 @@
 + (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng;
 /**
  MXMGeoPoint工厂方法
-
  @param lat 纬度（垂直方向）
  @param lng 经度（水平方向）
  @param ele 海拔高度
  @return MXMGeoPoint对象
  */
 + (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng elevation:(double)ele;
+@end
+
+
+
+
+/**
+ 室内点
+ */
+@interface MXMIndoorPoint : MXMGeoPoint
+/// 所在建筑ID
+@property (nonatomic, strong) NSString *buildingId;
+/// 所在楼层
+@property (nonatomic, strong) NSString *floor;
+/**
+ MXMIndoorPoint工厂方法
+ @param lat 纬度（垂直方向）
+ @param lng 经度（水平方向）
+ @param buildingId 建筑ID
+ @param floor 楼层名
+ @return MXMIndoorPoint对象
+ */
++ (MXMIndoorPoint *)locationWithLatitude:(double)lat longitude:(double)lng building:(NSString *)buildingId floor:(NSString *)floor;
 @end
 
 
@@ -56,7 +79,6 @@
 @property (nonatomic, assign) double max_longitude;
 /**
  MXMBoundingBox工厂方法
- 
  @param min_lat 左下角纬度
  @param min_lng 左下角经度
  @param max_lat 右上角纬度

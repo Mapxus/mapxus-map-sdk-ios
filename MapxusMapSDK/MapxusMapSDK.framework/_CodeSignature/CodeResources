@@ -6,11 +6,11 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		ccPkeVNmBe4JT0Oy4tdTWByQU5o=
+		QTTtQdtBHKgztEEAz+WUgnayeHQ=
 		</data>
 		<key>Headers/MXMCommonObj.h</key>
 		<data>
-		11cfVK+ieRNI7fLVZyj4ptuTSso=
+		WwhOqaHrJz0/UsK6CMHcFxiFe2E=
 		</data>
 		<key>Headers/MXMConfiguration.h</key>
 		<data>
@@ -42,15 +42,15 @@
 		</data>
 		<key>Headers/MXMSearchObj.h</key>
 		<data>
-		HXyOg3QIQEkAzZWyI+JMpWzxV10=
+		JS2c3FIVtXl00Y4d2DQZKpFT+8k=
 		</data>
 		<key>Headers/MapxusMap.h</key>
 		<data>
-		uy0kuJ1x172OZFAcYJiZzbrfeU4=
+		7T1mmQJyprQPsfZJWhChvpp5zGw=
 		</data>
 		<key>Headers/MapxusMapDelegate.h</key>
 		<data>
-		DJqoDT6Uxmy1eic+m5L+Y7IMX9s=
+		+/Pi9iX4jJiHihiqSu/yctsig5E=
 		</data>
 		<key>Headers/MapxusMapSDK.h</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		wbYsCmkyLHD0PfzNbXTZKERxVxk=
+		C5kXC8zOyMTYpV31mGlWT44XhrY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -71,22 +71,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ccPkeVNmBe4JT0Oy4tdTWByQU5o=
+			QTTtQdtBHKgztEEAz+WUgnayeHQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			sOQu0Q/mqChR2S0jNmLD9jNqOZ7i8GlYIK+h4W/sRFc=
+			p/oO/t3t/USXFl+slINLyLYrt6+qwhlibkTyhxCeSh4=
 			</data>
 		</dict>
 		<key>Headers/MXMCommonObj.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			11cfVK+ieRNI7fLVZyj4ptuTSso=
+			WwhOqaHrJz0/UsK6CMHcFxiFe2E=
 			</data>
 			<key>hash2</key>
 			<data>
-			D1Rh8Esio7lewYfsPxYA4Vr/IrFno0E2yQDuQE7A4Hc=
+			Zxvm+/VtxXMeno35OAYabJk7tvOjS/pf1ionK1J/3yk=
 			</data>
 		</dict>
 		<key>Headers/MXMConfiguration.h</key>
@@ -170,33 +170,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			HXyOg3QIQEkAzZWyI+JMpWzxV10=
+			JS2c3FIVtXl00Y4d2DQZKpFT+8k=
 			</data>
 			<key>hash2</key>
 			<data>
-			vmBb5uCk4L9vV4g2rv2KyHU2WXZ0GPJ8wzo8TDiNzI0=
+			tcI/x66+VzPFo/cR0r8N+hfbnTyyA6gOO60BALTrCM8=
 			</data>
 		</dict>
 		<key>Headers/MapxusMap.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			uy0kuJ1x172OZFAcYJiZzbrfeU4=
+			7T1mmQJyprQPsfZJWhChvpp5zGw=
 			</data>
 			<key>hash2</key>
 			<data>
-			2Cd9dbPTYy7E6NO1I2YwdsyL+/ODJmrGVwmFsCFIcFc=
+			EoP7oX0al2EDYxU2bTDuaxvn7/sA3njBD274DOyeDsw=
 			</data>
 		</dict>
 		<key>Headers/MapxusMapDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			DJqoDT6Uxmy1eic+m5L+Y7IMX9s=
+			+/Pi9iX4jJiHihiqSu/yctsig5E=
 			</data>
 			<key>hash2</key>
 			<data>
-			B1CbE9lJyRqq5JTWIG+DTJZ/pzbhoW9aL9TA+VCocuw=
+			Y/iCL+LnFTfj2q8bMS9tCLA5CGg2/py3U+EAjlekhD8=
 			</data>
 		</dict>
 		<key>Headers/MapxusMapSDK.h</key>

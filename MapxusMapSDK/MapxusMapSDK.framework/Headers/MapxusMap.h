@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  MapxusMap初始化函数
-
  @param mapView 绑定MGLMapView，引入MapBox作为地图渲染工具
  @return MapxusMap对象
  */
@@ -34,7 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  MapxusMap初始化函数
- 
  @param mapView 绑定MGLMapView，引入MapBox作为地图渲染工具
  @param configuration 初始化参数，详情请看`MXMConfiguration`
  @return MapxusMap对象
@@ -76,7 +74,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  设置地图外观
- 
  @param style 外观类型。具体属性字段请参考 `MXMStyle` 。
  */
 - (void)setMapSytle:(MXMStyle)style;
@@ -108,14 +105,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  选择当前选中建筑的楼层，地图默认会移动到该建筑区域
- 
  @param floor 选择的楼层名字。
  */
 - (void)selectFloor:(nullable NSString *)floor;
 
 /**
  选择当前选中建筑的楼层
- 
  @param floor 选择的楼层名字。
  @param zoomTo 设置楼层后当前建筑是否缩放到占用整屏
  */
@@ -123,14 +118,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  选择建筑，楼层会自动切换到map从创建开始最近一次的楼层切换历史，如果没有，则切换到地面层，地图默认会移动到该建筑区域
- 
  @param buildingId 要选中的建筑ID
  */
 - (void)selectBuilding:(nullable NSString *)buildingId;
 
 /**
  选择建筑，楼层会自动切换到map从创建开始最近一次的楼层切换历史，如果没有，则切换到地面层
- 
  @param buildingId 要选中的建筑ID
  @param zoomTo 设置ID后是否缩放到该建筑占用整屏
  */
@@ -138,7 +131,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  选择建筑与该建筑的楼层，地图默认会移动到该建筑区域
- 
  @param buildingId 要选中的建筑ID
  @param floor 选择的楼层名字
  */
@@ -146,23 +138,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  选择建筑与该建筑的楼层
- 
  @param buildingId 要选中的建筑ID
  @param floor 选择的楼层名字
  @param zoomTo 设置ID后是否缩放到该建筑占用整屏
  */
 - (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo;
 
+/// 当前地图View的已经添加的室内标注数组
+@property (nonatomic, readonly) NSArray *MXMAnnotations;
+
 /**
  添加地图标注，如需要添加室内点，必须调用些方法才会分层。
-
  @param annotations MXMPointAnnotation队列
  */
 - (void)addMXMPointAnnotations:(NSArray<MXMPointAnnotation *> *)annotations;
 
 /**
  删除地图标注，如需要删除室内点，必须调用此方法才能彻底删除。
-
  @param annotations MXMPointAnnotation队列
  */
 - (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations;

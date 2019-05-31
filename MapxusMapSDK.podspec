@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MapxusMapSDK"
-  s.version      = "3.3.0"
+  s.version      = "3.4.0"
   s.summary      = "Indoor map SDK."
   s.description  = <<-DESC
                    To be the largest global indoor map.
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.module_name  = "MapxusMapSDK"
   s.vendored_frameworks = "MapxusMapSDK/MapxusMapSDK.framework"
-  s.dependency "MapxusBaseSDK"
-  s.dependency "Mapbox-iOS-SDK", "~> 4.9.0"
+  s.dependency "MapxusBaseSDK", ">= 0.2.0"
+  s.dependency "Mapbox-iOS-SDK", "~> 4.10.0"
 
 end
