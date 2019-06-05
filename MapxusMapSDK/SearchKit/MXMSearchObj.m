@@ -96,7 +96,7 @@
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
     // value should be Class or Class name.
-    return @{@"result" : [MXMPOI class]};
+    return @{@"pois" : [MXMPOI class]};
 }
 
 - (NSString *)description
