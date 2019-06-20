@@ -36,6 +36,7 @@
         self.dataQueryer = [[MXMDataQuerier alloc] initWithMapView:mapView];
         self.annHolder = [[MXMAnnotationsHolder alloc] initWithMapView:mapView];
         
+        self.gestureSwitchingBuilding = YES;
         self.indoorControllerAlwaysHidden = NO;
         self.mapView.attributionButton.hidden = YES;
         self.mapView.logoView.hidden = YES;
@@ -229,9 +230,11 @@
         [self.delegate mapView:self didSingleTappedAtCoordinate:coor];
     }
     /////////////////////////////////////////////////////
-    // 切换建筑
-    NSDictionary *poiBuildings = [self.dataQueryer findOutBuildingAtPoint:point];
-    [self.decider decideAtPointBuildingDic:poiBuildings];
+    if (self.gestureSwitchingBuilding) {
+        // 切换建筑
+        NSDictionary *poiBuildings = [self.dataQueryer findOutBuildingAtPoint:point];
+        [self.decider decideAtPointBuildingDic:poiBuildings];
+    }
     // 查找点击的POI
     [self findOutPOIAtPoint:point coordinate:coor];
 }
@@ -266,11 +269,23 @@
 
 #pragma mark - MXMDeciderDelegate
 
+- (void)decideMapViewShowFloorBar:(BOOL)show onBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor
+{
+    // 设置建筑选择按钮和楼层选择按钮是否显示
+    self.buildingSelectButton.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=2)&&(self.mapView.zoomLevel>15.7));
+    self.floorBar.hidden = self.indoorControllerAlwaysHidden || !(show&&(self.mapView.zoomLevel>15.7));
+    self.isIndoor = (self.innerbuildings.count>0) && (self.mapView.zoomLevel>15.7);
+    if (self.delegate && [self.delegate respondsToSelector: @selector(mapView:indoorMapWithIn:building:floor:)]) {
+        [self.delegate mapView:self indoorMapWithIn:self.isIndoor building:buildingId floor:floor];
+    }
+}
+
 - (void)decideMapViewShouldChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
 {
     if (changeTrackingMode && (self.mapView.userTrackingMode != MGLUserTrackingModeNone)) {
         [self.mapView setUserTrackingMode:MGLUserTrackingModeNone];
     }
+    [self.annHolder filterMXMAnnotationsWithBuilding:building.identifier floor:floor indoorState:self.isIndoor];
 }
 
 - (void)decideMapViewChangeBuilding:(nonnull MXMGeoBuilding *)building floor:(nonnull NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
@@ -293,18 +308,6 @@
 {
     MGLCoordinateBounds bounds = MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(bbox.min_latitude, bbox.min_longitude), CLLocationCoordinate2DMake(bbox.max_latitude, bbox.max_longitude));
     [self.mapView setVisibleCoordinateBounds:bounds animated:NO];
-}
-
-- (void)decideMapViewShowFloorBar:(BOOL)show onBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor
-{
-    // 设置建筑选择按钮和楼层选择按钮是否显示
-    self.buildingSelectButton.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=2)&&(self.mapView.zoomLevel>15.7));
-    self.floorBar.hidden = self.indoorControllerAlwaysHidden || !(show&&(self.mapView.zoomLevel>15.7));
-    self.isIndoor = !self.floorBar.isHidden;
-    [self.annHolder filterMXMAnnotationsWithBuilding:buildingId floor:floor indoorState:self.isIndoor];
-    if (self.delegate && [self.delegate respondsToSelector: @selector(mapView:indoorMapWithIn:building:floor:)]) {
-        [self.delegate mapView:self indoorMapWithIn:self.isIndoor building:buildingId floor:floor];
-    }
 }
 
 #pragma mark - 控件筛选建筑
@@ -411,13 +414,6 @@
                                                                     andLocalFloor:localFloor];
 }
 
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:@"floor"]) {
-        [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier floor:self.floor indoorState:self.isIndoor];
-    }
-}
-
 - (NSArray *)MXMAnnotations
 {
     return [self.annHolder.mxmPointAnnotations copy];
@@ -427,17 +423,11 @@
 {
     [self.annHolder addMXMPointAnnotations:annotations];
     [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier floor:self.floor indoorState:self.isIndoor];
-    for (MXMPointAnnotation *a in annotations) {
-        [a addObserver:self forKeyPath:@"floor" options:NSKeyValueObservingOptionNew context:nil];
-    }
 }
 
 - (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations
 {
     [self.annHolder removeMXMPointAnnotaions:annotations];
-    for (MXMPointAnnotation *a in annotations) {
-        [a removeObserver:self forKeyPath:@"floor"];
-    }
 }
 
 
@@ -581,10 +571,6 @@
     // 清除mapView对self的引用
     _mapView.mxmMap = nil;
     _mapView = nil;
-    // 清除监听
-    for (MXMPointAnnotation *a in self.annHolder.mxmPointAnnotations) {
-        [a removeObserver:self forKeyPath:@"floor"];
-    }
 }
 
 

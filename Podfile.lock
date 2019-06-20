@@ -15,7 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - Mapbox-iOS-SDK (4.10.0)
-  - MapxusBaseSDK (0.1.1):
+  - MapxusBaseSDK (0.2.0):
     - AFNetworking (~> 3.2.1)
     - YYModel (~> 1.0.4)
   - OCMock (3.4.3)
@@ -40,7 +40,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Mapbox-iOS-SDK: 8b1b777de7de373cdf000994c91af101ef886477
-  MapxusBaseSDK: ed16a0cbdaae7fab08755771871be19003939ea6
+  MapxusBaseSDK: 473b812741cdf49351e2ae840db8f92d39091acd
   OCMock: 43565190abc78977ad44a61c0d20d7f0784d35ab
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
