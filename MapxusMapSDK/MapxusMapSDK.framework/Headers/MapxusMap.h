@@ -20,7 +20,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- MapxusMap主类
+ * MapxusMap主类
  */
 @interface MapxusMap : NSObject
 
@@ -42,35 +42,26 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
-/**
- MapxusMap的事件回调代理
- */
+/// MapxusMap的事件回调代理
 @property (nonatomic, weak) id<MapxusMapDelegate> delegate;
 
-/**
- 建筑选择按钮，在屏幕中心矩形区域出现多栋建筑时出现
- */
+/// 建筑选择按钮，在屏幕中心矩形区域出现多栋建筑时出现
 @property (nonatomic, strong, readonly) UIButton *buildingSelectButton;
 
-/**
- 楼层选择器
- */
+/// 楼层选择器
 @property (nonatomic, strong, readonly) MXMFloorSelectorBar *floorBar;
 
-/**
- 一直隐藏地图控件，默认为NO
- */
+/// 一直隐藏地图控件，默认为NO
 @property (nonatomic, assign) BOOL indoorControllerAlwaysHidden;
 
-/**
- 设置地图控件的位置，默认为`MXMSelectorPositionCenterLeft`
- */
+/// 设置地图控件的位置，默认为`MXMSelectorPositionCenterLeft`
 @property (nonatomic, assign) MXMSelectorPosition selectorPosition;
 
-/**
- 设置室外地图是否显示
- */
+/// 设置室外地图是否显示
 @property (nonatomic, assign) BOOL outdoorHidden;
+
+/// 点击地图切换建筑功能，默认状态为YES。
+@property (nonatomic, assign) BOOL gestureSwitchingBuilding;
 
 /**
  设置地图外观
@@ -78,29 +69,25 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)setMapSytle:(MXMStyle)style;
 
-/**
- 当前选中楼层
- */
+/// 当前选中楼层
 @property (nonatomic, copy, readonly) NSString *floor;
 
-/**
- 当前选中建筑
- */
+/// 当前选中建筑
 @property (nonatomic, copy, readonly) MXMGeoBuilding *building;
 
 /**
- 用户当前所在楼层，只有当`MGLMapView`的`userTrackingMode`不为`MGLUserTrackingModeNone`值才可信，没有室内数据时为nil
+ 用户当前所在楼层，只有当`MGLMapView`的`userTrackingMode`不为`MGLUserTrackingModeNone`值才可信，
+ 没有室内数据时为nil
  */
 @property (nonatomic, copy, readonly) NSString *userLocationFloor;
 
 /**
- 用户当前所在建筑，只有当`MGLMapView`的`userTrackingMode`不为`MGLUserTrackingModeNone`值才可信，没有室内数据时为nil
+ 用户当前所在建筑，只有当`MGLMapView`的`userTrackingMode`不为`MGLUserTrackingModeNone`值才可信，
+ 没有室内数据时为nil
  */
 @property (nonatomic, copy, readonly) MXMGeoBuilding *userLocationBuilding;
 
-/**
- 返回当前绑定的MGLMapView视窗中所有可见的已测量建筑
- */
+/// 返回当前绑定的MGLMapView视窗中所有可见的已测量建筑
 @property (nonatomic, copy, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
 
 /**

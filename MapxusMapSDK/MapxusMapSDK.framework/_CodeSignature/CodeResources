@@ -6,7 +6,7 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		mMJjtjXGfdUydxs6P5I186as6M4=
+		JXr5Y4jp5f86rbpuB9BDLshhvpw=
 		</data>
 		<key>Headers/MXMCommonObj.h</key>
 		<data>
@@ -42,11 +42,11 @@
 		</data>
 		<key>Headers/MXMSearchObj.h</key>
 		<data>
-		JS2c3FIVtXl00Y4d2DQZKpFT+8k=
+		u3TXz8o3Q6kdiSn0Z1PyihJMzyk=
 		</data>
 		<key>Headers/MapxusMap.h</key>
 		<data>
-		7T1mmQJyprQPsfZJWhChvpp5zGw=
+		yoQcVjiRdoyFTMt9ZD+w39zE+Jg=
 		</data>
 		<key>Headers/MapxusMapDelegate.h</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		leWqg1AIkTT1lI+QuLII3Q1/Xkw=
+		ytjZ/Hr2w6OFu8vY+/Rz/sJNm6o=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -71,11 +71,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mMJjtjXGfdUydxs6P5I186as6M4=
+			JXr5Y4jp5f86rbpuB9BDLshhvpw=
 			</data>
 			<key>hash2</key>
 			<data>
-			8PXzrIZaMMHqMEX4ebCAU79Cn0+5Jdz/W59gTQ99rME=
+			HtgHJ6uRoi2aOMcFHyjQ4F8KVeWZv7affaaed/2NNJk=
 			</data>
 		</dict>
 		<key>Headers/MXMCommonObj.h</key>
@@ -170,22 +170,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JS2c3FIVtXl00Y4d2DQZKpFT+8k=
+			u3TXz8o3Q6kdiSn0Z1PyihJMzyk=
 			</data>
 			<key>hash2</key>
 			<data>
-			tcI/x66+VzPFo/cR0r8N+hfbnTyyA6gOO60BALTrCM8=
+			ruDNN7qe63ZDP4TlB7CVkohdLt/8hAFboFtvmfF4t5w=
 			</data>
 		</dict>
 		<key>Headers/MapxusMap.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			7T1mmQJyprQPsfZJWhChvpp5zGw=
+			yoQcVjiRdoyFTMt9ZD+w39zE+Jg=
 			</data>
 			<key>hash2</key>
 			<data>
-			EoP7oX0al2EDYxU2bTDuaxvn7/sA3njBD274DOyeDsw=
+			UDA1mHes9/lnWEW1pM/XpcwmjyyQBDbmzo5reu/jVNA=
 			</data>
 		</dict>
 		<key>Headers/MapxusMapDelegate.h</key>
