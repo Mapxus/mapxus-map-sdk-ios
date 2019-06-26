@@ -391,12 +391,16 @@
     NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point coordinate:coor];
     NSArray *poiList = [poiDic allValues];
     MXMGeoPOI *poi = poiList.firstObject;
-    if (poi && self.delegate &&
-        [self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)]) {
-        [self.delegate mapView:self didTappedOnPOI:poi];
-    } else if (self.delegate &&
-               [self.delegate respondsToSelector:@selector(mapView:didTappedOnMapBlank:)]) {
-        [self.delegate mapView:self didTappedOnMapBlank:coor];
+    if (poi) {
+        if (self.delegate &&
+            [self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)]) {
+            [self.delegate mapView:self didTappedOnPOI:poi];
+        }
+    } else {
+        if (self.delegate &&
+            [self.delegate respondsToSelector:@selector(mapView:didTappedOnMapBlank:)]) {
+            [self.delegate mapView:self didTappedOnMapBlank:coor];
+        }
     }
 }
 
