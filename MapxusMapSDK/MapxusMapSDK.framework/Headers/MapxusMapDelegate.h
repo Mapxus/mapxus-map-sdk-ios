@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param mapView 响应的MapxusMap对象
  @param poi 当前选中POI的信息，信息详细请参考`MXMGeoPOI`
  */
-- (void)mapView:(MapxusMap *)mapView didTappedOnPOI:(nullable MXMGeoPOI *)poi;
+- (void)mapView:(MapxusMap *)mapView didTappedOnPOI:(MXMGeoPOI *)poi;
 
 /**
  点中底图空白处会回调此接口

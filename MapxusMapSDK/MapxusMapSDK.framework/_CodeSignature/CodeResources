@@ -6,7 +6,7 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		JXr5Y4jp5f86rbpuB9BDLshhvpw=
+		2Y5A5ZzGFT9ebKD3M0KG2Z8zuk8=
 		</data>
 		<key>Headers/MXMCommonObj.h</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Headers/MapxusMapDelegate.h</key>
 		<data>
-		+/Pi9iX4jJiHihiqSu/yctsig5E=
+		7uI/16K63MGN+G6FEmGT6J5Vxjo=
 		</data>
 		<key>Headers/MapxusMapSDK.h</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		ytjZ/Hr2w6OFu8vY+/Rz/sJNm6o=
+		lTZ4gixVhfHdyWfxvD8H1UtrWgY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -71,11 +71,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JXr5Y4jp5f86rbpuB9BDLshhvpw=
+			2Y5A5ZzGFT9ebKD3M0KG2Z8zuk8=
 			</data>
 			<key>hash2</key>
 			<data>
-			HtgHJ6uRoi2aOMcFHyjQ4F8KVeWZv7affaaed/2NNJk=
+			Xec7SlvlYv2Le0xk4z4OjPQayeG3M23UdTD3HgJNm6k=
 			</data>
 		</dict>
 		<key>Headers/MXMCommonObj.h</key>
@@ -192,11 +192,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			+/Pi9iX4jJiHihiqSu/yctsig5E=
+			7uI/16K63MGN+G6FEmGT6J5Vxjo=
 			</data>
 			<key>hash2</key>
 			<data>
-			Y/iCL+LnFTfj2q8bMS9tCLA5CGg2/py3U+EAjlekhD8=
+			PvcwwOg+faJehH9nFvK/JtPG4rewrrlrbFy165+rM9A=
 			</data>
 		</dict>
 		<key>Headers/MapxusMapSDK.h</key>
