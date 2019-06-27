@@ -18,17 +18,21 @@
             continue;
         }
         
-        if ([localeLanguage containsString:@"en"]) {
-            ((MGLSymbolStyleLayer *)k).text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K})", @"name_en", @"name:en", @"name"];
-            
-        } else if ([localeLanguage containsString:@"zh-Hant"]) {
-            ((MGLSymbolStyleLayer *)k).text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K, %K})", @"name_zh", @"name:zh", @"name_zh-Hans", @"name"];
-            
-        } else if ([localeLanguage containsString:@"zh-Hans"]) {
-            ((MGLSymbolStyleLayer *)k).text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K, %K})", @"name_zh-Hans", @"name:cn", @"name_zh", @"name"];
-            
-        } else {
-            ((MGLSymbolStyleLayer *)k).text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K})", @"name"];
+        MGLSymbolStyleLayer *sk = (MGLSymbolStyleLayer *)k;
+
+        if (sk.text.expressionType != NSConstantValueExpressionType) {
+            if ([localeLanguage containsString:@"en"]) {
+                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K})", @"name_en", @"name:en", @"name"];
+                
+            } else if ([localeLanguage containsString:@"zh-Hant"]) {
+                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K, %K})", @"name_zh", @"name:zh", @"name_zh-Hans", @"name"];
+                
+            } else if ([localeLanguage containsString:@"zh-Hans"]) {
+                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K, %K})", @"name_zh-Hans", @"name:cn", @"name_zh", @"name"];
+                
+            } else {
+                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K})", @"name"];
+            }
         }
     }
 }
