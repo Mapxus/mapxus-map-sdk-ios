@@ -6,11 +6,11 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		tzDUzKX/wrLXGcNpk0tTKteT6wA=
+		2EI4z5twarTbUiQhb120eYbHnXA=
 		</data>
 		<key>Headers/MXMCommonObj.h</key>
 		<data>
-		WwhOqaHrJz0/UsK6CMHcFxiFe2E=
+		yCdxrizvRmGd2M4+2M1O0gkSAV0=
 		</data>
 		<key>Headers/MXMConfiguration.h</key>
 		<data>
@@ -28,6 +28,18 @@
 		<data>
 		v7XH8zZN9jXKbJeP6i1jFjcAxqY=
 		</data>
+		<key>Headers/MXMGeoCodeSearch.h</key>
+		<data>
+		Z7FrKBd/ut8vgyDhN1l55ipkLZY=
+		</data>
+		<key>Headers/MXMGeoCodeSearchOption.h</key>
+		<data>
+		w9UyYYpVHrVFqjrx+pwWLTnvHHk=
+		</data>
+		<key>Headers/MXMGeoCodeSearchResult.h</key>
+		<data>
+		tbr1KorKnlGdurh5THseUgAAAg4=
+		</data>
 		<key>Headers/MXMGeoPOI.h</key>
 		<data>
 		dSaO+BHSwBXN76y9G1AHSnRcjVI=
@@ -40,13 +52,17 @@
 		<data>
 		aBShMQovhIqqhUucW6IBDvFJLI8=
 		</data>
+		<key>Headers/MXMSearchBase.h</key>
+		<data>
+		j/ucl2mo+kwmxYXZcpngrA5uz48=
+		</data>
 		<key>Headers/MXMSearchObj.h</key>
 		<data>
 		u3TXz8o3Q6kdiSn0Z1PyihJMzyk=
 		</data>
 		<key>Headers/MapxusMap.h</key>
 		<data>
-		yoQcVjiRdoyFTMt9ZD+w39zE+Jg=
+		yHM4L47YQC1ogOSUgN2SBI30IOY=
 		</data>
 		<key>Headers/MapxusMapDelegate.h</key>
 		<data>
@@ -54,11 +70,11 @@
 		</data>
 		<key>Headers/MapxusMapSDK.h</key>
 		<data>
-		Hn+vDU3RX51s/9lw18dPFCIry+o=
+		Fj/ss4k/jO9/JiBEhw4IwPOqerE=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		dbgjEf3G0BTU4WpPCo1dKvZMZpM=
+		cTlkgaBbWr+iTaAMjfZh2xTC29k=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -71,22 +87,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tzDUzKX/wrLXGcNpk0tTKteT6wA=
+			2EI4z5twarTbUiQhb120eYbHnXA=
 			</data>
 			<key>hash2</key>
 			<data>
-			uMl7jixe7BB7wkEU0czTOrQr94utOVwPTEcZRSsfpJs=
+			zR1/oZ6PFTVU3+vwL9Vp4zic8WIM/mVbR9dgo6KoITo=
 			</data>
 		</dict>
 		<key>Headers/MXMCommonObj.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			WwhOqaHrJz0/UsK6CMHcFxiFe2E=
+			yCdxrizvRmGd2M4+2M1O0gkSAV0=
 			</data>
 			<key>hash2</key>
 			<data>
-			Zxvm+/VtxXMeno35OAYabJk7tvOjS/pf1ionK1J/3yk=
+			TmvOXPcMzcIU7U5hxBza3nLdvI/0i/jbQOmMD0sp4sI=
 			</data>
 		</dict>
 		<key>Headers/MXMConfiguration.h</key>
@@ -133,6 +149,39 @@
 			bhFqqGt5yKjNN2ETrVpSRuoRJD3NyQKqPfWRvCljZDM=
 			</data>
 		</dict>
+		<key>Headers/MXMGeoCodeSearch.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Z7FrKBd/ut8vgyDhN1l55ipkLZY=
+			</data>
+			<key>hash2</key>
+			<data>
+			1/YcpJIus6/pfkBZCrNk6etD7swnH3LaqiJfCcDqDxY=
+			</data>
+		</dict>
+		<key>Headers/MXMGeoCodeSearchOption.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			w9UyYYpVHrVFqjrx+pwWLTnvHHk=
+			</data>
+			<key>hash2</key>
+			<data>
+			xNUr0mb64igkH3CpjnJ9HHaQ4nZasTown0+qJeVnnVM=
+			</data>
+		</dict>
+		<key>Headers/MXMGeoCodeSearchResult.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			tbr1KorKnlGdurh5THseUgAAAg4=
+			</data>
+			<key>hash2</key>
+			<data>
+			KKXGktOLhCKmMO1F+/VgVlE3UrxlDg/stL/T1PzhZpk=
+			</data>
+		</dict>
 		<key>Headers/MXMGeoPOI.h</key>
 		<dict>
 			<key>hash</key>
@@ -166,6 +215,17 @@
 			671258vmE3A8xiIj6T1S9WeM9V9eiENFQ5RrQW4pbvQ=
 			</data>
 		</dict>
+		<key>Headers/MXMSearchBase.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			j/ucl2mo+kwmxYXZcpngrA5uz48=
+			</data>
+			<key>hash2</key>
+			<data>
+			cK1Ap4EQR57/7scna19HlgYGXjeXAmvvZP13XzIjVLc=
+			</data>
+		</dict>
 		<key>Headers/MXMSearchObj.h</key>
 		<dict>
 			<key>hash</key>
@@ -181,11 +241,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			yoQcVjiRdoyFTMt9ZD+w39zE+Jg=
+			yHM4L47YQC1ogOSUgN2SBI30IOY=
 			</data>
 			<key>hash2</key>
 			<data>
-			UDA1mHes9/lnWEW1pM/XpcwmjyyQBDbmzo5reu/jVNA=
+			PHrjrPLDJEndU1AEsFx85EJ6MdaUS4tEy0+JZVKuzKs=
 			</data>
 		</dict>
 		<key>Headers/MapxusMapDelegate.h</key>
@@ -203,11 +263,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Hn+vDU3RX51s/9lw18dPFCIry+o=
+			Fj/ss4k/jO9/JiBEhw4IwPOqerE=
 			</data>
 			<key>hash2</key>
 			<data>
-			2Ytsf15qurPkn/w2Oz9VNzH8Ml+OUhbmA60mP+92gn8=
+			8C1wp0UR7rZlSkyhF8Rhx9HQkWAAdpv8SK4btgk0yDA=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
