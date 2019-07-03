@@ -149,6 +149,8 @@
 @property (nonatomic, strong) MXMGeoPoint *labelCenter;
 /// 建筑所有楼层
 @property (nonatomic, strong) NSArray<MXMFloor *> *floors;
+/// 建筑地面层
+@property (nonatomic, strong) NSString *groundFloor;
 @end
 
 

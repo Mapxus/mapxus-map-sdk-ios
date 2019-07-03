@@ -69,6 +69,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)setMapSytle:(MXMStyle)style;
 
+/**
+ 设置地图语言
+ @param language 地图语言，可选项为en，zh-Hant，zh-Hans，default
+ */
+- (void)setMapLanguage:(NSString *)language;
+
 /// 当前选中楼层
 @property (nonatomic, copy, readonly) NSString *floor;
 

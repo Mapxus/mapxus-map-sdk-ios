@@ -134,6 +134,7 @@
              @"address_en" : @"address.en",
              @"address_cn" : @"address.cn",
              @"address_zh" : @"address.zh",
+             @"buildingId" : @[@"buildingId", @"id"],
              };
 }
 

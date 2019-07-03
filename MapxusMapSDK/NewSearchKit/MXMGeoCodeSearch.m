@@ -1,0 +1,39 @@
+//
+//  MXMGeoCodeSearch.m
+//  MapxusMapSDK
+//
+//  Created by Chenghao Guo on 2019/7/2.
+//  Copyright © 2019 MAPHIVE TECHNOLOGY LIMITED. All rights reserved.
+//
+
+#import "MXMGeoCodeSearch.h"
+#import "MXMHttpManager.h"
+#import <YYModel/YYModel.h>
+#import "MXMConstants.h"
+#import "JXJsonFunctionDefine.h"
+
+@implementation MXMGeoCodeSearch
+
+- (NSInteger)reverseGeoCode:(MXMReverseGeoCodeSearchOption *)reverseGeoCodeOption
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL,@"/bms/api/v1/locate/indoorcoding"];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    dic[@"lat"] = @(reverseGeoCodeOption.location.latitude);
+    dic[@"lon"] = @(reverseGeoCodeOption.location.longitude);
+    dic[@"ordinalFloor"] = reverseGeoCodeOption.ordinalFloor;
+
+    NSURLSessionTask *task = [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(onGetReverseGeoCode:result:error:)]) {
+            MXMReverseGeoCodeSearchResult *result = [MXMReverseGeoCodeSearchResult yy_modelWithJSON:content];
+            [self.delegate onGetReverseGeoCode:self result:result error:nil];
+        }
+    } failure:^(NSError *error) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(onGetReverseGeoCode:result:error:)]) {
+            [self.delegate onGetReverseGeoCode:self result:nil error:error];
+        }
+    }];
+    
+    return task.taskIdentifier;
+}
+
+@end

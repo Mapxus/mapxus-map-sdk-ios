@@ -89,6 +89,14 @@
 		D6D19A83223905EA00F29C3C /* MXMDecider.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D19A81223905EA00F29C3C /* MXMDecider.m */; };
 		D6E538A02249C97900B98B1C /* MXMAnnotationsHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = D6E5389E2249C97900B98B1C /* MXMAnnotationsHolder.h */; };
 		D6E538A12249C97900B98B1C /* MXMAnnotationsHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E5389F2249C97900B98B1C /* MXMAnnotationsHolder.m */; };
+		D6F7390B22CAFA4100D0860D /* MXMSearchBase.h in Headers */ = {isa = PBXBuildFile; fileRef = D6F7390922CAFA4100D0860D /* MXMSearchBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D6F7390C22CAFA4100D0860D /* MXMSearchBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F7390A22CAFA4100D0860D /* MXMSearchBase.m */; };
+		D6F7390F22CAFA6E00D0860D /* MXMGeoCodeSearch.h in Headers */ = {isa = PBXBuildFile; fileRef = D6F7390D22CAFA6E00D0860D /* MXMGeoCodeSearch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D6F7391022CAFA6E00D0860D /* MXMGeoCodeSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F7390E22CAFA6E00D0860D /* MXMGeoCodeSearch.m */; };
+		D6F7391922CB019400D0860D /* MXMGeoCodeSearchOption.h in Headers */ = {isa = PBXBuildFile; fileRef = D6F7391722CB019400D0860D /* MXMGeoCodeSearchOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D6F7391A22CB019400D0860D /* MXMGeoCodeSearchOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F7391822CB019400D0860D /* MXMGeoCodeSearchOption.m */; };
+		D6F7391D22CB01B500D0860D /* MXMGeoCodeSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = D6F7391B22CB01B500D0860D /* MXMGeoCodeSearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D6F7391E22CB01B500D0860D /* MXMGeoCodeSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F7391C22CB01B500D0860D /* MXMGeoCodeSearchResult.m */; };
 		D6F745A4224364DA0086C891 /* MXMSearchBuildingOperation2.h in Headers */ = {isa = PBXBuildFile; fileRef = D6F745A2224364DA0086C891 /* MXMSearchBuildingOperation2.h */; };
 		D6F745A5224364DA0086C891 /* MXMSearchBuildingOperation2.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F745A3224364DA0086C891 /* MXMSearchBuildingOperation2.m */; };
 		F0960CF5B0C1E21BA2120266 /* Pods_MapxusMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12B445FBCB881754C64475C6 /* Pods_MapxusMapSDKTests.framework */; };
@@ -218,6 +226,14 @@
 		D6E4DAF7211044B000D15FF1 /* document.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = document.sh; sourceTree = "<group>"; };
 		D6E5389E2249C97900B98B1C /* MXMAnnotationsHolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMAnnotationsHolder.h; sourceTree = "<group>"; };
 		D6E5389F2249C97900B98B1C /* MXMAnnotationsHolder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMAnnotationsHolder.m; sourceTree = "<group>"; };
+		D6F7390922CAFA4100D0860D /* MXMSearchBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSearchBase.h; sourceTree = "<group>"; };
+		D6F7390A22CAFA4100D0860D /* MXMSearchBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSearchBase.m; sourceTree = "<group>"; };
+		D6F7390D22CAFA6E00D0860D /* MXMGeoCodeSearch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMGeoCodeSearch.h; sourceTree = "<group>"; };
+		D6F7390E22CAFA6E00D0860D /* MXMGeoCodeSearch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMGeoCodeSearch.m; sourceTree = "<group>"; };
+		D6F7391722CB019400D0860D /* MXMGeoCodeSearchOption.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMGeoCodeSearchOption.h; sourceTree = "<group>"; };
+		D6F7391822CB019400D0860D /* MXMGeoCodeSearchOption.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMGeoCodeSearchOption.m; sourceTree = "<group>"; };
+		D6F7391B22CB01B500D0860D /* MXMGeoCodeSearchResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMGeoCodeSearchResult.h; sourceTree = "<group>"; };
+		D6F7391C22CB01B500D0860D /* MXMGeoCodeSearchResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMGeoCodeSearchResult.m; sourceTree = "<group>"; };
 		D6F745A2224364DA0086C891 /* MXMSearchBuildingOperation2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSearchBuildingOperation2.h; sourceTree = "<group>"; };
 		D6F745A3224364DA0086C891 /* MXMSearchBuildingOperation2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSearchBuildingOperation2.m; sourceTree = "<group>"; };
 		D84C0AF2A3C439189D4602BA /* Pods_SDKExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SDKExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -370,6 +386,7 @@
 				D60095D321DCAB8900505880 /* Controllers */,
 				D6C5F454226B5E42002842BB /* Private */,
 				D60095BC21DCAB8900505880 /* SearchKit */,
+				D6F7391F22CB02F200D0860D /* NewSearchKit */,
 				D6C5F455226B5E84002842BB /* MapKit */,
 				D60095EA21DCAB8A00505880 /* MapxusMapSDK.h */,
 			);
@@ -483,6 +500,21 @@
 			path = MapKit;
 			sourceTree = "<group>";
 		};
+		D6F7391F22CB02F200D0860D /* NewSearchKit */ = {
+			isa = PBXGroup;
+			children = (
+				D6F7390922CAFA4100D0860D /* MXMSearchBase.h */,
+				D6F7390A22CAFA4100D0860D /* MXMSearchBase.m */,
+				D6F7390D22CAFA6E00D0860D /* MXMGeoCodeSearch.h */,
+				D6F7390E22CAFA6E00D0860D /* MXMGeoCodeSearch.m */,
+				D6F7391722CB019400D0860D /* MXMGeoCodeSearchOption.h */,
+				D6F7391822CB019400D0860D /* MXMGeoCodeSearchOption.m */,
+				D6F7391B22CB01B500D0860D /* MXMGeoCodeSearchResult.h */,
+				D6F7391C22CB01B500D0860D /* MXMGeoCodeSearchResult.m */,
+			);
+			path = NewSearchKit;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -499,9 +531,13 @@
 				D600961921DCAB8B00505880 /* MXMConfiguration.h in Headers */,
 				D60095F921DCAB8B00505880 /* MXMGeoPOI.h in Headers */,
 				D60095FA21DCAB8B00505880 /* MXMGeoBuilding.h in Headers */,
+				D6F7390B22CAFA4100D0860D /* MXMSearchBase.h in Headers */,
 				D600961221DCAB8B00505880 /* MXMPointAnnotation.h in Headers */,
+				D6F7390F22CAFA6E00D0860D /* MXMGeoCodeSearch.h in Headers */,
 				D60095F521DCAB8B00505880 /* MXMSearchObj.h in Headers */,
+				D6F7391D22CB01B500D0860D /* MXMGeoCodeSearchResult.h in Headers */,
 				D600961721DCAB8B00505880 /* MapxusMapDelegate.h in Headers */,
+				D6F7391922CB019400D0860D /* MXMGeoCodeSearchOption.h in Headers */,
 				D60095F421DCAB8B00505880 /* MXMCommonObj.h in Headers */,
 				D60095F121DCAB8B00505880 /* MXMSearchAPI.h in Headers */,
 				D600960521DCAB8B00505880 /* MXMFloorSelectorBar.h in Headers */,
@@ -797,18 +833,22 @@
 				D60095F321DCAB8B00505880 /* MXMSearchAPI.m in Sources */,
 				D600961321DCAB8B00505880 /* MapxusMap.m in Sources */,
 				D60095F221DCAB8B00505880 /* MXMSearchObj.m in Sources */,
+				D6F7391E22CB01B500D0860D /* MXMGeoCodeSearchResult.m in Sources */,
 				D6D19A83223905EA00F29C3C /* MXMDecider.m in Sources */,
 				D60095F721DCAB8B00505880 /* MGLStyle+MXMFilter.m in Sources */,
 				D60095EE21DCAB8B00505880 /* MGLMapView+MXMSwizzle.m in Sources */,
 				D60095ED21DCAB8B00505880 /* MXMGeoPOI.m in Sources */,
 				D60095F821DCAB8B00505880 /* MXMGeoBuilding.m in Sources */,
+				D6F7390C22CAFA4100D0860D /* MXMSearchBase.m in Sources */,
 				D600960921DCAB8B00505880 /* MXMFloorSelectorBar.m in Sources */,
 				D600960621DCAB8B00505880 /* KxMenu.m in Sources */,
 				D60095F021DCAB8B00505880 /* MXMCommonObj.m in Sources */,
 				D6428643223F7410003819E8 /* MGLStyleLayer+MXMFilter.m in Sources */,
+				D6F7391022CAFA6E00D0860D /* MXMGeoCodeSearch.m in Sources */,
 				D600961621DCAB8B00505880 /* MXMPointAnnotation.m in Sources */,
 				D68019A922A0BE9600E2E27B /* MXMIndoorMapInfo.m in Sources */,
 				D6428647223F7E03003819E8 /* MXMDataQuerier.m in Sources */,
+				D6F7391A22CB019400D0860D /* MXMGeoCodeSearchOption.m in Sources */,
 				D6F745A5224364DA0086C891 /* MXMSearchBuildingOperation2.m in Sources */,
 				D60095FD21DCAB8B00505880 /* MXMSearchPOIOperation.m in Sources */,
 				D6E538A12249C97900B98B1C /* MXMAnnotationsHolder.m in Sources */,

@@ -189,6 +189,10 @@
     }];
 }
 
+- (void)setMapLanguage:(NSString *)language
+{
+    [self.mapView.style MXMlocalizeLabelsIntoLocale:language];
+}
 
 #pragma mark - 手势响应
 
