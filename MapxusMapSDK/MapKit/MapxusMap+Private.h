@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isIndoor;
 @property (nonatomic, assign) BOOL mapViewDidFinishLoadingMap; // 地图加载完地图
 @property (nonatomic, assign) BOOL regionBecomeIdle; //
+@property (nonatomic, assign) BOOL flying; // 是否在飞行切换 camera ，YES 时忽略自动过滤建筑
 
 @property (nonatomic, copy, readwrite) NSString *floor;
 @property (nonatomic, copy, readwrite) MXMGeoBuilding *building;

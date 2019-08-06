@@ -51,9 +51,11 @@
                                                                         inBuildings:[buildings allValues]];
     NSString *defaultFloor = [self electDefaultFloorWithHistory:self.buildingSelectFloorDic
                                                      inBuilding:defaultBuilding];
+
     [self specifyTheBuilding:defaultBuilding.identifier
                        floor:defaultFloor
-                shouldZoomTo:NO
+                    zoomMode:MXMZoomDisable
+                 edgePadding:UIEdgeInsetsZero
     shouldChangeTrackingMode:NO
          withRectBuildingDic:buildings];
 }
@@ -69,7 +71,8 @@
         NSString *defaultFloor = [self electDefaultFloorWithHistory:self.buildingSelectFloorDic inBuilding:geoBuilding];
         [self specifyTheBuilding:geoBuilding.identifier
                            floor:defaultFloor
-                    shouldZoomTo:NO
+                        zoomMode:MXMZoomDisable
+                     edgePadding:UIEdgeInsetsZero
         shouldChangeTrackingMode:YES
              withRectBuildingDic:buildings];
     }
@@ -95,7 +98,8 @@
         if (localFloor) {
             [self specifyTheBuilding:b.identifier
                                floor:localFloor
-                        shouldZoomTo:NO
+                            zoomMode:MXMZoomDisable
+                         edgePadding:UIEdgeInsetsZero
             shouldChangeTrackingMode:NO
                  withRectBuildingDic:buildings];
             return [[MXMIndoorMapInfo alloc] initWithBuilding:b floor:localFloor];
@@ -118,10 +122,11 @@
 
 
 - (void)specifyTheBuilding:(NSString *)buildingId
-                     floor:(nullable NSString *)floor
-              shouldZoomTo:(BOOL)zoomTo
+                     floor:(NSString *)floor
+                  zoomMode:(MXMZoomMode)zoomMode
+               edgePadding:(UIEdgeInsets)insets
   shouldChangeTrackingMode:(BOOL)changeTrackingMode
-       withRectBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+       withRectBuildingDic:(NSDictionary<NSString *,MXMGeoBuilding *> *)buildings
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewShowFloorBar:onBuilding:floor:)]) {
         BOOL show = buildingId ? YES : NO;
@@ -133,13 +138,13 @@
     }
     // 从地图瓦片获取建筑数据
     MXMGeoBuilding *theBuilding = [buildings objectForKey:buildingId];
-    BOOL state = [self shouldBeQueryWithBuilding:theBuilding shouldZoomTo:zoomTo];
+    BOOL state = [self shouldBeQueryWithBuilding:theBuilding shouldZoomTo:(zoomMode != MXMZoomDisable)];
     if (state) {
         __weak typeof(self) weakSelf = self;
         self.operation.complateBlock = ^(MXMBuilding * _Nullable building) {
             // 调用zoom map
-            if (zoomTo && weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(decideMapViewZoomTo:)]) {
-                [weakSelf.delegate decideMapViewZoomTo:building.bbox];
+            if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(decideMapViewZoomTo:zoomMode:withEdgePadding:)]) {
+                [weakSelf.delegate decideMapViewZoomTo:building.bbox zoomMode:zoomMode withEdgePadding:insets];
             }
             // 显示建筑
             [weakSelf displayWihtGeoBuilding:theBuilding orNetBuilding:building setFloor:floor shouldChangeTrackingMode:changeTrackingMode];
@@ -151,6 +156,7 @@
     }
 }
 
+// 选择正确的建筑与楼层
 - (void)displayWihtGeoBuilding:(nullable MXMGeoBuilding *)geo
                  orNetBuilding:(nullable MXMBuilding *)net
                       setFloor:(nullable NSString *)setFloor
@@ -185,7 +191,7 @@
         f.code ? [floorStrs addObject:f.code] : nil;
     }
     geoBuilding.floors = [[floorStrs reverseObjectEnumerator] allObjects];
-    geoBuilding.ground_floor = floorStrs.firstObject;
+    geoBuilding.ground_floor = netBuilding.groundFloor?:floorStrs.firstObject;
     return geoBuilding;
 }
 
@@ -249,8 +255,8 @@
     // 保持建筑的选择楼层，下次作为默认选中楼层
     [self.buildingSelectFloorDic setObject:floor forKey:building.identifier];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewChangeBuilding:floor:shouldChangeTrackingMode:)]) {
-        [self.delegate decideMapViewChangeBuilding:building floor:floor shouldChangeTrackingMode:changeTrackingMode];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewChangeBuilding:floor:trackingMode:)]) {
+        [self.delegate decideMapViewChangeBuilding:building floor:floor trackingMode:changeTrackingMode];
     }
 }
 

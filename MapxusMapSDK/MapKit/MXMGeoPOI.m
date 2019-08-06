@@ -11,6 +11,15 @@
 
 @implementation MXMGeoPOI
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.category = @[];
+    }
+    return self;
+}
+
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"identifier" : @"osm:ref",
              @"buildingId" : @"ref:building",

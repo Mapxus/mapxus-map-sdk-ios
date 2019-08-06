@@ -631,7 +631,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = MXM;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "MAPHIVE TECHNOLOGY LIMITED";
 				TargetAttributes = {
 					D62027932105DF1D00CD9F36 = {
@@ -1059,7 +1059,7 @@
 			baseConfigurationReference = 66EA7A5DDD91A58A7BF4315E /* Pods-MapxusMapSDK.debug.xcconfig */;
 			buildSettings = {
 				BITCODE_GENERATION_MODE = marker;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEFINES_MODULE = YES;
@@ -1096,7 +1096,7 @@
 			baseConfigurationReference = D37DB429B6C1A4679DC89D6B /* Pods-MapxusMapSDK.release.xcconfig */;
 			buildSettings = {
 				BITCODE_GENERATION_MODE = bitcode;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
 				DEFINES_MODULE = YES;

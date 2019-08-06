@@ -62,12 +62,23 @@
         __weak typeof(self) weakSelf = self;
         MXMSearchPOIOperation *searchPoiOp = [[MXMSearchPOIOperation alloc] initWithPoiId:_configuration.poiId];
         searchPoiOp.complateBlock = ^(NSString * _Nonnull buildingId, NSString * _Nonnull floor, CLLocationCoordinate2D centerPoint) {
-            [weakSelf.mapView setCenterCoordinate:centerPoint zoomLevel:19 animated:NO];
-            [weakSelf.decider specifyTheBuilding:buildingId floor:floor shouldZoomTo:NO shouldChangeTrackingMode:YES withRectBuildingDic:self.buildings];
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            [strongSelf.mapView setCenterCoordinate:centerPoint zoomLevel:strongSelf->_configuration.zoomLevel animated:NO];
+            [strongSelf.decider specifyTheBuilding:buildingId
+                                           floor:floor
+                                        zoomMode:MXMZoomDisable
+                                     edgePadding:UIEdgeInsetsZero
+                        shouldChangeTrackingMode:YES
+                             withRectBuildingDic:strongSelf.buildings];
         };
         [_initializeQueue addOperations:@[searchPoiOp] waitUntilFinished:NO];
     } else if (_configuration.buildingId) {
-        [self.decider specifyTheBuilding:_configuration.buildingId floor:_configuration.floor shouldZoomTo:YES shouldChangeTrackingMode:YES withRectBuildingDic:self.buildings];
+        [self.decider specifyTheBuilding:_configuration.buildingId
+                                   floor:_configuration.floor
+                                zoomMode:MXMZoomDirect
+                             edgePadding:_configuration.zoomInsets
+                shouldChangeTrackingMode:YES
+                     withRectBuildingDic:self.buildings];
     }
 }
 
@@ -204,6 +215,9 @@
 
 - (void)idleAutomaticAnalyseOfIndoorData
 {
+    if (self.flying) {
+        return;
+    }
     // 整屏可见建筑列表
     self.buildings = [self.dataQueryer findOutBuildingInTheRect:self.mapView.bounds];
     
@@ -272,13 +286,12 @@
 }
 
 #pragma mark - MXMDeciderDelegate
-
 - (void)decideMapViewShowFloorBar:(BOOL)show onBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor
 {
     // 设置建筑选择按钮和楼层选择按钮是否显示
     self.buildingSelectButton.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=2)&&(self.mapView.zoomLevel>15.7));
     self.floorBar.hidden = self.indoorControllerAlwaysHidden || !(show&&(self.mapView.zoomLevel>15.7));
-    self.isIndoor = (self.innerbuildings.count>0) && (self.mapView.zoomLevel>15.7);
+    self.isIndoor = show && (self.mapView.zoomLevel>15.7);
     if (self.delegate && [self.delegate respondsToSelector: @selector(mapView:indoorMapWithIn:building:floor:)]) {
         [self.delegate mapView:self indoorMapWithIn:self.isIndoor building:buildingId floor:floor];
     }
@@ -287,12 +300,14 @@
 - (void)decideMapViewShouldChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
 {
     if (changeTrackingMode && (self.mapView.userTrackingMode != MGLUserTrackingModeNone)) {
+        // 设为定位非追踪模式
         [self.mapView setUserTrackingMode:MGLUserTrackingModeNone];
     }
+    // 重新过滤标注点
     [self.annHolder filterMXMAnnotationsWithBuilding:building.identifier floor:floor indoorState:self.isIndoor];
 }
 
-- (void)decideMapViewChangeBuilding:(nonnull MXMGeoBuilding *)building floor:(nonnull NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
+- (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor trackingMode:(BOOL)changeTrackingMode
 {
     self.building = building;
     self.floor = floor;
@@ -308,10 +323,34 @@
     [self updageLocationView];
 }
 
-- (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox
+- (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox zoomMode:(MXMZoomMode)zoomMode withEdgePadding:(UIEdgeInsets)insets
 {
     MGLCoordinateBounds bounds = MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(bbox.min_latitude, bbox.min_longitude), CLLocationCoordinate2DMake(bbox.max_latitude, bbox.max_longitude));
-    [self.mapView setVisibleCoordinateBounds:bounds animated:NO];
+    __weak typeof(self) weakSelf = self;
+
+    switch (zoomMode) {
+            case MXMZoomAnimated:
+        {
+            self.flying = YES;
+            MGLMapCamera *ca = [self.mapView cameraThatFitsCoordinateBounds:bounds edgePadding:insets];
+            
+            [self.mapView flyToCamera:ca withDuration:1.8 completionHandler:^{
+                weakSelf.flying = NO;
+                // 多调用一次保证显示出选中建筑
+                [weakSelf automaticAnalyseOfIndoorData];
+            }];
+            break;
+        }
+            case MXMZoomDirect:
+        {
+            self.flying = NO;
+            [self.mapView setVisibleCoordinateBounds:bounds edgePadding:insets animated:NO completionHandler:nil];
+            break;
+        }
+        default:
+            break;
+    }
+    
 }
 
 #pragma mark - 控件筛选建筑
@@ -345,45 +384,106 @@
 - (void)chooseItem:(KxMenuItem *)sender
 {
     MXMGeoBuilding *b = [self.innerbuildings objectForKey:sender.identifier];
-    [self selectBuilding:b.identifier shouldZoomTo:NO];
+    [self selectBuilding:b.identifier zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero];
 }
 
 - (void)floorSelectorBarDidSelectFloor:(NSString *)floorName
 {
-    [self selectBuilding:self.building.identifier floor:floorName shouldZoomTo:NO];
+    [self selectBuilding:self.building.identifier floor:floorName zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero];
 }
 
 #pragma mark - 建筑筛选
 
 - (void)selectFloor:(NSString *)floor
 {
-    [self.decider specifyTheBuilding:self.building.identifier floor:floor shouldZoomTo:YES shouldChangeTrackingMode:YES withRectBuildingDic:self.buildings];
+    [self.decider specifyTheBuilding:self.building.identifier
+                               floor:floor
+                            zoomMode:MXMZoomAnimated
+                         edgePadding:UIEdgeInsetsZero
+            shouldChangeTrackingMode:YES
+                 withRectBuildingDic:self.buildings];
 }
 
 - (void)selectFloor:(NSString *)floor shouldZoomTo:(BOOL)zoomTo
 {
-    [self.decider specifyTheBuilding:self.building.identifier floor:floor shouldZoomTo:zoomTo shouldChangeTrackingMode:YES withRectBuildingDic:self.buildings];
+    [self.decider specifyTheBuilding:self.building.identifier
+                               floor:floor
+                            zoomMode:zoomTo ? MXMZoomAnimated : MXMZoomDisable
+                         edgePadding:UIEdgeInsetsZero
+            shouldChangeTrackingMode:YES
+                 withRectBuildingDic:self.buildings];
+}
+
+- (void)selectFloor:(NSString *)floor
+           zoomMode:(MXMZoomMode)zoomMode
+        edgePadding:(UIEdgeInsets)insets
+{
+    [self.decider specifyTheBuilding:self.building.identifier
+                               floor:floor
+                            zoomMode:zoomMode
+                         edgePadding:insets
+            shouldChangeTrackingMode:YES
+                 withRectBuildingDic:self.buildings];
 }
 
 - (void)selectBuilding:(NSString *)buildingId
 {
-    [self.decider specifyTheBuilding:buildingId floor:nil shouldZoomTo:YES shouldChangeTrackingMode:YES withRectBuildingDic:self.buildings];
+    [self.decider specifyTheBuilding:buildingId
+                               floor:nil
+                            zoomMode:MXMZoomAnimated
+                         edgePadding:UIEdgeInsetsZero
+            shouldChangeTrackingMode:YES
+                 withRectBuildingDic:self.buildings];
 }
 
 - (void)selectBuilding:(NSString *)buildingId shouldZoomTo:(BOOL)zoomTo
 {
-    [self.decider specifyTheBuilding:buildingId floor:nil shouldZoomTo:zoomTo shouldChangeTrackingMode:YES withRectBuildingDic:self.buildings];
+    [self.decider specifyTheBuilding:buildingId
+                               floor:nil
+                            zoomMode:zoomTo ? MXMZoomAnimated : MXMZoomDisable
+                         edgePadding:UIEdgeInsetsZero
+            shouldChangeTrackingMode:YES
+                 withRectBuildingDic:self.buildings];
+}
+
+- (void)selectBuilding:(NSString *)buildingId zoomMode:(MXMZoomMode)zoomMode edgePadding:(UIEdgeInsets)insets
+{
+    [self.decider specifyTheBuilding:buildingId
+                               floor:nil
+                            zoomMode:zoomMode
+                         edgePadding:insets
+            shouldChangeTrackingMode:YES
+                 withRectBuildingDic:self.buildings];
 }
 
 - (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor
 {
-    [self.decider specifyTheBuilding:buildingId floor:floor shouldZoomTo:YES shouldChangeTrackingMode:YES withRectBuildingDic:self.buildings];
+    [self.decider specifyTheBuilding:buildingId
+                               floor:floor
+                            zoomMode:MXMZoomAnimated
+                         edgePadding:UIEdgeInsetsZero
+            shouldChangeTrackingMode:YES
+                 withRectBuildingDic:self.buildings];
 }
 
 - (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo
 {
-    [self.decider specifyTheBuilding:buildingId floor:floor shouldZoomTo:zoomTo shouldChangeTrackingMode:YES withRectBuildingDic:self.buildings];
+    [self.decider specifyTheBuilding:buildingId
+                               floor:floor
+                            zoomMode:zoomTo ? MXMZoomAnimated : MXMZoomDisable
+                         edgePadding:UIEdgeInsetsZero
+            shouldChangeTrackingMode:YES
+                 withRectBuildingDic:self.buildings];
+}
 
+- (void)selectBuilding:(NSString *)buildingId floor:(NSString *)floor zoomMode:(MXMZoomMode)zoomMode edgePadding:(UIEdgeInsets)insets
+{
+    [self.decider specifyTheBuilding:buildingId
+                               floor:floor
+                            zoomMode:zoomMode
+                         edgePadding:insets
+            shouldChangeTrackingMode:YES
+                 withRectBuildingDic:self.buildings];
 }
 
 
@@ -429,12 +529,26 @@
 
 - (void)addMXMPointAnnotations:(NSArray<MXMPointAnnotation *> *)annotations
 {
+    for (MXMPointAnnotation *ann in annotations) {
+        __weak typeof(self) weakSelf = self;
+        ann.sceneRefreshBlock = ^(NSString *buildingId, NSString *floor) {
+            [weakSelf filterMXMAnnotation];
+        };
+    }
     [self.annHolder addMXMPointAnnotations:annotations];
+    [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier floor:self.floor indoorState:self.isIndoor];
+}
+
+- (void)filterMXMAnnotation
+{
     [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier floor:self.floor indoorState:self.isIndoor];
 }
 
 - (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations
 {
+    for (MXMPointAnnotation *ann in annotations) {
+        ann.sceneRefreshBlock = nil;
+    }
     [self.annHolder removeMXMPointAnnotaions:annotations];
 }
 

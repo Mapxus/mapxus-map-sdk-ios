@@ -10,6 +10,7 @@
 #import "MXMGeoBuilding.h"
 #import "MXMIndoorMapInfo.h"
 #import <Mapbox/Mapbox.h>
+#import "MXMDefine.h"
 
 @class MXMBoundingBox;
 
@@ -17,14 +18,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MXMDeciderDelegate <NSObject>
 
-- (void)decideMapViewShouldChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode;
-
-
-- (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode;
-
-- (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox;
-
 - (void)decideMapViewShowFloorBar:(BOOL)show onBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor;
+// 将要选中
+- (void)decideMapViewShouldChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode;
+// 选中
+- (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor trackingMode:(BOOL)changeTrackingMode;
+// 操作缩放
+- (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox zoomMode:(MXMZoomMode)zoomMode withEdgePadding:(UIEdgeInsets)insets;
+
 
 @end
 
@@ -56,7 +57,8 @@ NS_ASSUME_NONNULL_BEGIN
 // 指定建筑
 - (void)specifyTheBuilding:(NSString *)buildingId
                      floor:(nullable NSString *)floor
-              shouldZoomTo:(BOOL)zoomTo
+                  zoomMode:(MXMZoomMode)zoomMode
+               edgePadding:(UIEdgeInsets)insets
   shouldChangeTrackingMode:(BOOL)changeTrackingMode
        withRectBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
 

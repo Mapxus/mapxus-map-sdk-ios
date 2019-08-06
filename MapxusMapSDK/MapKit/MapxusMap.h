@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
 
 /**
- 选择当前选中建筑的楼层，地图默认会移动到该建筑区域
+ 选择当前选中建筑的楼层，地图默认会移动到该建筑区域，缩放适配边距为0
  @param floor 选择的楼层名字。
  */
 - (void)selectFloor:(nullable NSString *)floor;
@@ -107,10 +107,20 @@ NS_ASSUME_NONNULL_BEGIN
  @param floor 选择的楼层名字。
  @param zoomTo 设置楼层后当前建筑是否缩放到占用整屏
  */
-- (void)selectFloor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo;
+- (void)selectFloor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo DEPRECATED_MSG_ATTRIBUTE("Use `-selectFloor:zoomMode:edgePadding:` instead.");
 
 /**
- 选择建筑，楼层会自动切换到map从创建开始最近一次的楼层切换历史，如果没有，则切换到地面层，地图默认会移动到该建筑区域
+ 选择当前选中建筑的楼层
+ @param floor 选择的楼层名字。
+ @param zoomMode 缩放方式
+ @param insets 缩放适配边距，如果 zoomMode 为 `MXMZoomDisable`，则传入值无效
+ */
+- (void)selectFloor:(nullable NSString *)floor
+           zoomMode:(MXMZoomMode)zoomMode
+        edgePadding:(UIEdgeInsets)insets;
+
+/**
+ 选择建筑，楼层会自动切换到map从创建开始最近一次的楼层切换历史，如果没有，则切换到地面层，地图默认会移动到该建筑区域，缩放适配边距为0
  @param buildingId 要选中的建筑ID
  */
 - (void)selectBuilding:(nullable NSString *)buildingId;
@@ -120,10 +130,20 @@ NS_ASSUME_NONNULL_BEGIN
  @param buildingId 要选中的建筑ID
  @param zoomTo 设置ID后是否缩放到该建筑占用整屏
  */
-- (void)selectBuilding:(nullable NSString *)buildingId shouldZoomTo:(BOOL)zoomTo;
+- (void)selectBuilding:(nullable NSString *)buildingId shouldZoomTo:(BOOL)zoomTo DEPRECATED_MSG_ATTRIBUTE("Use `-selectBuilding:zoomMode:edgePadding:` instead.");
 
 /**
- 选择建筑与该建筑的楼层，地图默认会移动到该建筑区域
+ 选择建筑，楼层会自动切换到map从创建开始最近一次的楼层切换历史，如果没有，则切换到地面层
+ @param buildingId 要选中的建筑ID
+ @param zoomMode 缩放方式
+ @param insets 缩放适配边距，如果 zoomMode 为 `MXMZoomDisable`，则传入值无效
+ */
+- (void)selectBuilding:(nullable NSString *)buildingId
+              zoomMode:(MXMZoomMode)zoomMode
+           edgePadding:(UIEdgeInsets)insets;
+
+/**
+ 选择建筑与该建筑的楼层，地图默认会移动到该建筑区域，缩放适配边距为0
  @param buildingId 要选中的建筑ID
  @param floor 选择的楼层名字
  */
@@ -135,7 +155,19 @@ NS_ASSUME_NONNULL_BEGIN
  @param floor 选择的楼层名字
  @param zoomTo 设置ID后是否缩放到该建筑占用整屏
  */
-- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo;
+- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo DEPRECATED_MSG_ATTRIBUTE("Use `-selectBuilding:floor:zoomMode:edgePadding:` instead.");
+
+/**
+ 选择建筑与该建筑的楼层
+ @param buildingId 要选中的建筑ID
+ @param floor 选择的楼层名字
+ @param zoomMode 缩放方式
+ @param insets 缩放适配边距，如果 zoomMode 为 `MXMZoomDisable`，则传入值无效
+ */
+- (void)selectBuilding:(nullable NSString *)buildingId
+                 floor:(nullable NSString *)floor
+              zoomMode:(MXMZoomMode)zoomMode
+           edgePadding:(UIEdgeInsets)insets;
 
 /// 当前地图View的已经添加的室内标注数组
 @property (nonatomic, readonly) NSArray *MXMAnnotations;

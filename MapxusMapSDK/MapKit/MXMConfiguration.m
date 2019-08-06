@@ -10,4 +10,16 @@
 
 @implementation MXMConfiguration
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _outdoorHidden = NO;
+        _defaultStyle = MXMStyleMAPXUS;
+        _zoomInsets = UIEdgeInsetsZero;
+        _zoomLevel = 19;
+    }
+    return self;
+}
+
 @end

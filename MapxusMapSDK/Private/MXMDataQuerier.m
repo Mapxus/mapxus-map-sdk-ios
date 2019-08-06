@@ -113,8 +113,16 @@
             NSNumber *lat = coordList.lastObject;
             CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(lat.doubleValue, lon.doubleValue);
             
+            NSMutableArray *categ = [NSMutableArray array];
+            NSString *categName = @"room";
+            do {
+                categName = feature.attributes[categName];
+                categName ? [categ addObject:categName] : nil;
+            } while (categName);
+            
             MXMGeoPOI *poi = [MXMGeoPOI yy_modelWithJSON:feature.attributes];
             poi.coordinate = coord;
+            poi.category = [categ copy];
             [resultPOIs setObject:poi forKey:theId];
         }
     }

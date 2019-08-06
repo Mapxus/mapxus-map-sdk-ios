@@ -67,6 +67,7 @@
 {
     if (isIndoor &&
         [ann.buildingId isEqualToString:buildingId] &&
+        ann.floor &&
         ![ann.floor isEqualToString:floor]) {
         return YES;
     } else {
