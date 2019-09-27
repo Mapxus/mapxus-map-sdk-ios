@@ -27,14 +27,14 @@
 /// 建筑繁体中文名
 @property (nonatomic, strong) NSString *name_zh;
 /// 建筑楼层名称队列
-@property (nonatomic, strong) NSArray *floors;
+@property (nonatomic, strong) NSArray<NSString*> *floors;
+/// 楼层的ID
+@property (nonatomic, strong) NSArray<NSString*> *floorIds;
+/// 反映实际存在的楼层位置
+@property (nonatomic, strong) NSArray<NSNumber*> *ordinals;
 /// 建筑地面层
 @property (nonatomic, strong) NSString *ground_floor;
 /// 地图渲染类型，如multipolygon等
 @property (nonatomic, strong) NSString *type;
-/// 是否在地下
-@property (nonatomic, assign) BOOL underground;
-/// 描述多栋建筑的垂直的空间关系。详 细参考[Key:layer](https://wiki.openstreetmap.org/wiki/Key:layer)介绍
-@property (nonatomic, assign) int layer;
 
 @end

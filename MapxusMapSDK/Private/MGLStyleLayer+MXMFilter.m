@@ -12,12 +12,12 @@
 
 - (BOOL)isBuildingFillLayer
 {
-    return [self.identifier hasPrefix:@"maphive-building-fill"];
+    return [self.identifier hasPrefix:@"mapxus-building-line"];
 }
 
 - (BOOL)isIndoorSymbolLayer
 {
-    return [self isKindOfClass:[MGLSymbolStyleLayer class]] && [self.identifier hasPrefix:@"maphive"];
+    return [self isKindOfClass:[MGLSymbolStyleLayer class]] && [self.identifier hasPrefix:@"mapxus"];
 }
 
 - (BOOL)isOutdoorLayer

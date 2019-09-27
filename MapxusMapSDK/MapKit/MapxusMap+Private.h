@@ -56,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updageLocationView;
 - (void)searchConfigurationInfo;
 - (void)walkAroundOutdoor;
+- (void)cleanMapSelected;
 
 @end
 

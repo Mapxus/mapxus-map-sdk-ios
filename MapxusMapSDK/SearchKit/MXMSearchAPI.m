@@ -18,8 +18,8 @@
 // 查找建筑
 - (void)MXMBuildingSearch:(MXMBuildingSearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v2/buildings"];
-    
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/buildings"];
+
     NSMutableDictionary *dic = nil;
     if (request.buildingIds.count) {
         NSString *ids = [request.buildingIds componentsJoinedByString:@","];
@@ -54,7 +54,7 @@
 
 - (void)MXMPOICategorySearch:(MXMPOICategorySearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v2/pois/category"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/pois/category"];
     NSDictionary *dic = [request yy_modelToJSONObject];
     
     [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
@@ -73,8 +73,8 @@
 // 查找POI
 - (void)MXMPOISearch:(MXMPOISearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v2/pois"];
-    
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/pois"];
+
     NSMutableDictionary *dic = nil;
     if (request.POIIds.count) {
         NSString *ids = [request.POIIds componentsJoinedByString:@","];
@@ -98,6 +98,7 @@
     }
     
     [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
+        NSLog(@"----------%@", content);
         if (self.delegate && [self.delegate respondsToSelector:@selector(onPOISearchDone:response:)]) {
             MXMPOISearchResponse *response = [MXMPOISearchResponse yy_modelWithJSON:content];
             [self.delegate onPOISearchDone:request response:response];
@@ -113,7 +114,7 @@
 
 - (void)MXMOrientationPOISearch:(MXMOrientationPOISearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v2/pois/orientation"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/pois/orientation"];
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
     if ([dic objectForKey:@"center"]) {
@@ -137,7 +138,7 @@
 // 查找路径
 - (void)MXMRouteSearch:(MXMRouteSearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v5/route"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/route"];
     NSDictionary *dic = [request yy_modelToJSONObject];
     
     [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {

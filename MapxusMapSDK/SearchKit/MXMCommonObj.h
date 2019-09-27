@@ -113,7 +113,9 @@
 /// 楼层Id
 @property (nonatomic, strong) NSString *floorId;
 /// 楼层序列号
-@property (nonatomic, strong) NSString *sequence;
+@property (nonatomic, assign) NSInteger ordinal;
+/// 该层是否有 visualMap 数据
+@property (nonatomic, assign) BOOL hasVisualMap;
 @end
 
 
@@ -151,6 +153,14 @@
 @property (nonatomic, strong) NSArray<MXMFloor *> *floors;
 /// 建筑地面层
 @property (nonatomic, strong) NSString *groundFloor;
+/// 所在国家
+@property (nonatomic, strong) NSString *country;
+/// 所在区域
+@property (nonatomic, strong) NSString *region;
+/// 所在城市
+@property (nonatomic, strong) NSString *city;
+/// 可视化地图标识符
+@property (nonatomic, assign) BOOL hasVisualMap;
 @end
 
 
@@ -160,20 +170,24 @@
  POI信息类
  */
 @interface MXMPOI : NSObject
+/// POI的ID
+@property (nonatomic, strong) NSString *id;
 /// 所在建筑ID
 @property (nonatomic, strong) NSString *buildingId;
+/// 所在场地的ID
+@property (nonatomic, strong) NSString *venueId;
 /// POI所在楼层
 @property (nonatomic, strong) NSString *floor;
+/// POI所在楼层的楼层id
+@property (nonatomic, strong) NSString *floorId;
 /// POI的经纬度
 @property (nonatomic, strong) MXMGeoPoint *location;
 /// POI分类
-@property (nonatomic, strong) NSArray *category;
+@property (nonatomic, strong) NSArray<NSString *> *category;
 /// POI描述
 @property (nonatomic, strong) NSString *introduction;
 /// POI邮箱
 @property (nonatomic, strong) NSString *email;
-/// POI的ID
-@property (nonatomic, strong) NSString *id;
 /// 默认POI名字
 @property (nonatomic, strong) NSString *name_default;
 /// POI英文名字
@@ -186,8 +200,6 @@
 @property (nonatomic, strong) NSString *openingHours;
 /// 店铺电话
 @property (nonatomic, strong) NSString *phone;
-/// POI的类型ID
-@property (nonatomic, strong) NSString *poiId;
 /// 店铺网址
 @property (nonatomic, strong) NSString *website;
 /// 离请求中心点的距离

@@ -50,7 +50,7 @@
 - (NSSet *)getBuildingLayerIdentifiersInLayers:(NSArray<MGLStyleLayer *> *)layers
 {
     NSMutableSet *identifiersSet = [NSMutableSet set];
-    // 筛选出『maphive-building-fill』开头的layer
+    // 筛选出『mapxus-building』开头的layer
     for (MGLStyleLayer *theLayer in layers) {
         if ([theLayer isBuildingFillLayer]) {
             [identifiersSet addObject:theLayer.identifier];
@@ -77,7 +77,7 @@
 
 
 
-- (NSDictionary *)findOutPOIAtPoint:(CGPoint)point coordinate:(CLLocationCoordinate2D)coor
+- (NSDictionary *)findOutPOIAtPoint:(CGPoint)point
 {
     NSSet *identifiers = [self getIndoorSymbolLayerIdentifiersInLayers:self.mapView.style.layers];
     NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiers predicate:nil];
@@ -112,17 +112,11 @@
             NSNumber *lon = coordList.firstObject;
             NSNumber *lat = coordList.lastObject;
             CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(lat.doubleValue, lon.doubleValue);
-            
-            NSMutableArray *categ = [NSMutableArray array];
-            NSString *categName = @"room";
-            do {
-                categName = feature.attributes[categName];
-                categName ? [categ addObject:categName] : nil;
-            } while (categName);
-            
+                        
             MXMGeoPOI *poi = [MXMGeoPOI yy_modelWithJSON:feature.attributes];
             poi.coordinate = coord;
-            poi.category = [categ copy];
+            poi.category = [feature.attributes[@"place"] componentsSeparatedByString:@","];
+
             [resultPOIs setObject:poi forKey:theId];
         }
     }
@@ -132,7 +126,7 @@
 
 - (NSArray<id <MGLFeature>> *)findOutFloorFeaturesAtPoint:(CGPoint)point
 {
-    NSSet *identifiers = [[NSSet alloc] initWithObjects:@"maphive-floor-fill", nil];
+    NSSet *identifiers = [[NSSet alloc] initWithObjects:@"mapxus-level-fill", nil];
     NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiers predicate:nil];
     return theFeatures;
 }

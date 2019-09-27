@@ -112,6 +112,7 @@
 
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"floorId" : @"id",
+             @"hasVisualMap" : @"visualMap"
              };
 }
 
@@ -128,13 +129,14 @@
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"name_default" : @"name.default",
              @"name_en" : @"name.en",
-             @"name_cn" : @"name.cn",
-             @"name_zh" : @"name.zh",
+             @"name_cn" : @"name.zh-Hans",
+             @"name_zh" : @"name.zh-Hant",
              @"address_default" : @"address.default",
              @"address_en" : @"address.en",
-             @"address_cn" : @"address.cn",
-             @"address_zh" : @"address.zh",
+             @"address_cn" : @"address.zh-Hans",
+             @"address_zh" : @"address.zh-Hant",
              @"buildingId" : @[@"buildingId", @"id"],
+             @"hasVisualMap" : @"visualMap"
              };
 }
 
@@ -147,22 +149,6 @@
     return [self yy_modelDescription];
 }
 
-//- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-//    NSLog(@"%@", dic);
-//    NSArray *keys = [dic allKeys];
-//    for (NSString *key in keys) {
-//        if ([key isEqualToString:@"floors"] && [dic[key] isKindOfClass:[NSString class]]) {
-//            //            if (_underground) {
-//            //                _floors = [dic[key] componentsSeparatedByString:@","];
-//            //            } else {
-////            _floors = [[[dic[key] componentsSeparatedByString:@","] reverseObjectEnumerator] allObjects];
-//            //            }
-//        }
-//    }
-//
-//    return YES;
-//}
-
 @end
 
 //
@@ -171,8 +157,8 @@
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"name_default" : @"name.default",
              @"name_en" : @"name.en",
-             @"name_cn" : @"name.cn",
-             @"name_zh" : @"name.zh",
+             @"name_cn" : @"name.zh-Hans",
+             @"name_zh" : @"name.zh-Hant",
              @"introduction" : @"description",
              };
 }

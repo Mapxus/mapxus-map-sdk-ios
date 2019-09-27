@@ -112,10 +112,15 @@
 - (NSString *)calculateFloorWithLevel:(NSInteger)level andBuilding:(MXMGeoBuilding *)building
 {
     NSString *localFloor = nil;
-    NSUInteger gf = [building.floors indexOfObject:building.ground_floor];
-    NSInteger cf = gf - level;
-    if (cf>=0 && cf<building.floors.count) {
-        localFloor = [building.floors objectAtIndex:cf];
+    int i = 0;
+    for (NSNumber *n in building.ordinals) {
+        if (level == [n integerValue]) {
+            if (i < building.floors.count) {
+                localFloor = building.floors[i];
+            }
+            break;
+        }
+        i++;
     }
     return localFloor;
 }
@@ -187,10 +192,16 @@
     geoBuilding.name_en = netBuilding.name_en;
     geoBuilding.name_zh = netBuilding.name_zh;
     NSMutableArray *floorStrs = [NSMutableArray array];
+    NSMutableArray *floorIdStrs = [NSMutableArray array];
+    NSMutableArray *ordinals = [NSMutableArray array];
     for (MXMFloor *f in netBuilding.floors) {
         f.code ? [floorStrs addObject:f.code] : nil;
+        f.floorId ? [floorIdStrs addObject:f.floorId] : nil;
+        f.ordinal ? [ordinals addObject:@(f.ordinal)] : nil;
     }
-    geoBuilding.floors = [[floorStrs reverseObjectEnumerator] allObjects];
+    geoBuilding.floors = [floorStrs copy];
+    geoBuilding.floorIds = [floorIdStrs copy];
+    geoBuilding.ordinals = [ordinals copy];
     geoBuilding.ground_floor = netBuilding.groundFloor?:floorStrs.firstObject;
     return geoBuilding;
 }

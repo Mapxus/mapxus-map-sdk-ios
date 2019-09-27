@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary *)findOutBuildingAtPoint:(CGPoint)point;
 
 // 点上查找POI
-- (NSDictionary *)findOutPOIAtPoint:(CGPoint)point coordinate:(CLLocationCoordinate2D)coor;
+- (NSDictionary *)findOutPOIAtPoint:(CGPoint)point;
 
 // 查询点击的楼层
 - (NSArray<id <MGLFeature>> *)findOutFloorFeaturesAtPoint:(CGPoint)point;

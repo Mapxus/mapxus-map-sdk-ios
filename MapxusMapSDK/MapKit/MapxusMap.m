@@ -14,6 +14,7 @@
 #import "MXMPointAnnotation+Private.h"
 #import "MGLStyle+MXMFilter.h"
 #import "MGLStyleLayer+MXMFilter.h"
+#import "JXJsonFunctionDefine.h"
 
 
 @implementation MapxusMap
@@ -37,6 +38,7 @@
         self.annHolder = [[MXMAnnotationsHolder alloc] initWithMapView:mapView];
         
         self.gestureSwitchingBuilding = YES;
+        self.autoChangeBuilding = YES;
         self.indoorControllerAlwaysHidden = NO;
         self.mapView.attributionButton.hidden = YES;
         self.mapView.logoView.hidden = YES;
@@ -180,19 +182,19 @@
     [[MXMMapServices sharedServices] getTokenComplete:^(NSString *token) {
         switch (style) {
             case MXMStyleCOMMON:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/common_v3", MXMAPIHOSTURL]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/common_mims2_v1", MXMAPIHOSTURL]];
                 break;
             case MXMStyleCHRISTMAS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/christmas_v3", MXMAPIHOSTURL]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/christmas_mims2_v1", MXMAPIHOSTURL]];
                 break;
             case MXMStyleHALLOWMAS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/halloween_v3", MXMAPIHOSTURL]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/halloween_mims2_v1", MXMAPIHOSTURL]];
                 break;
             case MXMStyleMAPPYBEE:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/mappy_bee_v3", MXMAPIHOSTURL]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/mappybee_mims2_v1", MXMAPIHOSTURL]];
                 break;
             case MXMStyleMAPXUS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/mapxus_v4", MXMAPIHOSTURL]];
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/mapxus_mims2_v1", MXMAPIHOSTURL]];
                 break;
             default:
                 break;
@@ -215,6 +217,9 @@
 
 - (void)idleAutomaticAnalyseOfIndoorData
 {
+    if (!self.autoChangeBuilding) {
+        return;
+    }
     if (self.flying) {
         return;
     }
@@ -237,10 +242,10 @@
     CLLocationCoordinate2D coor = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     // 查找点击楼层
     /////////////////////////////////////////////////////
+    NSArray<id <MGLFeature>> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+    id<MGLFeature> feature = theFeatures.firstObject;
     if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:onFloor:inBuilding:)]) {
-        NSArray<id <MGLFeature>> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
-        id<MGLFeature> feature = theFeatures.firstObject;
-        NSString *floor = [feature attributeForKey:@"floor"];
+        NSString *floor = [feature attributeForKey:@"name"];
         NSString *buildingId = [feature attributeForKey:@"ref:building"];
         MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
         [self.delegate mapView:self didSingleTappedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
@@ -254,7 +259,10 @@
         [self.decider decideAtPointBuildingDic:poiBuildings];
     }
     // 查找点击的POI
-    [self findOutPOIAtPoint:point coordinate:coor];
+    NSString *floor = [feature attributeForKey:@"name"];
+    NSString *floorId = [feature attributeForKey:@"id"];
+    NSNumber *floorOrdinal = DecodeNumberFromDic(feature.attributes, @"ordinal");
+    [self findOutPOIAtPoint:point floor:floor floorId:floorId ordinal:floorOrdinal coordinate:coor];
 }
 
 // 长按手势响应
@@ -269,7 +277,7 @@
         if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)]) {
             NSArray<id <MGLFeature>> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
             id<MGLFeature> feature = theFeatures.firstObject;
-            NSString *floor = [feature attributeForKey:@"floor"];
+            NSString *floor = [feature attributeForKey:@"name"];
             NSString *buildingId = [feature attributeForKey:@"ref:building"];
             MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
             [self.delegate mapView:self didLongPressedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
@@ -286,12 +294,27 @@
 }
 
 #pragma mark - MXMDeciderDelegate
+- (void)cleanMapSelected {
+    MXMGeoBuilding *building = self.building;
+    NSString *floor = self.floor;
+    NSLog(@"%@ %@", building, floor);
+    if (building && floor) {
+        // 配置过滤条件
+        NSUInteger index = [building.floors indexOfObject:floor];
+        NSString *levelId = building.floorIds[index];
+        [self.mapView.style filerBuildingId:building.identifier floor:floor levelId:levelId];
+    } else {
+        [self.mapView.style filerBuildingId:@"" floor:@"" levelId:@""];
+    }
+}
+
 - (void)decideMapViewShowFloorBar:(BOOL)show onBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor
 {
     // 设置建筑选择按钮和楼层选择按钮是否显示
     self.buildingSelectButton.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=2)&&(self.mapView.zoomLevel>15.7));
     self.floorBar.hidden = self.indoorControllerAlwaysHidden || !(show&&(self.mapView.zoomLevel>15.7));
     self.isIndoor = show && (self.mapView.zoomLevel>15.7);
+    [self.mapView.style updateBuildingFillOpacityWith:buildingId indoorState:self.isIndoor];
     if (self.delegate && [self.delegate respondsToSelector: @selector(mapView:indoorMapWithIn:building:floor:)]) {
         [self.delegate mapView:self indoorMapWithIn:self.isIndoor building:buildingId floor:floor];
     }
@@ -311,11 +334,15 @@
 {
     self.building = building;
     self.floor = floor;
-    [self.floorBar resetItems:building.floors defaultSelectRow:floor];
+    // 数据中的楼层都是从小到大，需要颠倒顺序显示
+    NSArray *reversalFloors = [[building.floors reverseObjectEnumerator] allObjects];
+    [self.floorBar resetItems:reversalFloors defaultSelectRow:floor];
     self.decider.isMapReload = NO;
 
     // 配置过滤条件
-    [self.mapView.style filerBuildingId:building.identifier Floor:floor];
+    NSUInteger index = [building.floors indexOfObject:floor];
+    NSString *levelId = building.floorIds[index];
+    [self.mapView.style filerBuildingId:building.identifier floor:floor levelId:levelId];
     // 回调
     if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didChangeFloor:atBuilding:)]) {
         [self.delegate mapView:self didChangeFloor:floor atBuilding:building];
@@ -490,11 +517,14 @@
 #pragma mark - private
 
 // 查找指定点的POI信息
-- (void)findOutPOIAtPoint:(CGPoint)point coordinate:(CLLocationCoordinate2D)coor
+- (void)findOutPOIAtPoint:(CGPoint)point floor:(NSString *)floorName floorId:(NSString *)floorId ordinal:(NSNumber *)ordinal coordinate:(CLLocationCoordinate2D)coor
 {
-    NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point coordinate:coor];
+    NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point];
     NSArray *poiList = [poiDic allValues];
     MXMGeoPOI *poi = poiList.firstObject;
+    poi.floor = floorName;
+    poi.floorId = floorId;
+    poi.ordinal = ordinal;
     if (poi) {
         if (self.delegate &&
             [self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)]) {

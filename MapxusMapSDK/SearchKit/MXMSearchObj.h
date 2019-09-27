@@ -32,7 +32,7 @@
 /// 页数
 @property (nonatomic, assign) NSUInteger page;
 /// 查询的建筑id列表。与其他的参数互斥
-@property (nonatomic, strong) NSArray *buildingIds;
+@property (nonatomic, strong) NSArray<NSString *> *buildingIds;
 @end
 
 
@@ -71,7 +71,7 @@
  */
 @interface MXMPOICategorySearchResponse : NSObject
 /// 分类名列表
-@property (nonatomic, strong) NSArray *category;
+@property (nonatomic, strong) NSArray<NSString *> *category;
 @end
 
 
@@ -190,7 +190,7 @@
 /// 要过滤的类别
 @property (nonatomic, strong) NSString *category;
 /// 查询的POI id列表。与上面的参数互斥
-@property (nonatomic, strong) NSArray *POIIds;
+@property (nonatomic, strong) NSArray<NSString *> *POIIds;
 @end
 
 
@@ -263,7 +263,7 @@
 @property (nonatomic, assign) double toLat;
 /// 导航方式。可选值为foot, wheelchair。默认foot
 @property (nonatomic, strong) NSString *vehicle;
-/// 返回结果语言版本。可选值为zh-HK,zh-CN,en。默认en
+/// 返回结果语言版本。可选值为zh-HK, zh-CN, en。默认en
 @property (nonatomic, strong) NSString *locale;
 /// 终点设置在门前。设置为YES则终点只到POI店门终止
 @property (nonatomic, assign) BOOL toDoor;

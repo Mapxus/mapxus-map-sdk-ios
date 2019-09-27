@@ -21,6 +21,10 @@
 @property (nonatomic, strong) NSString *buildingId;
 /// POI所在楼层
 @property (nonatomic, strong) NSString *floor;
+///
+@property (nonatomic, strong) NSString *floorId;
+///
+@property (nonatomic, strong) NSNumber *ordinal;
 /// POI所在经纬度
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 /// POI默认名字
@@ -32,7 +36,7 @@
 /// POI繁体中文名字
 @property (nonatomic, strong) NSString *name_zh;
 /// POI分类
-@property (nonatomic, strong) NSArray *category;
+@property (nonatomic, strong) NSArray<NSString*> *category;
 
 
 @end

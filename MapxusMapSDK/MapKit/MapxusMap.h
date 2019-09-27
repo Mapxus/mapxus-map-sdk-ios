@@ -63,6 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 点击地图切换建筑功能，默认状态为YES。
 @property (nonatomic, assign) BOOL gestureSwitchingBuilding;
 
+/// 是否支持自动切换建筑，默认状态为YES。当自动切换模式打开时，建筑移到视图中心，会自动选中建筑，显示其内部结构。
+@property (nonatomic, assign) BOOL autoChangeBuilding;
+
 /**
  设置地图外观
  @param style 外观类型。具体属性字段请参考 `MXMStyle` 。
