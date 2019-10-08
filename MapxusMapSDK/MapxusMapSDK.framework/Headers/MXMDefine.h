@@ -69,6 +69,25 @@ typedef NS_ENUM(NSInteger, MXMSelectorPosition) {
 
 
 /**
+ 缩放方式
+ */
+typedef NS_ENUM(NSInteger, MXMZoomMode) {
+    /**
+     不缩放
+     */
+    MXMZoomDisable,
+    /**
+     通过动画缩放
+     */
+    MXMZoomAnimated,
+    /**
+     无动画缩放
+     */
+    MXMZoomDirect
+};
+
+
+/**
  路由指令
  */
 typedef NS_ENUM(NSInteger, MXMRouteSign) {

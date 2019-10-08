@@ -31,6 +31,8 @@
 @property (nonatomic, strong) NSString *name_cn;
 /// POI繁体中文名字
 @property (nonatomic, strong) NSString *name_zh;
+/// POI分类
+@property (nonatomic, strong) NSArray *category;
 
 
 @end
