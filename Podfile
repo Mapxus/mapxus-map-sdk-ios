@@ -2,7 +2,7 @@
  platform :ios, '9.0'
 
  use_frameworks!
-inhibit_all_warnings!
+ inhibit_all_warnings!
 
   # Pods for MapxusMapSDK
   pod 'Mapbox-iOS-SDK'
