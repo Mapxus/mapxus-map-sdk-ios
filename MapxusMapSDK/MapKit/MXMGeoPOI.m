@@ -15,6 +15,7 @@
 {
     self = [super init];
     if (self) {
+        self.identifier = @"";
         self.category = @[];
     }
     return self;
@@ -26,6 +27,13 @@
              @"name_cn" : @"name:zh-Hans",
              @"name_en" : @"name:en",
              @"name_zh" : @"name:zh-Hant"};
+}
+
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    if ([dic[@"place"] isKindOfClass:[NSString class]]) {
+        _category = [dic[@"place"] componentsSeparatedByString:@","];
+    }
+    return YES;
 }
 
 - (NSString *)description

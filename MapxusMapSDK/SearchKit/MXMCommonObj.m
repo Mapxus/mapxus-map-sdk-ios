@@ -116,6 +116,20 @@
              };
 }
 
+- (NSString *)code {
+    if (!_code) {
+        _code = @"";
+    }
+    return _code;
+}
+
+- (NSString *)floorId {
+    if (!_floorId) {
+        _floorId = @"";
+    }
+    return _floorId;
+}
+
 - (NSString *)description
 {
     return [self yy_modelDescription];
@@ -149,6 +163,20 @@
     return [self yy_modelDescription];
 }
 
+- (NSArray<MXMFloor *> *)floors {
+    if (!_floors) {
+        _floors = @[];
+    }
+    return _floors;
+}
+
+- (NSString *)buildingId {
+    if (!_buildingId) {
+        _buildingId = @"";
+    }
+    return _buildingId;
+}
+
 @end
 
 //
@@ -161,6 +189,20 @@
              @"name_zh" : @"name.zh-Hant",
              @"introduction" : @"description",
              };
+}
+
+- (NSString *)buildingId {
+    if (!_buildingId) {
+        _buildingId = @"";
+    }
+    return _buildingId;
+}
+
+- (NSArray<NSString *> *)category {
+    if (!_category) {
+        _category = @[];
+    }
+    return _category;
 }
 
 - (NSString *)description
@@ -178,6 +220,13 @@
              @"buildingId" : @"building_id",
              @"streetName" : @"street_name",
              };
+}
+
+- (NSArray<NSNumber *> *)interval {
+    if (!_interval) {
+        _interval = @[];
+    }
+    return _interval;
 }
 
 - (NSString *)description
@@ -207,6 +256,13 @@
     return YES;
 }
 
+- (NSArray<MXMGeoPoint *> *)coordinates {
+    if (!_coordinates) {
+        _coordinates = @[];
+    }
+    return _coordinates;
+}
+
 - (NSString *)description
 {
     return [self yy_modelDescription];
@@ -233,6 +289,13 @@
     }
     _bbox = box;
     return YES;
+}
+
+- (NSArray<MXMInstruction *> *)instructions {
+    if (!_instructions) {
+        _instructions = @[];
+    }
+    return _instructions;
 }
 
 - (NSString *)description

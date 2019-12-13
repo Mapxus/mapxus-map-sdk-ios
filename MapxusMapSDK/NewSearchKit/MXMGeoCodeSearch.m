@@ -25,7 +25,12 @@
     NSURLSessionTask *task = [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onGetReverseGeoCode:result:error:)]) {
             MXMReverseGeoCodeSearchResult *result = [MXMReverseGeoCodeSearchResult yy_modelWithJSON:content];
-            [self.delegate onGetReverseGeoCode:self result:result error:nil];
+            if (result.building && result.floor) {
+                [self.delegate onGetReverseGeoCode:self result:result error:nil];
+            } else {
+                NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSKeyValueValidationError userInfo:@{NSLocalizedDescriptionKey:@"Result is null."}];
+                [self.delegate onGetReverseGeoCode:self result:nil error:error];
+            }
         }
     } failure:^(NSError *error) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onGetReverseGeoCode:result:error:)]) {

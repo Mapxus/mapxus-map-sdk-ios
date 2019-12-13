@@ -217,18 +217,20 @@
 
 - (void)idleAutomaticAnalyseOfIndoorData
 {
+    self.venues = [self.dataQueryer findOutVenueInTheRect:self.mapView.bounds];
+    // 整屏可见建筑列表，无论是否需要自动选择建筑功能，buildings 都需要对外放出值
+    self.buildings = [self.dataQueryer findOutBuildingInTheRect:self.mapView.bounds];
+    
     if (!self.autoChangeBuilding) {
         return;
     }
     if (self.flying) {
         return;
     }
-    // 整屏可见建筑列表
-    self.buildings = [self.dataQueryer findOutBuildingInTheRect:self.mapView.bounds];
-    
+   
     CGSize mapSize = self.mapView.bounds.size;
     CGRect rect = CGRectMake(mapSize.width/4, mapSize.height/4, mapSize.width/2, mapSize.height/2);
-    // 自动选择使用列表
+    // 自动选择使用列表，如果不需要自动选择建筑功能，innerbuildings 就不需要有值，
     self.innerbuildings = [self.dataQueryer findOutBuildingInTheRect:rect];
     
     [self.decider decideInRectBuildingDic:self.innerbuildings];
@@ -297,12 +299,12 @@
 - (void)cleanMapSelected {
     MXMGeoBuilding *building = self.building;
     NSString *floor = self.floor;
-    NSLog(@"%@ %@", building, floor);
     if (building && floor) {
         // 配置过滤条件
         NSUInteger index = [building.floors indexOfObject:floor];
         NSString *levelId = building.floorIds[index];
         [self.mapView.style filerBuildingId:building.identifier floor:floor levelId:levelId];
+        [self.mapView.style updateBuildingFillOpacityWith:building.identifier indoorState:self.isIndoor];
     } else {
         [self.mapView.style filerBuildingId:@"" floor:@"" levelId:@""];
     }
@@ -552,7 +554,7 @@
                                                                     andLocalFloor:localFloor];
 }
 
-- (NSArray *)MXMAnnotations
+- (NSArray<MXMPointAnnotation *> *)MXMAnnotations
 {
     return [self.annHolder.mxmPointAnnotations copy];
 }
@@ -663,6 +665,13 @@
         _floorBar.hidden = YES;
     }
     return _floorBar;
+}
+
+- (NSDictionary<NSString *,MXMGeoBuilding *> *)buildings {
+    if (!_buildings) {
+        _buildings = [NSDictionary dictionary];
+    }
+    return _buildings;
 }
 
 - (UIButton *)MXMLogo

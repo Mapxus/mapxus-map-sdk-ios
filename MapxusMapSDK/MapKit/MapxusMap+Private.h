@@ -42,12 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL regionBecomeIdle; //
 @property (nonatomic, assign) BOOL flying; // 是否在飞行切换 camera ，YES 时忽略自动过滤建筑
 
-@property (nonatomic, copy, readwrite) NSString *floor;
-@property (nonatomic, copy, readwrite) MXMGeoBuilding *building;
+@property (nonatomic, copy, readwrite, nullable) NSString *floor;
+@property (nonatomic, copy, readwrite, nullable) MXMGeoBuilding *building;
 @property (nonatomic, copy, readwrite, nullable) NSString *userLocationFloor;
 @property (nonatomic, copy, readwrite, nullable) MXMGeoBuilding *userLocationBuilding;
 @property (nonatomic, copy, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
-@property (nonatomic, copy, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *innerbuildings;
+@property (nonatomic, copy, readwrite, nullable) NSDictionary<NSString *, MXMGeoBuilding *> *innerbuildings;
+@property (nonatomic, copy, readwrite) NSDictionary<NSString *, NSDictionary *> *venues;
 
 // 移动地图时自动选择建筑
 - (void)automaticAnalyseOfIndoorData;

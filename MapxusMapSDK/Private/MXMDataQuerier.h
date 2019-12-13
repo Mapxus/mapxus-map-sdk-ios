@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 // 区域内查找建筑
 - (NSDictionary *)findOutBuildingInTheRect:(CGRect)rect;
 
+- (NSDictionary *)findOutVenueInTheRect:(CGRect)rect;
+
 // 点上查找建筑
 - (NSDictionary *)findOutBuildingAtPoint:(CGPoint)point;
 

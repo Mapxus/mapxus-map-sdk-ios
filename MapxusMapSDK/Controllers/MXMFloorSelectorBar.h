@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MXMFloorSelectorBar : UIView
 
-@property (nonatomic, copy) NSString *addVoiceOverLabel;
+@property (nonatomic, copy, nullable) NSString *addVoiceOverLabel;
 
 @end
+
+NS_ASSUME_NONNULL_END

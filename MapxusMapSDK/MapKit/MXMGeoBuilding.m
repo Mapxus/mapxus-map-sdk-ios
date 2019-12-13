@@ -16,6 +16,7 @@
     MXMGeoBuilding * copyedModel = [[self.class allocWithZone:zone] init];
     copyedModel.identifier = self.identifier;
     copyedModel.building = self.building;
+    copyedModel.venueId = self.venueId;
     copyedModel.name = self.name;
     copyedModel.name_en = self.name_en;
     copyedModel.name_cn = self.name_cn;
@@ -33,6 +34,7 @@
              @"name_en" : @"name:en",
              @"name_zh" : @"name:zh-Hant",
              @"identifier" : @"id",
+             @"venueId" : @"ref:venue",
              };
 }
 
@@ -46,7 +48,6 @@
     }
     
     if ([dic[@"ordinals"] isKindOfClass:[NSString class]]) {
-        _ground_floor = @"";
         NSArray *ordStr = [dic[@"ordinals"] componentsSeparatedByString:@","];
         NSMutableArray *muArr = [NSMutableArray array];
         NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
@@ -73,6 +74,41 @@
     if (_floors.count > index) {
         _ground_floor = _floors[index];
     }
+}
+
+- (NSString *)identifier {
+    if (!_identifier) {
+        _identifier = @"";
+    }
+    return _identifier;
+}
+
+- (NSString *)building {
+    if (!_building) {
+        _building = @"";
+    }
+    return _building;
+}
+
+- (NSArray<NSString *> *)floors {
+    if (!_floors) {
+        _floors = @[];
+    }
+    return _floors;
+}
+
+- (NSArray<NSString *> *)floorIds {
+    if (!_floorIds) {
+        _floorIds = @[];
+    }
+    return _floorIds;
+}
+
+- (NSArray<NSNumber *> *)ordinals {
+    if (!_ordinals) {
+        _ordinals = @[];
+    }
+    return _ordinals;
 }
 
 - (NSString *)description

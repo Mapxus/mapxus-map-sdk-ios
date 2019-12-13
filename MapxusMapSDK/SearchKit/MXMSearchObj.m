@@ -21,6 +21,13 @@
     return @{@"buildings" : [MXMBuilding class]};
 }
 
+- (NSArray<MXMBuilding *> *)buildings {
+    if (!_buildings) {
+        _buildings = @[];
+    }
+    return _buildings;
+}
+
 - (NSString *)description
 {
     return [self yy_modelDescription];
@@ -39,6 +46,13 @@
     return @{
              @"category" : @"result",
              };
+}
+
+- (NSArray<NSString *> *)category {
+    if (!_category) {
+        _category = @[];
+    }
+    return _category;
 }
 
 - (NSString *)description
@@ -75,6 +89,13 @@
     return @{@"pois" : [MXMPOI class]};
 }
 
+- (NSArray<MXMPOI *> *)pois {
+    if (!_pois) {
+        _pois = @[];
+    }
+    return _pois;
+}
+
 - (NSString *)description
 {
     return [self yy_modelDescription];
@@ -99,6 +120,13 @@
     return @{@"pois" : [MXMPOI class]};
 }
 
+- (NSArray<MXMPOI *> *)pois {
+    if (!_pois) {
+        _pois = @[];
+    }
+    return _pois;
+}
+
 - (NSString *)description
 {
     return [self yy_modelDescription];
@@ -117,6 +145,20 @@
     return @{
              @"paths" : [MXMPath class],
             };
+}
+
+- (NSArray<MXMIndoorPoint *> *)wayPointList {
+    if (!_wayPointList) {
+        _wayPointList = @[];
+    }
+    return _wayPointList;
+}
+
+- (NSArray<MXMPath *> *)paths {
+    if (!_paths) {
+        _paths = @[];
+    }
+    return _paths;
 }
 
 - (NSString *)description

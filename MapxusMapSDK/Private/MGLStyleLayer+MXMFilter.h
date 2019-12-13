@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isBuildingFillLayer;
 
+- (BOOL)isVenueFillLayer;
+
 - (BOOL)isIndoorSymbolLayer;
 
 - (BOOL)isOutdoorLayer;

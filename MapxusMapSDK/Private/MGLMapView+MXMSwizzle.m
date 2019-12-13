@@ -81,9 +81,8 @@ static void *mapKey = &mapKey;
 }
 - (void)hook_mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style
 {
-    if (!mapView.mxmMap.autoChangeBuilding) {
-        [mapView.mxmMap cleanMapSelected];
-    }
+    // 加载后全部室内结构隐藏或者重新过滤更换style之前的选择
+    [mapView.mxmMap cleanMapSelected];
     // 结束异步operation
     [mapView.mxmMap searchConfigurationInfo];
     // 加载完style后重新设置outdoor

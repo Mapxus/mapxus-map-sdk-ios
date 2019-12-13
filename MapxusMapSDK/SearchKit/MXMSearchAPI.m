@@ -98,7 +98,6 @@
     }
     
     [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
-        NSLog(@"----------%@", content);
         if (self.delegate && [self.delegate respondsToSelector:@selector(onPOISearchDone:response:)]) {
             MXMPOISearchResponse *response = [MXMPOISearchResponse yy_modelWithJSON:content];
             [self.delegate onPOISearchDone:request response:response];

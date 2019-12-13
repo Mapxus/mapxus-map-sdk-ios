@@ -10,6 +10,8 @@
 #import <YYModel/YYModel.h>
 #import "MGLStyleLayer+MXMFilter.h"
 #import "JXJsonFunctionDefine.h"
+#import "MGLMapView+MXMSwizzle.h"
+#import "MapxusMap+Private.h"
 
 @interface MXMDataQuerier ()
 
@@ -38,6 +40,15 @@
     return buildings;
 }
 
+// 查找给定区域的所有场所
+- (NSDictionary *)findOutVenueInTheRect:(CGRect)rect
+{
+    NSSet *identifiers = [self getVenueLayerIdentifiersInLayers:self.mapView.style.layers];
+    NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:identifiers predicate:nil];
+    NSDictionary *venues = [self venueDeduplicationInFeatures:theFeatures];
+    return venues;
+}
+
 // 查找给定点的所有建筑
 - (NSDictionary *)findOutBuildingAtPoint:(CGPoint)point
 {
@@ -45,6 +56,17 @@
     NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiers];
     NSDictionary *buildings = [self buildingDeduplicationInFeatures:theFeatures];
     return buildings;
+}
+
+- (NSSet *)getVenueLayerIdentifiersInLayers:(NSArray<MGLStyleLayer *> *)layers
+{
+    NSMutableSet *identifiersSet = [NSMutableSet set];
+    for (MGLStyleLayer *theLayer in layers) {
+        if ([theLayer isVenueFillLayer]) {
+            [identifiersSet addObject:theLayer.identifier];
+        }
+    }
+    return [identifiersSet copy];
 }
 
 - (NSSet *)getBuildingLayerIdentifiersInLayers:(NSArray<MGLStyleLayer *> *)layers
@@ -67,13 +89,29 @@
     for (id <MGLFeature> feature in features) {
         NSString *theId = [feature attributeForKey:@"id"];
         if (theId) {
-            [resultBuildings setObject:[MXMGeoBuilding yy_modelWithJSON:feature.attributes] forKey:theId];
+            MXMGeoBuilding *b = [MXMGeoBuilding yy_modelWithJSON:feature.attributes];
+            NSDictionary *venue = self.mapView.mxmMap.venues[b.venueId];
+            b.building = venue[@"venue"];
+            [resultBuildings setObject:b forKey:theId];
         }
     }
     
     return [resultBuildings copy];
 }
 
+- (NSDictionary *)venueDeduplicationInFeatures:(NSArray<id <MGLFeature>> *)features
+{
+    // 建筑信息去重
+    NSMutableDictionary *resultVenues = [NSMutableDictionary dictionary];
+    for (id <MGLFeature> feature in features) {
+        NSString *theId = [feature attributeForKey:@"id"];
+        if (theId) {
+            [resultVenues setObject:feature.attributes forKey:theId];
+        }
+    }
+    
+    return [resultVenues copy];
+}
 
 
 
@@ -115,7 +153,6 @@
                         
             MXMGeoPOI *poi = [MXMGeoPOI yy_modelWithJSON:feature.attributes];
             poi.coordinate = coord;
-            poi.category = [feature.attributes[@"place"] componentsSeparatedByString:@","];
 
             [resultPOIs setObject:poi forKey:theId];
         }

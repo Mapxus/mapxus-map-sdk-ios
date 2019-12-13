@@ -15,6 +15,11 @@
     return [self.identifier hasPrefix:@"mapxus-building-line"];
 }
 
+- (BOOL)isVenueFillLayer
+{
+    return [self.identifier hasPrefix:@"mapxus-venue-fill"];
+}
+
 - (BOOL)isIndoorSymbolLayer
 {
     return [self isKindOfClass:[MGLSymbolStyleLayer class]] && [self.identifier hasPrefix:@"mapxus"];
