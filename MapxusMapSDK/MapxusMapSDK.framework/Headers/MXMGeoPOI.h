@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  瓦片中的POI数据
@@ -18,21 +19,26 @@
 /// POI的ID
 @property (nonatomic, strong) NSString *identifier;
 /// POI所在建筑的建筑ID
-@property (nonatomic, strong) NSString *buildingId;
+@property (nonatomic, strong, nullable) NSString *buildingId;
 /// POI所在楼层
-@property (nonatomic, strong) NSString *floor;
+@property (nonatomic, strong, nullable) NSString *floor;
+/// POI所在楼层的id
+@property (nonatomic, strong, nullable) NSString *floorId;
+/// POI所在楼层的定位高度值
+@property (nonatomic, strong, nullable) NSNumber *ordinal;
 /// POI所在经纬度
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 /// POI默认名字
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong, nullable) NSString *name;
 /// POI英文名字
-@property (nonatomic, strong) NSString *name_en;
+@property (nonatomic, strong, nullable) NSString *name_en;
 /// POI简体中文名字
-@property (nonatomic, strong) NSString *name_cn;
+@property (nonatomic, strong, nullable) NSString *name_cn;
 /// POI繁体中文名字
-@property (nonatomic, strong) NSString *name_zh;
+@property (nonatomic, strong, nullable) NSString *name_zh;
 /// POI分类
-@property (nonatomic, strong) NSArray *category;
-
+@property (nonatomic, strong) NSArray<NSString*> *category;
 
 @end
+
+NS_ASSUME_NONNULL_END

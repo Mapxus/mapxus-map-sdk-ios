@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 /**
  瓦片中的建筑数据
@@ -18,23 +19,27 @@
 @property (nonatomic, strong) NSString *identifier;
 /// 建筑类型，表示该建筑的分类，如cathedral,car_park,hospital,office,retail等
 @property (nonatomic, strong) NSString *building;
+/// 所属场所ID
+@property (nonatomic, strong, nullable) NSString *venueId;
 /// 建筑默认名
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong, nullable) NSString *name;
 /// 建筑英文名
-@property (nonatomic, strong) NSString *name_en;
+@property (nonatomic, strong, nullable) NSString *name_en;
 /// 建筑简体中文名
-@property (nonatomic, strong) NSString *name_cn;
+@property (nonatomic, strong, nullable) NSString *name_cn;
 /// 建筑繁体中文名
-@property (nonatomic, strong) NSString *name_zh;
+@property (nonatomic, strong, nullable) NSString *name_zh;
 /// 建筑楼层名称队列
-@property (nonatomic, strong) NSArray *floors;
+@property (nonatomic, strong) NSArray<NSString*> *floors;
+/// 楼层的ID
+@property (nonatomic, strong) NSArray<NSString*> *floorIds;
+/// 反映实际存在的楼层位置
+@property (nonatomic, strong) NSArray<NSNumber*> *ordinals;
 /// 建筑地面层
-@property (nonatomic, strong) NSString *ground_floor;
+@property (nonatomic, strong, nullable) NSString *ground_floor;
 /// 地图渲染类型，如multipolygon等
-@property (nonatomic, strong) NSString *type;
-/// 是否在地下
-@property (nonatomic, assign) BOOL underground;
-/// 描述多栋建筑的垂直的空间关系。详 细参考[Key:layer](https://wiki.openstreetmap.org/wiki/Key:layer)介绍
-@property (nonatomic, assign) int layer;
+@property (nonatomic, strong, nullable) NSString *type;
 
 @end
+
+NS_ASSUME_NONNULL_END

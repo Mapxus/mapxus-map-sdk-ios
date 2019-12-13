@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "MXMSearchObj.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol MXMSearchDelegate;
-
-
 
 
 /**
@@ -22,7 +22,7 @@
 /**
  实现了 `MXMSearchDelegate` 协议的对象指针
  */
-@property (nonatomic, weak) id<MXMSearchDelegate> delegate;
+@property (nonatomic, weak, nullable) id<MXMSearchDelegate> delegate;
 
 /**
  * @brief 建筑物查询接口
@@ -111,3 +111,5 @@
 - (void)onRouteSearchDone:(MXMRouteSearchRequest *)request response:(MXMRouteSearchResponse *)response;
 
 @end
+
+NS_ASSUME_NONNULL_END

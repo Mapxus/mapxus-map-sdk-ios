@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)new NS_UNAVAILABLE;
 
 /// MapxusMap的事件回调代理
-@property (nonatomic, weak) id<MapxusMapDelegate> delegate;
+@property (nonatomic, weak, nullable) id<MapxusMapDelegate> delegate;
 
 /// 建筑选择按钮，在屏幕中心矩形区域出现多栋建筑时出现
 @property (nonatomic, strong, readonly) UIButton *buildingSelectButton;
@@ -63,6 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 点击地图切换建筑功能，默认状态为YES。
 @property (nonatomic, assign) BOOL gestureSwitchingBuilding;
 
+/// 是否支持自动切换建筑，默认状态为YES。当自动切换模式打开时，建筑移到视图中心，会自动选中建筑，显示其内部结构。
+@property (nonatomic, assign) BOOL autoChangeBuilding;
+
 /**
  设置地图外观
  @param style 外观类型。具体属性字段请参考 `MXMStyle` 。
@@ -76,22 +79,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setMapLanguage:(NSString *)language;
 
 /// 当前选中楼层
-@property (nonatomic, copy, readonly) NSString *floor;
+@property (nonatomic, copy, readonly, nullable) NSString *floor;
 
 /// 当前选中建筑
-@property (nonatomic, copy, readonly) MXMGeoBuilding *building;
+@property (nonatomic, copy, readonly, nullable) MXMGeoBuilding *building;
 
 /**
  用户当前所在楼层，只有当`MGLMapView`的`userTrackingMode`不为`MGLUserTrackingModeNone`值才可信，
  没有室内数据时为nil
  */
-@property (nonatomic, copy, readonly) NSString *userLocationFloor;
+@property (nonatomic, copy, readonly, nullable) NSString *userLocationFloor;
 
 /**
  用户当前所在建筑，只有当`MGLMapView`的`userTrackingMode`不为`MGLUserTrackingModeNone`值才可信，
  没有室内数据时为nil
  */
-@property (nonatomic, copy, readonly) MXMGeoBuilding *userLocationBuilding;
+@property (nonatomic, copy, readonly, nullable) MXMGeoBuilding *userLocationBuilding;
 
 /// 返回当前绑定的MGLMapView视窗中所有可见的已测量建筑
 @property (nonatomic, copy, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
@@ -170,7 +173,7 @@ NS_ASSUME_NONNULL_BEGIN
            edgePadding:(UIEdgeInsets)insets;
 
 /// 当前地图View的已经添加的室内标注数组
-@property (nonatomic, readonly) NSArray *MXMAnnotations;
+@property (nonatomic, readonly) NSArray<MXMPointAnnotation *> *MXMAnnotations;
 
 /**
  添加地图标注，如需要添加室内点，必须调用些方法才会分层。

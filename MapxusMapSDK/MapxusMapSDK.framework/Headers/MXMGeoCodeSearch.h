@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MXMGeoCodeSearch : MXMSearchBase
 /// 检索模块的Delegate
-@property (nonatomic, weak) id<MXMGeoCodeSearchDelegate> delegate;
+@property (nonatomic, weak, nullable) id<MXMGeoCodeSearchDelegate> delegate;
 
 /**
  根据地理坐标获取地址信息
@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return 网络请求的 id，可用于取消对应task
  */
 - (NSInteger)reverseGeoCode:(MXMReverseGeoCodeSearchOption *)reverseGeoCodeOption;
+
 @end
 
 /**
