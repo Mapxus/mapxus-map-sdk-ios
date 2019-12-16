@@ -293,9 +293,9 @@
 - (float)decideLocationViewAlphaWithCurrentBuilding:(MXMGeoBuilding *)curBuilding currentFloor:(NSString *)curFloor andLocalFloor:(nullable CLFloor *)floor
 {
     if (floor) {
-        NSUInteger gf = [curBuilding.floors indexOfObject:curBuilding.ground_floor];
-        NSUInteger cf = [curBuilding.floors indexOfObject:curFloor];
-        if (floor.level == (gf-cf)) {
+        NSUInteger findex = [curBuilding.floors indexOfObject:curFloor];
+        NSUInteger oindex = [curBuilding.ordinals indexOfObject:@(floor.level)];
+        if (findex == oindex) {
             return 1.0f;
         } else {
             return 0.5f;
