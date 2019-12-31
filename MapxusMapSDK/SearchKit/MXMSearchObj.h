@@ -85,8 +85,9 @@ NS_ASSUME_NONNULL_BEGIN
  共有四种搜索模式：
  1.指定建筑与楼层内关键字搜索，参数组合为 keywords(可选)，buildingId，floor(可选)，offset，page，category(可选)；
  2.指定方形区域内关键字搜索，参数组合为 keywords(可选)，bbox，offset，page，category(可选)；
- 3.指定圆形区域内关键字搜索，参数组合为 keywords(可选)，center，meterDistance(或distance)，offset，page，category(可选)；
- 4.指定建筑ID搜索，参数为 POIIds；
+ 3.指定圆形区域内关键字搜索，按二维空间距离排序，参数组合为 keywords(可选)，center，meterDistance(或distance)，offset，page，category(可选)；
+ 4.指定圆形区域内关键字搜索，按路线距离排序，参数组合为 keywords(可选)，center，ordinal，buildingId，sort，meterDistance(或distance)，offset，page，category(可选)；
+ 5.指定建筑ID搜索，参数为 POIIds；
  */
 @interface MXMPOISearchRequest : NSObject
 /// 关键字。目前只支持单个关键字
@@ -109,6 +110,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger page;
 /// 要过滤的类别
 @property (nonatomic, strong, nullable) NSString *category;
+/// 排序方式。AbsoluteDistance: 按二维空间距离排序[默认值]；ActualDistance: 按路线距离排序
+@property (nonatomic, strong, nullable) NSString *sort;
+/// 搜索地点的实际楼高，取CLFloor的level值，当sort值为ActualDistance时，需要传入值
+@property (nonatomic, assign) NSInteger ordinal;
 /// 查询的POI id列表。与上面的参数互斥
 @property (nonatomic, strong, nullable) NSArray<NSString *> *POIIds;
 @end

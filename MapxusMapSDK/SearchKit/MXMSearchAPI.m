@@ -86,11 +86,13 @@
             [dic removeObjectForKey:@"distance"];
         }
         if ([dic objectForKey:@"center"]) {
-            [dic setObject:[NSString stringWithFormat:@"%f,%f", request.center.longitude, request.center.latitude] forKey:@"center"];
+            if ([[dic objectForKey:@"sort"] isEqualToString:@"ActualDistance"]) {
+                [dic setObject:[NSString stringWithFormat:@"%f,%f,%ld", request.center.longitude, request.center.latitude, (long)request.ordinal] forKey:@"center"];
+            } else {
+                [dic setObject:[NSString stringWithFormat:@"%f,%f", request.center.longitude, request.center.latitude] forKey:@"center"];
+            }
         }
-        if ([dic objectForKey:@"buildingId"]) {
-            [dic removeObjectForKey:@"distance"];
-        }
+        [dic removeObjectForKey:@"ordinal"];
         // keywords为空时，不传该参数，返回所有结果
         if ([NSString isEmpty:[dic objectForKey:@"keywords"]]) {
             [dic removeObjectForKey:@"keywords"];
