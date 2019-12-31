@@ -127,6 +127,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMBuilding : NSObject
 /// 建筑ID
 @property (nonatomic, strong) NSString *buildingId;
+/// 所属场所ID
+@property (nonatomic, strong, nullable) NSString *venueId;
 /// 默认建筑名
 @property (nonatomic, strong, nullable) NSString *name_default;
 /// 英文建筑名
