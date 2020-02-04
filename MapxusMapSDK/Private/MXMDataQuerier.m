@@ -126,7 +126,6 @@
 - (NSSet *)getIndoorSymbolLayerIdentifiersInLayers:(NSArray<MGLStyleLayer *> *)layers
 {
     NSMutableSet *identifiersSet = [NSMutableSet set];
-    // 筛选出『maphive-building-fill』开头的layer
     for (MGLStyleLayer *theLayer in layers) {
         if ([theLayer isIndoorSymbolLayer]) {
             [identifiersSet addObject:theLayer.identifier];

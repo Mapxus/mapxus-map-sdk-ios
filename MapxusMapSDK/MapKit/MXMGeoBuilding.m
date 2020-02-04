@@ -33,6 +33,8 @@
     return @{@"name_cn" : @"name:zh-Hans",
              @"name_en" : @"name:en",
              @"name_zh" : @"name:zh-Hant",
+             @"name_ja" : @"name:ja",
+             @"name_ko" : @"name:ko",
              @"identifier" : @"id",
              @"venueId" : @"ref:venue",
              };

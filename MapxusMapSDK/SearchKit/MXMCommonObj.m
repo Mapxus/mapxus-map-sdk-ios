@@ -145,10 +145,14 @@
              @"name_en" : @"name.en",
              @"name_cn" : @"name.zh-Hans",
              @"name_zh" : @"name.zh-Hant",
+             @"name_ja" : @"name.ja",
+             @"name_ko" : @"name.ko",
              @"address_default" : @"address.default",
              @"address_en" : @"address.en",
              @"address_cn" : @"address.zh-Hans",
              @"address_zh" : @"address.zh-Hant",
+             @"address_ja" : @"address.ja",
+             @"address_ko" : @"address.ko",
              @"buildingId" : @[@"buildingId", @"id"],
              @"hasVisualMap" : @"visualMap"
              };
@@ -187,6 +191,8 @@
              @"name_en" : @"name.en",
              @"name_cn" : @"name.zh-Hans",
              @"name_zh" : @"name.zh-Hant",
+             @"name_ja" : @"name.ja",
+             @"name_ko" : @"name.ko",
              @"introduction" : @"description",
              };
 }

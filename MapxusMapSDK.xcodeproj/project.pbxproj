@@ -1055,7 +1055,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.9.0;
+				MARKETING_VERSION = 3.10.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-iquote",
@@ -1094,7 +1094,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.9.0;
+				MARKETING_VERSION = 3.10.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-iquote",

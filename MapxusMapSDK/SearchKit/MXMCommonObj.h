@@ -137,6 +137,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *name_cn;
 /// 繁体中文建筑名
 @property (nonatomic, strong, nullable) NSString *name_zh;
+/// 日语建筑名
+@property (nonatomic, strong, nullable) NSString *name_ja;
+/// 韩语建筑名
+@property (nonatomic, strong, nullable) NSString *name_ko;
 /// 默认建筑地址
 @property (nonatomic, strong, nullable) MXMAddress *address_default;
 /// 英文建筑地址
@@ -145,6 +149,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMAddress *address_cn;
 /// 繁体中文建筑地址
 @property (nonatomic, strong, nullable) MXMAddress *address_zh;
+/// 日语建筑地址
+@property (nonatomic, strong, nullable) MXMAddress *address_ja;
+/// 韩语建筑地址
+@property (nonatomic, strong, nullable) MXMAddress *address_ko;
 /// 建筑类型，表示该建筑的分类，如cathedral,car_park,hospital,office,retail等
 @property (nonatomic, strong, nullable) NSString *type;
 /// 建筑所在外接矩形区域
@@ -198,6 +206,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *name_cn;
 /// POI繁体中文名字
 @property (nonatomic, strong, nullable) NSString *name_zh;
+/// POI日语名字
+@property (nonatomic, strong, nullable) NSString *name_ja;
+/// POI韩语名字
+@property (nonatomic, strong, nullable) NSString *name_ko;
 /// 开门时间
 @property (nonatomic, strong, nullable) NSString *openingHours;
 /// 店铺电话

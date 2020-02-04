@@ -24,6 +24,8 @@
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"identifier" : @"osm:ref",
              @"buildingId" : @"ref:building",
+             @"name_ja" : @"name:ja",
+             @"name_ko" : @"name:ko",
              @"name_cn" : @"name:zh-Hans",
              @"name_en" : @"name:en",
              @"name_zh" : @"name:zh-Hant"};

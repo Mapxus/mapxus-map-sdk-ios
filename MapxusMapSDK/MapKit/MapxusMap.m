@@ -633,6 +633,14 @@
     [self.mapView addGestureRecognizer:longPress];
     // 长按失败才检测单击事件
     [tap requireGestureRecognizerToFail:longPress];
+    for (UIGestureRecognizer *gestureRecognizer in self.mapView.gestureRecognizers) {
+        if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]]) {
+            UITapGestureRecognizer *gest = (UITapGestureRecognizer *)gestureRecognizer;
+            if (gest.numberOfTapsRequired == 2) {
+                [tap requireGestureRecognizerToFail:gest];
+            }
+        }
+    }
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch

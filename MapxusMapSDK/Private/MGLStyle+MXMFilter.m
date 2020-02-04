@@ -30,6 +30,12 @@
             } else if ([localeLanguage containsString:@"zh-Hans"]) {
                 sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K, %K, %K})", @"name:zh-Hans", @"name_zh-Hans", @"name:cn", @"name_zh", @"name"];
                 
+            } else if ([localeLanguage containsString:@"ja"]) {
+                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K})", @"name:ja", @"name"];
+                
+            } else if ([localeLanguage containsString:@"ko"]) {
+                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K})", @"name:ko", @"name"];
+                
             } else {
                 sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K})", @"name"];
             }
