@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  设置地图语言
- @param language 地图语言，可选项为en，zh-Hant，zh-Hans，default
+ @param language 地图语言，可选项为en，zh-Hant，zh-Hans，ja，ko，default
  */
 - (void)setMapLanguage:(NSString *)language;
 

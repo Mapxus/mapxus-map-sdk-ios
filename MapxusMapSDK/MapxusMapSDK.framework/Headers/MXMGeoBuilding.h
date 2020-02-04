@@ -29,6 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *name_cn;
 /// 建筑繁体中文名
 @property (nonatomic, strong, nullable) NSString *name_zh;
+/// 建筑日语名
+@property (nonatomic, strong, nullable) NSString *name_ja;
+/// 建筑韩语名
+@property (nonatomic, strong, nullable) NSString *name_ko;
 /// 建筑楼层名称队列
 @property (nonatomic, strong) NSArray<NSString*> *floors;
 /// 楼层的ID

@@ -188,7 +188,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) double toLat;
 /// 导航方式。可选值为foot, wheelchair。默认foot
 @property (nonatomic, strong, nullable) NSString *vehicle;
-/// 返回结果语言版本。可选值为zh-HK, zh-CN, en。默认en
+/// 返回结果语言版本。可选值为en，zh-Hans，zh-Hant，ja，ko。默认en
 @property (nonatomic, strong, nullable) NSString *locale;
 /// 终点设置在门前。设置为YES则终点只到POI店门终止
 @property (nonatomic, assign) BOOL toDoor;

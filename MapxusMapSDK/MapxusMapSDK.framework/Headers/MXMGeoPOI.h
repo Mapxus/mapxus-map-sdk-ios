@@ -36,6 +36,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *name_cn;
 /// POI繁体中文名字
 @property (nonatomic, strong, nullable) NSString *name_zh;
+/// POI日语名字
+@property (nonatomic, strong, nullable) NSString *name_ja;
+/// POI韩语名字
+@property (nonatomic, strong, nullable) NSString *name_ko;
 /// POI分类
 @property (nonatomic, strong) NSArray<NSString*> *category;
 
