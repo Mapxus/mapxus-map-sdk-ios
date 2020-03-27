@@ -195,9 +195,11 @@
     NSMutableArray *floorIdStrs = [NSMutableArray array];
     NSMutableArray *ordinals = [NSMutableArray array];
     for (MXMFloor *f in netBuilding.floors) {
-        f.code ? [floorStrs addObject:f.code] : nil;
-        f.floorId ? [floorIdStrs addObject:f.floorId] : nil;
-        f.ordinal ? [ordinals addObject:@(f.ordinal)] : nil;
+        if (f.code && f.floorId) {
+            [floorStrs addObject:f.code];
+            [floorIdStrs addObject:f.floorId];
+            [ordinals addObject:@(f.ordinal)];
+        }
     }
     geoBuilding.floors = [floorStrs copy];
     geoBuilding.floorIds = [floorIdStrs copy];
