@@ -10,6 +10,37 @@
 #import "JXJsonFunctionDefine.h"
 #import <YYModel/YYModel.h>
 
+@implementation MXMCategory
+
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"categoryId" : @"id",
+             @"title_en" : @"title.en",
+             @"title_cn" : @"title.zh-Hans",
+             @"title_zh" : @"title.zh-Hant",
+             @"categoryDescription" : @"description",
+    };
+}
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
+- (NSString *)categoryId {
+    if (!_categoryId) {
+        _categoryId = @"";
+    }
+    return _categoryId;
+}
+
+- (NSString *)category {
+    if (!_category) {
+        _category = @"";
+    }
+    return _category;
+}
+
+@end
 
 @implementation MXMGeoPoint
 
@@ -193,6 +224,12 @@
              @"name_zh" : @"name.zh-Hant",
              @"name_ja" : @"name.ja",
              @"name_ko" : @"name.ko",
+             @"accessibilityDetail" : @"accessibilityDetail.default",
+             @"accessibilityDetail_en" : @"accessibilityDetail.en",
+             @"accessibilityDetail_cn" : @"accessibilityDetail.zh-Hans",
+             @"accessibilityDetail_zh" : @"accessibilityDetail.zh-Hant",
+             @"accessibilityDetail_ja" : @"accessibilityDetail.ja",
+             @"accessibilityDetail_ko" : @"accessibilityDetail.ko",
              @"introduction" : @"description",
              };
 }

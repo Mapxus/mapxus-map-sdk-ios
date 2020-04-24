@@ -54,7 +54,7 @@
 
 - (void)MXMPOICategorySearch:(MXMPOICategorySearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/pois/category"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/categories/pois"];
     NSDictionary *dic = [request yy_modelToJSONObject];
     
     [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {

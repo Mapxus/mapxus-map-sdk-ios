@@ -40,6 +40,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *name_ja;
 /// POI韩语名字
 @property (nonatomic, strong, nullable) NSString *name_ko;
+/// 无障碍资讯
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail;
+/// 英文无障碍资讯
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_en;
+/// 简体中文无障碍资讯
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_cn;
+/// 繁体中文无障碍资讯
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_zh;
+/// 日语无障碍资讯
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_ja;
+/// 韩语无障碍资讯
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_ko;
 /// POI分类
 @property (nonatomic, strong) NSArray<NSString*> *category;
 

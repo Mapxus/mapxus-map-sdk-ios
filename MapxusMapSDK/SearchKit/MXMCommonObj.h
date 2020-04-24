@@ -14,6 +14,24 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
+ 分类详细信息
+ */
+@interface MXMCategory : NSObject
+/// 分类值
+@property (nonatomic, strong) NSString *category;
+/// 分类ID
+@property (nonatomic, strong) NSString *categoryId;
+/// 分类的描述
+@property (nonatomic, strong, nullable) NSString *categoryDescription;
+/// 分类的英文名
+@property (nonatomic, strong, nullable) NSString *title_en;
+/// 分类的简体中文名
+@property (nonatomic, strong, nullable) NSString *title_cn;
+/// 分类的繁体中文名
+@property (nonatomic, strong, nullable) NSString *title_zh;
+@end
+
+/**
  地球经纬度坐标
  */
 @interface MXMGeoPoint : NSObject
@@ -210,6 +228,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *name_ja;
 /// POI韩语名字
 @property (nonatomic, strong, nullable) NSString *name_ko;
+/// 默认无障碍资讯
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail;
+/// 英文无障碍资讯
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_en;
+/// 简体中文无障碍资讯
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_cn;
+/// 繁体中文无障碍资讯
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_zh;
+/// 日语无障碍资讯
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_ja;
+/// 韩语无障碍资讯
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_ko;
 /// 开门时间
 @property (nonatomic, strong, nullable) NSString *openingHours;
 /// 店铺电话

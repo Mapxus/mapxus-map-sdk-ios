@@ -6,10 +6,10 @@ PODS:
   - AFNetworking/Reachability (3.2.1)
   - AFNetworking/Security (3.2.1)
   - AFNetworking/Serialization (3.2.1)
-  - Mapbox-iOS-SDK (5.7.0):
+  - Mapbox-iOS-SDK (5.8.0):
     - MapboxMobileEvents (= 0.10.2)
   - MapboxMobileEvents (0.10.2)
-  - MapxusBaseSDK (3.10.1):
+  - MapxusBaseSDK (3.11.0):
     - AFNetworking/NSURLSession (~> 3.2)
     - AFNetworking/Reachability (~> 3.2)
     - AFNetworking/Security (~> 3.2)
@@ -37,12 +37,12 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  Mapbox-iOS-SDK: 1b7cb0e739247d20ef75f5f14aa6ce34e1f0660f
+  Mapbox-iOS-SDK: 02590a60fe300810c55432219a0caaa1338fbafb
   MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
-  MapxusBaseSDK: 3698f6e12993892bf88fdf271085655a69434c75
+  MapxusBaseSDK: e8bdc328f16c1f9fd2a9e0025c99e52424033ef4
   OCMock: 5ea90566be239f179ba766fd9fbae5885040b992
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
 PODFILE CHECKSUM: 4d9bc26da9cddc15ee9cb08bf255e8f619a587a4
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

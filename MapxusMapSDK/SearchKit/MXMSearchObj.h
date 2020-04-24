@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MXMPOICategorySearchResponse : NSObject
 /// 分类名列表
-@property (nonatomic, strong) NSArray<NSString *> *category;
+@property (nonatomic, strong) NSArray<MXMCategory *> *category;
 @end
 
 

@@ -28,7 +28,14 @@
              @"name_ko" : @"name:ko",
              @"name_cn" : @"name:zh-Hans",
              @"name_en" : @"name:en",
-             @"name_zh" : @"name:zh-Hant"};
+             @"name_zh" : @"name:zh-Hant",
+             @"accessibilityDetail" : @"accessibility_detail",
+             @"accessibilityDetail_en" : @"accessibility_detail:en",
+             @"accessibilityDetail_cn" : @"accessibility_detail:zh-Hans",
+             @"accessibilityDetail_zh" : @"accessibility_detail:zh-Hant",
+             @"accessibilityDetail_ja" : @"accessibility_detail:ja",
+             @"accessibilityDetail_ko" : @"accessibility_detail:ko",
+    };
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {

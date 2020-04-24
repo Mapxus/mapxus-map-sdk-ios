@@ -48,7 +48,12 @@
              };
 }
 
-- (NSArray<NSString *> *)category {
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    // value should be Class or Class name.
+    return @{@"category" : [MXMCategory class]};
+}
+
+- (NSArray<MXMCategory *> *)category {
     if (!_category) {
         _category = @[];
     }

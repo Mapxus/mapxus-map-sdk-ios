@@ -798,7 +798,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "bash \"${PROJECT_DIR}/IOS-Universal-Framework_aggregate.sh\"\nbash \"${PROJECT_DIR}/document.sh\"\n";
+			shellScript = "bash \"${PROJECT_DIR}/IOS-Universal-Framework_aggregate.sh\"\n#bash \"${PROJECT_DIR}/document.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1055,7 +1055,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.10.1;
+				MARKETING_VERSION = 3.11.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-iquote",
@@ -1094,7 +1094,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.10.1;
+				MARKETING_VERSION = 3.11.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-iquote",
