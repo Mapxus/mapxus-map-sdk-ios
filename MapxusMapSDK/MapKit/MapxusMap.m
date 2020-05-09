@@ -87,7 +87,8 @@
 - (void)setIndoorControllerAlwaysHidden:(BOOL)indoorControllerAlwaysHidden
 {
     _indoorControllerAlwaysHidden = indoorControllerAlwaysHidden;
-    [self.decider decideInRectBuildingDic:self.buildings];
+    BOOL show = self.building.identifier ? YES : NO;
+    [self decideMapViewShowFloorBar:show onBuilding:self.building.identifier floor:self.floor];
 }
 
 - (void)setSelectorPosition:(MXMSelectorPosition)selectorPosition
@@ -221,18 +222,22 @@
     // 整屏可见建筑列表，无论是否需要自动选择建筑功能，buildings 都需要对外放出值
     self.buildings = [self.dataQueryer findOutBuildingInTheRect:self.mapView.bounds];
     
-    if (!self.autoChangeBuilding) {
-        return;
-    }
+    // 正在赶路，不用分析沿路建筑
     if (self.flying) {
         return;
     }
-   
+    
     CGSize mapSize = self.mapView.bounds.size;
     CGRect rect = CGRectMake(mapSize.width/4, mapSize.height/4, mapSize.width/2, mapSize.height/2);
     // 自动选择使用列表，如果不需要自动选择建筑功能，innerbuildings 就不需要有值，
     self.innerbuildings = [self.dataQueryer findOutBuildingInTheRect:rect];
     
+    if (!self.autoChangeBuilding) {
+        BOOL show = self.building.identifier ? YES : NO;
+        [self decideMapViewShowFloorBar:show onBuilding:self.building.identifier floor:self.floor];
+        return;
+    }
+
     [self.decider decideInRectBuildingDic:self.innerbuildings];
 }
 
