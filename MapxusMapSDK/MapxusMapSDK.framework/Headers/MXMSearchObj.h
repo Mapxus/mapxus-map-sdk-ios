@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  POI搜索请求配置类
  
- 共有四种搜索模式：
+ 共有五种搜索模式：
  1.指定建筑与楼层内关键字搜索，参数组合为 keywords(可选)，buildingId，floor(可选)，offset，page，category(可选)；
  2.指定方形区域内关键字搜索，参数组合为 keywords(可选)，bbox，offset，page，category(可选)；
  3.指定圆形区域内关键字搜索，按二维空间距离排序，参数组合为 keywords(可选)，center，meterDistance(或distance)，offset，page，category(可选)；
