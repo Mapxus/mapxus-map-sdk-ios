@@ -239,7 +239,11 @@
     
     NSString *defaultElectFloor = historyDic[building.identifier];
     if (defaultElectFloor == nil) {
-        defaultElectFloor = building.ground_floor;
+        if (building.ground_floor == nil) {
+            defaultElectFloor = building.floors.firstObject;
+        } else {
+            defaultElectFloor = building.ground_floor;
+        }
     }
     return defaultElectFloor;
 }
