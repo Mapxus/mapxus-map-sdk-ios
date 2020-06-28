@@ -147,6 +147,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *buildingId;
 /// 所属场所ID
 @property (nonatomic, strong, nullable) NSString *venueId;
+/// 默认所属场所名
+@property (nonatomic, strong, nullable) NSString *venueName_default;
+/// 英文所属场所名
+@property (nonatomic, strong, nullable) NSString *venueName_en;
+/// 简体中文所属场所名
+@property (nonatomic, strong, nullable) NSString *venueName_cn;
+/// 繁体中文所属场所名
+@property (nonatomic, strong, nullable) NSString *venueName_zh;
+/// 日语所属场所名
+@property (nonatomic, strong, nullable) NSString *venueName_ja;
+/// 韩语所属场所名
+@property (nonatomic, strong, nullable) NSString *venueName_ko;
 /// 默认建筑名
 @property (nonatomic, strong, nullable) NSString *name_default;
 /// 英文建筑名
