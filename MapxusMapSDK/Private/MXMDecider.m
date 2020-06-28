@@ -186,11 +186,14 @@
 {
     MXMGeoBuilding *geoBuilding = [[MXMGeoBuilding alloc] init];
     geoBuilding.identifier = netBuilding.buildingId;
+    geoBuilding.venueId = netBuilding.venueId;
     geoBuilding.building = netBuilding.type;
     geoBuilding.name = netBuilding.name_default;
     geoBuilding.name_cn = netBuilding.name_cn;
     geoBuilding.name_en = netBuilding.name_en;
     geoBuilding.name_zh = netBuilding.name_zh;
+    geoBuilding.name_ja = netBuilding.name_ja;
+    geoBuilding.name_ko = netBuilding.name_ko;
     NSMutableArray *floorStrs = [NSMutableArray array];
     NSMutableArray *floorIdStrs = [NSMutableArray array];
     NSMutableArray *ordinals = [NSMutableArray array];
@@ -204,7 +207,7 @@
     geoBuilding.floors = [floorStrs copy];
     geoBuilding.floorIds = [floorIdStrs copy];
     geoBuilding.ordinals = [ordinals copy];
-    geoBuilding.ground_floor = netBuilding.groundFloor?:floorStrs.firstObject;
+    geoBuilding.ground_floor = netBuilding.groundFloor;
     return geoBuilding;
 }
 
