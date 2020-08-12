@@ -23,11 +23,18 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 /**
- 单击地图时的回调，如果 - mapView:didSingleTappedAtCoordinate:onFloor:inBuilding: 实现了，则该方法不回调。
+ 点击POI时调用此接口
  @param mapView 响应的MapxusMap对象
- @param coordinate 点击位置的经纬度
+ @param poi 当前选中POI的信息，信息详细请参考`MXMGeoPOI`
  */
-- (void)mapView:(MapxusMap *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate;
+- (void)mapView:(MapxusMap *)mapView didTappedOnPOI:(MXMGeoPOI *)poi DEPRECATED_MSG_ATTRIBUTE("Please use \"- mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:\" to instead");
+
+/**
+ 点中底图空白处会回调此接口
+ @param mapView 响应的MapxusMap对象
+ @param coordinate 空白处坐标点的经纬度
+ */
+- (void)mapView:(MapxusMap *)mapView didTappedOnMapBlank:(CLLocationCoordinate2D)coordinate DEPRECATED_MSG_ATTRIBUTE("Please use \"- mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:\" to instead");
 
 /**
  单击地图时的回调
@@ -36,12 +43,38 @@ NS_ASSUME_NONNULL_BEGIN
  @param floorName 点击时所在的楼层名，如果在室外，返回为nil
  @param building 点击的建筑信息，如果在室外，返回为nil
  */
-- (void)mapView:(MapxusMap *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate onFloor:(nullable NSString *)floorName inBuilding:(nullable MXMGeoBuilding *)building;
+- (void)mapView:(MapxusMap *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate onFloor:(nullable NSString *)floorName inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use \"- mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:\" and \"- mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:\" to instead");
 
 /**
- 长按地图时的回调，如果 - mapView:didLongPressedAtCoordinate:onFloor:inBuilding: 实现了，则该方法不回调
+ 单击地图时的回调，如果实现了`- mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:`和`- mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:`，则本方法不回调。
  @param mapView 响应的MapxusMap对象
  @param coordinate 点击位置的经纬度
+ */
+- (void)mapView:(MapxusMap *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate;
+
+/**
+点击POI时调用此接口
+@param mapView 响应的MapxusMap对象
+@param poi 点击的POI信息，信息详细请参考`MXMGeoPOI`
+@param coordinate 真实的点击位置的经纬度，会与poi的coordinate不一样
+@param floorName 点击时所在的楼层名，如果在室外，返回为nil
+@param building 点击的建筑信息，如果在室外，返回为nil
+*/
+- (void)mapView:(MapxusMap *)mapView didSingleTappedOnPOI:(MXMGeoPOI *)poi atCoordinate:(CLLocationCoordinate2D)coordinate onFloor:(nullable NSString *)floorName inBuilding:(nullable MXMGeoBuilding *)building;
+
+/**
+单击地图非POI位置的回调
+@param mapView 响应的MapxusMap对象
+@param coordinate 点击位置的经纬度
+@param floorName 点击时所在的楼层名，如果在室外，返回为nil
+@param building 点击的建筑信息，如果在室外，返回为nil
+*/
+- (void)mapView:(MapxusMap *)mapView didSingleTappedOnMapBlank:(CLLocationCoordinate2D)coordinate onFloor:(nullable NSString *)floorName inBuilding:(nullable MXMGeoBuilding *)building;
+
+/**
+ 长按地图时的回调，如果实现了`- mapView:didLongPressedAtCoordinate:onFloor:inBuilding:`，则该方法不回调
+ @param mapView 响应的MapxusMap对象
+ @param coordinate 长按位置的经纬度
  */
 - (void)mapView:(MapxusMap *)mapView didLongPressedAtCoordinate:(CLLocationCoordinate2D)coordinate;
 
@@ -49,13 +82,13 @@ NS_ASSUME_NONNULL_BEGIN
  长按地图时的回调
  @param mapView 响应的MapxusMap对象
  @param coordinate 长按位置的经纬度
- @param floorName 长按时所在的楼层名，如果在室外，返回为nil
+ @param floorName 长按位置所在的楼层名，如果在室外，返回为nil
  @param building 长按的建筑信息，如果在室外，返回为nil
  */
 - (void)mapView:(MapxusMap *)mapView didLongPressedAtCoordinate:(CLLocationCoordinate2D)coordinate onFloor:(nullable NSString *)floorName inBuilding:(nullable MXMGeoBuilding *)building;
 
 /**
- 改变选中建筑或楼层时调用此接口
+ 改变选中建筑或楼层时回调此接口
  @param mapView 响应的MapxusMap对象
  @param floorName 当前选中建筑楼层名字
  @param building 当前选中建筑的信息，信息详细请参考`MXMGeoBuilding`
@@ -63,21 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)mapView:(MapxusMap *)mapView didChangeFloor:(NSString *)floorName atBuilding:(MXMGeoBuilding *)building;
 
 /**
- 点击POI时调用此接口
- @param mapView 响应的MapxusMap对象
- @param poi 当前选中POI的信息，信息详细请参考`MXMGeoPOI`
- */
-- (void)mapView:(MapxusMap *)mapView didTappedOnPOI:(MXMGeoPOI *)poi;
-
-/**
- 点中底图空白处会回调此接口
- @param mapView 响应的MapxusMap对象
- @param coordinate 空白处坐标点的经纬度
- */
-- (void)mapView:(MapxusMap *)mapView didTappedOnMapBlank:(CLLocationCoordinate2D)coordinate;
-
-/**
- 进入/退出室内场景回调，同一结果可能会多次调用
+ 进入/退出室内场景回调，需要注意的是同一结果可能会多次调用
  @param mapView 响应的MapxusMap对象
  @param flag 进入/退出室内场景标志，YES:进入；NO:退出
  @param buildingId 进入场景的建筑ID

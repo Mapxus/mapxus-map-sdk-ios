@@ -5,7 +5,7 @@
  inhibit_all_warnings!
 
   # Pods for MapxusMapSDK
-  pod 'Mapbox-iOS-SDK'
+  pod 'Mapbox-iOS-SDK', '5.9.0'
   pod 'MapxusBaseSDK', :path => '../mapxus-base-sdk-ios'
 
 target 'MapxusMapSDK' do

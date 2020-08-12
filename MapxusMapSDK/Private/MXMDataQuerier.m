@@ -91,7 +91,7 @@
         if (theId) {
             MXMGeoBuilding *b = [MXMGeoBuilding yy_modelWithJSON:feature.attributes];
             NSDictionary *venue = self.mapView.mxmMap.venues[b.venueId];
-            b.building = venue[@"venue"];
+            b.building = venue[@"venue"]; //building的类型放到了venue上，需要从venue里拿
             [resultBuildings setObject:b forKey:theId];
         }
     }

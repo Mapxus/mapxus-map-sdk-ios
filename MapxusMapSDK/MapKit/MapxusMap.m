@@ -247,29 +247,71 @@
     // 转换坐标
     CGPoint point = [sender locationInView:self.mapView];
     CLLocationCoordinate2D coor = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
-    // 查找点击楼层
-    /////////////////////////////////////////////////////
-    NSArray<id <MGLFeature>> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
-    id<MGLFeature> feature = theFeatures.firstObject;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:onFloor:inBuilding:)]) {
-        NSString *floor = [feature attributeForKey:@"name"];
-        NSString *buildingId = [feature attributeForKey:@"ref:building"];
-        MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
-        [self.delegate mapView:self didSingleTappedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
-    } else if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:)]) {
-        [self.delegate mapView:self didSingleTappedAtCoordinate:coor];
-    }
     /////////////////////////////////////////////////////
     if (self.gestureSwitchingBuilding) {
         // 切换建筑
         NSDictionary *poiBuildings = [self.dataQueryer findOutBuildingAtPoint:point];
         [self.decider decideAtPointBuildingDic:poiBuildings];
     }
-    // 查找点击的POI
-    NSString *floor = [feature attributeForKey:@"name"];
-    NSString *floorId = [feature attributeForKey:@"id"];
-    NSNumber *floorOrdinal = DecodeNumberFromDic(feature.attributes, @"ordinal");
-    [self findOutPOIAtPoint:point floor:floor floorId:floorId ordinal:floorOrdinal coordinate:coor];
+    // 查找点击楼层
+    /////////////////////////////////////////////////////
+    if (self.delegate &&
+        ([self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)] ||
+         [self.delegate respondsToSelector:@selector(mapView:didTappedOnMapBlank:)] ||
+         [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:onFloor:inBuilding:)] ||
+         [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)] ||
+         [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)])) {
+        // 非点击POI
+        NSArray<id <MGLFeature>> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+        id<MGLFeature> feature = theFeatures.firstObject;
+        
+        NSString *floor = DecodeStringFromDic(feature.attributes, @"name");
+        NSString *floorId = DecodeStringFromDic(feature.attributes, @"id");
+        NSNumber *floorOrdinal = DecodeNumberFromDic(feature.attributes, @"ordinal");
+        NSString *buildingId = DecodeStringFromDic(feature.attributes, @"ref:building");
+        
+        MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
+        
+        if ([self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:onFloor:inBuilding:)]) {
+            [self.delegate mapView:self didSingleTappedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
+        }
+        // 点击了POI
+        if ([self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)] ||
+            [self.delegate respondsToSelector:@selector(mapView:didTappedOnMapBlank:)] ||
+            [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)] ||
+            [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)]) {
+                        
+            NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point];
+            NSArray *poiList = [poiDic allValues];
+            MXMGeoPOI *poi = poiList.firstObject;
+            poi.floor = floor;
+            poi.floorId = floorId;
+            poi.ordinal = floorOrdinal;
+            if (poi) {
+                if (self.delegate &&
+                    [self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)]) {
+                    [self.delegate mapView:self didTappedOnPOI:poi];
+                }
+                if (self.delegate &&
+                    [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)]) {
+                    [self.delegate mapView:self didSingleTappedOnPOI:poi atCoordinate:coor onFloor:floor inBuilding:pointBuilding];
+                }
+            } else {
+                if (self.delegate &&
+                    [self.delegate respondsToSelector:@selector(mapView:didTappedOnMapBlank:)]) {
+                    [self.delegate mapView:self didTappedOnMapBlank:coor];
+                }
+                if (self.delegate &&
+                    [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)]) {
+                    [self.delegate mapView:self didSingleTappedOnMapBlank:coor onFloor:floor inBuilding:pointBuilding];
+                }
+            }
+        }
+        
+    } else if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:)]) {
+        [self.delegate mapView:self didSingleTappedAtCoordinate:coor];
+        
+    }
 }
 
 // 长按手势响应
@@ -523,28 +565,6 @@
 
 
 #pragma mark - private
-
-// 查找指定点的POI信息
-- (void)findOutPOIAtPoint:(CGPoint)point floor:(NSString *)floorName floorId:(NSString *)floorId ordinal:(NSNumber *)ordinal coordinate:(CLLocationCoordinate2D)coor
-{
-    NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point];
-    NSArray *poiList = [poiDic allValues];
-    MXMGeoPOI *poi = poiList.firstObject;
-    poi.floor = floorName;
-    poi.floorId = floorId;
-    poi.ordinal = ordinal;
-    if (poi) {
-        if (self.delegate &&
-            [self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)]) {
-            [self.delegate mapView:self didTappedOnPOI:poi];
-        }
-    } else {
-        if (self.delegate &&
-            [self.delegate respondsToSelector:@selector(mapView:didTappedOnMapBlank:)]) {
-            [self.delegate mapView:self didTappedOnMapBlank:coor];
-        }
-    }
-}
 
 // 定位标注的显示状态
 - (void)updageLocationView
