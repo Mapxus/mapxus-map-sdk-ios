@@ -16,6 +16,7 @@
 #import "MXMDecider.h"
 #import "MXMDataQuerier.h"
 #import "MXMAnnotationsHolder.h"
+#import "MXMCacheManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MXMDecider *decider;
 @property (nonatomic, strong) MXMDataQuerier *dataQueryer;
 @property (nonatomic, strong) MXMAnnotationsHolder *annHolder;
+@property (nonatomic, strong) MXMCacheManager *cacheManager;
 
 @property (nonatomic, strong) MGLMapView *mapView;
 @property (nonatomic, strong, readwrite) UIButton *buildingSelectButton;

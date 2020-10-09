@@ -61,6 +61,8 @@
 		D600961821DCAB8B00505880 /* MapxusMapSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = D60095EA21DCAB8A00505880 /* MapxusMapSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D600961921DCAB8B00505880 /* MXMConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = D60095EB21DCAB8A00505880 /* MXMConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D60482EB2248B27F0091FD1B /* MGLStylerLayerFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D60482EA2248B27F0091FD1B /* MGLStylerLayerFilterTests.m */; };
+		D60B7BBA2510516800D01A1B /* MXMCacheManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D60B7BB82510516800D01A1B /* MXMCacheManager.h */; };
+		D60B7BBB2510516800D01A1B /* MXMCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D60B7BB92510516800D01A1B /* MXMCacheManager.m */; };
 		D641FC9120F5DBDB00061AD4 /* MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */; };
 		D6428642223F7410003819E8 /* MGLStyleLayer+MXMFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = D6428640223F7410003819E8 /* MGLStyleLayer+MXMFilter.h */; };
 		D6428643223F7410003819E8 /* MGLStyleLayer+MXMFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D6428641223F7410003819E8 /* MGLStyleLayer+MXMFilter.m */; };
@@ -190,6 +192,8 @@
 		D60095EA21DCAB8A00505880 /* MapxusMapSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapxusMapSDK.h; sourceTree = "<group>"; };
 		D60095EB21DCAB8A00505880 /* MXMConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMConfiguration.h; sourceTree = "<group>"; };
 		D60482EA2248B27F0091FD1B /* MGLStylerLayerFilterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGLStylerLayerFilterTests.m; sourceTree = "<group>"; };
+		D60B7BB82510516800D01A1B /* MXMCacheManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMCacheManager.h; sourceTree = "<group>"; };
+		D60B7BB92510516800D01A1B /* MXMCacheManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMCacheManager.m; sourceTree = "<group>"; };
 		D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapxusMapSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D641FC8B20F5DBDB00061AD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D641FC9020F5DBDB00061AD4 /* MapxusMapSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapxusMapSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -475,6 +479,8 @@
 				D6E5389F2249C97900B98B1C /* MXMAnnotationsHolder.m */,
 				D68019A622A0BE9600E2E27B /* MXMIndoorMapInfo.h */,
 				D68019A722A0BE9600E2E27B /* MXMIndoorMapInfo.m */,
+				D60B7BB82510516800D01A1B /* MXMCacheManager.h */,
+				D60B7BB92510516800D01A1B /* MXMCacheManager.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -530,6 +536,7 @@
 				D68019A822A0BE9600E2E27B /* MXMIndoorMapInfo.h in Headers */,
 				D600961921DCAB8B00505880 /* MXMConfiguration.h in Headers */,
 				D60095F921DCAB8B00505880 /* MXMGeoPOI.h in Headers */,
+				D60B7BBA2510516800D01A1B /* MXMCacheManager.h in Headers */,
 				D60095FA21DCAB8B00505880 /* MXMGeoBuilding.h in Headers */,
 				D6F7390B22CAFA4100D0860D /* MXMSearchBase.h in Headers */,
 				D600961221DCAB8B00505880 /* MXMPointAnnotation.h in Headers */,
@@ -812,6 +819,7 @@
 				D600961321DCAB8B00505880 /* MapxusMap.m in Sources */,
 				D60095F221DCAB8B00505880 /* MXMSearchObj.m in Sources */,
 				D6F7391E22CB01B500D0860D /* MXMGeoCodeSearchResult.m in Sources */,
+				D60B7BBB2510516800D01A1B /* MXMCacheManager.m in Sources */,
 				D6D19A83223905EA00F29C3C /* MXMDecider.m in Sources */,
 				D60095F721DCAB8B00505880 /* MGLStyle+MXMFilter.m in Sources */,
 				D60095EE21DCAB8B00505880 /* MGLMapView+MXMSwizzle.m in Sources */,
@@ -904,6 +912,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6E5NL9ZM54;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -913,6 +922,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6E5NL9ZM54;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1025,6 +1035,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1055,7 +1066,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.14.0;
+				MARKETING_VERSION = 3.15.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-iquote",
@@ -1068,6 +1079,7 @@
 				SKIP_INSTALL = NO;
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "";
 			};
 			name = Debug;
 		};
@@ -1094,7 +1106,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.14.0;
+				MARKETING_VERSION = 3.15.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-iquote",
@@ -1107,6 +1119,9 @@
 				SKIP_INSTALL = NO;
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "";
+				"VALID_ARCHS[sdk=iphoneos*]" = "armv7 arm64";
+				"VALID_ARCHS[sdk=iphonesimulator*]" = "x86_64 i386";
 			};
 			name = Release;
 		};

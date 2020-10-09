@@ -36,6 +36,7 @@
         self.decider = [[MXMDecider alloc] initWithDelegate:self];
         self.dataQueryer = [[MXMDataQuerier alloc] initWithMapView:mapView];
         self.annHolder = [[MXMAnnotationsHolder alloc] initWithMapView:mapView];
+        self.cacheManager = [[MXMCacheManager alloc] init];
         
         self.gestureSwitchingBuilding = YES;
         self.autoChangeBuilding = YES;
