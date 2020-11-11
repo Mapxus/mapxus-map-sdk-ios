@@ -18,6 +18,10 @@ typedef NS_ENUM(NSUInteger, MXMStyle) {
      */
     MXMStyleMAPXUS,
     /**
+     MAPXUSMAP_v2风格
+     */
+    MXMStyleMAPXUS_V2,
+    /**
      通用风格
      */
     MXMStyleCOMMON,
