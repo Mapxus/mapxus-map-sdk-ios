@@ -23,12 +23,12 @@ do
         FRAMEWORK_ROOT_PATH=$OPTARG
         ;;
         e)
-        if [ $OPTARG == "test" ]; then
+        if [[ $OPTARG == "test" ]]; then
             ENV="-test"
         fi
         ;;
         c)
-        if [ $OPTARG == "landsd" ]; then
+        if [[ $OPTARG == "landsd" ]]; then
             COM="-landsd"
         fi
         ;;
@@ -38,9 +38,39 @@ do
     esac
 done
 
+
+####################### 替换cache version地址
+#    NSString *cacheVersionUrl = @"https://mapxusprod.blob.core.windows.net/com-mapxus-sdk/prod/version.json";
+#    NSString *cacheVersionUrl = @"https://mapxustest.blob.core.windows.net/com-mapxus-sdk/test/version.json";
+#    NSString *cacheVersionUrl = @"https://landsdtest.blob.core.windows.net/com-mapxus-sdk/landsd-test/version.json";
+#    NSString *cacheVersionUrl = @"https://landsd.blob.core.windows.net/com-mapxus-sdk/landsd/version.json";
+HOSTURL=""
+
+if [[ -z $COM ]] && [[ -z $ENV ]]; then
+    HOSTURL="https:\/\/mapxusprod.blob.core.windows.net\/com-mapxus-sdk\/prod\/version.json"
+
+elif [[ -z $COM ]] && [[ $ENV == "-test" ]]; then
+    HOSTURL="https:\/\/mapxustest.blob.core.windows.net\/com-mapxus-sdk\/test\/version.json"
+
+elif [[ $COM == "-landsd" ]] && [[ -z $ENV ]]; then
+    HOSTURL="https:\/\/landsd.blob.core.windows.net\/com-mapxus-sdk\/landsd\/version.json"
+
+elif [[ $COM == "-landsd" ]] && [[ $ENV == "-test" ]]; then
+    HOSTURL="https:\/\/landsdtest.blob.core.windows.net\/com-mapxus-sdk\/landsd-test\/version.json"
+    
+fi
+
+#
+Orgin='NSString \*cacheVersionUrl =.*$'
+New='NSString \*cacheVersionUrl = @"'${HOSTURL}'";'
+
+#替换地址
+sed -i '' "s/${Orgin}/${New}/g" MapxusMapSDK/Private/MXMCacheManager.m
+####################### 替换cache version地址
+
 FRAMEWORK_DIR="$FRAMEWORK_ROOT_PATH/mapxus-map-sdk-ios/MapxusMapSDK"
 #目录如果不存在，则拉取github
-if [ ! -d "${FRAMEWORK_DIR}" ]
+if [[ ! -d "${FRAMEWORK_DIR}" ]]
 then
   git clone https://github.com/Mapxus/mapxus-map-sdk-ios.git "$FRAMEWORK_ROOT_PATH/mapxus-map-sdk-ios"
 fi

@@ -24,9 +24,9 @@
 }
 
 - (void)getTheCache {
-    NSString *url = @"https://mapxusprod.blob.core.windows.net/com-mapxus-sdk/prod/version.json";
+    NSString *cacheVersionUrl = @"https://mapxusprod.blob.core.windows.net/com-mapxus-sdk/prod/version.json";
         
-    [MXMHttpManager MXMGET:url parameters:nil success:^(NSDictionary *content) {
+    [MXMHttpManager MXMGET:cacheVersionUrl parameters:nil success:^(NSDictionary *content) {
         NSDictionary *dic = DecodeDicFromDic(content, @"version");
         NSNumber *version = DecodeNumberFromDic(dic, @"tile");
         NSNumber *oldVersion = [[NSUserDefaults standardUserDefaults] objectForKey:@"tile_version"];
