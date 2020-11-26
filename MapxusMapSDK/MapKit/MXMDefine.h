@@ -14,13 +14,13 @@
  */
 typedef NS_ENUM(NSUInteger, MXMStyle) {
     /**
-     MAPXUSMAP风格
-     */
-    MXMStyleMAPXUS,
-    /**
      MAPXUSMAP_v2风格
      */
     MXMStyleMAPXUS_V2,
+    /**
+     MAPXUSMAP风格
+     */
+    MXMStyleMAPXUS,
     /**
      通用风格
      */
