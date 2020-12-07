@@ -15,7 +15,7 @@
 #import "MGLStyle+MXMFilter.h"
 #import "MGLStyleLayer+MXMFilter.h"
 #import "JXJsonFunctionDefine.h"
-
+#import "StringDefine.h"
 
 @implementation MapxusMap
 
@@ -630,7 +630,11 @@
     NSLayoutConstraint * floorBarYLc = [self.floorBar.centerYAnchor constraintEqualToAnchor:self.mapView.centerYAnchor constant:30];
     floorBarYLc.identifier = @"floorBarYLc";
     
-    NSArray *layouts = @[[self.openStreetSourceBtn.widthAnchor constraintEqualToConstant:190.0f],
+    NSLayoutConstraint *btnSpaceLc = [self.openStreetSourceBtn.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.MXMLogo.trailingAnchor constant:10.0f];
+    btnSpaceLc.priority = UILayoutPriorityDefaultHigh;
+    [self.openStreetSourceBtn setContentCompressionResistancePriority:UILayoutPriorityDragThatCanResizeScene forAxis:UILayoutConstraintAxisHorizontal];
+
+    NSArray *layouts = @[btnSpaceLc,
       [self.openStreetSourceBtn.heightAnchor constraintEqualToConstant:13.0f],
       [self.openStreetSourceBtn.trailingAnchor constraintEqualToAnchor:self.mapView.trailingAnchor constant:-10.0f],
       [self.openStreetSourceBtn.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-10.0f],
@@ -733,8 +737,8 @@
     }];
     [alertCtrl addAction:fristAction];
     
-    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:@"© OpenStreeMap" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.openstreetmap.org/about/"]];
+    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:AboutSourceTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:AboutSourceURL]];
     }];
     [alertCtrl addAction:secondAction];
     
@@ -749,11 +753,12 @@
 {
     if (!_openStreetSourceBtn) {
         _openStreetSourceBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _openStreetSourceBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _openStreetSourceBtn.translatesAutoresizingMaskIntoConstraints = NO;
         _openStreetSourceBtn.backgroundColor = [UIColor clearColor];
         _openStreetSourceBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         [_openStreetSourceBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [_openStreetSourceBtn setTitle:@"© OpenStreetMap contributors" forState:UIControlStateNormal];
+        [_openStreetSourceBtn setTitle:SourceCopyrightTitle forState:UIControlStateNormal];
         [_openStreetSourceBtn addTarget:self action:@selector(showOpenStreeSourceWeb) forControlEvents:UIControlEventTouchUpInside];
     }
     return _openStreetSourceBtn;
@@ -761,7 +766,7 @@
 
 - (void)showOpenStreeSourceWeb
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.openstreetmap.org/copyright"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:SourceCopyrightURL]];
 }
 
 - (void)dealloc

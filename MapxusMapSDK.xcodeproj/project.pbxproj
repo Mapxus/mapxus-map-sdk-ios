@@ -194,6 +194,7 @@
 		D60482EA2248B27F0091FD1B /* MGLStylerLayerFilterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGLStylerLayerFilterTests.m; sourceTree = "<group>"; };
 		D60B7BB82510516800D01A1B /* MXMCacheManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMCacheManager.h; sourceTree = "<group>"; };
 		D60B7BB92510516800D01A1B /* MXMCacheManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMCacheManager.m; sourceTree = "<group>"; };
+		D6307354257DC53900CFE1F3 /* StringDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringDefine.h; sourceTree = "<group>"; };
 		D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapxusMapSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D641FC8B20F5DBDB00061AD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D641FC9020F5DBDB00061AD4 /* MapxusMapSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapxusMapSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -483,6 +484,7 @@
 				D68019A722A0BE9600E2E27B /* MXMIndoorMapInfo.m */,
 				D60B7BB82510516800D01A1B /* MXMCacheManager.h */,
 				D60B7BB92510516800D01A1B /* MXMCacheManager.m */,
+				D6307354257DC53900CFE1F3 /* StringDefine.h */,
 			);
 			path = Private;
 			sourceTree = "<group>";

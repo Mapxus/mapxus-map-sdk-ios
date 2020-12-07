@@ -38,35 +38,69 @@ do
     esac
 done
 
-
-####################### 替换cache version地址
-#    NSString *cacheVersionUrl = @"https://mapxusprod.blob.core.windows.net/com-mapxus-sdk/prod/version.json";
-#    NSString *cacheVersionUrl = @"https://mapxustest.blob.core.windows.net/com-mapxus-sdk/test/version.json";
-#    NSString *cacheVersionUrl = @"https://landsdtest.blob.core.windows.net/com-mapxus-sdk/landsd-test/version.json";
-#    NSString *cacheVersionUrl = @"https://landsd.blob.core.windows.net/com-mapxus-sdk/landsd/version.json";
+####################### 替换地址
 HOSTURL=""
+
+SourceCopyrightTitle=""
+SourceCopyrightURL=""
+
+AboutSourceTitle=""
+AboutSourceURL=""
 
 if [[ -z $COM ]] && [[ -z $ENV ]]; then
     HOSTURL="https:\/\/mapxusprod.blob.core.windows.net\/com-mapxus-sdk\/prod\/version.json"
-
+    SourceCopyrightTitle="© OpenStreetMap contributors"
+    SourceCopyrightURL="https:\/\/www.openstreetmap.org\/copyright"
+    AboutSourceTitle="© OpenStreeMap"
+    AboutSourceURL="https:\/\/www.openstreetmap.org\/about\/"
+    
 elif [[ -z $COM ]] && [[ $ENV == "-test" ]]; then
     HOSTURL="https:\/\/mapxustest.blob.core.windows.net\/com-mapxus-sdk\/test\/version.json"
-
+    SourceCopyrightTitle="© OpenStreetMap contributors"
+    SourceCopyrightURL="https:\/\/www.openstreetmap.org\/copyright"
+    AboutSourceTitle="© OpenStreeMap"
+    AboutSourceURL="https:\/\/www.openstreetmap.org\/about\/"
+    
 elif [[ $COM == "-landsd" ]] && [[ -z $ENV ]]; then
     HOSTURL="https:\/\/landsd.blob.core.windows.net\/com-mapxus-sdk\/landsd\/version.json"
+    SourceCopyrightTitle="© The Government of the Hong Kong SAR"
+    SourceCopyrightURL="https:\/\/www.map.gov.hk\/gm\/"
+    AboutSourceTitle="© The Government of the Hong Kong SAR"
+    AboutSourceURL="https:\/\/www.map.gov.hk\/gm\/"
 
 elif [[ $COM == "-landsd" ]] && [[ $ENV == "-test" ]]; then
     HOSTURL="https:\/\/landsdtest.blob.core.windows.net\/com-mapxus-sdk\/landsd-test\/version.json"
-    
+    SourceCopyrightTitle="© The Government of the Hong Kong SAR"
+    SourceCopyrightURL="https:\/\/www.map.gov.hk\/gm\/"
+    AboutSourceTitle="© The Government of the Hong Kong SAR"
+    AboutSourceURL="https:\/\/www.map.gov.hk\/gm\/"
+
 fi
 
-#
+#匹配项
 Orgin='NSString \*cacheVersionUrl =.*$'
 New='NSString \*cacheVersionUrl = @"'${HOSTURL}'";'
 
+SourceCopyrightTitleOrgin='#define SourceCopyrightTitle.*$'
+SourceCopyrightTitleNew='#define SourceCopyrightTitle @"'${SourceCopyrightTitle}'"'
+
+SourceCopyrightURLOrgin='#define SourceCopyrightURL.*$'
+SourceCopyrightURLNew='#define SourceCopyrightURL @"'${SourceCopyrightURL}'"'
+
+AboutSourceTitleOrgin='#define AboutSourceTitle.*$'
+AboutSourceTitleNew='#define AboutSourceTitle @"'${AboutSourceTitle}'"'
+
+AboutSourceURLOrgin='#define AboutSourceURL.*$'
+AboutSourceURLNew='#define AboutSourceURL @"'${AboutSourceURL}'"'
+
 #替换地址
 sed -i '' "s/${Orgin}/${New}/g" MapxusMapSDK/Private/MXMCacheManager.m
-####################### 替换cache version地址
+sed -i '' "s/${SourceCopyrightTitleOrgin}/${SourceCopyrightTitleNew}/g" MapxusMapSDK/Private/StringDefine.h
+sed -i '' "s/${SourceCopyrightURLOrgin}/${SourceCopyrightURLNew}/g" MapxusMapSDK/Private/StringDefine.h
+sed -i '' "s/${AboutSourceTitleOrgin}/${AboutSourceTitleNew}/g" MapxusMapSDK/Private/StringDefine.h
+sed -i '' "s/${AboutSourceURLOrgin}/${AboutSourceURLNew}/g" MapxusMapSDK/Private/StringDefine.h
+
+####################### 替换地址
 
 FRAMEWORK_DIR="$FRAMEWORK_ROOT_PATH/mapxus-map-sdk-ios/MapxusMapSDK"
 #目录如果不存在，则拉取github
