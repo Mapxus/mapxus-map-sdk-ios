@@ -644,7 +644,7 @@
       [self.MXMLogo.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-10.0f],
       [self.buildingSelectButton.widthAnchor constraintEqualToConstant:50.0f],
       [self.buildingSelectButton.heightAnchor constraintEqualToConstant:50.0f],
-      [self.buildingSelectButton.centerXAnchor constraintLessThanOrEqualToAnchor:self.floorBar.centerXAnchor],
+      [self.buildingSelectButton.centerXAnchor constraintEqualToAnchor:self.floorBar.centerXAnchor],
       [self.buildingSelectButton.bottomAnchor constraintEqualToAnchor:self.floorBar.topAnchor constant:-4],
       [self.floorBar.widthAnchor constraintEqualToConstant:42],
       [self.floorBar.heightAnchor constraintEqualToConstant:200.0f],

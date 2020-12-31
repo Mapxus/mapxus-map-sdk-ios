@@ -8,6 +8,7 @@
 
 #import "MXMFloorSelectorBar+Private.h"
 #import "NSString+Compare.h"
+#import "MXMPickerView.h"
 
 
 @interface CellView : UIView
@@ -47,7 +48,7 @@
 @end
 
 @interface MXMFloorSelectorBar () <UIPickerViewDelegate, UIPickerViewDataSource, UIPickerViewAccessibilityDelegate>
-@property (nonatomic, strong) UIPickerView *pickerView;
+@property (nonatomic, strong) MXMPickerView *pickerView;
 @property (nonatomic, strong) UIView *selectBox;
 @property (nonatomic, strong) NSMutableArray *dataSourceArr;
 @end
@@ -70,14 +71,7 @@
 {
     self = [super init];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
-        self.layer.shadowColor = [UIColor blackColor].CGColor;
-        self.layer.shadowOffset = CGSizeMake(0, 2);
-        self.layer.shadowOpacity = 0.3;
-        self.layer.shadowRadius = 2;
-        [self addSubview:self.selectBox];
-        [self addSubview:self.pickerView];
-        [self.pickerView reloadAllComponents];
+        [self initialization];
     }
     return self;
 }
@@ -85,6 +79,10 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    [self initialization];
+}
+
+- (void)initialization {
     self.backgroundColor = [UIColor whiteColor];
     self.layer.shadowColor = [UIColor blackColor].CGColor;
     self.layer.shadowOffset = CGSizeMake(0, 2);
@@ -121,55 +119,11 @@
     [super layoutSubviews];
     self.selectBox.frame = CGRectMake(0, (self.bounds.size.height-44)/2, self.bounds.size.width, 44);
     self.pickerView.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
-    
-    if (@available(iOS 14.0, *)) {
-        // iOS 14设置UIPickerView选中蒙层的x和width
-        for (UIView *v in self.pickerView.subviews) {
-            [self resetViewXAndWidthEqualWithSelf:v];
-        }
-        // iOS 14查找并设置UIPickerView的子View UIPickerColumnView的frame
-        UIView *v = [self getSubViewWithClassName:@"UIPickerColumnView" inView:self.pickerView];
-        v.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
-        // 在UIPickerColumnView下两层subView设置宽度
-        for (UIView *subView in v.subviews) {
-            [self resetViewXAndWidthEqualWithSelf:subView];
-            for (UIView *ssubView in subView.subviews) {
-                [self resetViewXAndWidthEqualWithSelf:ssubView];
-            }
-        }
-        
-    }
+    // 优化以去除离屏渲染
+    UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.bounds];
+    self.layer.shadowPath = path.CGPath;
 }
 
-- (void)resetViewXAndWidthEqualWithSelf:(UIView *)view {
-    CGRect rect = view.frame;
-    if ((rect.origin.x != 0) || (rect.size.width != self.bounds.size.width)) {
-        rect.origin.x = 0;
-        rect.size.width = self.bounds.size.width;
-        view.frame = rect;
-    }
-}
-
-//如果找到了就返回找到的view，没找到的话，就返回nil
-- (UIView *)getSubViewWithClassName:(NSString *)className inView:(UIView *)inView {
-    //判空处理
-    if( !inView  ||  !inView.subviews.count ||  !className.length) return nil;
-    //最终找到的view，找不到的话，就直接返回一个nil
-    UIView*foundView =nil;
-    //循环递归进行查找
-    for(UIView *view in inView.subviews) {
-        //如果view是当前要查找的view，就直接赋值并终止循环递归，最终返回
-        if([view isKindOfClass:NSClassFromString(className)]) {
-            foundView = view;
-            break;
-        }
-        //如果当前view不是要查找的view的话，就在递归查找当前view的subviews
-        foundView = [self getSubViewWithClassName:className inView:view];
-        //如果找到了，则终止循环递归，最终返回
-        if (foundView) break;
-    }
-    return foundView;
-}
 
 #pragma mark - UIPickerViewDelegate
 
@@ -213,10 +167,10 @@
 
 
 #pragma mark - access
-- (UIPickerView *)pickerView
+- (MXMPickerView *)pickerView
 {
     if (!_pickerView) {
-        _pickerView = [[UIPickerView alloc] init];
+        _pickerView = [[MXMPickerView alloc] init];
         _pickerView.backgroundColor = [UIColor clearColor];
         _pickerView.delegate = self;
         _pickerView.dataSource = self;

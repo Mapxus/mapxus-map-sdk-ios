@@ -76,6 +76,8 @@
 		D65B56D621C3AB4500142732 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D65B56D521C3AB4500142732 /* main.m */; };
 		D65B56FD21C7383700142732 /* MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */; };
 		D65B56FE21C7383700142732 /* MapxusMapSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		D675E770259C73AB00B2E9A2 /* MXMPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = D675E76E259C73AB00B2E9A2 /* MXMPickerView.h */; };
+		D675E771259C73AB00B2E9A2 /* MXMPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D675E76F259C73AB00B2E9A2 /* MXMPickerView.m */; };
 		D67DAB63224DC5A400924107 /* MXMSearchAPITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D67DAB62224DC5A400924107 /* MXMSearchAPITests.m */; };
 		D68019A822A0BE9600E2E27B /* MXMIndoorMapInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = D68019A622A0BE9600E2E27B /* MXMIndoorMapInfo.h */; };
 		D68019A922A0BE9600E2E27B /* MXMIndoorMapInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D68019A722A0BE9600E2E27B /* MXMIndoorMapInfo.m */; };
@@ -213,6 +215,8 @@
 		D65B56D221C3AB4500142732 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D65B56D421C3AB4500142732 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D65B56D521C3AB4500142732 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D675E76E259C73AB00B2E9A2 /* MXMPickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMPickerView.h; sourceTree = "<group>"; };
+		D675E76F259C73AB00B2E9A2 /* MXMPickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMPickerView.m; sourceTree = "<group>"; };
 		D67DAB62224DC5A400924107 /* MXMSearchAPITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXMSearchAPITests.m; sourceTree = "<group>"; };
 		D68019A622A0BE9600E2E27B /* MXMIndoorMapInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMIndoorMapInfo.h; sourceTree = "<group>"; };
 		D68019A722A0BE9600E2E27B /* MXMIndoorMapInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMIndoorMapInfo.m; sourceTree = "<group>"; };
@@ -332,6 +336,8 @@
 				D60095D821DCAB8A00505880 /* MXMFloorSelectorBar+Private.h */,
 				D60095D421DCAB8900505880 /* MXMFloorSelectorBar.h */,
 				D60095D921DCAB8A00505880 /* MXMFloorSelectorBar.m */,
+				D675E76E259C73AB00B2E9A2 /* MXMPickerView.h */,
+				D675E76F259C73AB00B2E9A2 /* MXMPickerView.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -568,6 +574,7 @@
 				D6F745A4224364DA0086C891 /* MXMSearchBuildingOperation2.h in Headers */,
 				D6428642223F7410003819E8 /* MGLStyleLayer+MXMFilter.h in Headers */,
 				D60095F621DCAB8B00505880 /* MGLMapView+MXMSwizzle.h in Headers */,
+				D675E770259C73AB00B2E9A2 /* MXMPickerView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -841,6 +848,7 @@
 				D6F7391A22CB019400D0860D /* MXMGeoCodeSearchOption.m in Sources */,
 				D6F745A5224364DA0086C891 /* MXMSearchBuildingOperation2.m in Sources */,
 				D60095FD21DCAB8B00505880 /* MXMSearchPOIOperation.m in Sources */,
+				D675E771259C73AB00B2E9A2 /* MXMPickerView.m in Sources */,
 				D6E538A12249C97900B98B1C /* MXMAnnotationsHolder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
