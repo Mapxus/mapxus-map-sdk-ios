@@ -40,7 +40,7 @@ typedef NS_ENUM(NSUInteger, MXMStyle) {
     /**
      K11风格
      */
-    K11,
+    MXMStyleK11,
 };
 
 
