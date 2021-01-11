@@ -200,6 +200,8 @@
                 break;
             case MXMStyleMAPXUS_V2:
                 self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/mapxus_mims2_v2", MXMAPIHOSTURL]];
+            case K11:
+                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/K11", MXMAPIHOSTURL]];
             default:
                 break;
         }

@@ -37,6 +37,10 @@ typedef NS_ENUM(NSUInteger, MXMStyle) {
      MAPPYBEE风格
      */
     MXMStyleMAPPYBEE,
+    /**
+     K11风格
+     */
+    K11,
 };
 
 
