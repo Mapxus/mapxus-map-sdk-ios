@@ -50,7 +50,11 @@
 
         _configuration = configuration;
         _outdoorHidden = configuration.outdoorHidden;
-        [self setMapSytle:configuration.defaultStyle];
+        if (configuration.defaultStyleName) {
+            [self setMapStyleWithName:configuration.defaultStyleName];
+        } else {
+            [self setMapSytle:configuration.defaultStyle];
+        }
     }
     return self;
 }
@@ -184,30 +188,31 @@
     [[MXMMapServices sharedServices] getTokenComplete:^(NSString *token) {
         switch (style) {
             case MXMStyleCOMMON:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/common_mims2_v1", MXMAPIHOSTURL]];
+                [self setMapStyleWithName:@"common_mims2_v1"];
                 break;
             case MXMStyleCHRISTMAS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/christmas_mims2_v1", MXMAPIHOSTURL]];
+                [self setMapStyleWithName:@"christmas_mims2_v1"];
                 break;
             case MXMStyleHALLOWMAS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/halloween_mims2_v1", MXMAPIHOSTURL]];
+                [self setMapStyleWithName:@"halloween_mims2_v1"];
                 break;
             case MXMStyleMAPPYBEE:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/mappybee_mims2_v1", MXMAPIHOSTURL]];
+                [self setMapStyleWithName:@"mappybee_mims2_v1"];
                 break;
             case MXMStyleMAPXUS:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/mapxus_mims2_v1", MXMAPIHOSTURL]];
+                [self setMapStyleWithName:@"mapxus_mims2_v1"];
                 break;
             case MXMStyleMAPXUS_V2:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/mapxus_mims2_v2", MXMAPIHOSTURL]];
-                break;
-            case MXMStyleK11:
-                self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/K11", MXMAPIHOSTURL]];
+                [self setMapStyleWithName:@"mapxus_mims2_v2"];
                 break;
             default:
                 break;
         }
     }];
+}
+
+- (void)setMapStyleWithName:(NSString *)styleName {
+    self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/%@", MXMAPIHOSTURL, styleName]];
 }
 
 - (void)setMapLanguage:(NSString *)language

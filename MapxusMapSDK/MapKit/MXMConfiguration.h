@@ -20,8 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设置是否显示室外地图，默认值为 NO
 @property (nonatomic) BOOL outdoorHidden;
 
-/// 初始化地图样式，与其他条件可同时配置，默认值为 MXMStyleMAPXUS
+/// 初始化常规地图样式，除`defaultStyleName`外，与其他条件可同时配置，默认值为 MXMStyleMAPXUS_V2
 @property (nonatomic) MXMStyle defaultStyle;
+
+/// 初始化定制地图样式，当设置本参数为非空值后，会忽略`defaultStyle`设置，默认值为 nil
+@property (nonatomic, copy, nullable) NSString *defaultStyleName;
 
 
 /// 通过 buildingId 初始化地图，使开始显示位置为 building 所在位置，与 poiId 不能同时设置

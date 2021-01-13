@@ -67,10 +67,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL autoChangeBuilding;
 
 /**
- 设置地图外观
+ 设置常规地图外观
  @param style 外观类型。具体属性字段请参考 `MXMStyle` 。
  */
 - (void)setMapSytle:(MXMStyle)style;
+
+/**
+ 设置定制地图外观，可联系我司进行地图外观定制
+ @param styleName 外观名字。
+ */
+- (void)setMapStyleWithName:(NSString *)styleName;
 
 /**
  设置地图语言
