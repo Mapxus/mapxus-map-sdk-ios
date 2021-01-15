@@ -2,57 +2,56 @@
 
 ## 1. About Mapxus Map
 
-Mapxus Map SDK is a set of call interface for developing indoor map. Developers can easily install map features in their own iOS application, including displaying map, changing map style, map interaction, drawing on the map, searching building, searching POI, route planning, etc.
+Mapxus Map SDK is a set of call interface for developing indoor map. Developers can easily call Mapxus indoor map services and data in their iOS applications, to expanded the usage scenarios of geographic applications.
 
-### 1.1 Minimum IOS Version
+### 1.1 Minimum iOS Version
 
-The Mapxus Maps SDK for iOS is deployed on iOS 9 and above.
+The Mapxus Map SDK for iOS is deployed on iOS 9 and above.
 
-### 1.2 Get an API key
+### 1.2 Get an API Key
 
 Please contact us for api Key and secret。
 
 
 
-## 2. Install Mapxus Map SDK
+## 2. Project Integration
 
-First of all, please create a project for your APP. Then, integrate your SDK through the following steps.
+### 2.1 Automatical Integration Using Cocoapods
 
-#### 2.1 Automatical Integration
-
-You can integrate through cocoapods. Add the following code in your Podfile:
+1. Open the terminal, navigate to your project root directory, which is as same as project's file(.xcodeproj) . Create Profile using command：
 
 ```objectivec
-target 'MapxusMapSample' do
+pod init
+```
+
+2. Add the following text to Podfile and save：
+
+```objectivec
+target 'your project target' do
   use_frameworks!
-  pod 'MapxusBaseSDK', '~>0.1.1' # you can not write this line, because MapxusMapSDK will
-                                 # automatically depends on MapxusBaseSDK
-  pod 'MapxusMapSDK', '~> 3.1.1'
+  pod 'MapxusMapSDK'
 end
 ```
 
-#### 2.2 Manual Integration
-
-#### 2.2.1 Add MapxusMapSDK and its Dependencies
-
-**Copy** or **drag** **MapxusMapSDK.framework**,**MapxusBaseSDK.framework**, **AFNetworking.framework**, **YYModel.framework**, and **Mapbox.framework** file into project folder and add them in **General**->**Embedded Binaries** as shown in the picture. In addition, Mapbox.framework can be downloaded [here](https://www.mapbox.com/install/ios/).
-
-AFNetworking.framework, YYModel.framework can also be managed by cocoapods or Carthage, but you have to generate **dynamic dependencies**. 
-
-![image](https://dpw.maphive.cloud/images/digitalMap/ios/2.0.0/20180525164611.png)
-
-#### 2.2.2 Configure Your Porject
-
-1. If you need to position, add **Privacy - Location Always Usage Description** or **Privacy - Location When In Use Usage Description** as value so as to acctivate position function.
-2. You can remove the simulator of AFNetworking.framework and YYModel.framework by copy-frameworks of Carthage. Configure Run Script as  the following picture:![image](https://dpw.maphive.cloud/images/digitalMap/ios/2.0.0/20180702062028.png)
-
-or remove it by writing Shell Script yourself.
-
-#### 2.3 Create Your First Map
-
-Register your map in **AppDelegate**:
+3. Execute the command：
 
 ```objectivec
+pod install
+```
+
+4. After the integration is successful, open the project through the file which the suffix is .xcworkspace.
+
+
+
+## 3. Create a Map
+
+### 3.1 Register for Map Service
+
+Register your map service in **AppDelegate**:
+
+```objectivec
+import MapxusBaseSDK
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     [[MXMMapServices sharedServices] registerWithApiKey:@"your apiKey" secret:@"your secret"];
@@ -62,7 +61,9 @@ Register your map in **AppDelegate**:
 }
 ```
 
-Add your map in ViewController（**Remarks:  `delegate` of `MGLMapView` is  not allowed to be `nil` **）：
+### 3.2 The Easy Way to Create Your Map
+
+Add your map in ViewController（**Remarks:  delegate of MGLMapView is not allowed to be nil**）：
 
 ```objectivec
 #import "SimpleMapViewController.h"
@@ -84,6 +85,7 @@ Add your map in ViewController（**Remarks:  `delegate` of `MGLMapView` is  not 
     self.title = self.nameStr;
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.mapView];
+    //initialize MGLMapView
     self.map = [[MapxusMap alloc] initWithMapView:self.mapView];
 }
 
