@@ -102,11 +102,11 @@ sed -i '' "s/${AboutSourceURLOrgin}/${AboutSourceURLNew}/g" MapxusMapSDK/Private
 
 ####################### 替换地址
 
-FRAMEWORK_DIR="$FRAMEWORK_ROOT_PATH/mapxus-map-sdk-ios-template/dynamic"
+FRAMEWORK_DIR="$FRAMEWORK_ROOT_PATH/mapxus-map-sdk-ios/dynamic"
 #目录如果不存在，则拉取github
 if [[ ! -d "${FRAMEWORK_DIR}" ]]
 then
-  git clone git@gitee.com:150vb/mapxus-map-sdk-ios-template.git "$FRAMEWORK_ROOT_PATH/mapxus-map-sdk-ios-template"
+  git clone https://github.com/Mapxus/mapxus-map-sdk-ios.git "$FRAMEWORK_ROOT_PATH/mapxus-map-sdk-ios"
 fi
 
 #打包并复制到目录

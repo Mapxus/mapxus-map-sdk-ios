@@ -10,9 +10,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * 楼层选择器
+ */
 @interface MXMFloorSelectorBar : UIView
 
+/// 楼层选择器旁白
 @property (nonatomic, copy, nullable) NSString *addVoiceOverLabel;
+
+/// 选中框颜色
+@property (nonatomic) UIColor *selectBoxColor UI_APPEARANCE_SELECTOR; //default [UIColor colorWithRed:0.29 green:0.69 blue:0.83 alpha:1];
+
+/// 字体颜色
+@property (nonatomic) UIColor *fontColor UI_APPEARANCE_SELECTOR; //default [UIColor blackColor];
 
 @end
 

@@ -6,7 +6,7 @@
 
   # Pods for MapxusMapSDK
   pod 'Mapbox-iOS-SDK', '6.3.0'
-  pod 'MapxusBaseSDK', :path => '../mapxus-base-sdk-ios-template'
+  pod 'MapxusBaseSDK', :path => '../mapxus-base-sdk-ios'
 
 target 'MapxusMapSDK' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks

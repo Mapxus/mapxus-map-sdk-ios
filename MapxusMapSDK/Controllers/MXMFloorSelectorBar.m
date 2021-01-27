@@ -41,11 +41,12 @@
         _cellLabel.textAlignment = NSTextAlignmentCenter;
         _cellLabel.font = [UIFont systemFontOfSize:28];
         _cellLabel.adjustsFontSizeToFitWidth = YES;
-        _cellLabel.textColor = [UIColor blackColor];
     }
     return _cellLabel;
 }
 @end
+
+
 
 @interface MXMFloorSelectorBar () <UIPickerViewDelegate, UIPickerViewDataSource, UIPickerViewAccessibilityDelegate>
 @property (nonatomic, strong) MXMPickerView *pickerView;
@@ -66,6 +67,11 @@
     return name;
 }
 #pragma mark end
+
++ (void)initialize {
+    [MXMFloorSelectorBar appearance].selectBoxColor = [UIColor colorWithRed:0.29 green:0.69 blue:0.83 alpha:1];
+    [MXMFloorSelectorBar appearance].fontColor = [UIColor blackColor];
+}
 
 - (instancetype)init
 {
@@ -133,8 +139,12 @@
     if (self.dataSourceArr.count > row) {
         name = self.dataSourceArr[row];
     }
-    CellView *aView = [[CellView alloc] init];
+    CellView *aView = view;
+    if (aView == nil) {
+        aView = [[CellView alloc] init];
+    }
     aView.cellLabel.text = name;
+    aView.cellLabel.textColor = self.fontColor;
     return aView;
 }
 
@@ -182,7 +192,6 @@
 {
     if (!_selectBox) {
         _selectBox = [[UIView alloc] init];
-        _selectBox.backgroundColor = [UIColor colorWithRed:0.29 green:0.69 blue:0.83 alpha:1];
     }
     return _selectBox;
 }
@@ -193,6 +202,20 @@
         _dataSourceArr = [NSMutableArray array];
     }
     return _dataSourceArr;
+}
+
+- (void)setSelectBoxColor:(UIColor *)selectBoxColor {
+    _selectBoxColor = selectBoxColor;
+    if (_selectBox) {
+        _selectBox.backgroundColor = selectBoxColor;
+    }
+}
+
+- (void)setFontColor:(UIColor *)fontColor {
+    _fontColor = fontColor;
+    if (_pickerView) {
+        [_pickerView reloadAllComponents];
+    }
 }
 #pragma mark end
 
