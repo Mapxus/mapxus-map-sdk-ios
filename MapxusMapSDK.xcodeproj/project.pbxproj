@@ -196,7 +196,6 @@
 		D60482EA2248B27F0091FD1B /* MGLStylerLayerFilterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MGLStylerLayerFilterTests.m; sourceTree = "<group>"; };
 		D60B7BB82510516800D01A1B /* MXMCacheManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMCacheManager.h; sourceTree = "<group>"; };
 		D60B7BB92510516800D01A1B /* MXMCacheManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMCacheManager.m; sourceTree = "<group>"; };
-		D6307354257DC53900CFE1F3 /* StringDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringDefine.h; sourceTree = "<group>"; };
 		D641FC8720F5DBDB00061AD4 /* MapxusMapSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapxusMapSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D641FC8B20F5DBDB00061AD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D641FC9020F5DBDB00061AD4 /* MapxusMapSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapxusMapSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -236,6 +235,12 @@
 		D6E4DAF7211044B000D15FF1 /* document.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = document.sh; sourceTree = "<group>"; };
 		D6E5389E2249C97900B98B1C /* MXMAnnotationsHolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMAnnotationsHolder.h; sourceTree = "<group>"; };
 		D6E5389F2249C97900B98B1C /* MXMAnnotationsHolder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMAnnotationsHolder.m; sourceTree = "<group>"; };
+		D6F6B60B25C3F0FB00D5F57C /* Test.mapxus.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Test.mapxus.xcconfig; sourceTree = "<group>"; };
+		D6F6B60C25C3F0FB00D5F57C /* Common.mapxus.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.mapxus.xcconfig; sourceTree = "<group>"; };
+		D6F6B60D25C3F0FB00D5F57C /* Prod.mapxus.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Prod.mapxus.xcconfig; sourceTree = "<group>"; };
+		D6F6B60E25C3F0FB00D5F57C /* Test.landsd.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Test.landsd.xcconfig; sourceTree = "<group>"; };
+		D6F6B60F25C3F0FB00D5F57C /* Prod.landsd.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Prod.landsd.xcconfig; sourceTree = "<group>"; };
+		D6F6B61025C3F0FB00D5F57C /* Common.landsd.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.landsd.xcconfig; sourceTree = "<group>"; };
 		D6F7390922CAFA4100D0860D /* MXMSearchBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSearchBase.h; sourceTree = "<group>"; };
 		D6F7390A22CAFA4100D0860D /* MXMSearchBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSearchBase.m; sourceTree = "<group>"; };
 		D6F7390D22CAFA6E00D0860D /* MXMGeoCodeSearch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMGeoCodeSearch.h; sourceTree = "<group>"; };
@@ -367,6 +372,7 @@
 		D641FC7D20F5DBDB00061AD4 = {
 			isa = PBXGroup;
 			children = (
+				D6F6B62325C3F3A800D5F57C /* BuildConfig */,
 				D6BD2CF92536FA8A0028CADB /* AutoRun.sh */,
 				D6E4DAF7211044B000D15FF1 /* document.sh */,
 				D6E4DAF621103D1C00D15FF1 /* IOS-Universal-Framework_aggregate.sh */,
@@ -490,7 +496,6 @@
 				D68019A722A0BE9600E2E27B /* MXMIndoorMapInfo.m */,
 				D60B7BB82510516800D01A1B /* MXMCacheManager.h */,
 				D60B7BB92510516800D01A1B /* MXMCacheManager.m */,
-				D6307354257DC53900CFE1F3 /* StringDefine.h */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -514,6 +519,19 @@
 				D60095E821DCAB8A00505880 /* MXMPointAnnotation.m */,
 			);
 			path = MapKit;
+			sourceTree = "<group>";
+		};
+		D6F6B62325C3F3A800D5F57C /* BuildConfig */ = {
+			isa = PBXGroup;
+			children = (
+				D6F6B61025C3F0FB00D5F57C /* Common.landsd.xcconfig */,
+				D6F6B60C25C3F0FB00D5F57C /* Common.mapxus.xcconfig */,
+				D6F6B60F25C3F0FB00D5F57C /* Prod.landsd.xcconfig */,
+				D6F6B60D25C3F0FB00D5F57C /* Prod.mapxus.xcconfig */,
+				D6F6B60E25C3F0FB00D5F57C /* Test.landsd.xcconfig */,
+				D6F6B60B25C3F0FB00D5F57C /* Test.mapxus.xcconfig */,
+			);
+			path = BuildConfig;
 			sourceTree = "<group>";
 		};
 		D6F7391F22CB02F200D0860D /* NewSearchKit */ = {
@@ -590,6 +608,7 @@
 				D641FC8320F5DBDB00061AD4 /* Frameworks */,
 				D641FC8420F5DBDB00061AD4 /* Headers */,
 				D641FC8520F5DBDB00061AD4 /* Resources */,
+				D6F6B5E425C3E26E00D5F57C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -818,6 +837,23 @@
 			shellPath = /bin/sh;
 			shellScript = "bash \"${PROJECT_DIR}/IOS-Universal-Framework_aggregate.sh\"\nbash \"${PROJECT_DIR}/document.sh\"\n";
 		};
+		D6F6B5E425C3E26E00D5F57C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# 自动化设置build_number\nbuild=git describe --tags --dirty\nCURRENT_PROJECT_VERSION=build\n\necho \"Bumping build number...\"\nplist=${PROJECT_DIR}/${INFOPLIST_FILE}\n\n#increment the build number (ie 115 to 116)\nbuildnum=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${plist}\")\nif [[ \"${buildnum}\" == \"\" ]]; then\necho \"No build number in $plist\"\nexit 2\nfi\n\nbuildnum=$(git describe --tags --dirty)\n/usr/libexec/Plistbuddy -c \"Set CFBundleVersion $buildnum\" \"${plist}\"\necho \"Bumped build number to $buildnum\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -940,6 +976,7 @@
 		};
 		D641FC9920F5DBDB00061AD4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6F6B60B25C3F0FB00D5F57C /* Test.mapxus.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -990,7 +1027,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1001,6 +1038,7 @@
 		};
 		D641FC9A20F5DBDB00061AD4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D6F6B60D25C3F0FB00D5F57C /* Prod.mapxus.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1045,7 +1083,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
@@ -1086,7 +1124,7 @@
 					"-iquote",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/YYModel/YYModel.framework/Headers\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapxus.MapxusMapSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
 				SUPPORTS_MACCATALYST = NO;
@@ -1126,7 +1164,7 @@
 					"-iquote",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/YYModel/YYModel.framework/Headers\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mapxus.MapxusMapSDK;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = NO;
 				SUPPORTS_MACCATALYST = NO;

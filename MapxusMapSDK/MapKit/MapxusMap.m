@@ -15,7 +15,6 @@
 #import "MGLStyle+MXMFilter.h"
 #import "MGLStyleLayer+MXMFilter.h"
 #import "JXJsonFunctionDefine.h"
-#import "StringDefine.h"
 
 @implementation MapxusMap
 
@@ -746,8 +745,8 @@
     }];
     [alertCtrl addAction:fristAction];
     
-    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:AboutSourceTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:AboutSourceURL]];
+    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:ABOUT_SOURCE_TITLE style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:ABOUT_SOURCE_URL]];
     }];
     [alertCtrl addAction:secondAction];
     
@@ -767,7 +766,7 @@
         _openStreetSourceBtn.backgroundColor = [UIColor clearColor];
         _openStreetSourceBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         [_openStreetSourceBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        [_openStreetSourceBtn setTitle:SourceCopyrightTitle forState:UIControlStateNormal];
+        [_openStreetSourceBtn setTitle:SOURCE_COPYRIGHT_TITLE forState:UIControlStateNormal];
         [_openStreetSourceBtn addTarget:self action:@selector(showOpenStreeSourceWeb) forControlEvents:UIControlEventTouchUpInside];
     }
     return _openStreetSourceBtn;
@@ -775,7 +774,7 @@
 
 - (void)showOpenStreeSourceWeb
 {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:SourceCopyrightURL]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:SOURCE_COPYRIGHT_URL]];
 }
 
 - (void)dealloc
