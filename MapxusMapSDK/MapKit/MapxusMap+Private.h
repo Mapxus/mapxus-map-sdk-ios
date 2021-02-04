@@ -7,8 +7,6 @@
 //
 
 #import "MapxusMap.h"
-#import "MXMFloorSelectorBar+Private.h"
-#import "KxMenu.h"
 #import "MapxusMapSDK.h"
 
 #import "MXMSearchPOIOperation.h"
@@ -22,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @import Mapbox;
 
-@interface MapxusMap () <MXMFloorSelectorBarDelegate, UIGestureRecognizerDelegate, MXMSearchDelegate, MXMDeciderDelegate> {
+@interface MapxusMap () <MXMBuildingSelectorDelegate, MXMFloorSelectorDelegate, UIGestureRecognizerDelegate, MXMSearchDelegate, MXMDeciderDelegate> {
     BOOL _isFristLoad;
     NSOperationQueue *_initializeQueue;
     MXMConfiguration *_configuration;
@@ -34,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MXMCacheManager *cacheManager;
 
 @property (nonatomic, strong) MGLMapView *mapView;
-@property (nonatomic, strong, readwrite) UIButton *buildingSelectButton;
+@property (nonatomic, strong, readwrite) MXMBuildingSelectorButton *buildingSelectButton;
 @property (nonatomic, strong, readwrite) MXMFloorSelectorBar *floorBar;
 @property (nonatomic, strong) UIButton *MXMLogo;
 @property (nonatomic, strong) UIButton *openStreetSourceBtn;

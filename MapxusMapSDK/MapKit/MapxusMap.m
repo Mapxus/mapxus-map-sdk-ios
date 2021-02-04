@@ -37,6 +37,8 @@
         self.annHolder = [[MXMAnnotationsHolder alloc] initWithMapView:mapView];
         self.cacheManager = [[MXMCacheManager alloc] init];
         
+        [self layoutDefaultSceneControl];
+        
         self.gestureSwitchingBuilding = YES;
         self.autoChangeBuilding = YES;
         self.indoorControllerAlwaysHidden = NO;
@@ -371,8 +373,8 @@
 - (void)decideMapViewShowFloorBar:(BOOL)show onBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor
 {
     // 设置建筑选择按钮和楼层选择按钮是否显示
-    self.buildingSelectButton.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=2)&&(self.mapView.zoomLevel>15.7));
-    self.floorBar.hidden = self.indoorControllerAlwaysHidden || !(show&&(self.mapView.zoomLevel>15.7));
+    [self.mapView.buildingBar setSelectorHidden: (self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=2)&&(self.mapView.zoomLevel>15.7)))];
+    [self.mapView.floorBar setSelectorHidden: (self.indoorControllerAlwaysHidden || !(show&&(self.mapView.zoomLevel>15.7)))];
     self.isIndoor = show && (self.mapView.zoomLevel>15.7);
     [self.mapView.style updateBuildingFillOpacityWith:buildingId indoorState:self.isIndoor];
     if (self.delegate && [self.delegate respondsToSelector: @selector(mapView:indoorMapWithIn:building:floor:)]) {
@@ -395,9 +397,8 @@
 {
     self.building = building;
     self.floor = floor;
-    // 数据中的楼层都是从小到大，需要颠倒顺序显示
-    NSArray *reversalFloors = [[building.floors reverseObjectEnumerator] allObjects];
-    [self.floorBar resetItems:reversalFloors defaultSelectRow:floor];
+    [self.mapView.buildingBar selectedBuildig:building];
+    [self.mapView.floorBar selectedBuilding:building floor:floor];
     self.decider.isMapReload = NO;
 
     // 配置过滤条件
@@ -441,42 +442,13 @@
     
 }
 
-#pragma mark - 控件筛选建筑
+#pragma mark - MXMBuildingSelectorDelegate, MXMFloorSelectorDelegate
 
-- (void)selectBuildingOnClick:(UIButton *)sender {
-    NSTextAlignment alig = NSTextAlignmentLeft;
-    switch (self.selectorPosition) {
-        case MXMSelectorPositionTopRight:
-        case MXMSelectorPositionCenterRight:
-        case MXMSelectorPositionBottomRight:
-            alig = NSTextAlignmentRight;
-            break;
-        default:
-            break;
-    }
-    
-    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.buildings.count];
-    for (MXMGeoBuilding *b in [self.innerbuildings allValues]) {
-        KxMenuItem *item = [KxMenuItem menuItem:b.name
-                                     identifier:b.identifier
-                                          image:nil
-                                         target:self
-                                         action:@selector(chooseItem:)];
-        item.alignment = alig;
-        [arr addObject:item];
-    }
-    [KxMenu setDefaultItemIdentifier:self.building.identifier];
-    [KxMenu showMenuInView:sender.superview fromRect:sender.frame menuItems:arr];
+- (void)didSelectBuilding:(NSString *)buildingId {
+    [self selectBuilding:buildingId zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero];
 }
 
-- (void)chooseItem:(KxMenuItem *)sender
-{
-    MXMGeoBuilding *b = [self.innerbuildings objectForKey:sender.identifier];
-    [self selectBuilding:b.identifier zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero];
-}
-
-- (void)floorSelectorBarDidSelectFloor:(NSString *)floorName
-{
+- (void)didSelectFloor:(NSString *)floorName {
     [self selectBuilding:self.building.identifier floor:floorName zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero];
 }
 
@@ -626,17 +598,50 @@
 
 #pragma mark - access
 
+- (void)layoutDefaultSceneControl {
+    NSMutableArray *layouts = [NSMutableArray array];
+    
+    if (self.mapView.floorBar == nil) {
+        self.floorBar = [[MXMFloorSelectorBar alloc] init];
+        self.floorBar.mxmDelegate = self;
+        [self.mapView addSubview:self.floorBar];
+        
+        // 添加楼层选择栏与约束
+        NSLayoutConstraint *floorBarXLc = [self.floorBar.centerXAnchor constraintEqualToAnchor:self.mapView.leftAnchor constant:31.0f];
+        floorBarXLc.identifier = @"floorBarXLc";
+        NSLayoutConstraint * floorBarYLc = [self.floorBar.centerYAnchor constraintEqualToAnchor:self.mapView.centerYAnchor constant:30];
+        floorBarYLc.identifier = @"floorBarYLc";
+        
+        [layouts addObjectsFromArray:@[  [self.floorBar.widthAnchor constraintEqualToConstant:42],
+                                         [self.floorBar.heightAnchor constraintEqualToConstant:200.0f],
+                                         floorBarXLc,
+                                         floorBarYLc]  ];
+        self.mapView.floorBar = self.floorBar;
+    }
+    
+    if (self.mapView.buildingBar == nil) {
+        self.buildingSelectButton = [[MXMBuildingSelectorButton alloc] init];
+        self.buildingSelectButton.mxmDelegate = self;
+        [self.mapView addSubview:self.buildingSelectButton];
+        [layouts addObjectsFromArray:@[  [self.buildingSelectButton.widthAnchor constraintEqualToConstant:50.0f],
+                                         [self.buildingSelectButton.heightAnchor constraintEqualToConstant:50.0f],
+                                         [self.buildingSelectButton.centerXAnchor constraintEqualToAnchor:self.floorBar.centerXAnchor],
+                                         [self.buildingSelectButton.bottomAnchor constraintEqualToAnchor:self.floorBar.topAnchor constant:-4]  ]];
+        self.mapView.buildingBar = self.buildingSelectButton;
+    }
+    
+    
+    
+    if (layouts.count) {
+        [NSLayoutConstraint activateConstraints:layouts];
+    }
+
+}
+
 - (void)commonInit
 {
     [self.mapView addSubview:self.openStreetSourceBtn];
     [self.mapView addSubview:self.MXMLogo];
-    [self.mapView addSubview:self.buildingSelectButton];
-    [self.mapView addSubview:self.floorBar];
-    // 添加楼层选择栏与约束
-    NSLayoutConstraint *floorBarXLc = [self.floorBar.centerXAnchor constraintEqualToAnchor:self.mapView.leftAnchor constant:31.0f];
-    floorBarXLc.identifier = @"floorBarXLc";
-    NSLayoutConstraint * floorBarYLc = [self.floorBar.centerYAnchor constraintEqualToAnchor:self.mapView.centerYAnchor constant:30];
-    floorBarYLc.identifier = @"floorBarYLc";
     
     NSLayoutConstraint *btnSpaceLc = [self.openStreetSourceBtn.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.MXMLogo.trailingAnchor constant:10.0f];
     btnSpaceLc.priority = UILayoutPriorityDefaultHigh;
@@ -649,15 +654,7 @@
       [self.MXMLogo.widthAnchor constraintEqualToConstant:78.0f],
       [self.MXMLogo.heightAnchor constraintEqualToConstant:14.0f],
       [self.MXMLogo.leadingAnchor constraintEqualToAnchor:self.mapView.leadingAnchor constant:10.0f],
-      [self.MXMLogo.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-10.0f],
-      [self.buildingSelectButton.widthAnchor constraintEqualToConstant:50.0f],
-      [self.buildingSelectButton.heightAnchor constraintEqualToConstant:50.0f],
-      [self.buildingSelectButton.centerXAnchor constraintEqualToAnchor:self.floorBar.centerXAnchor],
-      [self.buildingSelectButton.bottomAnchor constraintEqualToAnchor:self.floorBar.topAnchor constant:-4],
-      [self.floorBar.widthAnchor constraintEqualToConstant:42],
-      [self.floorBar.heightAnchor constraintEqualToConstant:200.0f],
-      floorBarXLc,
-      floorBarYLc];
+      [self.MXMLogo.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-10.0f]];
     
     [NSLayoutConstraint activateConstraints:layouts];
     
@@ -689,31 +686,6 @@
         return NO;
     }
     return YES;
-}
-
-- (UIButton *)buildingSelectButton
-{
-    if (!_buildingSelectButton) {
-        _buildingSelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _buildingSelectButton.translatesAutoresizingMaskIntoConstraints = NO;
-        NSBundle *bundle = [NSBundle bundleForClass:[MapxusMap class]];
-        UIImage *image = [UIImage imageNamed:@"selectBuilding" inBundle:bundle compatibleWithTraitCollection:nil];
-        [_buildingSelectButton setImage:image forState:UIControlStateNormal];
-        [_buildingSelectButton addTarget:self action:@selector(selectBuildingOnClick:) forControlEvents:UIControlEventTouchUpInside];
-        _buildingSelectButton.hidden = YES;
-    }
-    return _buildingSelectButton;
-}
-
-- (MXMFloorSelectorBar *)floorBar
-{
-    if (!_floorBar) {
-        _floorBar = [[MXMFloorSelectorBar alloc] init];
-        _floorBar.translatesAutoresizingMaskIntoConstraints = NO;
-        _floorBar.delegate = self;
-        _floorBar.hidden = YES;
-    }
-    return _floorBar;
 }
 
 - (NSDictionary<NSString *,MXMGeoBuilding *> *)buildings {
@@ -775,6 +747,11 @@
 - (void)showOpenStreeSourceWeb
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:SOURCE_COPYRIGHT_URL]];
+}
+
+- (void)setInnerbuildings:(NSDictionary<NSString *,MXMGeoBuilding *> *)innerbuildings {
+    _innerbuildings = innerbuildings;
+    [self.mapView.buildingBar refreshBuildingList:[_innerbuildings allValues]];
 }
 
 - (void)dealloc

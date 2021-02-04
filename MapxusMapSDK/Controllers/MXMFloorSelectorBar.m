@@ -6,7 +6,7 @@
 //  Copyright © 2018年 MAPHIVE TECHNOLOGY LIMITED. All rights reserved.
 //
 
-#import "MXMFloorSelectorBar+Private.h"
+#import "MXMFloorSelectorBar.h"
 #import "NSString+Compare.h"
 #import "MXMPickerView.h"
 
@@ -56,6 +56,22 @@
 
 @implementation MXMFloorSelectorBar
 
+@synthesize mxmDelegate;
+
+
+- (void)selectedBuilding:(MXMGeoBuilding *)building floor:(NSString *)floorName {
+    // 数据中的楼层都是从小到大，需要颠倒顺序显示
+    NSArray *reversalFloors = [[building.floors reverseObjectEnumerator] allObjects];
+    [self resetItems:reversalFloors defaultSelectRow:floorName];
+}
+
+- (void)setSelectorHidden:(BOOL)isHidden {
+    self.hidden = isHidden;
+}
+
+- (void)updateConstraintsList:(NSArray *)list {
+    
+}
 
 #pragma mark - UIPickerViewAccessibilityDelegate
 - (NSString *)pickerView:(UIPickerView *)pickerView accessibilityLabelForComponent:(NSInteger)component
@@ -77,6 +93,8 @@
 {
     self = [super init];
     if (self) {
+        self.translatesAutoresizingMaskIntoConstraints = NO;
+        self.hidden = YES;
         [self initialization];
     }
     return self;
@@ -139,7 +157,7 @@
     if (self.dataSourceArr.count > row) {
         name = self.dataSourceArr[row];
     }
-    CellView *aView = view;
+    CellView *aView = (CellView *)view;
     if (aView == nil) {
         aView = [[CellView alloc] init];
     }
@@ -164,8 +182,8 @@
     if (self.dataSourceArr.count > row) {
         name = self.dataSourceArr[row];
     }
-    if (self.delegate && [self.delegate respondsToSelector:@selector(floorSelectorBarDidSelectFloor:)]) {
-        [self.delegate floorSelectorBarDidSelectFloor:name];
+    if (self.mxmDelegate && [self.mxmDelegate respondsToSelector:@selector(didSelectFloor:)]) {
+        [self.mxmDelegate didSelectFloor:name];
     }
 }
 

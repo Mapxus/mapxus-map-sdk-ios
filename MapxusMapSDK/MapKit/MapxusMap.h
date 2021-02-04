@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MXMBuildingSelectorButton.h"
 #import "MXMFloorSelectorBar.h"
 #import "MXMConfiguration.h"
 #import "MXMDefine.h"
+
+#import "MGLMapView+MXMSceneControl.h"
 
 @class MGLMapView;
 @class MXMGeoBuilding;
@@ -45,16 +48,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// MapxusMap的事件回调代理
 @property (nonatomic, weak, nullable) id<MapxusMapDelegate> delegate;
 
-/// 建筑选择按钮，在屏幕中心矩形区域出现多栋建筑时出现
-@property (nonatomic, strong, readonly) UIButton *buildingSelectButton;
+/// 建筑选择按钮，在屏幕中心矩形区域出现多栋建筑时出现（保留作兼容处理，如果替换控制器，将会变成nil）
+@property (nonatomic, strong, nullable, readonly) MXMBuildingSelectorButton *buildingSelectButton;
 
-/// 楼层选择器
-@property (nonatomic, strong, readonly) MXMFloorSelectorBar *floorBar;
+/// 楼层选择器（保留作兼容处理，如果替换控制器，将会变成nil）
+@property (nonatomic, strong, nullable, readonly) MXMFloorSelectorBar *floorBar;
 
 /// 一直隐藏地图控件，默认为NO
 @property (nonatomic, assign) BOOL indoorControllerAlwaysHidden;
 
-/// 设置地图控件的位置，默认为`MXMSelectorPositionCenterLeft`
+/// 设置地图控件的位置，默认为`MXMSelectorPositionCenterLeft`（保留作兼容处理，如果替换控制器，将没有作用）
 @property (nonatomic, assign) MXMSelectorPosition selectorPosition;
 
 /// 设置室外地图是否显示
