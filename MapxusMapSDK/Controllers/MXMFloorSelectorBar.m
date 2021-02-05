@@ -11,6 +11,7 @@
 #import "MXMPickerView.h"
 
 
+
 @interface CellView : UIView
 @property (nonatomic, strong) UILabel *cellLabel;
 @end
@@ -48,29 +49,32 @@
 
 
 
-@interface MXMFloorSelectorBar () <UIPickerViewDelegate, UIPickerViewDataSource, UIPickerViewAccessibilityDelegate>
+
+@interface MXMFloorSelectorBar () <MXMPickerViewDataSource, MXMPickerViewDelegate>//, UIPickerViewAccessibilityDelegate>
 @property (nonatomic, strong) MXMPickerView *pickerView;
 @property (nonatomic, strong) UIView *selectBox;
 @property (nonatomic, strong) NSMutableArray *dataSourceArr;
+@property (nonatomic, assign) NSInteger selectedRow;
 @end
 
 @implementation MXMFloorSelectorBar
 
 
-#pragma mark - UIPickerViewAccessibilityDelegate
-- (NSString *)pickerView:(UIPickerView *)pickerView accessibilityLabelForComponent:(NSInteger)component
-{
-    NSString *name = @"";
-    if (![NSString isEmpty:self.addVoiceOverLabel]) {
-        name = self.addVoiceOverLabel;
-    }
-    return name;
-}
-#pragma mark end
+//#pragma mark - UIPickerViewAccessibilityDelegate
+//- (NSString *)pickerView:(UIPickerView *)pickerView accessibilityLabelForComponent:(NSInteger)component
+//{
+//    NSString *name = @"";
+//    if (![NSString isEmpty:self.addVoiceOverLabel]) {
+//        name = self.addVoiceOverLabel;
+//    }
+//    return name;
+//}
+//#pragma mark end
 
 + (void)initialize {
+    [MXMFloorSelectorBar appearance].selectFontColor = [UIColor blackColor];
     [MXMFloorSelectorBar appearance].selectBoxColor = [UIColor colorWithRed:0.29 green:0.69 blue:0.83 alpha:1];
-    [MXMFloorSelectorBar appearance].fontColor = [UIColor blackColor];
+    [MXMFloorSelectorBar appearance].fontColor = [UIColor colorWithRed:0.67 green:0.67 blue:0.67 alpha:1];
 }
 
 - (instancetype)init
@@ -96,6 +100,11 @@
     self.layer.shadowRadius = 2;
     [self addSubview:self.selectBox];
     [self addSubview:self.pickerView];
+    self.pickerView.forceItemTypeText = NO;
+//    self.pickerView.selectedTextColor = self.selectFontColor;
+//    self.pickerView.textColor = self.fontColor;
+//    self.pickerView.font = [UIFont systemFontOfSize:28];
+    self.pickerView.selectionIndicatorStyle = MXMPickerViewSelectionIndicatorStyleNone;
     [self.pickerView reloadAllComponents];
 }
 
@@ -131,35 +140,57 @@
 }
 
 
-#pragma mark - UIPickerViewDelegate
+#pragma mark - MXMPickerViewDataSource, MXMPickerViewDelegate
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+- (UIView *_Nonnull)pickerView:(MXMPickerView *_Nonnull)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView *)view
 {
     NSString *name = @"";
     if (self.dataSourceArr.count > row) {
         name = self.dataSourceArr[row];
     }
-    CellView *aView = view;
+    CellView *aView = (CellView *)view;
     if (aView == nil) {
         aView = [[CellView alloc] init];
     }
     aView.cellLabel.text = name;
-    aView.cellLabel.textColor = self.fontColor;
+    aView.cellLabel.textColor = (self.selectedRow == row) ? self.selectFontColor : self.fontColor;
     return aView;
 }
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+- (void)pickerView:(MXMPickerView *)pickerView willSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    CellView *label = (CellView *)[pickerView viewForRow:row forComponent:component];
+    label.cellLabel.textColor = self.selectFontColor;
+}
+
+- (void)pickerView:(MXMPickerView *)pickerView willDeselectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    CellView *label = (CellView *)[pickerView viewForRow:row forComponent:component];
+    label.cellLabel.textColor = self.fontColor;
+}
+
+//- (NSString *)pickerView:(MXMPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+//{
+//    NSString *name = @"";
+//    if (self.dataSourceArr.count > row) {
+//        name = self.dataSourceArr[row];
+//    }
+//    return name;
+//}
+
+- (NSInteger)numberOfComponentsInPickerView:(MXMPickerView *_Nonnull)pickerView
 {
     return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+- (NSInteger)pickerView:(MXMPickerView *_Nonnull)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     return self.dataSourceArr.count;
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+- (void)pickerView:(MXMPickerView *_Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
+    self.selectedRow = row;
     NSString *name = @"";
     if (self.dataSourceArr.count > row) {
         name = self.dataSourceArr[row];
@@ -169,7 +200,11 @@
     }
 }
 
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+- (CGFloat)pickerView:(MXMPickerView *)pickerView widthRatioForComponent:(NSInteger)component {
+    return 1;
+}
+
+- (CGFloat)pickerView:(MXMPickerView *_Nonnull)pickerView rowHeightForComponent:(NSInteger)component
 {
     return 42;
 }
@@ -202,6 +237,13 @@
         _dataSourceArr = [NSMutableArray array];
     }
     return _dataSourceArr;
+}
+
+- (void)setSelectFontColor:(UIColor *)selectFontColor {
+    _selectFontColor = selectFontColor;
+    if (_pickerView) {
+        [_pickerView reloadAllComponents];
+    }
 }
 
 - (void)setSelectBoxColor:(UIColor *)selectBoxColor {
