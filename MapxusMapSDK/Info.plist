@@ -17,7 +17,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>3.18.0-dirty</string>
+	<string>3.18.0-2-g2c6753d-dirty</string>
 	<key>NSPrincipalClass</key>
 	<string></string>
 </dict>
