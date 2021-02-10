@@ -544,11 +544,6 @@ static CGFloat kMXMPickerViewDefaultSpacingOfComponents = 10;
 - (void)selectRow:(NSInteger)row inComponent:(NSInteger)component animated:(BOOL)animated {
     
     NSAssert(self.dataSource, @"please set dataSource before calling 'selectRow:inComponent:animated:'");
-    NSInteger cur = [self selectedRowInComponent:component];
-    if (cur == row) {
-        // 已选中的就不再进行选中操作，防止死循环
-        return;
-    }
     
     if (self.selectedRowsMap.count > component) {
         [self.selectedRowsMap replaceObjectAtIndex:component withObject:@(row)];
@@ -560,7 +555,7 @@ static CGFloat kMXMPickerViewDefaultSpacingOfComponents = 10;
     
     MXMPickerContainerView *container = [self.containers objectAtIndex:component];
     
-    [container selectRow:row animated:animated];
+    [container selectRow:row animated:animated isOutsideCoding:YES];
 }
 
 - (NSInteger)selectedRowInComponent:(NSInteger)component {

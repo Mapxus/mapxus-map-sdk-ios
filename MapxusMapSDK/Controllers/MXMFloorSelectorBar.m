@@ -45,6 +45,7 @@
     }
     return _cellLabel;
 }
+
 @end
 
 
@@ -126,6 +127,7 @@
     if (defaultSelectRow) {
         r = [self.dataSourceArr indexOfObject:defaultSelectRow];
     }
+    self.selectedRow = r;
     [self.pickerView selectRow:r inComponent:0 animated:NO];
 }
 
