@@ -57,6 +57,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设置地图控件的位置，默认为`MXMSelectorPositionCenterLeft`
 @property (nonatomic, assign) MXMSelectorPosition selectorPosition;
 
+/// 设置Mapxus logo距离mapView底部的边距，只能传入0或正数，传入负数会重置为0
+@property (nonatomic, assign) CGFloat logoBottomMargin;
+
+/// 设置Open Street Source距离mapView底部的边距，只能传入0或正数，传入负数会重置为0
+@property (nonatomic, assign) CGFloat openStreetSourceBottomMargin;
+
 /// 设置室外地图是否显示
 @property (nonatomic, assign) BOOL outdoorHidden;
 

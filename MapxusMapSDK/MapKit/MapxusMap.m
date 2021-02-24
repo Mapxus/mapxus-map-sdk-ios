@@ -628,6 +628,9 @@
 
 - (void)commonInit
 {
+    _logoBottomMargin = 10.0f;
+    _openStreetSourceBottomMargin = 10.0f;
+    
     [self.mapView addSubview:self.openStreetSourceBtn];
     [self.mapView addSubview:self.MXMLogo];
     [self.mapView addSubview:self.buildingSelectButton];
@@ -642,14 +645,20 @@
     btnSpaceLc.priority = UILayoutPriorityDefaultHigh;
     [self.openStreetSourceBtn setContentCompressionResistancePriority:UILayoutPriorityDragThatCanResizeScene forAxis:UILayoutConstraintAxisHorizontal];
 
+    NSLayoutConstraint *openStreetBottom = [self.openStreetSourceBtn.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-_openStreetSourceBottomMargin];
+    openStreetBottom.identifier = @"openStreetBottom";
+    
+    NSLayoutConstraint *logoBottom = [self.MXMLogo.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-_logoBottomMargin];
+    logoBottom.identifier = @"logoBottom";
+    
     NSArray *layouts = @[btnSpaceLc,
       [self.openStreetSourceBtn.heightAnchor constraintEqualToConstant:13.0f],
       [self.openStreetSourceBtn.trailingAnchor constraintEqualToAnchor:self.mapView.trailingAnchor constant:-10.0f],
-      [self.openStreetSourceBtn.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-10.0f],
-      [self.MXMLogo.widthAnchor constraintEqualToConstant:78.0f],
-      [self.MXMLogo.heightAnchor constraintEqualToConstant:14.0f],
+      openStreetBottom,
+      [self.MXMLogo.widthAnchor constraintEqualToConstant:76.0f],
+      [self.MXMLogo.heightAnchor constraintEqualToConstant:20.0f],
       [self.MXMLogo.leadingAnchor constraintEqualToAnchor:self.mapView.leadingAnchor constant:10.0f],
-      [self.MXMLogo.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-10.0f],
+      logoBottom,
       [self.buildingSelectButton.widthAnchor constraintEqualToConstant:50.0f],
       [self.buildingSelectButton.heightAnchor constraintEqualToConstant:50.0f],
       [self.buildingSelectButton.centerXAnchor constraintEqualToAnchor:self.floorBar.centerXAnchor],
@@ -689,6 +698,20 @@
         return NO;
     }
     return YES;
+}
+
+- (void)setLogoBottomMargin:(CGFloat)logoBottomMargin {
+    _logoBottomMargin = fmaxf(logoBottomMargin, 0);
+    NSLayoutConstraint *t = [self _constraintWithIndientifer:@"logoBottom" InView:self.mapView];
+    t.constant = -_logoBottomMargin;
+    [self.mapView layoutIfNeeded];
+}
+
+- (void)setOpenStreetSourceBottomMargin:(CGFloat)openStreetSourceBottomMargin {
+    _openStreetSourceBottomMargin = fmaxf(openStreetSourceBottomMargin, 0);
+    NSLayoutConstraint *t = [self _constraintWithIndientifer:@"openStreetBottom" InView:self.mapView];
+    t.constant = -_openStreetSourceBottomMargin;
+    [self.mapView layoutIfNeeded];
 }
 
 - (UIButton *)buildingSelectButton
@@ -764,8 +787,8 @@
         _openStreetSourceBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
         _openStreetSourceBtn.translatesAutoresizingMaskIntoConstraints = NO;
         _openStreetSourceBtn.backgroundColor = [UIColor clearColor];
-        _openStreetSourceBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-        [_openStreetSourceBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        _openStreetSourceBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [_openStreetSourceBtn setTitleColor:[UIColor colorWithRed:0.251 green:0.251 blue:0.251 alpha:1] forState:UIControlStateNormal];
         [_openStreetSourceBtn setTitle:SOURCE_COPYRIGHT_TITLE forState:UIControlStateNormal];
         [_openStreetSourceBtn addTarget:self action:@selector(showOpenStreeSourceWeb) forControlEvents:UIControlEventTouchUpInside];
     }

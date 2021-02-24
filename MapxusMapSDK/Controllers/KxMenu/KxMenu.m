@@ -187,15 +187,13 @@ const CGFloat kArrowSize = 12.f;
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-typedef enum {
-  
+typedef NS_ENUM(NSUInteger, KxMenuViewArrowDirection) {
     KxMenuViewArrowDirectionNone,
     KxMenuViewArrowDirectionUp,
     KxMenuViewArrowDirectionDown,
     KxMenuViewArrowDirectionLeft,
     KxMenuViewArrowDirectionRight,
-    
-} KxMenuViewArrowDirection;
+};
 
 @implementation KxMenuView {
     
