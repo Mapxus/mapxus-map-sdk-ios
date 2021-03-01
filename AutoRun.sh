@@ -38,19 +38,19 @@ do
     esac
 done
 
-XCCONFIG_FILE='BuildConfig/Prod.mapxus.xcconfig'
+XCCONFIG_FILE='BuildConfig/mapxus.prod.xcconfig'
 
 if [[ -z $COM ]] && [[ -z $ENV ]]; then
-    XCCONFIG_FILE='BuildConfig/Prod.mapxus.xcconfig'
+    XCCONFIG_FILE='BuildConfig/mapxus.prod.xcconfig'
     
 elif [[ -z $COM ]] && [[ $ENV == "-test" ]]; then
-    XCCONFIG_FILE='BuildConfig/Test.mapxus.xcconfig'
+    XCCONFIG_FILE='BuildConfig/mapxus.test.xcconfig'
 
 elif [[ $COM == "-landsd" ]] && [[ -z $ENV ]]; then
-    XCCONFIG_FILE='BuildConfig/Prod.landsd.xcconfig'
+    XCCONFIG_FILE='BuildConfig/landsd.prod.xcconfig'
 
 elif [[ $COM == "-landsd" ]] && [[ $ENV == "-test" ]]; then
-    XCCONFIG_FILE='BuildConfig/Test.landsd.xcconfig'
+    XCCONFIG_FILE='BuildConfig/landsd.test.xcconfig'
 
 fi
 

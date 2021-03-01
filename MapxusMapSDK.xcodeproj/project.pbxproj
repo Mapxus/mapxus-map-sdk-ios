@@ -243,12 +243,11 @@
 		D6E4DAF7211044B000D15FF1 /* document.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = document.sh; sourceTree = "<group>"; };
 		D6E5389E2249C97900B98B1C /* MXMAnnotationsHolder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMAnnotationsHolder.h; sourceTree = "<group>"; };
 		D6E5389F2249C97900B98B1C /* MXMAnnotationsHolder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMAnnotationsHolder.m; sourceTree = "<group>"; };
-		D6F6B60B25C3F0FB00D5F57C /* Test.mapxus.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Test.mapxus.xcconfig; sourceTree = "<group>"; };
-		D6F6B60C25C3F0FB00D5F57C /* Common.mapxus.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.mapxus.xcconfig; sourceTree = "<group>"; };
-		D6F6B60D25C3F0FB00D5F57C /* Prod.mapxus.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Prod.mapxus.xcconfig; sourceTree = "<group>"; };
-		D6F6B60E25C3F0FB00D5F57C /* Test.landsd.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Test.landsd.xcconfig; sourceTree = "<group>"; };
-		D6F6B60F25C3F0FB00D5F57C /* Prod.landsd.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Prod.landsd.xcconfig; sourceTree = "<group>"; };
-		D6F6B61025C3F0FB00D5F57C /* Common.landsd.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Common.landsd.xcconfig; sourceTree = "<group>"; };
+		D6F6B60B25C3F0FB00D5F57C /* mapxus.test.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = mapxus.test.xcconfig; sourceTree = "<group>"; };
+		D6F6B60C25C3F0FB00D5F57C /* common.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = common.xcconfig; sourceTree = "<group>"; };
+		D6F6B60D25C3F0FB00D5F57C /* mapxus.prod.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = mapxus.prod.xcconfig; sourceTree = "<group>"; };
+		D6F6B60E25C3F0FB00D5F57C /* landsd.test.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = landsd.test.xcconfig; sourceTree = "<group>"; };
+		D6F6B60F25C3F0FB00D5F57C /* landsd.prod.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = landsd.prod.xcconfig; sourceTree = "<group>"; };
 		D6F7390922CAFA4100D0860D /* MXMSearchBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSearchBase.h; sourceTree = "<group>"; };
 		D6F7390A22CAFA4100D0860D /* MXMSearchBase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSearchBase.m; sourceTree = "<group>"; };
 		D6F7390D22CAFA6E00D0860D /* MXMGeoCodeSearch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMGeoCodeSearch.h; sourceTree = "<group>"; };
@@ -536,12 +535,11 @@
 		D6F6B62325C3F3A800D5F57C /* BuildConfig */ = {
 			isa = PBXGroup;
 			children = (
-				D6F6B61025C3F0FB00D5F57C /* Common.landsd.xcconfig */,
-				D6F6B60C25C3F0FB00D5F57C /* Common.mapxus.xcconfig */,
-				D6F6B60F25C3F0FB00D5F57C /* Prod.landsd.xcconfig */,
-				D6F6B60D25C3F0FB00D5F57C /* Prod.mapxus.xcconfig */,
-				D6F6B60E25C3F0FB00D5F57C /* Test.landsd.xcconfig */,
-				D6F6B60B25C3F0FB00D5F57C /* Test.mapxus.xcconfig */,
+				D6F6B60C25C3F0FB00D5F57C /* common.xcconfig */,
+				D6F6B60F25C3F0FB00D5F57C /* landsd.prod.xcconfig */,
+				D6F6B60E25C3F0FB00D5F57C /* landsd.test.xcconfig */,
+				D6F6B60D25C3F0FB00D5F57C /* mapxus.prod.xcconfig */,
+				D6F6B60B25C3F0FB00D5F57C /* mapxus.test.xcconfig */,
 			);
 			path = BuildConfig;
 			sourceTree = "<group>";
@@ -622,6 +620,7 @@
 				D641FC8320F5DBDB00061AD4 /* Frameworks */,
 				D641FC8420F5DBDB00061AD4 /* Headers */,
 				D641FC8520F5DBDB00061AD4 /* Resources */,
+				D65E1B5D25EC96F200D78764 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -850,6 +849,23 @@
 			shellPath = /bin/sh;
 			shellScript = "bash \"${PROJECT_DIR}/IOS-Universal-Framework_aggregate.sh\"\nbash \"${PROJECT_DIR}/document.sh\"\n";
 		};
+		D65E1B5D25EC96F200D78764 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "## Generate the build number using current date and time\nbuildNumber=$(date \"+%Y%m.%d.%H%M\")\n## Set the build number in plist file\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${INFOPLIST_FILE}\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -974,7 +990,7 @@
 		};
 		D641FC9920F5DBDB00061AD4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D6F6B60B25C3F0FB00D5F57C /* Test.mapxus.xcconfig */;
+			baseConfigurationReference = D6F6B60B25C3F0FB00D5F57C /* mapxus.test.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1036,7 +1052,7 @@
 		};
 		D641FC9A20F5DBDB00061AD4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D6F6B60D25C3F0FB00D5F57C /* Prod.mapxus.xcconfig */;
+			baseConfigurationReference = D6F6B60D25C3F0FB00D5F57C /* mapxus.prod.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
