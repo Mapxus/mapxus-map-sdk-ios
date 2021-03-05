@@ -218,6 +218,7 @@
 		D65B56D221C3AB4500142732 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D65B56D421C3AB4500142732 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D65B56D521C3AB4500142732 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D65E1BA025F0796D00D78764 /* UploadCocoapods.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = UploadCocoapods.sh; sourceTree = "<group>"; };
 		D67DAB62224DC5A400924107 /* MXMSearchAPITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXMSearchAPITests.m; sourceTree = "<group>"; };
 		D68019A622A0BE9600E2E27B /* MXMIndoorMapInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMIndoorMapInfo.h; sourceTree = "<group>"; };
 		D68019A722A0BE9600E2E27B /* MXMIndoorMapInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMIndoorMapInfo.m; sourceTree = "<group>"; };
@@ -229,7 +230,7 @@
 		D6B21BAF224A2E4700C5B50B /* MXMDeciderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMDeciderTests.m; sourceTree = "<group>"; };
 		D6B633CD224B561C007F2C1B /* CLFloor+Factory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLFloor+Factory.m"; sourceTree = "<group>"; };
 		D6B633D0224B561C007F2C1B /* CLFloor+Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLFloor+Factory.h"; sourceTree = "<group>"; };
-		D6BD2CF92536FA8A0028CADB /* AutoRun.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = AutoRun.sh; sourceTree = "<group>"; };
+		D6BD2CF92536FA8A0028CADB /* AutoBuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = AutoBuild.sh; sourceTree = "<group>"; };
 		D6BD8E8A25CCE89500668F60 /* MXMPickerContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMPickerContainerView.h; sourceTree = "<group>"; };
 		D6BD8E8B25CCE89500668F60 /* MXMPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMPickerView.h; sourceTree = "<group>"; };
 		D6BD8E8C25CCE89500668F60 /* MXMPickerTextRenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMPickerTextRenderView.h; sourceTree = "<group>"; };
@@ -384,7 +385,8 @@
 			isa = PBXGroup;
 			children = (
 				D6F6B62325C3F3A800D5F57C /* BuildConfig */,
-				D6BD2CF92536FA8A0028CADB /* AutoRun.sh */,
+				D6BD2CF92536FA8A0028CADB /* AutoBuild.sh */,
+				D65E1BA025F0796D00D78764 /* UploadCocoapods.sh */,
 				D6E4DAF7211044B000D15FF1 /* document.sh */,
 				D6E4DAF621103D1C00D15FF1 /* IOS-Universal-Framework_aggregate.sh */,
 				D641FC8920F5DBDB00061AD4 /* MapxusMapSDK */,
