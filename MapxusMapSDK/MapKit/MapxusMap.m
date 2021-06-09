@@ -202,7 +202,7 @@
                 [self setMapStyleWithName:@"mapxus_mims2_v1"];
                 break;
             case MXMStyleMAPXUS_V2:
-                [self setMapStyleWithName:@"mapxus_mims2_v2"];
+                [self setMapStyleWithName:@"mapxus_mims2_v3"];
                 break;
             default:
                 break;
