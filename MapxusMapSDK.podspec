@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
 
-  version = '3.21.0'
+  version = '3.21.1'
 
   s.name         = 'MapxusMapSDK'
   s.version      = version
@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
   }
 
   s.dependency "MapxusBaseSDK", version
-  s.dependency "MapboxMobileEvents", "~> 0.10.4"
+  s.dependency "MapboxMobileEvents", "~> 0.10.8"
 
   
 end
