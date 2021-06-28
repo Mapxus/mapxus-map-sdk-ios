@@ -261,8 +261,12 @@
     /////////////////////////////////////////////////////
     if (self.gestureSwitchingBuilding) {
         // 切换建筑
-        NSDictionary *poiBuildings = [self.dataQueryer findOutBuildingAtPoint:point];
-        [self.decider decideAtPointBuildingDic:poiBuildings];
+        /// 点上找到的level信息
+        NSArray<id <MGLFeature>> *floorFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+        /// 点上找到的building信息
+        NSDictionary *pointBuildings = [self.dataQueryer findOutBuildingAtPoint:point];
+        /// 通过相关逻辑判断建筑的切换结果
+        [self.decider decideAtPointWithBuildingDic:pointBuildings andFloorFeatures:floorFeatures];
     }
     // 查找点击楼层
     /////////////////////////////////////////////////////

@@ -12,6 +12,7 @@
 #import "MXMCommonObj.h"
 #import <YYModel/YYModel.h>
 #import "NSString+Compare.h"
+#import "JXJsonFunctionDefine.h"
 
 
 
@@ -61,34 +62,40 @@
 }
 
 
-- (void)decideAtPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+- (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings andFloorFeatures:(NSArray<id <MGLFeature>> *)floors
 {
-    // 防止重叠建筑在点击已选中图层时切换到另一栋
-    NSArray *buildingList = [buildings allValues];
-    BOOL shouldChange = [self shouldChangeWithList:buildingList currentBuildingId:self.currentBuilding.identifier];
-    MXMGeoBuilding *geoBuilding = buildingList.firstObject;
-    if (shouldChange && geoBuilding) {
-        NSString *defaultFloor = [self electDefaultFloorWithHistory:self.buildingSelectFloorDic inBuilding:geoBuilding];
-        [self specifyTheBuilding:geoBuilding.identifier
-                           floor:defaultFloor
-                        zoomMode:MXMZoomDisable
-                     edgePadding:UIEdgeInsetsZero
-        shouldChangeTrackingMode:YES
-             withRectBuildingDic:buildings];
-    }
-}
-
-
-- (BOOL)shouldChangeWithList:(NSArray *)buildings currentBuildingId:(NSString *)curBuilding
-{
-    for (MXMGeoBuilding *inB in buildings) {
-        if ([curBuilding isEqualToString:inB.identifier]) {
-            return NO;
+    BOOL isClickOnCurrentBuilding = [self hasBelongsCurrentBuilding:self.currentBuilding.identifier onFloorsList:floors];
+    /// 不是点击在已选中的level上面时
+    if (!isClickOnCurrentBuilding) {
+        /// 查找该点上的其他建筑信息
+        NSMutableDictionary *muBuildings = [NSMutableDictionary dictionaryWithDictionary:buildings];
+        if (self.currentBuilding.identifier) {
+            [muBuildings removeObjectForKey:self.currentBuilding.identifier];
+        }
+        NSArray *buildingList = [muBuildings allValues];
+        MXMGeoBuilding *geoBuilding = buildingList.firstObject;
+        if (geoBuilding) {
+            NSString *defaultFloor = [self electDefaultFloorWithHistory:self.buildingSelectFloorDic inBuilding:geoBuilding];
+            [self specifyTheBuilding:geoBuilding.identifier
+                               floor:defaultFloor
+                            zoomMode:MXMZoomDisable
+                         edgePadding:UIEdgeInsetsZero
+            shouldChangeTrackingMode:YES
+                 withRectBuildingDic:muBuildings];
         }
     }
-    return YES;
 }
 
+- (BOOL)hasBelongsCurrentBuilding:(NSString *)curBuildingId onFloorsList:(NSArray<id <MGLFeature>> *)floors
+{
+    for (id<MGLFeature> feature in floors) {
+        NSString *buildingId = DecodeStringFromDic(feature.attributes, @"ref:building");
+        if ([buildingId isEqualToString:curBuildingId]) {
+            return YES;
+        }
+    }
+    return NO;
+}
 
 - (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
 {

@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)decideInRectBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
 
 // 点击地图确定建筑
-- (void)decideAtPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
+- (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings andFloorFeatures:(NSArray<id <MGLFeature>> *)floors;
 
 // 定位时确定建筑
 - (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
