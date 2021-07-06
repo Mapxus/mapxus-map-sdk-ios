@@ -148,7 +148,7 @@ typedef NS_ENUM(NSInteger, MXMRouteSign) {
      */
     MXMKeepRight = 7,
     /**
-     下楼
+     上楼
      */
     MXMUpstairs = 100,
 };

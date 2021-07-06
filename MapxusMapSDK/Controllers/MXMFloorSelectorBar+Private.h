@@ -17,8 +17,8 @@
 
 @property (nonatomic, weak) id<MXMFloorSelectorBarDelegate> delegate;
 
-- (void)selectRow:(NSString *)selectRow;
-- (void)resetItems:(NSArray<NSString *> *)items defaultSelectRow:(NSString *)defaultSelectRow;
+- (void)selectRow:(NSString *)floorName;
+- (void)resetItems:(NSArray<NSString *> *)items defaultSelectRow:(NSString *)defaultFloorName;
 
 @end
 

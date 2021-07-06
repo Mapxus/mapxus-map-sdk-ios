@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  MapxusMapSDK
+
+  Created by chenghao guo on 2021/7/5.
+  Copyright © 2021 MAPHIVE TECHNOLOGY LIMITED. All rights reserved.
+*/
+
+"Level switcher" = "Level switcher";
+
+"%1$@, %2$lu of %3$lu" = "%1$@, %2$lu of %3$lu";

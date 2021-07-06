@@ -55,22 +55,11 @@
 @property (nonatomic, strong) MXMPickerView *pickerView;
 @property (nonatomic, strong) UIView *selectBox;
 @property (nonatomic, strong) NSMutableArray *dataSourceArr;
-@property (nonatomic, assign) NSInteger selectedRow;
+@property (nonatomic, assign) NSUInteger selectedRow;
 @end
 
 @implementation MXMFloorSelectorBar
 
-
-//#pragma mark - UIPickerViewAccessibilityDelegate
-//- (NSString *)pickerView:(UIPickerView *)pickerView accessibilityLabelForComponent:(NSInteger)component
-//{
-//    NSString *name = @"";
-//    if (![NSString isEmpty:self.addVoiceOverLabel]) {
-//        name = self.addVoiceOverLabel;
-//    }
-//    return name;
-//}
-//#pragma mark end
 
 + (void)initialize {
     [MXMFloorSelectorBar appearance].selectFontColor = [UIColor blackColor];
@@ -94,6 +83,8 @@
 }
 
 - (void)initialization {
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    self.accessibilityLabel = NSLocalizedStringFromTableInBundle(@"Level switcher", @"Localizable", bundle, nil);
     self.backgroundColor = [UIColor whiteColor];
     self.layer.shadowColor = [UIColor blackColor].CGColor;
     self.layer.shadowOffset = CGSizeMake(0, 2);
@@ -102,33 +93,31 @@
     [self addSubview:self.selectBox];
     [self addSubview:self.pickerView];
     self.pickerView.forceItemTypeText = NO;
-//    self.pickerView.selectedTextColor = self.selectFontColor;
-//    self.pickerView.textColor = self.fontColor;
-//    self.pickerView.font = [UIFont systemFontOfSize:28];
     self.pickerView.selectionIndicatorStyle = MXMPickerViewSelectionIndicatorStyleNone;
     [self.pickerView reloadAllComponents];
 }
 
-- (void)selectRow:(NSString *)selectRow
+- (void)selectRow:(NSString *)floorName
 {
-    if ([self.dataSourceArr containsObject:selectRow]) {
-        [self resetItems:nil defaultSelectRow:selectRow];
+    if ([self.dataSourceArr containsObject:floorName]) {
+        [self resetItems:nil defaultSelectRow:floorName];
     }
 }
 
-- (void)resetItems:(NSArray<NSString *> *)items defaultSelectRow:(NSString *)defaultSelectRow
+- (void)resetItems:(NSArray<NSString *> *)items defaultSelectRow:(NSString *)defaultFloorName
 {
+    // 更新列表
     if (items) {
         [self.dataSourceArr removeAllObjects];
         [self.dataSourceArr addObjectsFromArray:items];
         [self.pickerView reloadAllComponents];
     }
-    NSInteger r = 0;
-    if (defaultSelectRow) {
-        r = [self.dataSourceArr indexOfObject:defaultSelectRow];
+    // 计算选中行
+    NSUInteger r = 0;
+    if (defaultFloorName) {
+        r = [self.dataSourceArr indexOfObject:defaultFloorName];
     }
-    self.selectedRow = r;
-    [self.pickerView selectRow:r inComponent:0 animated:NO];
+    [self codingSelectRow:r animated:NO];
 }
 
 - (void)layoutSubviews
@@ -171,15 +160,6 @@
     label.cellLabel.textColor = self.fontColor;
 }
 
-//- (NSString *)pickerView:(MXMPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-//{
-//    NSString *name = @"";
-//    if (self.dataSourceArr.count > row) {
-//        name = self.dataSourceArr[row];
-//    }
-//    return name;
-//}
-
 - (NSInteger)numberOfComponentsInPickerView:(MXMPickerView *_Nonnull)pickerView
 {
     return 1;
@@ -192,11 +172,13 @@
 
 - (void)pickerView:(MXMPickerView *_Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    self.selectedRow = row;
-    NSString *name = @"";
-    if (self.dataSourceArr.count > row) {
-        name = self.dataSourceArr[row];
+    // 如果选中行已经和回调的一致，则回调不传递出去，以防止死循环
+    if (self.selectedRow == row) {
+        return;
     }
+    self.selectedRow = row;
+    NSString *name = [self getStringFromRow:row];
+    [self updateAccessibilityValueWithRowString:name];
     if (self.delegate && [self.delegate respondsToSelector:@selector(floorSelectorBarDidSelectFloor:)]) {
         [self.delegate floorSelectorBarDidSelectFloor:name];
     }
@@ -212,6 +194,61 @@
 }
 #pragma mark end
 
+
+- (BOOL)isAccessibilityElement {
+    return YES;
+}
+
+- (UIAccessibilityTraits)accessibilityTraits {
+    return UIAccessibilityTraitAdjustable;
+}
+
+// 兼容旧版本
+- (void)setAddVoiceOverLabel:(NSString *)addVoiceOverLabel {
+    _addVoiceOverLabel = addVoiceOverLabel;
+    self.accessibilityLabel = addVoiceOverLabel;
+}
+
+- (void)accessibilityIncrement {
+    NSInteger i = [self.pickerView selectedRowInComponent:0];
+    if (i < self.dataSourceArr.count-1) {
+        NSInteger r = i+1;
+        [self codingSelectRow:r animated:YES];
+    }
+}
+
+- (void)accessibilityDecrement {
+    NSInteger i = [self.pickerView selectedRowInComponent:0];
+    if (i > 0) {
+        NSInteger r = i-1;
+        [self codingSelectRow:r animated:YES];
+    }
+}
+
+// 通过代码选择项目
+- (void)codingSelectRow:(NSUInteger)row animated:(BOOL)animated {
+    // 首先设置选中行selectedRow的设置
+    self.selectedRow = row;
+    NSString *rowString = [self getStringFromRow:row];
+    [self updateAccessibilityValueWithRowString:rowString];
+    [self.pickerView selectRow:row inComponent:0 animated:animated];
+}
+
+- (NSString *)getStringFromRow:(NSUInteger)row {
+    NSString *name = @"";
+    if (self.dataSourceArr.count > row) {
+        name = self.dataSourceArr[row];
+    }
+    return name;
+}
+
+- (void)updateAccessibilityValueWithRowString:(NSString *)rowString {
+    NSUInteger c = self.dataSourceArr.count;
+    NSUInteger t = self.selectedRow + 1;
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *valueFormat = NSLocalizedStringFromTableInBundle(@"%1$@, %2$lu of %3$lu", @"Localizable", bundle, nil);
+    self.accessibilityValue = [NSString stringWithFormat:valueFormat, rowString, (unsigned long)t, (unsigned long)c];
+}
 
 #pragma mark - access
 - (MXMPickerView *)pickerView

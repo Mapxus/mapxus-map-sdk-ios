@@ -82,6 +82,7 @@
 		D68019A922A0BE9600E2E27B /* MXMIndoorMapInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D68019A722A0BE9600E2E27B /* MXMIndoorMapInfo.m */; };
 		D682007922533D510075B339 /* MXMGeoPointTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D682007822533D510075B339 /* MXMGeoPointTests.m */; };
 		D682007B2254BB9C0075B339 /* MXMSearchPOIOperationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D682007A2254BB9C0075B339 /* MXMSearchPOIOperationTests.m */; };
+		D693D22A2692BC8A00F424A6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D693D22C2692BC8A00F424A6 /* Localizable.strings */; };
 		D6B21BAC224A13F000C5B50B /* MXMAnnotationsHolderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B21BAB224A13F000C5B50B /* MXMAnnotationsHolderTests.m */; };
 		D6B21BAE224A2E3500C5B50B /* MXMDataQuerierTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B21BAD224A2E3500C5B50B /* MXMDataQuerierTests.m */; };
 		D6B21BB0224A2E4700C5B50B /* MXMDeciderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B21BAF224A2E4700C5B50B /* MXMDeciderTests.m */; };
@@ -225,6 +226,10 @@
 		D682007822533D510075B339 /* MXMGeoPointTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMGeoPointTests.m; sourceTree = "<group>"; };
 		D682007A2254BB9C0075B339 /* MXMSearchPOIOperationTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSearchPOIOperationTests.m; sourceTree = "<group>"; };
 		D684BC5420FE324C004E85D9 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
+		D693D22B2692BC8A00F424A6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D693D22D2692BCDC00F424A6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D693D22E2692BD1E00F424A6 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D693D22F2692BD3500F424A6 /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D6B21BAB224A13F000C5B50B /* MXMAnnotationsHolderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMAnnotationsHolderTests.m; sourceTree = "<group>"; };
 		D6B21BAD224A2E3500C5B50B /* MXMDataQuerierTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMDataQuerierTests.m; sourceTree = "<group>"; };
 		D6B21BAF224A2E4700C5B50B /* MXMDeciderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMDeciderTests.m; sourceTree = "<group>"; };
@@ -477,6 +482,7 @@
 			isa = PBXGroup;
 			children = (
 				D684BC5420FE324C004E85D9 /* images.xcassets */,
+				D693D22C2692BC8A00F424A6 /* Localizable.strings */,
 			);
 			path = MapxusBundle;
 			sourceTree = "<group>";
@@ -707,6 +713,9 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				"zh-Hant",
+				"zh-HK",
 			);
 			mainGroup = D641FC7D20F5DBDB00061AD4;
 			productRefGroup = D641FC8820F5DBDB00061AD4 /* Products */;
@@ -727,6 +736,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6027D3C25E4F45E0023F7D3 /* images.xcassets in Resources */,
+				D693D22A2692BC8A00F424A6 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -967,6 +977,17 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		D693D22C2692BC8A00F424A6 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D693D22B2692BC8A00F424A6 /* en */,
+				D693D22D2692BCDC00F424A6 /* zh-Hans */,
+				D693D22E2692BD1E00F424A6 /* zh-Hant */,
+				D693D22F2692BD3500F424A6 /* zh-HK */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -995,6 +1016,7 @@
 			baseConfigurationReference = D6F6B60B25C3F0FB00D5F57C /* mapxus.test.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1057,6 +1079,7 @@
 			baseConfigurationReference = D6F6B60D25C3F0FB00D5F57C /* mapxus.prod.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1133,7 +1156,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.21.2;
+				MARKETING_VERSION = 3.22.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-iquote",
@@ -1174,7 +1197,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.21.2;
+				MARKETING_VERSION = 3.22.0;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-iquote",

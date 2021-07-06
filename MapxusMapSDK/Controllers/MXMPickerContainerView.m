@@ -43,7 +43,7 @@ static NSString * const kMXMPickerContainerCellReuseIdentifier =  @"MXMPickerCon
         [self setupSubviews];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.isSetupDone = YES;
-            [self selectRow:self.selectedRow animated:NO isOutsideCoding:NO];
+            [self selectRow:self.selectedRow animated:NO];
         });
     }
     
@@ -74,7 +74,7 @@ static NSString * const kMXMPickerContainerCellReuseIdentifier =  @"MXMPickerCon
     if (self.isScrolling) {
         self.isScrolling = NO;
 
-        [self selectRow:self.currentRow animated:YES isOutsideCoding:NO];
+        [self selectRow:self.currentRow animated:YES];
     }
 }
 
@@ -98,7 +98,7 @@ static NSString * const kMXMPickerContainerCellReuseIdentifier =  @"MXMPickerCon
     
     if (self.numberOfRows > 0) {
         self.willDeselectedRow = -1;
-        [self selectRow:self.currentRow animated:self.isScrolling isOutsideCoding:YES];
+        [self selectRow:self.currentRow animated:self.isScrolling];
     }
     
     self.isAdjustingSelected = NO;
@@ -211,8 +211,7 @@ static NSString * const kMXMPickerContainerCellReuseIdentifier =  @"MXMPickerCon
     [self scrollViewDidScroll:self.collectionView];
 }
 
-// coding: 是否通过代码设置选中，如果为代码设置，不调用[- containerView: didSelectRow:]，防止循环调用
-- (void)selectRow:(NSInteger)row animated:(BOOL)animated isOutsideCoding:(BOOL)coding
+- (void)selectRow:(NSInteger)row animated:(BOOL)animated
 {
     self.currentRow = row;
     
@@ -220,7 +219,7 @@ static NSString * const kMXMPickerContainerCellReuseIdentifier =  @"MXMPickerCon
         return;
     }
     
-    if (!coding) {
+    if (!self.isAdjustingSelected) {
         if ([self.delegate respondsToSelector:@selector(containerView:didSelectRow:)]) {
             [self.delegate containerView:self didSelectRow:self.currentRow];
         }
@@ -315,7 +314,7 @@ static NSString * const kMXMPickerContainerCellReuseIdentifier =  @"MXMPickerCon
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self selectRow:indexPath.row animated:YES isOutsideCoding:NO];
+    [self selectRow:indexPath.row animated:YES];
 }
 
 //- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath

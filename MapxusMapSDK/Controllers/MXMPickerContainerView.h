@@ -55,7 +55,7 @@
 - (void)reloadData;
 - (void)reloadDataWithoutLayout;
 
-- (void)selectRow:(NSInteger)row animated:(BOOL)animated isOutsideCoding:(BOOL)coding;  // scrolls the specified row to center.
+- (void)selectRow:(NSInteger)row animated:(BOOL)animated;  // scrolls the specified row to center.
 
 @end
 

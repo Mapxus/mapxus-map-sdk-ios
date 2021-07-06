@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMFloorSelectorBar : UIView
 
 /// 楼层选择器旁白
-@property (nonatomic, copy, nullable) NSString *addVoiceOverLabel;
+@property (nonatomic, copy, nullable) NSString *addVoiceOverLabel DEPRECATED_MSG_ATTRIBUTE("Please use \"accessibilityLabel\" to instead");
 
 /// 选中字体颜色
 @property (nonatomic) UIColor *selectFontColor UI_APPEARANCE_SELECTOR; //default [UIColor blackColor];

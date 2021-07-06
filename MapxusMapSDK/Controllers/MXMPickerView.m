@@ -555,7 +555,7 @@ static CGFloat kMXMPickerViewDefaultSpacingOfComponents = 10;
     
     MXMPickerContainerView *container = [self.containers objectAtIndex:component];
     
-    [container selectRow:row animated:animated isOutsideCoding:YES];
+    [container selectRow:row animated:animated];
 }
 
 - (NSInteger)selectedRowInComponent:(NSInteger)component {
