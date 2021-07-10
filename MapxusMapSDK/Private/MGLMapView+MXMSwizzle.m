@@ -81,6 +81,16 @@ static void *mapKey = &mapKey;
 }
 - (void)hook_mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style
 {
+    // 添加透明level层，解决定位错误问题
+    MGLSource *indoorSource = [style sourceWithIdentifier:@"indoor-planet"];
+    if (indoorSource) {
+        MGLFillStyleLayer *assistantLevelFill = [[MGLFillStyleLayer alloc] initWithIdentifier:@"assistant-mapxus-level-fill" source:indoorSource];
+        assistantLevelFill.sourceLayerIdentifier = @"mapxus_level";
+        assistantLevelFill.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
+        assistantLevelFill.fillOpacity = [NSExpression expressionForConstantValue:@(0)];
+        [style addLayer:assistantLevelFill];
+    }
+
     // 加载后全部室内结构隐藏或者重新过滤更换style之前的选择
     [mapView.mxmMap cleanMapSelected];
     // 结束异步operation
@@ -336,8 +346,9 @@ static void *mapKey = &mapKey;
 {
     if ((mapView.userTrackingMode != MGLUserTrackingModeNone) && userLocation.location.floor) { // 跟随模式且有楼层数据
         CGPoint locationPoint = [mapView convertCoordinate:userLocation.location.coordinate toPointToView:mapView];
+        NSArray<MXMLevelModel *> *floorFeatures = [mapView.mxmMap.dataQueryer findOutAssistantFloorFeaturesAtPoint:locationPoint];
         NSDictionary *buildingDic = [mapView.mxmMap.dataQueryer findOutBuildingAtPoint:locationPoint];
-        MXMIndoorMapInfo *info = [mapView.mxmMap.decider decideWithUserLocationLevel:userLocation.location.floor.level atPointBuildingDic:buildingDic];
+        MXMIndoorMapInfo *info = [mapView.mxmMap.decider decideWithUserLocationLevel:userLocation.location.floor.level atPointBuildingDic:buildingDic atPointLevelInfoList:floorFeatures];
         if (info) {
             if (![info.floor isEqualToString:mapView.mxmMap.userLocationFloor]) {
                 mapView.mxmMap.userLocationFloor = info.floor;

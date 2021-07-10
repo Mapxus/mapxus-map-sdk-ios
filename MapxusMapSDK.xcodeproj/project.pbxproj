@@ -83,6 +83,8 @@
 		D682007922533D510075B339 /* MXMGeoPointTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D682007822533D510075B339 /* MXMGeoPointTests.m */; };
 		D682007B2254BB9C0075B339 /* MXMSearchPOIOperationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D682007A2254BB9C0075B339 /* MXMSearchPOIOperationTests.m */; };
 		D693D22A2692BC8A00F424A6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D693D22C2692BC8A00F424A6 /* Localizable.strings */; };
+		D6ADD4CF2699F27200E16640 /* MXMLevelModel.h in Headers */ = {isa = PBXBuildFile; fileRef = D6ADD4CD2699F27200E16640 /* MXMLevelModel.h */; };
+		D6ADD4D02699F27200E16640 /* MXMLevelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ADD4CE2699F27200E16640 /* MXMLevelModel.m */; };
 		D6B21BAC224A13F000C5B50B /* MXMAnnotationsHolderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B21BAB224A13F000C5B50B /* MXMAnnotationsHolderTests.m */; };
 		D6B21BAE224A2E3500C5B50B /* MXMDataQuerierTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B21BAD224A2E3500C5B50B /* MXMDataQuerierTests.m */; };
 		D6B21BB0224A2E4700C5B50B /* MXMDeciderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6B21BAF224A2E4700C5B50B /* MXMDeciderTests.m */; };
@@ -230,6 +232,8 @@
 		D693D22D2692BCDC00F424A6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D693D22E2692BD1E00F424A6 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D693D22F2692BD3500F424A6 /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D6ADD4CD2699F27200E16640 /* MXMLevelModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMLevelModel.h; sourceTree = "<group>"; };
+		D6ADD4CE2699F27200E16640 /* MXMLevelModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMLevelModel.m; sourceTree = "<group>"; };
 		D6B21BAB224A13F000C5B50B /* MXMAnnotationsHolderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMAnnotationsHolderTests.m; sourceTree = "<group>"; };
 		D6B21BAD224A2E3500C5B50B /* MXMDataQuerierTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMDataQuerierTests.m; sourceTree = "<group>"; };
 		D6B21BAF224A2E4700C5B50B /* MXMDeciderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMDeciderTests.m; sourceTree = "<group>"; };
@@ -515,6 +519,8 @@
 				D68019A722A0BE9600E2E27B /* MXMIndoorMapInfo.m */,
 				D60B7BB82510516800D01A1B /* MXMCacheManager.h */,
 				D60B7BB92510516800D01A1B /* MXMCacheManager.m */,
+				D6ADD4CD2699F27200E16640 /* MXMLevelModel.h */,
+				D6ADD4CE2699F27200E16640 /* MXMLevelModel.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -574,6 +580,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6ADD4CF2699F27200E16640 /* MXMLevelModel.h in Headers */,
 				D6D19A82223905EA00F29C3C /* MXMDecider.h in Headers */,
 				D6C5F453226AD3F8002842BB /* MXMLoggerService.h in Headers */,
 				D600960F21DCAB8B00505880 /* MXMDefine.h in Headers */,
@@ -906,6 +913,7 @@
 				D6BD8E9325CCE89600668F60 /* MXMPickerTextRenderView.m in Sources */,
 				D600961621DCAB8B00505880 /* MXMPointAnnotation.m in Sources */,
 				D68019A922A0BE9600E2E27B /* MXMIndoorMapInfo.m in Sources */,
+				D6ADD4D02699F27200E16640 /* MXMLevelModel.m in Sources */,
 				D6428647223F7E03003819E8 /* MXMDataQuerier.m in Sources */,
 				D6F7391A22CB019400D0860D /* MXMGeoCodeSearchOption.m in Sources */,
 				D6F745A5224364DA0086C891 /* MXMSearchBuildingOperation2.m in Sources */,
@@ -1156,7 +1164,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.22.0;
+				MARKETING_VERSION = 3.22.1;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-iquote",
@@ -1197,7 +1205,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.22.0;
+				MARKETING_VERSION = 3.22.1;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-iquote",

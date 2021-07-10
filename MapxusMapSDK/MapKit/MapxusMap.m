@@ -262,7 +262,7 @@
     if (self.gestureSwitchingBuilding) {
         // 切换建筑
         /// 点上找到的level信息
-        NSArray<id <MGLFeature>> *floorFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+        NSArray<MXMLevelModel *> *floorFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
         /// 点上找到的building信息
         NSDictionary *pointBuildings = [self.dataQueryer findOutBuildingAtPoint:point];
         /// 通过相关逻辑判断建筑的切换结果
@@ -277,13 +277,13 @@
          [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)] ||
          [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)])) {
         // 非点击POI
-        NSArray<id <MGLFeature>> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
-        id<MGLFeature> feature = theFeatures.firstObject;
+        NSArray<MXMLevelModel *> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+        MXMLevelModel *feature = theFeatures.firstObject;
         
-        NSString *floor = DecodeStringFromDic(feature.attributes, @"name");
-        NSString *floorId = DecodeStringFromDic(feature.attributes, @"id");
-        NSNumber *floorOrdinal = DecodeNumberFromDic(feature.attributes, @"ordinal");
-        NSString *buildingId = DecodeStringFromDic(feature.attributes, @"ref:building");
+        NSString *floor = feature.name;
+        NSString *floorId = feature.levelId;
+        NSNumber *floorOrdinal = feature.ordinal;
+        NSString *buildingId = feature.refBuildingId;
         
         MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
         
@@ -339,10 +339,10 @@
         // 查找长按楼层
         /////////////////////////////////////////////////////
         if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)]) {
-            NSArray<id <MGLFeature>> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
-            id<MGLFeature> feature = theFeatures.firstObject;
-            NSString *floor = [feature attributeForKey:@"name"];
-            NSString *buildingId = [feature attributeForKey:@"ref:building"];
+            NSArray<MXMLevelModel *> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+            MXMLevelModel *feature = theFeatures.firstObject;
+            NSString *floor = feature.name;
+            NSString *buildingId = feature.refBuildingId;
             MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
             [self.delegate mapView:self didLongPressedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
         } else if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:)]) {

@@ -11,6 +11,7 @@
 #import "MXMIndoorMapInfo.h"
 #import <Mapbox/Mapbox.h>
 #import "MXMDefine.h"
+#import "MXMLevelModel.h"
 
 @class MXMBoundingBox;
 
@@ -49,10 +50,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)decideInRectBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
 
 // 点击地图确定建筑
-- (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings andFloorFeatures:(NSArray<id <MGLFeature>> *)floors;
+- (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings andFloorFeatures:(NSArray<MXMLevelModel *> *)floors;
 
 // 定位时确定建筑
-- (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
+- (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings atPointLevelInfoList:(NSArray<MXMLevelModel *> *)levelInfoList;
 
 // 指定建筑
 - (void)specifyTheBuilding:(NSString *)buildingId

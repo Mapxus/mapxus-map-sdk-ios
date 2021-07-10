@@ -10,7 +10,7 @@
 #import <Mapbox/Mapbox.h>
 #import "MXMGeoPOI.h"
 #import "MXMGeoBuilding.h"
-
+#import "MXMLevelModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,8 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary *)findOutPOIAtPoint:(CGPoint)point;
 
 // 查询点击的楼层
-- (NSArray<id <MGLFeature>> *)findOutFloorFeaturesAtPoint:(CGPoint)point;
+- (NSArray<MXMLevelModel *> *)findOutFloorFeaturesAtPoint:(CGPoint)point;
 
+// 查询点上的所有level辅助信息
+- (NSArray<MXMLevelModel *> *)findOutAssistantFloorFeaturesAtPoint:(CGPoint)point;
 
 @end
 

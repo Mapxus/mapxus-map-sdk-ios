@@ -62,7 +62,7 @@
 }
 
 
-- (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings andFloorFeatures:(NSArray<id <MGLFeature>> *)floors
+- (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings andFloorFeatures:(NSArray<MXMLevelModel *> *)floors
 {
     BOOL isClickOnCurrentBuilding = [self hasBelongsCurrentBuilding:self.currentBuilding.identifier onFloorsList:floors];
     /// 不是点击在已选中的level上面时
@@ -86,50 +86,33 @@
     }
 }
 
-- (BOOL)hasBelongsCurrentBuilding:(NSString *)curBuildingId onFloorsList:(NSArray<id <MGLFeature>> *)floors
+- (BOOL)hasBelongsCurrentBuilding:(NSString *)curBuildingId onFloorsList:(NSArray<MXMLevelModel *> *)floors
 {
-    for (id<MGLFeature> feature in floors) {
-        NSString *buildingId = DecodeStringFromDic(feature.attributes, @"ref:building");
-        if ([buildingId isEqualToString:curBuildingId]) {
+    for (MXMLevelModel *feature in floors) {
+        if ([feature.refBuildingId isEqualToString:curBuildingId]) {
             return YES;
         }
     }
     return NO;
 }
 
-- (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+- (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings atPointLevelInfoList:(NSArray<MXMLevelModel *> *)levelInfoList
 {
-    NSArray *buildingList = [buildings allValues];
-    for (MXMGeoBuilding *b in buildingList) {
-        NSString *localFloor = [self calculateFloorWithLevel:level andBuilding:b];
-        if (localFloor) {
-            [self specifyTheBuilding:b.identifier
-                               floor:localFloor
+    for (MXMLevelModel *model in levelInfoList) {
+        if ([model.ordinal isEqualToNumber:@(level)]) {
+            NSString *buildingId = model.refBuildingId;
+            NSString *floorName = model.name;
+            MXMGeoBuilding *b = [buildings objectForKey:buildingId];
+            [self specifyTheBuilding:buildingId
+                               floor:floorName
                             zoomMode:MXMZoomDisable
                          edgePadding:UIEdgeInsetsZero
             shouldChangeTrackingMode:NO
                  withRectBuildingDic:buildings];
-            return [[MXMIndoorMapInfo alloc] initWithBuilding:b floor:localFloor];
+            return [[MXMIndoorMapInfo alloc] initWithBuilding:b floor:floorName];
         }
     }
     return nil;
-}
-
-
-- (NSString *)calculateFloorWithLevel:(NSInteger)level andBuilding:(MXMGeoBuilding *)building
-{
-    NSString *localFloor = nil;
-    int i = 0;
-    for (NSNumber *n in building.ordinals) {
-        if (level == [n integerValue]) {
-            if (i < building.floors.count) {
-                localFloor = building.floors[i];
-            }
-            break;
-        }
-        i++;
-    }
-    return localFloor;
 }
 
 

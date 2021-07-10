@@ -160,11 +160,32 @@
     return [resultPOIs copy];
 }
 
-- (NSArray<id <MGLFeature>> *)findOutFloorFeaturesAtPoint:(CGPoint)point
+- (NSArray<MXMLevelModel *> *)findOutFloorFeaturesAtPoint:(CGPoint)point
 {
-    NSSet *identifiers = [[NSSet alloc] initWithObjects:@"mapxus-level-fill", nil];
+    NSSet *identifiers = [NSSet setWithObject:@"mapxus-level-fill"];
     NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiers predicate:nil];
-    return theFeatures;
+    NSMutableArray *list = [NSMutableArray array];
+    for (id <MGLFeature> feature in theFeatures) {
+        MXMLevelModel *model = [MXMLevelModel yy_modelWithJSON:feature.attributes];
+        if (model) {
+            [list addObject:model];
+        }
+    }
+    return list;
+}
+
+- (NSArray<MXMLevelModel *> *)findOutAssistantFloorFeaturesAtPoint:(CGPoint)point
+{
+    NSSet *identifiers = [NSSet setWithObject:@"assistant-mapxus-level-fill"];
+    NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiers predicate:nil];
+    NSMutableArray *list = [NSMutableArray array];
+    for (id <MGLFeature> feature in theFeatures) {
+        MXMLevelModel *model = [MXMLevelModel yy_modelWithJSON:feature.attributes];
+        if (model) {
+            [list addObject:model];
+        }
+    }
+    return list;
 }
 
 @end
