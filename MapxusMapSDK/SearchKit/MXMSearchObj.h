@@ -12,28 +12,28 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- 建筑搜索请求配置类
- 
- 共有四种搜索模式：
- 1.全球搜索，参数组合为 keywords(可选)，offset，page；
- 2.指定方形区域内关键字搜索，参数组合为 keywords(可选)，bbox，offset，page；
- 3.指定圆形区域内关键字搜索，参数组合为 keywords(可选)，center，distance，offset，page；
- 4.指定建筑ID搜索，参数为 buildingIds。
+ Building search parameters
+
+ There are four search modes.
+ 1. global search with the parameter combinations keywords(optional), offset, page.
+ 2. Specify a keyword search within a specified square area, with the parameters keywords(optional), bbox, offset, page.
+ 3. Specify a keyword search in a circular area with the combination of keywords(optional), center, distance, offset, page.
+ 4. Specify building ID search with the parameter buildingIds.
  */
 @interface MXMBuildingSearchRequest : NSObject
-/// 关键字。目前只支持单个关键字查询
+/// Keyword. Currently only single keyword queries are supported
 @property (nonatomic, strong, nullable) NSString *keywords;
-/// 方形搜索区域。bbox与center 二选一进行搜索
+/// Square search area
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
-/// 圆形区域搜索中心。bbox与center 二选一进行搜索
+/// The centre of circular area search
 @property (nonatomic, strong, nullable) MXMGeoPoint *center;
-/// 圆形区域搜索半径。单位为km，必须配合center使用
+/// Radius for searching circular areas. Unit is km, must be used with center
 @property (nonatomic, assign) double distance;
-/// 每页显示多少数据
+/// The number of data to display per page
 @property (nonatomic, assign) NSUInteger offset;
-/// 页数
+/// Page number
 @property (nonatomic, assign) NSUInteger page;
-/// 查询的建筑id列表。与其他的参数互斥
+/// List of building ids to query. Mutually exclusive with other parameters
 @property (nonatomic, strong, nullable) NSArray<NSString *> *buildingIds;
 @end
 
@@ -41,12 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 建筑搜索结果
+ Building search results
  */
 @interface MXMBuildingSearchResponse : NSObject
-/// 返回结果个数
+/// The total number of results
 @property (nonatomic, assign) NSInteger total;
-/// 返回的`MXMBuilding`队列
+/// `MXMBuilding` list
 @property (nonatomic, strong) NSArray<MXMBuilding *> *buildings;
 @end
 
@@ -54,14 +54,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- POI分类搜索请求配置类
+ POI category search parameters
  
- 搜索指定建筑和楼层内所有的POI分类名，floor可不传，不传将搜索整栋建筑。
+ Search for all POI categories in a given building and floor, floor can be left out, otherwise the whole building will be searched
  */
 @interface MXMPOICategorySearchRequest : NSObject
-/// 指定搜索建筑id
+/// Specify search building id
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// 指定搜索楼层
+/// Specify search floor name
 @property (nonatomic, strong, nullable) NSString *floor;
 @end
 
@@ -69,10 +69,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- POI分类搜索结果
+ POI category search results
  */
 @interface MXMPOICategorySearchResponse : NSObject
-/// 分类名列表
+/// `MXMCategory` list
 @property (nonatomic, strong) NSArray<MXMCategory *> *category;
 @end
 
@@ -80,41 +80,41 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- POI搜索请求配置类
+ POI search parameters
  
- 共有五种搜索模式：
- 1.指定建筑与楼层内关键字搜索，参数组合为 keywords(可选)，buildingId，floor(可选)，offset，page，category(可选)；
- 2.指定方形区域内关键字搜索，参数组合为 keywords(可选)，bbox，offset，page，category(可选)；
- 3.指定圆形区域内关键字搜索，按二维空间距离排序，参数组合为 keywords(可选)，center，meterDistance(或distance)，offset，page，category(可选)；
- 4.指定圆形区域内关键字搜索，按路线距离排序，参数组合为 keywords(可选)，center，ordinal，buildingId，sort，meterDistance(或distance)，offset，page，category(可选)；
- 5.指定建筑ID搜索，参数为 POIIds；
+ There are five search modes.
+ 1. specify the keyword search within the building and floor, with the parameter combinations keywords(optional), buildingId, floor(optional), offset, page, category(optional).
+ 2. Specify the keyword search in the square area with the combination keywords(optional), bbox, offset, page, category(optional).
+ 3. Specify a keyword search within a circular region, sorted by two-dimensional spatial distance, with the parameter combinations keywords(optional), center, meterDistance(or distance), offset, page, category(optional).
+ 4. specify a keyword search within a circular area, sorted by route distance, with the parameter combinations keywords(optional), center, ordinal, buildingId, sort, meterDistance(or distance), offset, page, category(optional).
+ 5. specifying a buildingId search with the parameters POIIds.
  */
 @interface MXMPOISearchRequest : NSObject
-/// 关键字。目前只支持单个关键字
+/// Keyword. Currently only single keyword queries are supported
 @property (nonatomic, strong, nullable) NSString *keywords;
-/// 建筑id。buildingId，bbox, center 三选一
+/// The id of building which you want to search in
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// 搜索楼层。必须配合buildingId使用
+/// The name of floor which you want to search on
 @property (nonatomic, strong, nullable) NSString *floor;
-/// 方形搜索区域。buildingId，bbox, center 三选一
+/// Square search area
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
-/// 圆形区域搜索中心。buildingId，bbox, center 三选一
+/// The centre of circular area search
 @property (nonatomic, strong, nullable) MXMGeoPoint *center;
-/// 圆形区域搜索半径。单位为km，必须配合center使用
+/// Radius for searching circular areas. Unit is km, must be used with center
 @property (nonatomic, assign) double distance DEPRECATED_ATTRIBUTE;
-/// 圆形区域搜索半径。单位为m，必须配合center使用
+/// Radius for searching circular areas. Unit is m, must be used with center
 @property (nonatomic, assign) NSUInteger meterDistance;
-/// 每页显示多少数据
+/// The number of data to display per page
 @property (nonatomic, assign) NSUInteger offset;
-/// 页数
+/// Page number
 @property (nonatomic, assign) NSUInteger page;
-/// 要过滤的类别
+/// Category to be filtered
 @property (nonatomic, strong, nullable) NSString *category;
-/// 排序方式。AbsoluteDistance: 按二维空间距离排序[默认值]；ActualDistance: 按路线距离排序
+/// Sort by: AbsoluteDistance: Sort by 2D distance [default]; ActualDistance: Sort by route distance
 @property (nonatomic, strong, nullable) NSString *sort;
-/// 搜索地点的实际楼高，取CLFloor的level值，当sort值为ActualDistance时，需要传入值
+/// Search for the actual building height of the location, take the level value of the CLFloor and pass in the value when the sort value is ActualDistance
 @property (nonatomic, assign) NSInteger ordinal;
-/// 查询的POI id列表。与上面的参数互斥
+/// The list of POI ids to query. Mutually exclusive with the above parameters
 @property (nonatomic, strong, nullable) NSArray<NSString *> *POIIds;
 @end
 
@@ -122,12 +122,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- POI搜索结果
+ POI search results
  */
 @interface MXMPOISearchResponse : NSObject
-/// 返回结果个数
+/// The total number of results
 @property (nonatomic, assign) NSInteger total;
-/// 返回的`MXMPOI`队列
+/// `MXMPOI` list
 @property (nonatomic, strong) NSArray<MXMPOI *> *pois;
 @end
 
@@ -135,20 +135,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 给定地图偏转角度，搜索附近POI点并得出POI点相对手机方向的方位
+ Given the map deflection angle, search for nearby POI points and derive the orientation of the POI points with respect to the direction of the phone
  */
 @interface MXMOrientationPOISearchRequest : NSObject
-/// 地图正北方向到手机指向的顺时针夹角，取值范围：[0,359]
+/// Clockwise angle from true north of the map to where the phone is pointing, takes values in the range [0,359]
 @property (nonatomic, assign) NSUInteger angle;
-/// 距离搜索类型（默认：Point）。Point：查找以center为圆心，distance为半径的圆包含的POI点；Polygon：查找以center为圆心，distance为半径的圆相交房间的POI信息
+/// Distance search type (default: Point). Point: finds POI points contained in a circle with center and distance as radius; polygon: finds POI information for rooms intersected by a circle with center and distance as radius
 @property (nonatomic, strong, nullable) NSString *distanceSearchType;
-/// 建筑ID
+/// The id of building which you want to search in
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// 搜索楼层
+/// The name of floor which you want to search on
 @property (nonatomic, strong, nullable) NSString *floor;
-/// 中心点位置
+/// The centre of circular area search
 @property (nonatomic, strong, nullable) MXMGeoPoint *center;
-/// 圆形区域搜索半径。单位为m
+/// Radius for searching circular areas. Unit is m
 @property (nonatomic, assign) NSUInteger distance;
 @end
 
@@ -156,10 +156,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 中心点附近POI搜索结果
+ POI search results by OrientationPOISearch
  */
 @interface MXMOrientationPOISearchResponse : NSObject
-/// 返回的`MXMPOI`队列
+/// `MXMPOI` list
 @property (nonatomic, strong) NSArray<MXMPOI *> *pois;
 @end
 
@@ -167,30 +167,30 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 路线搜索请求配置
+ Route search parameters
  */
 @interface MXMRouteSearchRequest : NSObject
-/// 始点建筑
+/// The id of building where the start point is located
 @property (nonatomic, strong, nullable) NSString *fromBuilding;
-/// 始点建筑楼层
+/// The name of floor where the start point is located
 @property (nonatomic, strong, nullable) NSString *fromFloor;
-/// 始点经度
+/// Starting longitude
 @property (nonatomic, assign) double fromLon;
-/// 始点纬度
+/// Starting latitude
 @property (nonatomic, assign) double fromLat;
-/// 终点建筑
+/// The name of floor where the end point is located
 @property (nonatomic, strong, nullable) NSString *toBuilding;
-/// 终点建筑楼层
+/// The name of floor where the end point is located
 @property (nonatomic, strong, nullable) NSString *toFloor;
-/// 终点经度
+/// Ending longitude
 @property (nonatomic, assign) double toLon;
-/// 终点纬度
+/// Ending latitude
 @property (nonatomic, assign) double toLat;
-/// 导航方式。可选值为foot, wheelchair。默认foot
+/// Navigation method. Optional values are foot, wheelchair. foot by default
 @property (nonatomic, strong, nullable) NSString *vehicle;
-/// 返回结果语言版本。可选值为en，zh-Hans，zh-Hant，ja，ko。默认en
+/// Returns the result language. Possible values are en, zh-Hans, zh-Hant, ja, ko. en by default
 @property (nonatomic, strong, nullable) NSString *locale;
-/// 终点设置在门前。设置为YES则终点只到POI店门终止
+/// The end point is set in front of the door. Set to YES to terminate only at the POI shop door
 @property (nonatomic, assign) BOOL toDoor;
 @end
 
@@ -198,12 +198,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 路线搜索结果
+ Route search results
  */
 @interface MXMRouteSearchResponse : NSObject
-/// 途经点列表
+/// WayPoint list which you pass from `MXMRouteSearchRequest`
 @property (nonatomic, strong) NSArray<MXMIndoorPoint *> *wayPointList;
-/// 路线`MXMPath`的队列，不同的路线为不同的规划方案
+/// List for `MXMPath`, different routes for different planning options
 @property (nonatomic, strong) NSArray<MXMPath *> *paths;
 @end
 

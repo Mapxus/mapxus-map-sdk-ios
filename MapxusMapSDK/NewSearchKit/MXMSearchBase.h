@@ -11,12 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- 查询服务基类
+ Search Service Base Class
  */
 @interface MXMSearchBase : NSObject
 /**
- 取消对应id的网络请求
- @param taskId 网络请求的 id
+ Cancellation of network requests with the given id
+ @param taskId The id of the network request
  */
 - (void)cancelTaskById:(NSInteger)taskId;
 

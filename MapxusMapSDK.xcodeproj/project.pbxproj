@@ -354,16 +354,11 @@
 		D60095D321DCAB8900505880 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				D6EAB99C26D795CD00B4E108 /* MXMPicker */,
 				D60095D521DCAB8A00505880 /* KxMenu */,
 				D60095D821DCAB8A00505880 /* MXMFloorSelectorBar+Private.h */,
 				D60095D421DCAB8900505880 /* MXMFloorSelectorBar.h */,
 				D60095D921DCAB8A00505880 /* MXMFloorSelectorBar.m */,
-				D6BD8E8B25CCE89500668F60 /* MXMPickerView.h */,
-				D6BD8E8E25CCE89500668F60 /* MXMPickerView.m */,
-				D6BD8E8A25CCE89500668F60 /* MXMPickerContainerView.h */,
-				D6BD8E8F25CCE89600668F60 /* MXMPickerContainerView.m */,
-				D6BD8E8C25CCE89500668F60 /* MXMPickerTextRenderView.h */,
-				D6BD8E8D25CCE89500668F60 /* MXMPickerTextRenderView.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -544,6 +539,19 @@
 				D60095E821DCAB8A00505880 /* MXMPointAnnotation.m */,
 			);
 			path = MapKit;
+			sourceTree = "<group>";
+		};
+		D6EAB99C26D795CD00B4E108 /* MXMPicker */ = {
+			isa = PBXGroup;
+			children = (
+				D6BD8E8B25CCE89500668F60 /* MXMPickerView.h */,
+				D6BD8E8E25CCE89500668F60 /* MXMPickerView.m */,
+				D6BD8E8A25CCE89500668F60 /* MXMPickerContainerView.h */,
+				D6BD8E8F25CCE89600668F60 /* MXMPickerContainerView.m */,
+				D6BD8E8C25CCE89500668F60 /* MXMPickerTextRenderView.h */,
+				D6BD8E8D25CCE89500668F60 /* MXMPickerTextRenderView.m */,
+			);
+			path = MXMPicker;
 			sourceTree = "<group>";
 		};
 		D6F6B62325C3F3A800D5F57C /* BuildConfig */ = {

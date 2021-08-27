@@ -15,32 +15,33 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MXMGeoCodeSearchDelegate;
 
 /**
- geo搜索服务
+ geo search services
  */
 @interface MXMGeoCodeSearch : MXMSearchBase
-/// 检索模块的Delegate
+/// Handle to the object which processing result
 @property (nonatomic, weak, nullable) id<MXMGeoCodeSearchDelegate> delegate;
 
 /**
- 根据地理坐标获取地址信息
- 异步函数，返回结果在MXMGeoCodeSearchDelegate的onGetReverseGeoCode:result:error:通知
- @param reverseGeoCodeOption 反geo检索信息类
- @return 网络请求的 id，可用于取消对应task
+ Get address information based on geographic coordinates
+ 
+ Asynchronous function, return results in MXMGeoCodeSearchDelegate's onGetReverseGeoCode:result:error:notification
+ @param reverseGeoCodeOption Reverse geo search parameters
+ @return The id of the network request, which can be used to cancel the corresponding task
  */
 - (NSInteger)reverseGeoCode:(MXMReverseGeoCodeSearchOption *)reverseGeoCodeOption;
 
 @end
 
 /**
- 搜索delegate，用于获取搜索结果
+ Search delegate for search results
  */
 @protocol MXMGeoCodeSearchDelegate <NSObject>
 @optional
 /**
- 返回反地理编码搜索结果
- @param searcher 搜索对象
- @param result 搜索结果
- @param error 错误信息
+ Return reverse geocoding search results
+ @param searcher Search by
+ @param result Search results
+ @param error Error message
  */
 - (void)onGetReverseGeoCode:(MXMGeoCodeSearch *)searcher result:(nullable MXMReverseGeoCodeSearchResult *)result error:(nullable NSError *)error;
 

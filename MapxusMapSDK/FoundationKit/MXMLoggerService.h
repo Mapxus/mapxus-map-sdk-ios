@@ -11,13 +11,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- 持有MXMLogger的单例
+ Holding a single instance of MXMLogger
  */
 @interface MXMLoggerService : NSObject
 
-// 单例输出日志
+// Output log
 + (void)logMsg:(NSString *)msg;
-// 打开日志
+// Log enable
 + (void)enableLog:(BOOL)enable;
 
 @end

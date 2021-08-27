@@ -14,46 +14,46 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- 分类详细信息
+ Category details
  */
 @interface MXMCategory : NSObject
-/// 分类值
+/// Category key name
 @property (nonatomic, strong) NSString *category;
-/// 分类ID
+/// Category id
 @property (nonatomic, strong) NSString *categoryId;
-/// 分类的描述
+/// Description of the category
 @property (nonatomic, strong, nullable) NSString *categoryDescription;
-/// 分类的英文名
+/// English name for category
 @property (nonatomic, strong, nullable) NSString *title_en;
-/// 分类的简体中文名
+/// Simplified Chinese name for category
 @property (nonatomic, strong, nullable) NSString *title_cn;
-/// 分类的繁体中文名
+/// Traditional Chinese for category
 @property (nonatomic, strong, nullable) NSString *title_zh;
 @end
 
 /**
- 地球经纬度坐标
+ Earth's latitude and longitude coordinates
  */
 @interface MXMGeoPoint : NSObject
-/// 纬度（垂直方向）
+/// Latitude (vertical)
 @property (nonatomic, assign) double latitude;
-/// 经度（水平方向）
+/// Longitude (horizontal)
 @property (nonatomic, assign) double longitude;
-/// 海拔高度
+/// Elevation (vertical)
 @property (nonatomic, assign) double elevation;
 /**
- MXMGeoPoint工厂方法
- @param lat 纬度（垂直方向）
- @param lng 经度（水平方向）
- @return MXMGeoPoint对象
+ MXMGeoPoint factory methods
+ @param lat Latitude (vertical)
+ @param lng Longitude (horizontal)
+ @return MXMGeoPoint object
  */
 + (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng;
 /**
- MXMGeoPoint工厂方法
- @param lat 纬度（垂直方向）
- @param lng 经度（水平方向）
- @param ele 海拔高度
- @return MXMGeoPoint对象
+ MXMGeoPoint factory method
+ @param lat Latitude (vertical)
+ @param lng Longitude (horizontal)
+ @param ele Elevation (vertical)
+ @return MXMGeoPoint object
  */
 + (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng elevation:(double)ele;
 @end
@@ -62,20 +62,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 室内点
+ Indoor point
  */
 @interface MXMIndoorPoint : MXMGeoPoint
-/// 所在建筑ID
+/// The id of building in which it is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// 所在楼层
+/// The name of floor on which it is located
 @property (nonatomic, strong, nullable) NSString *floor;
 /**
- MXMIndoorPoint工厂方法
- @param lat 纬度（垂直方向）
- @param lng 经度（水平方向）
- @param buildingId 建筑ID
- @param floor 楼层名
- @return MXMIndoorPoint对象
+ MXMIndoorPoint factory method
+ @param lat Latitude (vertical)
+ @param lng Longitude (horizontal)
+ @param buildingId The id of building in which it is located
+ @param floor The name of floor on which it is located
+ @return MXMIndoorPoint object
  */
 + (MXMIndoorPoint *)locationWithLatitude:(double)lat longitude:(double)lng building:(nullable NSString *)buildingId floor:(nullable NSString *)floor;
 @end
@@ -84,24 +84,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 两点的经纬线相交形成的矩形区域
+ Rectangular area formed by the intersection of the lines of latitude and longitude of two points
  */
 @interface MXMBoundingBox : NSObject
-/// 左下角纬度
+/// Lower left latitude
 @property (nonatomic, assign) double min_latitude;
-/// 左下角经度
+/// Lower left Longitude
 @property (nonatomic, assign) double min_longitude;
-/// 右上角纬度
+/// Top right latitude
 @property (nonatomic, assign) double max_latitude;
-/// 右上角经度
+/// Top right Longitude
 @property (nonatomic, assign) double max_longitude;
 /**
- MXMBoundingBox工厂方法
- @param min_lat 左下角纬度
- @param min_lng 左下角经度
- @param max_lat 右上角纬度
- @param max_lng 右上角经度
- @return MXMBoundingBox对象
+ MXMBoundingBox factory method
+ @param min_lat Lower left latitude
+ @param min_lng Lower left Longitude
+ @param max_lat Top right latitude
+ @param max_lng Top right Longitude
+ @return MXMBoundingBox object
  */
 + (MXMBoundingBox *)boundingBoxWithMinLatitude:(double)min_lat minLongitude:(double)min_lng maxLatitude:(double)max_lat maxLongitude:(double)max_lng;
 @end
@@ -110,12 +110,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 建筑地址类
+ Building address
  */
 @interface MXMAddress : NSObject
-/// 房号
+/// House number
 @property (nonatomic, strong, nullable) NSString *housenumber;
-/// 街道名
+/// Street name
 @property (nonatomic, strong, nullable) NSString *street;
 @end
 
@@ -123,16 +123,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 建筑物楼层
+ Floor information
  */
 @interface MXMFloor : NSObject
-/// 楼层名称
+/// Floor name
 @property (nonatomic, strong) NSString *code;
-/// 楼层Id
+/// Floor id
 @property (nonatomic, strong) NSString *floorId;
-/// 楼层序列号
+/// Level values represent logical levels above or below ground level and are not intended to correspond to any numbering scheme in use by the building itself. The ground floor of a building is always represented by the value 0. Floors above the ground floor are represented by positive integers, so a value of 1 represents the floor above ground level, a value of 2 represents two floors above ground level, and so on. Floors below the ground floor are represented by corresponding negative integers, with a value of -1 representing the floor immediately below ground level and so on. It is erroneous to use the user’s level in a building as an estimate of altitude.
 @property (nonatomic, assign) NSInteger ordinal;
-/// 该层是否有 visualMap 数据
+/// Whether the floor have visual map data
 @property (nonatomic, assign) BOOL hasVisualMap;
 @end
 
@@ -140,66 +140,66 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 建筑信息类
+ Building information
  */
 @interface MXMBuilding : NSObject
-/// 建筑ID
+/// building id
 @property (nonatomic, strong) NSString *buildingId;
-/// 所属场所ID
+/// The id of venue where the building is located
 @property (nonatomic, strong, nullable) NSString *venueId;
-/// 默认所属场所名
+/// The default name of venue where the building is located
 @property (nonatomic, strong, nullable) NSString *venueName_default;
-/// 英文所属场所名
+/// The English name of venue where the building is located
 @property (nonatomic, strong, nullable) NSString *venueName_en;
-/// 简体中文所属场所名
+/// The Simplified Chinese name of venue where the building is located
 @property (nonatomic, strong, nullable) NSString *venueName_cn;
-/// 繁体中文所属场所名
+/// The Traditional Chinese name of venue where the building is located
 @property (nonatomic, strong, nullable) NSString *venueName_zh;
-/// 日语所属场所名
+/// The Japanese name of venue where the building is located
 @property (nonatomic, strong, nullable) NSString *venueName_ja;
-/// 韩语所属场所名
+/// The Korean name of venue where the building is located
 @property (nonatomic, strong, nullable) NSString *venueName_ko;
-/// 默认建筑名
+/// Building name in default language
 @property (nonatomic, strong, nullable) NSString *name_default;
-/// 英文建筑名
+/// Building name in English
 @property (nonatomic, strong, nullable) NSString *name_en;
-/// 简体中文建筑名
+/// Building name in Simplified Chinese
 @property (nonatomic, strong, nullable) NSString *name_cn;
-/// 繁体中文建筑名
+/// Building name in Traditional Chinese
 @property (nonatomic, strong, nullable) NSString *name_zh;
-/// 日语建筑名
+/// Building name in Japanese
 @property (nonatomic, strong, nullable) NSString *name_ja;
-/// 韩语建筑名
+/// Building name in Korean
 @property (nonatomic, strong, nullable) NSString *name_ko;
-/// 默认建筑地址
+/// Building address in default language
 @property (nonatomic, strong, nullable) MXMAddress *address_default;
-/// 英文建筑地址
+/// Building address in English
 @property (nonatomic, strong, nullable) MXMAddress *address_en;
-/// 简体中文建筑地址
+/// Building address in Simplified Chinese
 @property (nonatomic, strong, nullable) MXMAddress *address_cn;
-/// 繁体中文建筑地址
+/// Building address in Traditional Chinese
 @property (nonatomic, strong, nullable) MXMAddress *address_zh;
-/// 日语建筑地址
+/// Building address in Japanese
 @property (nonatomic, strong, nullable) MXMAddress *address_ja;
-/// 韩语建筑地址
+/// Building address in Korean
 @property (nonatomic, strong, nullable) MXMAddress *address_ko;
-/// 建筑类型，表示该建筑的分类，如cathedral,car_park,hospital,office,retail等
+/// Building type, indicating the classification of the building, e.g. cathedral, car_park, hospital, office, retail, etc.
 @property (nonatomic, strong, nullable) NSString *type;
-/// 建筑所在外接矩形区域
+/// External rectangular area where the building is located
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
-/// 标签经纬度
+/// The Longitude and Latitude of the building name label
 @property (nonatomic, strong, nullable) MXMGeoPoint *labelCenter;
-/// 建筑所有楼层
+/// All floors information of the building
 @property (nonatomic, strong) NSArray<MXMFloor *> *floors;
-/// 建筑地面层
+/// The ground floor name of the building
 @property (nonatomic, strong, nullable) NSString *groundFloor;
-/// 所在国家
+/// The contry where the building is located
 @property (nonatomic, strong, nullable) NSString *country;
-/// 所在区域
+/// The region where the building is located
 @property (nonatomic, strong, nullable) NSString *region;
-/// 所在城市
+/// The city where the building is located
 @property (nonatomic, strong, nullable) NSString *city;
-/// 可视化地图标识符
+/// Whether the building have visual map data
 @property (nonatomic, assign) BOOL hasVisualMap;
 @end
 
@@ -207,60 +207,60 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- POI信息类
+ POI information
  */
 @interface MXMPOI : NSObject
-/// POI的ID
+/// POI id
 @property (nonatomic, strong) NSString *id;
-/// 所在建筑ID
+/// The id of building where the POI is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// 所在场地的ID
+/// The id of venue where the POI is located
 @property (nonatomic, strong, nullable) NSString *venueId;
-/// POI所在楼层
+/// The name of floor where the POI is located
 @property (nonatomic, strong, nullable) NSString *floor;
-/// POI所在楼层的楼层id
+/// The id of floor where the POI is located
 @property (nonatomic, strong, nullable) NSString *floorId;
-/// POI的经纬度
+/// Longitude and latitude of POI
 @property (nonatomic, strong, nullable) MXMGeoPoint *location;
-/// POI分类
+/// List of categories to which POI belongs
 @property (nonatomic, strong) NSArray<NSString *> *category;
-/// POI描述
+/// Description of POI
 @property (nonatomic, strong, nullable) NSString *introduction;
-/// POI邮箱
+/// The Email of POI
 @property (nonatomic, strong, nullable) NSString *email;
-/// 默认POI名字
+/// POI name in default language
 @property (nonatomic, strong, nullable) NSString *name_default;
-/// POI英文名字
+/// POI name in English
 @property (nonatomic, strong, nullable) NSString *name_en;
-/// POI简体中文名字
+/// POI name in Simplified Chinese
 @property (nonatomic, strong, nullable) NSString *name_cn;
-/// POI繁体中文名字
+/// POI name in Traditional Chinese
 @property (nonatomic, strong, nullable) NSString *name_zh;
-/// POI日语名字
+/// POI name in Japanese
 @property (nonatomic, strong, nullable) NSString *name_ja;
-/// POI韩语名字
+/// POI name in Korean
 @property (nonatomic, strong, nullable) NSString *name_ko;
-/// 默认无障碍资讯
+/// Accessibility Information in default language
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail;
-/// 英文无障碍资讯
+/// Accessibility Information in English
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_en;
-/// 简体中文无障碍资讯
+/// Accessibility Information in Simplified Chinese
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_cn;
-/// 繁体中文无障碍资讯
+/// Accessibility Information in Traditional Chinese
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_zh;
-/// 日语无障碍资讯
+/// Accessibility Information in Japanese
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_ja;
-/// 韩语无障碍资讯
+/// Accessibility Information in Korean
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_ko;
-/// 开门时间
+/// Opening hours
 @property (nonatomic, strong, nullable) NSString *openingHours;
-/// 店铺电话
+/// The phone number of the shop
 @property (nonatomic, strong, nullable) NSString *phone;
-/// 店铺网址
+/// The website of the shop
 @property (nonatomic, strong, nullable) NSString *website;
-/// 离请求中心点的距离
+/// Distance from the request centre, only valid for the centre search
 @property (nonatomic, assign) double distance;
-/// 手机指向到POI点与请求中心点(center)连线的顺时针夹角
+/// Clockwise angle of the phone pointing and the line connecting from the POI point to the centre of the request
 @property (nonatomic, assign) NSUInteger angle;
 @end
 
@@ -268,28 +268,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 路线指令
+ Key instruction for the route
  */
 @interface MXMInstruction : NSObject
-/// 本指令所在建筑的建筑id
+/// The id of the building in which this instruction is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// 本指令所在建筑的楼层
+/// The name of the floor in which this instruction is located
 @property (nonatomic, strong, nullable) NSString *floor;
-/// 路名
+/// Name of the road being taken
 @property (nonatomic, strong, nullable) NSString *streetName;
-/// 本指令的距离，以米为单位(m)
+/// Distance of this instruction in metres (m)
 @property (nonatomic, assign) double distance;
-/// 方向，北向角度的顺时针方向以0到360度之间给出。
+/// The direction, clockwise of the northward angle is given as between 0 and 360 degrees
 @property (nonatomic, assign) double heading;
-/// 指令符号
+/// Command symbols
 @property (nonatomic, assign) MXMRouteSign sign;
-/// 一个数组，包含该指令的点的第一个和最后一个索引(相对于path[0].points)。这有指明指令匹配路线的哪一部分。
+/// An array containing the first and last indexes (relative to path[n].points) of the points of this instruction. Indicates which part of the route the instruction matches
 @property (nonatomic, strong) NSArray<NSNumber *> *interval;
-/// 描述用户遵循路线必须做的事情。语言取决于locale参数。
+/// Describes what the user must do to follow the route. The language depends on the locale parameter.
 @property (nonatomic, strong, nullable) NSString *text;
-/// 本指令的持续时间，单位为ms
+/// Duration of this instruction in ms
 @property (nonatomic, assign) NSUInteger time;
-/// 连接类型，只有在sign为`MXMDownstairs`和`MXMUpstairs`才会返回，可能值有elevator_customer, elevator_good, escalator, ramp, stairs
+/// Connection type, only returned if sign is `MXMDownstairs` and `MXMUpstairs`, possible values are elevator_customer, elevator_good, escalator, ramp, stairs
 @property (nonatomic, strong, nullable) NSString *type;
 @end
 
@@ -297,12 +297,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 路线的坐标信息
+  The coordinates information of the route
  */
 @interface MXMGeometry : NSObject
-/// 路线几何图形的类型
+/// Types of route geometries
 @property (nonatomic, strong, nullable) NSString *type;
-/// 路线的坐标数组
+/// An array of coordinates for the route
 @property (nonatomic, strong) NSArray<MXMGeoPoint *> *coordinates;
 @end
 
@@ -310,20 +310,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 路线方案
+ Route information
  */
 @interface MXMPath : NSObject
-/// 路线的总距离，以米为单位(m)
+/// Total distance of the route in metres (m)
 @property (nonatomic, assign) double distance;
-/// 权重值
+/// Weighting values
 @property (nonatomic, assign) double weight;
-/// 路线的总时间，单位为毫秒(ms)
+/// Total time spent on the route in milliseconds (ms)
 @property (nonatomic, assign) NSUInteger time;
-/// 路线的包围框
+/// The enclosing box for the route
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
-/// 路线的坐标信息
+/// Information on the coordinates of the route
 @property (nonatomic, strong, nullable) MXMGeometry *points;
-/// 路线的指令信息组
+/// The instruction information group for the route
 @property (nonatomic, strong) NSArray<MXMInstruction *> *instructions;
 @end
 

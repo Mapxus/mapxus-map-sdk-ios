@@ -15,42 +15,42 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- 搜索接口管理器
+ Search Interface Manager
  */
 @interface MXMSearchAPI : NSObject
 
 /**
- 实现了 `MXMSearchDelegate` 协议的对象指针
+ Pointer to an object that implements the `MXMSearchDelegate` protocol
  */
 @property (nonatomic, weak, nullable) id<MXMSearchDelegate> delegate;
 
 /**
- * @brief 建筑物查询接口
- * @param request 查询选项。具体属性字段请参考 `MXMBuildingSearchRequest` 类。
+ * @brief Building search interface
+ * @param request Query options. Please refer to the `MXMBuildingSearchRequest` class for specific property fields.
  */
 - (void)MXMBuildingSearch:(MXMBuildingSearchRequest *)request;
 
 /**
- * @brief 建筑内POI分类查询接口
- * @param request 查询选项。具体属性字段请参考 `MXMPOICategorySearchRequest` 类。
+ * @brief In-building POI category search interface
+ * @param request Query options. Please refer to the `MXMPOICategorySearchRequest` class for specific property fields.
  */
 - (void)MXMPOICategorySearch:(MXMPOICategorySearchRequest *)request;
 
 /**
- * @brief 建筑内POI信息查询接口
- * @param request 查询选项。具体属性字段请参考 `MXMPOISearchRequest` 类。
+ * @brief In-building POI information search interface
+ * @param request Query options. Please refer to the `MXMPOISearchRequest` class for specific property fields.
  */
 - (void)MXMPOISearch:(MXMPOISearchRequest *)request;
 
 /**
- * @brief 建筑内搜索附近POI点并得出POI点相对手机方向的方位查询接口
- * @param request 查询选项。具体属性字段请参考 `MXMOrientationPOISearchRequest` 类。
+ * @brief Interface to search for nearby POI points within the building and derive the orientation of the POI point in relation to the mobile phone
+ * @param request Query options. Please refer to the `MXMOrientationPOISearchRequest` class for specific property fields.
  */
 - (void)MXMOrientationPOISearch:(MXMOrientationPOISearchRequest *)request;
 
 /**
- * @brief 建筑物内路线查询接口
- * @param request 查询选项。具体属性字段请参考 `MXMRouteSearchRequest` 类。
+ * @brief In-building route search interface
+ * @param request Query options. Please refer to the `MXMRouteSearchRequest` class for specific property fields.
  */
 - (void)MXMRouteSearch:(MXMRouteSearchRequest *)request;
 
@@ -62,51 +62,51 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- MXMSearchDelegate协议，定义了搜索结果的回调方法，及发生错误时的回调方法。
+ The MXMSearchDelegate protocol, which defines the callback methods for search results and when an error occurs.
  */
 @protocol MXMSearchDelegate <NSObject>
 
 @optional
 
 /**
- * @brief 请求错误回调方法
- * @param request 查询选项。
- * @param error 错误信息。
+ * @brief Request error callback method
+ * @param request Query options
+ * @param error Error message
  */
 - (void)MXMSearchRequest:(id)request didFailWithError:(NSError *)error;
 
 /**
- * @brief 建筑查询回调方法
- * @param request 查询选项。具体属性字段请参考 `MXMBuildingSearchRequest` 类。
- * @param response 查询结果。具体属性字段请参考 `MXMBuildingSearchResponse` 类。
+ * @brief Building query callback methods
+ * @param request Query options. Please refer to the `MXMBuildingSearchRequest` class for specific property fields.
+ * @param response Query results. Please refer to the `MXMBuildingSearchResponse` class for specific property fields.
  */
 - (void)onBuildingSearchDone:(MXMBuildingSearchRequest *)request response:(MXMBuildingSearchResponse *)response;
 
 /**
- * @brief 建筑内POI分类查询回调方法
- * @param request 查询选项。具体属性字段请参考 `MXMPOICategorySearchRequest` 类。
- * @param response 查询结果。具体属性字段请参考 `MXMPOICategorySearchResponse` 类。
+ * @brief Callback methods for POI category queries within buildings
+ * @param request Query options. Please refer to the `MXMPOICategorySearchRequest` class for specific property fields.
+ * @param response Query results. Please refer to the `MXMPOICategorySearchResponse` class for the specific property fields.
  */
 - (void)onPOICategorySearchDone:(MXMPOICategorySearchRequest *)request response:(MXMPOICategorySearchResponse *)response;
 
 /**
- * @brief 建筑内POI查询回调方法
- * @param request 查询选项。具体属性字段请参考 `MXMPOISearchRequest` 类。
- * @param response 查询结果。具体属性字段请参考 `MXMPOISearchResponse` 类。
+ * @brief Callback methods for POI queries within the building
+ * @param request Query options. Please refer to the `MXMPOISearchRequest` class for specific property fields.
+ * @param response The result of the query. Please refer to the `MXMPOISearchResponse` class for specific property fields.
  */
 - (void)onPOISearchDone:(MXMPOISearchRequest *)request response:(MXMPOISearchResponse *)response;
 
 /**
- * @brief 建筑内搜索附近POI点并得出POI点相对手机方向的方位查询回调方法
- * @param request 查询选项。具体属性字段请参考 `MXMOrientationPOISearchRequest` 类。
- * @param response 查询结果。具体属性字段请参考 `MXMOrientationPOISearchResponse` 类。
+ * @brief Callback method for searching for nearby POI points within a building and deriving the orientation of the POI point in relation to the direction of the phone
+ * @param request Query options. Please refer to the `MXMOrientationPOISearchRequest` class for specific property fields.
+ * @param response The result of the query. Please refer to the `MXMOrientationPOISearchResponse` class for specific property fields.
  */
 - (void)onOrientationPOISearchDone:(MXMOrientationPOISearchRequest *)request response:(MXMOrientationPOISearchResponse *)response;
 
 /**
- * @brief 建筑内路线回调方法
- * @param request 查询选项。具体属性字段请参考 `MXMRouteSearchRequest` 类。
- * @param response 查询结果。具体属性字段请参考 `MXMRouteSearchResponse` 类。
+ * @brief In-building route callback method
+ * @param request Query options. Please refer to the `MXMRouteSearchRequest` class for specific property fields.
+ * @param response Query results. Please refer to the `MXMRouteSearchResponse` class for the specific property fields.
  */
 - (void)onRouteSearchDone:(MXMRouteSearchRequest *)request response:(MXMRouteSearchResponse *)response;
 

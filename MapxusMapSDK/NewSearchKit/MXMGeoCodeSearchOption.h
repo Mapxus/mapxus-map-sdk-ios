@@ -11,12 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- 反地理编码参数信息类
+ Reverse geo search parameters
  */
 @interface MXMReverseGeoCodeSearchOption : NSObject
-/// 待解析的经纬度坐标（必选）
+/// Latitude and longitude coordinates to be resolved (mandatory)
 @property (nonatomic, assign) CLLocationCoordinate2D location;
-/// 所在楼数，对应 CLLocation 中的 floor.level
+/// Level values of floor, corresponding to floor.level in CLLocation
 @property (nonatomic, strong) NSNumber *ordinalFloor;
 @end
 

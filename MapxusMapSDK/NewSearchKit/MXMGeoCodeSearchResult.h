@@ -12,12 +12,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- 反地理编码结果类
+ Reverse geo search result
  */
 @interface MXMReverseGeoCodeSearchResult : NSObject
-/// 查询定位所在建筑的信息，只返回 buildingId 与 name 信息
+/// Query for information about the building in which the location is located, returning only the buildingId and name information
 @property (nonatomic, strong) MXMBuilding *building;
-/// 查询定位所在楼层的信息
+/// The information of the floor where you are located
 @property (nonatomic, strong) MXMFloor *floor;
 @end
 

@@ -11,11 +11,11 @@
 @interface NSString (Compare)
 
 /**
- *  判断字符串是否为空
+ *  Determine if a string is empty
  *
- *  @param string 检测目标字符
+ *  @param string Detection of target characters
  *
- *  @return YES:字符串无有效值， NO:字符串有有效值
+ *  @return YES:String with no valid value， NO:Strings have valid values
  */
 + (BOOL)isEmpty:(NSString *)string;
 

@@ -26,7 +26,7 @@
 
 #appledoc Xcode script
 # Start constants
-company="MAPHIVE TECHNOLOGY LIMITED.";
+company="Maphive Technology Investment Limited.";
 companyURL="http://www.mapxus.com/";
 target="iphoneos";
 outputPath="${PROJECT_DIR}/Document";
@@ -45,5 +45,10 @@ appledoc \
 --no-repeat-first-par \
 --no-warn-invalid-crossref \
 --exit-threshold 2 \
---ignore PrivateFile \
+-i MapxusMapSDK/Private \
+-i MapxusMapSDK/FoundationKit \
+-i MapxusMapSDK/Operations \
+-i MapxusMapSDK/Controllers/KxMenu \
+-i MapxusMapSDK/Controllers/MXMPicker \
+-i MapxusMapSDK/Controllers/MXMFloorSelectorBar.m \
 "${PROJECT_DIR}/MapxusMapSDK"

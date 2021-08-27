@@ -10,31 +10,31 @@
 #define MXMDefine_h
 
 /**
- MapxusMap地图外观
+ MapxusMap map appearance
  */
 typedef NS_ENUM(NSUInteger, MXMStyle) {
     /**
-     MAPXUSMAP_v2风格
+     MAPXUSMAP_v2 style
      */
     MXMStyleMAPXUS_V2,
     /**
-     MAPXUSMAP风格
+     MAPXUSMAP style
      */
     MXMStyleMAPXUS,
     /**
-     通用风格
+     COMMON style
      */
     MXMStyleCOMMON,
     /**
-     圣诞节风格
+     Christmas style
      */
     MXMStyleCHRISTMAS,
     /**
-     万圣节风格
+     Halloween style
      */
     MXMStyleHALLOWMAS,
     /**
-     MAPPYBEE风格
+     MAPPYBEE style
      */
     MXMStyleMAPPYBEE,
 };
@@ -42,113 +42,113 @@ typedef NS_ENUM(NSUInteger, MXMStyle) {
 
 
 /**
- 楼层控制器位置
+ Floor controller locations
  */
 typedef NS_ENUM(NSInteger, MXMSelectorPosition) {
     /**
-     楼层控制器在左边
+     In the middle of the left-hand side of the screen
      */
     MXMSelectorPositionCenterLeft,
     /**
-     楼层控制器在右边
+     In the middle of the right-hand side of the screen
      */
     MXMSelectorPositionCenterRight,
     /**
-     楼层控制器在左下角
+     In the bottom left corner of the screen
      */
     MXMSelectorPositionBottomLeft,
     /**
-     楼层控制器在右下角
+     In the bottom right corner of the screen
      */
     MXMSelectorPositionBottomRight,
     /**
-     楼层控制器在左上角
+     In the top left corner of the screen
      */
     MXMSelectorPositionTopLeft,
     /**
-     楼层控制器在右上角
+     In the top right corner of the screen
      */
     MXMSelectorPositionTopRight,
 };
 
 
 /**
- 缩放方式
+ Zoom method
  */
 typedef NS_ENUM(NSInteger, MXMZoomMode) {
     /**
-     不缩放
+     No zoom
      */
     MXMZoomDisable,
     /**
-     通过动画缩放
+     Zoom by animation
      */
     MXMZoomAnimated,
     /**
-     无动画缩放
+     No animated zoom
      */
     MXMZoomDirect
 };
 
 
 /**
- 路由指令
+ Routing Instructions
  */
 typedef NS_ENUM(NSInteger, MXMRouteSign) {
     /**
-     下楼
+     Downstairs
      */
     MXMDownstairs = -100,
     /**
-     靠左行
+     Keep to the left
      */
     MXMKeepLeft = -7,
     /**
-     向左急转
+     Turn sharp left
      */
     MXMTurnSharpLeft = -3,
     /**
-     向左转
+     Turn left
      */
     MXMTurnLeft = -2,
     /**
-     轻微转左
+     Slight left turn
      */
     MXMTurnSlightLeft = -1,
     /**
-     继续向前
+     Moving forward
      */
     MXMContinueOnStreet = 0,
     /**
-     轻微右转
+     Slight right turn
      */
     MXMTurnSlightRight = 1,
     /**
-     向右转
+     Turn right
      */
     MXMTurnRight = 2,
     /**
-     向右急转
+     Sharp turn to the right
      */
     MXMTurnSharpRight = 3,
     /**
-     完成
+     Complete
      */
     MXMFinish = 4,
     /**
-     到达途经点
+     Arrival at the waypoint
      */
     MXMReachedVia = 5,
     /**
-     使用环形路
+     Use of loops
      */
     MXMUseRoundabout = 6,
     /**
-     靠右行
+     Walk on the right
      */
     MXMKeepRight = 7,
     /**
-     上楼
+     Upstairs
      */
     MXMUpstairs = 100,
 };

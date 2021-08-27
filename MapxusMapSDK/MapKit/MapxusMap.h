@@ -20,182 +20,182 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * MapxusMap主类
+ * MapxusMap, managing indoor maps
  */
 @interface MapxusMap : NSObject
 
 /**
- MapxusMap初始化函数
- @param mapView 绑定MGLMapView，引入MapBox作为地图渲染工具
- @return MapxusMap对象
+ MapxusMap initialisation function
+ @param mapView Bind MGLMapView and introduce MapBox as a map rendering tool
+ @return MapxusMap object
  */
 - (instancetype)initWithMapView:(MGLMapView *)mapView;
 
 /**
- MapxusMap初始化函数
- @param mapView 绑定MGLMapView，引入MapBox作为地图渲染工具
- @param configuration 初始化参数，详情请看`MXMConfiguration`
- @return MapxusMap对象
+ MapxusMap initialisation function
+ @param mapView Bind MGLMapView and introduce MapBox as a map rendering tool
+ @param configuration Initialization parameters, see `MXMConfiguration` for details
+ @return MapxusMap object
  */
 - (instancetype)initWithMapView:(MGLMapView *)mapView configuration:(nullable MXMConfiguration *)configuration;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
 
-/// MapxusMap的事件回调代理
+/// Event callback agent for MapxusMap
 @property (nonatomic, weak, nullable) id<MapxusMapDelegate> delegate;
 
-/// 建筑选择按钮，在屏幕中心矩形区域出现多栋建筑时出现
+/// Building selection button, appears when multiple buildings appear in the rectangular area in the centre of the screen
 @property (nonatomic, strong, readonly) UIButton *buildingSelectButton;
 
-/// 楼层选择器
+/// Floor selector
 @property (nonatomic, strong, readonly) MXMFloorSelectorBar *floorBar;
 
-/// 一直隐藏地图控件，默认为NO
+/// Always hide map controls, default is NO
 @property (nonatomic, assign) BOOL indoorControllerAlwaysHidden;
 
-/// 设置地图控件的位置，默认为`MXMSelectorPositionCenterLeft`
+/// Set the position of the map control, default is `MXMSelectorPositionCenterLeft`
 @property (nonatomic, assign) MXMSelectorPosition selectorPosition;
 
-/// 设置Mapxus logo距离mapView底部的边距，只能传入0或正数，传入负数会重置为0
+/// Set the margin of the Mapxus logo from the bottom of the mapView, you can only pass 0 or a positive number, passing a negative number will reset it to 0
 @property (nonatomic, assign) CGFloat logoBottomMargin;
 
-/// 设置Open Street Source距离mapView底部的边距，只能传入0或正数，传入负数会重置为0
+/// Set the margin of the Open Street Source from the bottom of the mapView, you can only pass in 0 or a positive number, passing in a negative number will reset it to 0
 @property (nonatomic, assign) CGFloat openStreetSourceBottomMargin;
 
-/// 设置室外地图是否显示
+/// Whether the outdoor map is displayed
 @property (nonatomic, assign) BOOL outdoorHidden;
 
-/// 点击地图切换建筑功能，默认状态为YES。
+/// The function of click on the map to switch the building, the default is YES.
 @property (nonatomic, assign) BOOL gestureSwitchingBuilding;
 
-/// 是否支持自动切换建筑，默认状态为YES。当自动切换模式打开时，建筑移到视图中心，会自动选中建筑，显示其内部结构。
+/// When auto switch mode is on, the building is moved to the centre of the view and the building is automatically selected to show its internal structure. The default is YES
 @property (nonatomic, assign) BOOL autoChangeBuilding;
 
 /**
- 设置常规地图外观
- @param style 外观类型。具体属性字段请参考 `MXMStyle` 。
+ Setting the general map appearance
+ @param style Appearance type. Please refer to `MXMStyle` for specific attribute fields.
  */
 - (void)setMapSytle:(MXMStyle)style;
 
 /**
- 设置定制地图外观，可联系我司进行地图外观定制
- @param styleName 外观名字。
+ Set up custom map appearance, you can contact us for map appearance customization
+ @param styleName Appearance mame
  */
 - (void)setMapStyleWithName:(NSString *)styleName;
 
 /**
- 设置地图语言
- @param language 地图语言，可选项为en，zh-Hant，zh-Hans，ja，ko，default
+ Setting the map language
+ @param language Map language with options for en, zh-Hant, zh-Hans, ja, ko, default
  */
 - (void)setMapLanguage:(NSString *)language;
 
-/// 当前选中楼层
+/// Currently selected floor
 @property (nonatomic, copy, readonly, nullable) NSString *floor;
 
-/// 当前选中建筑
+/// Current selected buildings
 @property (nonatomic, copy, readonly, nullable) MXMGeoBuilding *building;
 
 /**
- 用户当前所在楼层，只有当`MGLMapView`的`userTrackingMode`不为`MGLUserTrackingModeNone`值才可信，
- 没有室内数据时为nil
+ The user's current floor, which is only trusted if `MGLMapView`'s `userTrackingMode` is not `MGLUserTrackingModeNone` value.
+  nil when there is no indoor data
  */
 @property (nonatomic, copy, readonly, nullable) NSString *userLocationFloor;
 
 /**
- 用户当前所在建筑，只有当`MGLMapView`的`userTrackingMode`不为`MGLUserTrackingModeNone`值才可信，
- 没有室内数据时为nil
+ The user's current building, which is only trusted if `MGLMapView`'s `userTrackingMode` is not `MGLUserTrackingModeNone` value.
+  nil when there is no indoor data
  */
 @property (nonatomic, copy, readonly, nullable) MXMGeoBuilding *userLocationBuilding;
 
-/// 返回当前绑定的MGLMapView视窗中所有可见的已测量建筑
+/// Returns all the measured buildings visible in the currently bound MGLMapView viewport
 @property (nonatomic, copy, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
 
 /**
- 选择当前选中建筑的楼层，地图默认会移动到该建筑区域，缩放适配边距为0
- @param floor 选择的楼层名字。
+ Select the floor of the currently selected building and the map will move to that building area by default, with a zoom adaptation margin of 0
+ @param floor The floor name of your choice.
  */
 - (void)selectFloor:(nullable NSString *)floor;
 
 /**
- 选择当前选中建筑的楼层
- @param floor 选择的楼层名字。
- @param zoomTo 设置楼层后当前建筑是否缩放到占用整屏
+ Selects the floor of the currently selected building
+ @param floor The name of the selected floor.
+ @param zoomTo Whether the current building is scaled to occupy the whole screen after setting the floor
  */
 - (void)selectFloor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo DEPRECATED_MSG_ATTRIBUTE("Use `-selectFloor:zoomMode:edgePadding:` instead.");
 
 /**
- 选择当前选中建筑的楼层
- @param floor 选择的楼层名字。
- @param zoomMode 缩放方式
- @param insets 缩放适配边距，如果 zoomMode 为 `MXMZoomDisable`，则传入值无效
+ Select the floor of the currently selected building
+ @param floor The floor name of your choice.
+ @param zoomMode Zoom method
+ @param insets Zoom to fit the margins, if zoomMode is `MXMZoomDisable` then the value passed in is invalid
  */
 - (void)selectFloor:(nullable NSString *)floor
            zoomMode:(MXMZoomMode)zoomMode
         edgePadding:(UIEdgeInsets)insets;
 
 /**
- 选择建筑，楼层会自动切换到map从创建开始最近一次的楼层切换历史，如果没有，则切换到地面层，地图默认会移动到该建筑区域，缩放适配边距为0
- @param buildingId 要选中的建筑ID
+ Selecting a building, the floor will automatically switch to the map's most recent floor switching history from creation, or if not, to the ground level, and the map will move to that building area by default, with a zoom adaptation margin of 0
+ @param buildingId Id of the building to be selected
  */
 - (void)selectBuilding:(nullable NSString *)buildingId;
 
 /**
- 选择建筑，楼层会自动切换到map从创建开始最近一次的楼层切换历史，如果没有，则切换到地面层
- @param buildingId 要选中的建筑ID
- @param zoomTo 设置ID后是否缩放到该建筑占用整屏
+ Select the building and the floor will automatically switch to the most recent floor switching history of map from creation, or if not, to the ground floor
+ @param buildingId The ID of the building to be selected
+ @param zoomTo whether to zoom to the full screen after setting the ID of the building
  */
 - (void)selectBuilding:(nullable NSString *)buildingId shouldZoomTo:(BOOL)zoomTo DEPRECATED_MSG_ATTRIBUTE("Use `-selectBuilding:zoomMode:edgePadding:` instead.");
 
 /**
- 选择建筑，楼层会自动切换到map从创建开始最近一次的楼层切换历史，如果没有，则切换到地面层
- @param buildingId 要选中的建筑ID
- @param zoomMode 缩放方式
- @param insets 缩放适配边距，如果 zoomMode 为 `MXMZoomDisable`，则传入值无效
+ Select the building and the floor will automatically switch to map's most recent floor switching history from creation, or if not, to the ground floor
+ @param buildingId The ID of the building to be selected
+ @param zoomMode Zoom method
+ @param insets Zoom to fit the margins, if zoomMode is `MXMZoomDisable` then the value passed in is invalid
  */
 - (void)selectBuilding:(nullable NSString *)buildingId
               zoomMode:(MXMZoomMode)zoomMode
            edgePadding:(UIEdgeInsets)insets;
 
 /**
- 选择建筑与该建筑的楼层，地图默认会移动到该建筑区域，缩放适配边距为0
- @param buildingId 要选中的建筑ID
- @param floor 选择的楼层名字
+ Select the building and the floor of that building and the map will move to that building area by default, with a zoom adaptation margin of 0
+ @param buildingId ID of the building to be selected
+ @param floor Floor name of choice
  */
 - (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor;
 
 /**
- 选择建筑与该建筑的楼层
- @param buildingId 要选中的建筑ID
- @param floor 选择的楼层名字
- @param zoomTo 设置ID后是否缩放到该建筑占用整屏
+ Select the building with the floor of the building
+ @param buildingId The ID of the building to be selected
+ @param floor The name of the selected floor
+ @param zoomTo Whether or not to zoom to the full screen for the building after setting the ID
  */
 - (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo DEPRECATED_MSG_ATTRIBUTE("Use `-selectBuilding:floor:zoomMode:edgePadding:` instead.");
 
 /**
- 选择建筑与该建筑的楼层
- @param buildingId 要选中的建筑ID
- @param floor 选择的楼层名字
- @param zoomMode 缩放方式
- @param insets 缩放适配边距，如果 zoomMode 为 `MXMZoomDisable`，则传入值无效
+ Select the building and the floor of that building
+ @param buildingId The ID of the building to be selected
+ @param floor The name of the selected floor
+ @param zoomMode Zoom method
+ @param insets Zoom to fit the margins, if zoomMode is `MXMZoomDisable` then the value passed in is invalid
  */
 - (void)selectBuilding:(nullable NSString *)buildingId
                  floor:(nullable NSString *)floor
               zoomMode:(MXMZoomMode)zoomMode
            edgePadding:(UIEdgeInsets)insets;
 
-/// 当前地图View的已经添加的室内标注数组
+/// An array of indoor annotations that have been added to the current MapView
 @property (nonatomic, readonly) NSArray<MXMPointAnnotation *> *MXMAnnotations;
 
 /**
- 添加地图标注，如需要添加室内点，必须调用些方法才会分层。
- @param annotations MXMPointAnnotation队列
+ Add map annotations, if you need to add indoor points, you must call this method to layer them.
+ @param annotations `MXMPointAnnotation` list
  */
 - (void)addMXMPointAnnotations:(NSArray<MXMPointAnnotation *> *)annotations;
 
 /**
- 删除地图标注，如需要删除室内点，必须调用此方法才能彻底删除。
- @param annotations MXMPointAnnotation队列
+ To delete a map marker, if you need to delete an indoor point, you must call this method to delete it completely.
+ @param annotations `MXMPointAnnotation` list
  */
 - (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations;
 

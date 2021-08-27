@@ -13,34 +13,34 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- MapxusMap初始化配置
+ MapxusMap initial configuration
  */
 @interface MXMConfiguration : NSObject
 
-/// 设置是否显示室外地图，默认值为 NO
+/// Whether to display the outdoor map,  NO is default
 @property (nonatomic) BOOL outdoorHidden;
 
-/// 初始化常规地图样式，除`defaultStyleName`外，与其他条件可同时配置，默认值为 MXMStyleMAPXUS_V2
+/// Initialize regular map style, configurable with other conditions except `defaultStyleName`, MXMStyleMAPXUS_V2 is default
 @property (nonatomic) MXMStyle defaultStyle;
 
-/// 初始化定制地图样式，当设置本参数为非空值后，会忽略`defaultStyle`设置，默认值为 nil
+/// Initialize the custom map style, when this parameter is set to a non-null value, the `defaultStyle` is ignored, nil is default
 @property (nonatomic, copy, nullable) NSString *defaultStyleName;
 
 
-/// 通过 buildingId 初始化地图，使开始显示位置为 building 所在位置，与 poiId 不能同时设置
+/// Specify the location of the building to be displayed at the start of the map, which cannot be set at the same time as the poiId
 @property (nonatomic, copy, nullable) NSString *buildingId;
 
-/// 通过 buildingId 和 floor 初始化地图，使开始显示位置为 building 所在位置，开始显示的楼层为 floor，如果 floor 不设置，默认展示建筑的地面层；与 poiId 不能同时设置
+/// Specify the location of the building and floor to be displayed at the start of the map, if floor is not set, the ground floor of the building is displayed by default, cannot be set at the same time as poiId
 @property (nonatomic, copy, nullable) NSString *floor;
 
-/// 通过 buildingId 初始化地图时的自适应边距，默认值为 UIEdgeInsetsZero
+/// Adaptive margins when initializing the map via buildingId, default value is UIEdgeInsetsZero
 @property (nonatomic, assign) UIEdgeInsets zoomInsets;
 
 
-/// 通过 poiId 初始化地图，使地图开始显示位置中心设为poi经纬度，并切换到对应的建筑与楼层，与buildingId和floor不能同时设置，如果设置了，则设置buildingId无效
+/// Initialize the map with poiId, so that the map starts to display the location centre set to poi latitude and longitude, and switch to the corresponding building and floor, with buildingId and floor can not be set at the same time, if set poiId, then setting buildingId is invalid
 @property (nonatomic, copy, nullable) NSString *poiId;
 
-/// 通过 poiId 初始化地图的初始缩放等级，默认值为 19
+/// Initialize the initial zoom level of the map with poiId, 19 is default
 @property (nonatomic, assign) double zoomLevel;
 
 @end

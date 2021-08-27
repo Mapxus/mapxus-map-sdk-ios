@@ -11,37 +11,37 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- 瓦片中的建筑数据
+ Building information in tiles
  */
 @interface MXMGeoBuilding : NSObject <NSCopying>
 
-/// 建筑ID
+/// building id
 @property (nonatomic, strong) NSString *identifier;
-/// 建筑类型，表示该建筑的分类，如cathedral,car_park,hospital,office,retail等
+/// Building type, indicating the classification of the building, e.g. cathedral, car_park, hospital, office, retail, etc.
 @property (nonatomic, strong) NSString *building;
-/// 所属场所ID
+/// The id of venue where the building is located
 @property (nonatomic, strong, nullable) NSString *venueId;
-/// 建筑默认名
+/// Building name in default language
 @property (nonatomic, strong, nullable) NSString *name;
-/// 建筑英文名
+/// Building name in English
 @property (nonatomic, strong, nullable) NSString *name_en;
-/// 建筑简体中文名
+/// Building name in Simplified Chinese
 @property (nonatomic, strong, nullable) NSString *name_cn;
-/// 建筑繁体中文名
+/// Building name in Traditional Chinese
 @property (nonatomic, strong, nullable) NSString *name_zh;
-/// 建筑日语名
+/// Building name in Japanese
 @property (nonatomic, strong, nullable) NSString *name_ja;
-/// 建筑韩语名
+/// Building name in Korean
 @property (nonatomic, strong, nullable) NSString *name_ko;
-/// 建筑楼层名称队列
+/// All floors name of the building
 @property (nonatomic, strong) NSArray<NSString*> *floors;
-/// 楼层的ID
+/// All floors id of the building
 @property (nonatomic, strong) NSArray<NSString*> *floorIds;
-/// 反映实际存在的楼层位置
+/// All floors level of the building
 @property (nonatomic, strong) NSArray<NSNumber*> *ordinals;
-/// 建筑地面层
+/// The ground floor name of the building
 @property (nonatomic, strong, nullable) NSString *ground_floor;
-/// 地图渲染类型，如multipolygon等
+/// Map rendering types, e.g. multipolygon
 @property (nonatomic, strong, nullable) NSString *type;
 
 @end

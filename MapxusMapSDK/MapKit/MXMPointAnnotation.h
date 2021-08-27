@@ -11,14 +11,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- 室内专用Annotation
+ Annotation for indoor use
  */
 @interface MXMPointAnnotation : MGLPointAnnotation
 
-/// annotation所在楼层
+/// The name of the floor where the annotation is located
 @property (nonatomic, strong, nullable) NSString *floor;
 
-/// annotation所在建筑的id
+/// The id of the building where the annotation is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
 
 @end

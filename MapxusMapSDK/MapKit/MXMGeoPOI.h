@@ -12,47 +12,47 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- 瓦片中的POI数据
+ POI information in tiles
  */
 @interface MXMGeoPOI : NSObject
 
-/// POI的ID
+/// POI id
 @property (nonatomic, strong) NSString *identifier;
-/// POI所在建筑的建筑ID
+/// The id of building where the POI is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// POI所在楼层
+/// The name of floor where the POI is located
 @property (nonatomic, strong, nullable) NSString *floor;
-/// POI所在楼层的id
+/// The id of floor where the POI is located
 @property (nonatomic, strong, nullable) NSString *floorId;
-/// POI所在楼层的定位高度值
+/// The ordinal of floor where the POI is located
 @property (nonatomic, strong, nullable) NSNumber *ordinal;
-/// POI所在经纬度
+/// Longitude and latitude of POI
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
-/// POI默认名字
+/// POI name in default language
 @property (nonatomic, strong, nullable) NSString *name;
-/// POI英文名字
+/// POI name in English
 @property (nonatomic, strong, nullable) NSString *name_en;
-/// POI简体中文名字
+/// POI name in Simplified Chinese
 @property (nonatomic, strong, nullable) NSString *name_cn;
-/// POI繁体中文名字
+/// POI name in Traditional Chinese
 @property (nonatomic, strong, nullable) NSString *name_zh;
-/// POI日语名字
+/// POI name in Japanese
 @property (nonatomic, strong, nullable) NSString *name_ja;
-/// POI韩语名字
+/// POI name in Korean
 @property (nonatomic, strong, nullable) NSString *name_ko;
-/// 无障碍资讯
+/// Accessibility Information in default language
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail;
-/// 英文无障碍资讯
+/// Accessibility Information in English
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_en;
-/// 简体中文无障碍资讯
+/// Accessibility Information in Simplified Chinese
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_cn;
-/// 繁体中文无障碍资讯
+/// Accessibility Information in Traditional Chinese
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_zh;
-/// 日语无障碍资讯
+/// Accessibility Information in Japanese
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_ja;
-/// 韩语无障碍资讯
+/// Accessibility Information in Korean
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_ko;
-/// POI分类
+/// List of categories to which POI belongs
 @property (nonatomic, strong) NSArray<NSString*> *category;
 
 @end
