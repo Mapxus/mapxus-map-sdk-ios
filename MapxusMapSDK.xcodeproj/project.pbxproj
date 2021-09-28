@@ -639,11 +639,11 @@
 			buildConfigurationList = D641FC9B20F5DBDB00061AD4 /* Build configuration list for PBXNativeTarget "MapxusMapSDK" */;
 			buildPhases = (
 				D2C219CA6D77A37BD7F7CE73 /* [CP] Check Pods Manifest.lock */,
+				D65E1B5D25EC96F200D78764 /* ShellScript */,
 				D641FC8220F5DBDB00061AD4 /* Sources */,
 				D641FC8320F5DBDB00061AD4 /* Frameworks */,
 				D641FC8420F5DBDB00061AD4 /* Headers */,
 				D641FC8520F5DBDB00061AD4 /* Resources */,
-				D65E1B5D25EC96F200D78764 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1154,11 +1154,11 @@
 			buildSettings = {
 				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1182,8 +1182,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "";
 			};
@@ -1195,11 +1196,11 @@
 			buildSettings = {
 				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1223,12 +1224,14 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = NO;
-				SUPPORTS_MACCATALYST = NO;
+				STRIP_STYLE = "non-global";
+				SUPPORTS_MACCATALYST = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "";
 				"VALID_ARCHS[sdk=iphoneos*]" = "armv7 arm64";
-				"VALID_ARCHS[sdk=iphonesimulator*]" = "x86_64 i386";
+				"VALID_ARCHS[sdk=iphonesimulator*]" = "x86_64 arm64";
 			};
 			name = Release;
 		};
