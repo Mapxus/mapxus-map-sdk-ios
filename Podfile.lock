@@ -6,40 +6,39 @@ PODS:
   - AFNetworking/Reachability (4.0.1)
   - AFNetworking/Security (4.0.1)
   - AFNetworking/Serialization (4.0.1)
-  - MapLibre-iOS-SDK (5.12.0)
   - MapxusBaseSDK (3.22.1):
     - AFNetworking/NSURLSession (~> 4.0)
     - AFNetworking/Reachability (~> 4.0)
     - AFNetworking/Security (~> 4.0)
     - AFNetworking/Serialization (~> 4.0)
     - YYModel (~> 1.0.4)
+  - MapxusRenderSDK (5.12.0)
   - OCMock (3.8.1)
   - YYModel (1.0.4)
 
 DEPENDENCIES:
-  - MapLibre-iOS-SDK (from `../maplibre-gl-native-pod`)
   - MapxusBaseSDK (from `../mapxus-base-sdk-ios`)
+  - MapxusRenderSDK
   - OCMock
 
 SPEC REPOS:
   trunk:
     - AFNetworking
+    - MapxusRenderSDK
     - OCMock
     - YYModel
 
 EXTERNAL SOURCES:
-  MapLibre-iOS-SDK:
-    :path: "../maplibre-gl-native-pod"
   MapxusBaseSDK:
     :path: "../mapxus-base-sdk-ios"
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
-  MapLibre-iOS-SDK: ff71dde8b716f1bc12c1fb90b592bca6c8b40ec5
   MapxusBaseSDK: e6e31e25860f5bcc2f5af1bfe872c1bb2aa8c112
+  MapxusRenderSDK: fd17c79fa727a5c2d8b6f8dec65836fba73d98ea
   OCMock: 29f6e52085b4e7d9b075cbf03ed7c3112f82f934
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 03c4400ce52144092e0975f8ed6d62c595d84f67
+PODFILE CHECKSUM: e8ae35e063beb5f39f6946410705017c84c3ff59
 
 COCOAPODS: 1.10.2

@@ -5,7 +5,7 @@
  inhibit_all_warnings!
 
   # Pods for MapxusMapSDK
-  pod 'MapLibre-iOS-SDK', :path => '../maplibre-gl-native-pod'
+  pod 'MapxusRenderSDK'
   pod 'MapxusBaseSDK', :path => '../mapxus-base-sdk-ios'
 
 target 'MapxusMapSDK' do
