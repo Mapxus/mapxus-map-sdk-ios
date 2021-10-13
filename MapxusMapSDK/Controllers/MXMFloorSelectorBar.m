@@ -203,12 +203,6 @@
     return UIAccessibilityTraitAdjustable;
 }
 
-// 兼容旧版本
-- (void)setAddVoiceOverLabel:(NSString *)addVoiceOverLabel {
-    _addVoiceOverLabel = addVoiceOverLabel;
-    self.accessibilityLabel = addVoiceOverLabel;
-}
-
 - (void)accessibilityIncrement {
     NSInteger i = [self.pickerView selectedRowInComponent:0];
     if (i < self.dataSourceArr.count-1) {

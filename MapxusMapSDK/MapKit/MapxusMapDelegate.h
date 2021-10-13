@@ -23,32 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 /**
- This interface is called when the POI is clicked
- 
- @param mapView The MapxusMap object that responds
- @param poi Information about the currently selected POI, please refer to `MXMGeoPOI` for more information
- */
-- (void)mapView:(MapxusMap *)mapView didTappedOnPOI:(MXMGeoPOI *)poi DEPRECATED_MSG_ATTRIBUTE("Please use \"- mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:\" to instead");
-
-/**
- Clicking on a blank space in the base map will call back this interface
- 
- @param mapView The MapxusMap object that responds
- @param coordinate The latitude and longitude of the point in the blank
- */
-- (void)mapView:(MapxusMap *)mapView didTappedOnMapBlank:(CLLocationCoordinate2D)coordinate DEPRECATED_MSG_ATTRIBUTE("Please use \"- mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:\" to instead");
-
-/**
- Callback when clicking on the map
- 
- @param mapView The MapxusMap object that responds
- @param coordinate The latitude and longitude of the clicked location
- @param floorName The name of the floor at the time of the click, nil if outside
- @param building Information about the building clicked on, nil if outdoors
- */
-- (void)mapView:(MapxusMap *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate onFloor:(nullable NSString *)floorName inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use \"- mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:\" and \"- mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:\" to instead");
-
-/**
  Callback of clicking the map. If `- mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:` or `- mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:` is implemented, there will be no callback of this method.
  
  @param mapView Responding MapxusMap object.

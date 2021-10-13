@@ -202,7 +202,7 @@
                 [self setMapStyleWithName:@"mapxus_mims2_v1"];
                 break;
             case MXMStyleMAPXUS_V2:
-                [self setMapStyleWithName:@"mapxus_mims2_v3"];
+                [self setMapStyleWithName:@"mapxus_mims2_v4"];
                 break;
             default:
                 break;
@@ -211,7 +211,7 @@
 }
 
 - (void)setMapStyleWithName:(NSString *)styleName {
-    self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/brm/api/v3/style/%@", MXMAPIHOSTURL, styleName]];
+    self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/bms/api/v2/tiles/styles/%@", MXMAPIHOSTURL, styleName]];
 }
 
 - (void)setMapLanguage:(NSString *)language
@@ -271,10 +271,7 @@
     // 查找点击楼层
     /////////////////////////////////////////////////////
     if (self.delegate &&
-        ([self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)] ||
-         [self.delegate respondsToSelector:@selector(mapView:didTappedOnMapBlank:)] ||
-         [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:onFloor:inBuilding:)] ||
-         [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)] ||
+        ([self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)] ||
          [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)])) {
         // 非点击POI
         NSArray<MXMLevelModel *> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
@@ -287,39 +284,23 @@
         
         MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
         
-        if ([self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:onFloor:inBuilding:)]) {
-            [self.delegate mapView:self didSingleTappedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
-        }
         // 点击了POI
-        if ([self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)] ||
-            [self.delegate respondsToSelector:@selector(mapView:didTappedOnMapBlank:)] ||
-            [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)] ||
-            [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)]) {
-                        
-            NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point];
-            NSArray *poiList = [poiDic allValues];
-            MXMGeoPOI *poi = poiList.firstObject;
-            poi.floor = floor;
-            poi.floorId = floorId;
-            poi.ordinal = floorOrdinal;
-            if (poi) {
-                if (self.delegate &&
-                    [self.delegate respondsToSelector:@selector(mapView:didTappedOnPOI:)]) {
-                    [self.delegate mapView:self didTappedOnPOI:poi];
-                }
-                if (self.delegate &&
-                    [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)]) {
-                    [self.delegate mapView:self didSingleTappedOnPOI:poi atCoordinate:coor onFloor:floor inBuilding:pointBuilding];
-                }
-            } else {
-                if (self.delegate &&
-                    [self.delegate respondsToSelector:@selector(mapView:didTappedOnMapBlank:)]) {
-                    [self.delegate mapView:self didTappedOnMapBlank:coor];
-                }
-                if (self.delegate &&
-                    [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)]) {
-                    [self.delegate mapView:self didSingleTappedOnMapBlank:coor onFloor:floor inBuilding:pointBuilding];
-                }
+        
+        NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point];
+        NSArray *poiList = [poiDic allValues];
+        MXMGeoPOI *poi = poiList.firstObject;
+        poi.floor = floor;
+        poi.floorId = floorId;
+        poi.ordinal = floorOrdinal;
+        if (poi) {
+            if (self.delegate &&
+                [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)]) {
+                [self.delegate mapView:self didSingleTappedOnPOI:poi atCoordinate:coor onFloor:floor inBuilding:pointBuilding];
+            }
+        } else {
+            if (self.delegate &&
+                [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)]) {
+                [self.delegate mapView:self didSingleTappedOnMapBlank:coor onFloor:floor inBuilding:pointBuilding];
             }
         }
         
@@ -496,16 +477,6 @@
                  withRectBuildingDic:self.buildings];
 }
 
-- (void)selectFloor:(NSString *)floor shouldZoomTo:(BOOL)zoomTo
-{
-    [self.decider specifyTheBuilding:self.building.identifier
-                               floor:floor
-                            zoomMode:zoomTo ? MXMZoomAnimated : MXMZoomDisable
-                         edgePadding:UIEdgeInsetsZero
-            shouldChangeTrackingMode:YES
-                 withRectBuildingDic:self.buildings];
-}
-
 - (void)selectFloor:(NSString *)floor
            zoomMode:(MXMZoomMode)zoomMode
         edgePadding:(UIEdgeInsets)insets
@@ -528,16 +499,6 @@
                  withRectBuildingDic:self.buildings];
 }
 
-- (void)selectBuilding:(NSString *)buildingId shouldZoomTo:(BOOL)zoomTo
-{
-    [self.decider specifyTheBuilding:buildingId
-                               floor:nil
-                            zoomMode:zoomTo ? MXMZoomAnimated : MXMZoomDisable
-                         edgePadding:UIEdgeInsetsZero
-            shouldChangeTrackingMode:YES
-                 withRectBuildingDic:self.buildings];
-}
-
 - (void)selectBuilding:(NSString *)buildingId zoomMode:(MXMZoomMode)zoomMode edgePadding:(UIEdgeInsets)insets
 {
     [self.decider specifyTheBuilding:buildingId
@@ -553,16 +514,6 @@
     [self.decider specifyTheBuilding:buildingId
                                floor:floor
                             zoomMode:MXMZoomAnimated
-                         edgePadding:UIEdgeInsetsZero
-            shouldChangeTrackingMode:YES
-                 withRectBuildingDic:self.buildings];
-}
-
-- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo
-{
-    [self.decider specifyTheBuilding:buildingId
-                               floor:floor
-                            zoomMode:zoomTo ? MXMZoomAnimated : MXMZoomDisable
                          edgePadding:UIEdgeInsetsZero
             shouldChangeTrackingMode:YES
                  withRectBuildingDic:self.buildings];

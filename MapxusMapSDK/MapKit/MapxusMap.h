@@ -118,13 +118,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)selectFloor:(nullable NSString *)floor;
 
 /**
- Selects the floor of the currently selected building
- @param floor The name of the selected floor.
- @param zoomTo Whether the current building is scaled to occupy the whole screen after setting the floor
- */
-- (void)selectFloor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo DEPRECATED_MSG_ATTRIBUTE("Use `-selectFloor:zoomMode:edgePadding:` instead.");
-
-/**
  Select the floor of the currently selected building
  @param floor The floor name of your choice.
  @param zoomMode Zoom method
@@ -139,13 +132,6 @@ NS_ASSUME_NONNULL_BEGIN
  @param buildingId Id of the building to be selected
  */
 - (void)selectBuilding:(nullable NSString *)buildingId;
-
-/**
- Select the building and the floor will automatically switch to the most recent floor switching history of map from creation, or if not, to the ground floor
- @param buildingId The ID of the building to be selected
- @param zoomTo whether to zoom to the full screen after setting the ID of the building
- */
-- (void)selectBuilding:(nullable NSString *)buildingId shouldZoomTo:(BOOL)zoomTo DEPRECATED_MSG_ATTRIBUTE("Use `-selectBuilding:zoomMode:edgePadding:` instead.");
 
 /**
  Select the building and the floor will automatically switch to map's most recent floor switching history from creation, or if not, to the ground floor
@@ -163,14 +149,6 @@ NS_ASSUME_NONNULL_BEGIN
  @param floor Floor name of choice
  */
 - (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor;
-
-/**
- Select the building with the floor of the building
- @param buildingId The ID of the building to be selected
- @param floor The name of the selected floor
- @param zoomTo Whether or not to zoom to the full screen for the building after setting the ID
- */
-- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor shouldZoomTo:(BOOL)zoomTo DEPRECATED_MSG_ATTRIBUTE("Use `-selectBuilding:floor:zoomMode:edgePadding:` instead.");
 
 /**
  Select the building and the floor of that building
