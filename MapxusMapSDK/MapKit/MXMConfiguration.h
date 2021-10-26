@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Whether to display the outdoor map,  NO is default
 @property (nonatomic) BOOL outdoorHidden;
 
-/// Initialize regular map style, configurable with other conditions except `defaultStyleName`, MXMStyleMAPXUS_V2 is default
+/// Initialize regular map style, configurable with other conditions except `defaultStyleName`, MXMStyleMAPXUS is default
 @property (nonatomic) MXMStyle defaultStyle;
 
 /// Initialize the custom map style, when this parameter is set to a non-null value, the `defaultStyle` is ignored, nil is default

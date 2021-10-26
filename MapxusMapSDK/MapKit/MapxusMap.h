@@ -94,7 +94,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly, nullable) NSString *floor;
 
 /// Current selected buildings
-@property (nonatomic, copy, readonly, nullable) MXMGeoBuilding *building;
+@property (nonatomic, strong, readonly, nullable) MXMGeoBuilding *building;
 
 /**
  The user's current floor, which is only trusted if `MGLMapView`'s `userTrackingMode` is not `MGLUserTrackingModeNone` value.
@@ -106,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
  The user's current building, which is only trusted if `MGLMapView`'s `userTrackingMode` is not `MGLUserTrackingModeNone` value.
   nil when there is no indoor data
  */
-@property (nonatomic, copy, readonly, nullable) MXMGeoBuilding *userLocationBuilding;
+@property (nonatomic, strong, readonly, nullable) MXMGeoBuilding *userLocationBuilding;
 
 /// Returns all the measured buildings visible in the currently bound MGLMapView viewport
 @property (nonatomic, copy, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;

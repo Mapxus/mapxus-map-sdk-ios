@@ -31,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *title_zh;
 @end
 
+
+
+
 /**
  Earth's latitude and longitude coordinates
  */
@@ -121,21 +124,39 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
+/**
+ Floor level model, use this class to ensure that the value of level is obtained with the correct type
+ */
+@interface MXMOrdinal : NSObject
+/// Level values represent logical levels above or below ground level and are not intended to correspond to any numbering scheme in use by the building itself. The ground floor of a building is always represented by the value 0. Floors above the ground floor are represented by positive integers, so a value of 1 represents the floor above ground level, a value of 2 represents two floors above ground level, and so on. Floors below the ground floor are represented by corresponding negative integers, with a value of -1 representing the floor immediately below ground level and so on. It is erroneous to use the user’s level in a building as an estimate of altitude.
+@property (nonatomic, assign) NSInteger level;
+@end
+
+
 
 /**
- Floor information
+ Floor detail
  */
 @interface MXMFloor : NSObject
-/// Floor name
-@property (nonatomic, strong) NSString *code;
 /// Floor id
 @property (nonatomic, strong) NSString *floorId;
-/// Level values represent logical levels above or below ground level and are not intended to correspond to any numbering scheme in use by the building itself. The ground floor of a building is always represented by the value 0. Floors above the ground floor are represented by positive integers, so a value of 1 represents the floor above ground level, a value of 2 represents two floors above ground level, and so on. Floors below the ground floor are represented by corresponding negative integers, with a value of -1 representing the floor immediately below ground level and so on. It is erroneous to use the user’s level in a building as an estimate of altitude.
-@property (nonatomic, assign) NSInteger ordinal;
+/// Floor name
+@property (nonatomic, strong) NSString *code;
+/// Floor level, `nil` means no ordinal information is recorded
+@property (nonatomic, strong, nullable) MXMOrdinal *ordinal;
+@end
+
+
+
+/**
+ Floor detail and the information associated with it
+ */
+@interface MXMFloorInfo: NSObject
+/// Floor detail
+@property (nonatomic, strong) MXMFloor *floor;
 /// Whether the floor have visual map data
 @property (nonatomic, assign) BOOL hasVisualMap;
 @end
-
 
 
 
@@ -190,7 +211,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The Longitude and Latitude of the building name label
 @property (nonatomic, strong, nullable) MXMGeoPoint *labelCenter;
 /// All floors information of the building
-@property (nonatomic, strong) NSArray<MXMFloor *> *floors;
+@property (nonatomic, strong) NSArray<MXMFloorInfo *> *floors;
 /// The ground floor name of the building
 @property (nonatomic, strong, nullable) NSString *groundFloor;
 /// The contry where the building is located
@@ -211,15 +232,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MXMPOI : NSObject
 /// POI id
-@property (nonatomic, strong) NSString *id;
+@property (nonatomic, strong) NSString *poiId;
 /// The id of building where the POI is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
 /// The id of venue where the POI is located
 @property (nonatomic, strong, nullable) NSString *venueId;
-/// The name of floor where the POI is located
-@property (nonatomic, strong, nullable) NSString *floor;
-/// The id of floor where the POI is located
-@property (nonatomic, strong, nullable) NSString *floorId;
+/// The floor detail where the POI is located
+@property (nonatomic, strong, nullable) MXMFloor *floor;
 /// Longitude and latitude of POI
 @property (nonatomic, strong, nullable) MXMGeoPoint *location;
 /// List of categories to which POI belongs
@@ -297,7 +316,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
-  The coordinates information of the route
+ The coordinates information of the route
  */
 @interface MXMGeometry : NSObject
 /// Types of route geometries

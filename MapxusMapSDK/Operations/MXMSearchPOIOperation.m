@@ -77,7 +77,7 @@
 {
     MXMPOI *poi = response.pois.firstObject;
     if (self.complateBlock) {
-        self.complateBlock(poi.buildingId, poi.floor, CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude));
+        self.complateBlock(poi.buildingId, poi.floor.code, CLLocationCoordinate2DMake(poi.location.latitude, poi.location.longitude));
     }
     [self finish];
 }

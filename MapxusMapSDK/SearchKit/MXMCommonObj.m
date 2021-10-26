@@ -13,11 +13,11 @@
 @implementation MXMCategory
 
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"categoryId" : @"id",
-             @"title_en" : @"title.en",
-             @"title_cn" : @"title.zh-Hans",
-             @"title_zh" : @"title.zh-Hant",
-             @"categoryDescription" : @"description",
+    return @{@"categoryId" : @[@"categoryId", @"id"],
+             @"title_en" : @[@"title_en", @"title.en"],
+             @"title_cn" : @[@"title_cn", @"title.zh-Hans"],
+             @"title_zh" : @[@"title_zh", @"title.zh-Hant"],
+             @"categoryDescription" : @[@"categoryDescription", @"description"],
     };
 }
 
@@ -63,8 +63,8 @@
 }
 
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"latitude" : @"lat",
-             @"longitude" : @"lon",
+    return @{@"latitude" : @[@"latitude", @"lat"],
+             @"longitude" : @[@"longitude", @"lon"],
              };
 }
 
@@ -114,10 +114,10 @@
 
 
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"min_latitude" : @"minLat",
-             @"min_longitude" : @"minLon",
-             @"max_latitude" : @"maxLat",
-             @"max_longitude" : @"maxLon",
+    return @{@"min_latitude" : @[@"min_latitude", @"minLat"],
+             @"min_longitude" : @[@"min_longitude", @"minLon"],
+             @"max_latitude" : @[@"max_latitude", @"maxLat"],
+             @"max_longitude" : @[@"max_longitude", @"maxLon"],
              };
 }
 
@@ -127,6 +127,7 @@
 }
 
 @end
+
 
 //
 @implementation MXMAddress
@@ -138,27 +139,37 @@
 
 @end
 
-//
+
+
+
+@implementation MXMOrdinal
+
+@end
+
+
+
+
 @implementation MXMFloor
 
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"floorId" : @"id",
-             @"hasVisualMap" : @"visualMap"
+    return @{@"floorId" : @[@"floorId", @"id"],
              };
 }
 
-- (NSString *)code {
-    if (!_code) {
-        _code = @"";
-    }
-    return _code;
-}
-
+/// make sure return not null
 - (NSString *)floorId {
     if (!_floorId) {
         _floorId = @"";
     }
     return _floorId;
+}
+
+/// make sure return not null
+- (NSString *)code {
+    if (!_code) {
+        _code = @"";
+    }
+    return _code;
 }
 
 - (NSString *)description
@@ -168,35 +179,28 @@
 
 @end
 
-//
-@implementation MXMBuilding
+
+@implementation MXMFloorInfo
 
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"name_default" : @"name.default",
-             @"name_en" : @"name.en",
-             @"name_cn" : @"name.zh-Hans",
-             @"name_zh" : @"name.zh-Hant",
-             @"name_ja" : @"name.ja",
-             @"name_ko" : @"name.ko",
-             @"venueName_default" : @"venueName.default",
-             @"venueName_en" : @"venueName.en",
-             @"venueName_cn" : @"venueName.zh-Hans",
-             @"venueName_zh" : @"venueName.zh-Hant",
-             @"venueName_ja" : @"venueName.ja",
-             @"venueName_ko" : @"venueName.ko",
-             @"address_default" : @"address.default",
-             @"address_en" : @"address.en",
-             @"address_cn" : @"address.zh-Hans",
-             @"address_zh" : @"address.zh-Hant",
-             @"address_ja" : @"address.ja",
-             @"address_ko" : @"address.ko",
-             @"buildingId" : @[@"buildingId", @"id"],
-             @"hasVisualMap" : @"visualMap"
+    return @{
+             @"hasVisualMap" : @[@"hasVisualMap", @"visualMap"],
              };
 }
 
-+ (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"floors" : [MXMFloor class]};
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    _floor = [[MXMFloor alloc] init];
+    _floor.floorId = DecodeStringFromDic(dic, @"id");
+    _floor.code = DecodeStringFromDic(dic, @"code");
+    
+    NSNumber *result = DecodeNumberFromDic(dic, @"ordinal");
+    if (result) {
+        MXMOrdinal *ordinal = [[MXMOrdinal alloc] init];
+        ordinal.level = [result integerValue];
+        _floor.ordinal = ordinal;
+    }
+    
+    return YES;
 }
 
 - (NSString *)description
@@ -204,7 +208,46 @@
     return [self yy_modelDescription];
 }
 
-- (NSArray<MXMFloor *> *)floors {
+@end
+
+
+//
+@implementation MXMBuilding
+
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"name_default" : @[@"name_default", @"name.default"],
+             @"name_en" : @[@"name_en", @"name.en"],
+             @"name_cn" : @[@"name_cn", @"name.zh-Hans"],
+             @"name_zh" : @[@"name_zh", @"name.zh-Hant"],
+             @"name_ja" : @[@"name_ja", @"name.ja"],
+             @"name_ko" : @[@"name_ko", @"name.ko"],
+             @"venueName_default" : @[@"venueName_default", @"venueName.default"],
+             @"venueName_en" : @[@"venueName_en", @"venueName.en"],
+             @"venueName_cn" : @[@"venueName_cn", @"venueName.zh-Hans"],
+             @"venueName_zh" : @[@"venueName_zh", @"venueName.zh-Hant"],
+             @"venueName_ja" : @[@"venueName_ja", @"venueName.ja"],
+             @"venueName_ko" : @[@"venueName_ko", @"venueName.ko"],
+             @"address_default" : @[@"address_default", @"address.default"],
+             @"address_en" : @[@"address_en", @"address.en"],
+             @"address_cn" : @[@"address_cn", @"address.zh-Hans"],
+             @"address_zh" : @[@"address_zh", @"address.zh-Hant"],
+             @"address_ja" : @[@"address_ja", @"address.ja"],
+             @"address_ko" : @[@"address_ko", @"address.ko"],
+             @"buildingId" : @[@"buildingId", @"id"],
+             @"hasVisualMap" : @[@"hasVisualMap", @"visualMap"],
+             };
+}
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"floors" : [MXMFloorInfo class]};
+}
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
+- (NSArray<MXMFloorInfo *> *)floors {
     if (!_floors) {
         _floors = @[];
     }
@@ -220,31 +263,55 @@
 
 @end
 
-//
+
+
+
 @implementation MXMPOI
 
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"name_default" : @"name.default",
-             @"name_en" : @"name.en",
-             @"name_cn" : @"name.zh-Hans",
-             @"name_zh" : @"name.zh-Hant",
-             @"name_ja" : @"name.ja",
-             @"name_ko" : @"name.ko",
-             @"accessibilityDetail" : @"accessibilityDetail.default",
-             @"accessibilityDetail_en" : @"accessibilityDetail.en",
-             @"accessibilityDetail_cn" : @"accessibilityDetail.zh-Hans",
-             @"accessibilityDetail_zh" : @"accessibilityDetail.zh-Hant",
-             @"accessibilityDetail_ja" : @"accessibilityDetail.ja",
-             @"accessibilityDetail_ko" : @"accessibilityDetail.ko",
-             @"introduction" : @"description",
+    return @{@"name_default" : @[@"name_default", @"name.default"],
+             @"name_en" : @[@"name_en", @"name.en"],
+             @"name_cn" : @[@"name_cn", @"name.zh-Hans"],
+             @"name_zh" : @[@"name_zh", @"name.zh-Hant"],
+             @"name_ja" : @[@"name_ja", @"name.ja"],
+             @"name_ko" : @[@"name_ko", @"name.ko"],
+             @"accessibilityDetail" : @[@"accessibilityDetail", @"accessibilityDetail.default"],
+             @"accessibilityDetail_en" : @[@"accessibilityDetail_en", @"accessibilityDetail.en"],
+             @"accessibilityDetail_cn" : @[@"accessibilityDetail_cn", @"accessibilityDetail.zh-Hans"],
+             @"accessibilityDetail_zh" : @[@"accessibilityDetail_zh", @"accessibilityDetail.zh-Hant"],
+             @"accessibilityDetail_ja" : @[@"accessibilityDetail_ja", @"accessibilityDetail.ja"],
+             @"accessibilityDetail_ko" : @[@"accessibilityDetail_ko", @"accessibilityDetail.ko"],
+             @"introduction" : @[@"introduction", @"description"],
              };
 }
 
-- (NSString *)buildingId {
-    if (!_buildingId) {
-        _buildingId = @"";
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    _poiId = DecodeStringFromDic(dic, @"id");
+    
+    _floor = [[MXMFloor alloc] init];
+    _floor.floorId = DecodeStringFromDic(dic, @"floorId");
+    _floor.code = DecodeStringFromDic(dic, @"floor");
+    
+    NSNumber *result = DecodeNumberFromDic(dic, @"ordinal");
+    if (result) {
+        MXMOrdinal *ordinal = [[MXMOrdinal alloc] init];
+        ordinal.level = [result integerValue];
+        _floor.ordinal = ordinal;
     }
-    return _buildingId;
+    
+    return YES;
+}
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
+- (NSString *)poiId {
+    if (!_poiId) {
+        _poiId = @"";
+    }
+    return _poiId;
 }
 
 - (NSArray<NSString *> *)category {
@@ -254,20 +321,18 @@
     return _category;
 }
 
-- (NSString *)description
-{
-    return [self yy_modelDescription];
-}
-
 @end
+
+
+
 
 //
 @implementation MXMInstruction
 
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{
-             @"buildingId" : @"building_id",
-             @"streetName" : @"street_name",
+            @"buildingId" : @[@"buildingId", @"building_id"],
+            @"streetName" : @[@"streetName", @"street_name"],
              };
 }
 

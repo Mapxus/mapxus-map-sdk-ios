@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MXMCommonObj.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 /**
  Building information in tiles
  */
-@interface MXMGeoBuilding : NSObject <NSCopying>
+@interface MXMGeoBuilding : NSObject
 
 /// building id
 @property (nonatomic, strong) NSString *identifier;
@@ -33,14 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *name_ja;
 /// Building name in Korean
 @property (nonatomic, strong, nullable) NSString *name_ko;
-/// All floors name of the building
-@property (nonatomic, strong) NSArray<NSString*> *floors;
-/// All floors id of the building
-@property (nonatomic, strong) NSArray<NSString*> *floorIds;
-/// All floors level of the building
-@property (nonatomic, strong) NSArray<NSNumber*> *ordinals;
-/// The ground floor name of the building
-@property (nonatomic, strong, nullable) NSString *ground_floor;
+/// All floors of the building
+@property (nonatomic, strong) NSArray<MXMFloor *> *floors;
+/// The ground floor of the building
+@property (nonatomic, strong, nullable) NSString *groundFloor;
 /// Map rendering types, e.g. multipolygon
 @property (nonatomic, strong, nullable) NSString *type;
 

@@ -100,8 +100,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
 /// The centre of circular area search
 @property (nonatomic, strong, nullable) MXMGeoPoint *center;
-/// Radius for searching circular areas. Unit is km, must be used with center
-@property (nonatomic, assign) double distance DEPRECATED_ATTRIBUTE;
 /// Radius for searching circular areas. Unit is m, must be used with center
 @property (nonatomic, assign) NSUInteger meterDistance;
 /// The number of data to display per page

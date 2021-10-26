@@ -15,7 +15,7 @@
     self = [super init];
     if (self) {
         _outdoorHidden = NO;
-        _defaultStyle = MXMStyleMAPXUS_V2;
+        _defaultStyle = MXMStyleMAPXUS;
         _zoomInsets = UIEdgeInsetsZero;
         _zoomLevel = 19;
     }

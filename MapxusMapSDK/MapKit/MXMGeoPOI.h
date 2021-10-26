@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "MXMCommonObj.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,12 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *identifier;
 /// The id of building where the POI is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// The name of floor where the POI is located
-@property (nonatomic, strong, nullable) NSString *floor;
-/// The id of floor where the POI is located
-@property (nonatomic, strong, nullable) NSString *floorId;
-/// The ordinal of floor where the POI is located
-@property (nonatomic, strong, nullable) NSNumber *ordinal;
+/// The floor detail where the POI is located
+@property (nonatomic, strong, nullable) MXMFloor *floor;
 /// Longitude and latitude of POI
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 /// POI name in default language
@@ -53,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Accessibility Information in Korean
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_ko;
 /// List of categories to which POI belongs
-@property (nonatomic, strong) NSArray<NSString*> *category;
+@property (nonatomic, strong) NSArray<NSString *> *category;
 
 @end
 

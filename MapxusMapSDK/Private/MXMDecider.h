@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSString *currentFloor;
 
 // 当前选中建筑
-@property (nonatomic, copy, readonly) MXMGeoBuilding *currentBuilding;
+@property (nonatomic, strong, readonly) MXMGeoBuilding *currentBuilding;
 
 // 移动地图确定建筑
 - (void)decideInRectBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;

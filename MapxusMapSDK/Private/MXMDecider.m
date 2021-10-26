@@ -19,7 +19,7 @@
 @interface MXMDecider ()
 
 @property (nonatomic, copy, readwrite) NSString *currentFloor;
-@property (nonatomic, copy, readwrite) MXMGeoBuilding *currentBuilding;
+@property (nonatomic, strong, readwrite) MXMGeoBuilding *currentBuilding;
 @property (nonatomic, strong) NSMutableDictionary *buildingSelectFloorDic; // 保存运行期间看过大厦最后选中的对应楼层
 @property (nonatomic, strong) NSMutableArray<NSString *> *historicalBuildingIds; // 保存运行期间看过的大厦Id，防止同一地点两栋大厦间互相切换
 @property (nonatomic, strong) MXMSearchBuildingOperation2 *operation;
@@ -184,20 +184,8 @@
     geoBuilding.name_zh = netBuilding.name_zh;
     geoBuilding.name_ja = netBuilding.name_ja;
     geoBuilding.name_ko = netBuilding.name_ko;
-    NSMutableArray *floorStrs = [NSMutableArray array];
-    NSMutableArray *floorIdStrs = [NSMutableArray array];
-    NSMutableArray *ordinals = [NSMutableArray array];
-    for (MXMFloor *f in netBuilding.floors) {
-        if (f.code && f.floorId) {
-            [floorStrs addObject:f.code];
-            [floorIdStrs addObject:f.floorId];
-            [ordinals addObject:@(f.ordinal)];
-        }
-    }
-    geoBuilding.floors = [floorStrs copy];
-    geoBuilding.floorIds = [floorIdStrs copy];
-    geoBuilding.ordinals = [ordinals copy];
-    geoBuilding.ground_floor = netBuilding.groundFloor;
+    geoBuilding.floors = [netBuilding.floors valueForKey:@"floor"];
+    geoBuilding.groundFloor = netBuilding.groundFloor;
     return geoBuilding;
 }
 
@@ -232,11 +220,11 @@
     
     NSString *defaultElectFloor = historyDic[building.identifier];
     if (defaultElectFloor == nil) {
-        if (building.ground_floor == nil) {
-            defaultElectFloor = building.floors.firstObject;
-        } else {
-            defaultElectFloor = building.ground_floor;
-        }
+        defaultElectFloor = building.groundFloor;
+    }
+    if (defaultElectFloor == nil) {
+        MXMFloor *df = building.floors.firstObject;
+        defaultElectFloor = df.code;
     }
     return defaultElectFloor;
 }
@@ -277,7 +265,14 @@
         return NO;
     }
     // 判断楼层名是否正确
-    if (![building.floors containsObject:floor]) {
+    BOOL contains = NO;
+    for (MXMFloor *f in building.floors) {
+        if ([f.code isEqualToString:floor]) {
+            contains = YES;
+            break;
+        }
+    }
+    if (!contains) {
         return NO;
     }
     // 已选中则不进行后续操作，提高应用性能
@@ -292,9 +287,14 @@
 - (float)decideLocationViewAlphaWithCurrentBuilding:(MXMGeoBuilding *)curBuilding currentFloor:(NSString *)curFloor andLocalFloor:(nullable CLFloor *)floor
 {
     if (floor) {
-        NSUInteger findex = [curBuilding.floors indexOfObject:curFloor];
-        NSUInteger oindex = [curBuilding.ordinals indexOfObject:@(floor.level)];
-        if (findex == oindex) {
+        MXMFloor *m = nil;
+        for (MXMFloor *f in curBuilding.floors) {
+            if ([f.code isEqualToString:curFloor]) {
+                m = f;
+                break;
+            }
+        }
+        if (m && m.ordinal && m.ordinal.level == floor.level) {
             return 1.0f;
         } else {
             return 0.5f;

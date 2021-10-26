@@ -14,10 +14,6 @@
  */
 typedef NS_ENUM(NSUInteger, MXMStyle) {
     /**
-     MAPXUSMAP_v2 style
-     */
-    MXMStyleMAPXUS_V2,
-    /**
      MAPXUSMAP style
      */
     MXMStyleMAPXUS,

@@ -44,7 +44,7 @@
 
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{
-             @"category" : @"result",
+            @"category" : @[@"category", @"result"],
              };
 }
 
@@ -73,16 +73,6 @@
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"meterDistance" : @"distance",
              };
-}
-
-+ (NSArray *)modelPropertyBlacklist {
-    return @[@"distance"];
-}
-
-- (void)setDistance:(double)distance
-{
-    _distance = distance;
-    _meterDistance = distance * 1000;
 }
 
 @end
@@ -116,7 +106,7 @@
 
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{
-             @"pois" : @"result",
+            @"pois" : @[@"pois", @"result"],
              };
 }
 

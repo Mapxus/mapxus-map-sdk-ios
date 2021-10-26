@@ -199,9 +199,6 @@
                 [self setMapStyleWithName:@"mappybee_mims2_v1"];
                 break;
             case MXMStyleMAPXUS:
-                [self setMapStyleWithName:@"mapxus_mims2_v1"];
-                break;
-            case MXMStyleMAPXUS_V2:
                 [self setMapStyleWithName:@"mapxus_mims2_v4"];
                 break;
             default:
@@ -285,13 +282,19 @@
         MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
         
         // 点击了POI
+        MXMFloor *floorModel = [[MXMFloor alloc] init];
+        floorModel.floorId = floorId;
+        floorModel.code = floor;
+        if (floorOrdinal) {
+            MXMOrdinal *ordinal = [[MXMOrdinal alloc] init];
+            ordinal.level = [floorOrdinal integerValue];
+            floorModel.ordinal = ordinal;
+        }
         
         NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point];
         NSArray *poiList = [poiDic allValues];
         MXMGeoPOI *poi = poiList.firstObject;
-        poi.floor = floor;
-        poi.floorId = floorId;
-        poi.ordinal = floorOrdinal;
+        poi.floor = floorModel;
         if (poi) {
             if (self.delegate &&
                 [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)]) {
@@ -344,9 +347,14 @@
     NSString *floor = self.floor;
     if (building && floor) {
         // 配置过滤条件
-        NSUInteger index = [building.floors indexOfObject:floor];
-        NSString *levelId = building.floorIds[index];
-        [self.mapView.style filerBuildingId:building.identifier floor:floor levelId:levelId];
+        MXMFloor *fm = nil;
+        for (MXMFloor *ft in building.floors) {
+            if ([ft.code isEqualToString:floor]) {
+                fm = ft;
+                break;
+            }
+        }
+        [self.mapView.style filerBuildingId:building.identifier floor:floor levelId:fm.floorId];
         [self.mapView.style updateBuildingFillOpacityWith:building.identifier indoorState:self.isIndoor];
     } else {
         [self.mapView.style filerBuildingId:@"" floor:@"" levelId:@""];
@@ -382,13 +390,19 @@
     self.floor = floor;
     // 数据中的楼层都是从小到大，需要颠倒顺序显示
     NSArray *reversalFloors = [[building.floors reverseObjectEnumerator] allObjects];
-    [self.floorBar resetItems:reversalFloors defaultSelectRow:floor];
+    NSArray *codes = [reversalFloors valueForKey:@"code"];
+    [self.floorBar resetItems:codes defaultSelectRow:floor];
     self.decider.isMapReload = NO;
 
     // 配置过滤条件
-    NSUInteger index = [building.floors indexOfObject:floor];
-    NSString *levelId = building.floorIds[index];
-    [self.mapView.style filerBuildingId:building.identifier floor:floor levelId:levelId];
+    MXMFloor *fm = nil;
+    for (MXMFloor *ft in building.floors) {
+        if ([ft.code isEqualToString:floor]) {
+            fm = ft;
+            break;
+        }
+    }
+    [self.mapView.style filerBuildingId:building.identifier floor:floor levelId:fm.floorId];
     // 回调
     if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didChangeFloor:atBuilding:)]) {
         [self.delegate mapView:self didChangeFloor:floor atBuilding:building];
