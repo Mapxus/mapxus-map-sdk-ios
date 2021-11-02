@@ -222,6 +222,7 @@
 		D65B56D421C3AB4500142732 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D65B56D521C3AB4500142732 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D65E1BA025F0796D00D78764 /* UploadCocoapods.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = UploadCocoapods.sh; sourceTree = "<group>"; };
+		D65F9DE5272805D5008E68EE /* kawasaki.prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = kawasaki.prod.xcconfig; sourceTree = "<group>"; };
 		D67DAB62224DC5A400924107 /* MXMSearchAPITests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXMSearchAPITests.m; sourceTree = "<group>"; };
 		D68019A622A0BE9600E2E27B /* MXMIndoorMapInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMIndoorMapInfo.h; sourceTree = "<group>"; };
 		D68019A722A0BE9600E2E27B /* MXMIndoorMapInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMIndoorMapInfo.m; sourceTree = "<group>"; };
@@ -560,6 +561,7 @@
 				D6F6B60C25C3F0FB00D5F57C /* common.xcconfig */,
 				D6F6B60F25C3F0FB00D5F57C /* landsd.prod.xcconfig */,
 				D6F6B60E25C3F0FB00D5F57C /* landsd.test.xcconfig */,
+				D65F9DE5272805D5008E68EE /* kawasaki.prod.xcconfig */,
 				D6F6B60D25C3F0FB00D5F57C /* mapxus.prod.xcconfig */,
 				D6F6B60B25C3F0FB00D5F57C /* mapxus.test.xcconfig */,
 			);
