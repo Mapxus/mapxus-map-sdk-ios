@@ -6,23 +6,31 @@
 #  Created by Chenghao Guo on 2018/7/31.
 #  Copyright © 2018年 MAPHIVE TECHNOLOGY LIMITED. All rights reserved.
 
+## Xcode script
+## Start constants
+# company="Maphive Technology Investment Limited.";
+# companyURL="http://www.mapxus.com/";
+## End constants
+#
 #jazzy \
-#--objc \
-#--clean \
-#--theme apple \
-#--sdk iphoneos \
-#--skip-undocumented \
-#--hide-documentation-coverage \
-#--framework-root ./MapxusMapSDK \
-#--source-directory ./MapxusMapSDK/ \
-#--module MapxusMapSDK \
-#--module-version ${SHORT_VERSION} \
-#--author "Maphive Technology Limited" \
-#--author_url http://www.mapxus.com/ \
-#--umbrella-header ./MapxusMapSDK/MapxusMapSDK.h \
-#--exclude ./MapxusMapSDK/PrivateFile \
-#--hide-declarations swift \
-#--output "${PROJECT_DIR}/Document" \
+#    --output docs \
+#    --theme fullwidth\
+#    --clean \
+#    --objc \
+#    --framework-root . \
+#    --umbrella-header MapxusMapSDK/MapxusMapSDK.h \
+#    --sdk iphonesimulator \
+#    --hide-declarations swift \
+#    --source-directory MapxusMapSDK \
+#    --author "${company}" \
+#    --author_url "${companyURL}" \
+#    --module MapxusMapSDK \
+#    --module-version 4.0.0 \
+#    --readme README.md \
+#    --disable-search \
+#    --skip-undocumented \
+#    --hide-documentation-coverage \
+#    --exclude MapxusMapSDK/PrivateFile,MapxusMapSDK/FoundationKit,MapxusMapSDK/Operations,MapxusMapSDK/Controllers/KxMenu,MapxusMapSDK/Controllers/MXMPicker \
 
 #appledoc Xcode script
 # Start constants

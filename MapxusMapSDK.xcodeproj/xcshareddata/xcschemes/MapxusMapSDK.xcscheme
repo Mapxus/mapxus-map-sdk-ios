@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1300"
+   LastUpgradeVersion = "1310"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -27,40 +27,11 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D641FC8620F5DBDB00061AD4"
-            BuildableName = "MapxusMapSDK.framework"
-            BlueprintName = "MapxusMapSDK"
-            ReferencedContainer = "container:MapxusMapSDK.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D641FC8F20F5DBDB00061AD4"
-               BuildableName = "MapxusMapSDKTests.xctest"
-               BlueprintName = "MapxusMapSDKTests"
-               ReferencedContainer = "container:MapxusMapSDK.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D6EBB9D721C200B70059AD2D"
-               BuildableName = "SDKExampleTests.xctest"
-               BlueprintName = "SDKExampleTests"
-               ReferencedContainer = "container:MapxusMapSDK.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -69,15 +40,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D641FC8620F5DBDB00061AD4"
-            BuildableName = "MapxusMapSDK.framework"
-            BlueprintName = "MapxusMapSDK"
-            ReferencedContainer = "container:MapxusMapSDK.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
