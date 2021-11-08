@@ -279,7 +279,7 @@
         NSNumber *floorOrdinal = feature.ordinal;
         NSString *buildingId = feature.refBuildingId;
         
-        MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
+        MXMGeoBuilding *pointBuilding = [self.buildings[buildingId] copy];
         
         // 点击了POI
         MXMFloor *floorModel = [[MXMFloor alloc] init];
@@ -293,7 +293,7 @@
         
         NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point];
         NSArray *poiList = [poiDic allValues];
-        MXMGeoPOI *poi = poiList.firstObject;
+        MXMGeoPOI *poi = [poiList.firstObject copy];
         poi.floor = floorModel;
         if (poi) {
             if (self.delegate &&

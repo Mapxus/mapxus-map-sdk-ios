@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  POI information in tiles
  */
-@interface MXMGeoPOI : NSObject
+@interface MXMGeoPOI : NSObject <NSCopying>
 
 /// POI id
 @property (nonatomic, strong) NSString *identifier;

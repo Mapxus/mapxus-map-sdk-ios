@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Building information in tiles
  */
-@interface MXMGeoBuilding : NSObject
+@interface MXMGeoBuilding : NSObject <NSCopying>
 
 /// building id
 @property (nonatomic, strong) NSString *identifier;

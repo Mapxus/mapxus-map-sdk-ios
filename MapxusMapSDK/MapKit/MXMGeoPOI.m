@@ -11,6 +11,30 @@
 
 @implementation MXMGeoPOI
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    MXMGeoPOI * copyedModel = [[self.class allocWithZone:zone] init];
+    copyedModel.identifier = self.identifier;
+    copyedModel.buildingId = self.buildingId;
+    copyedModel.floor = [self.floor copy];
+    copyedModel.coordinate = self.coordinate;
+    copyedModel.name = self.name;
+    copyedModel.name_en = self.name_en;
+    copyedModel.name_cn = self.name_cn;
+    copyedModel.name_zh = self.name_zh;
+    copyedModel.name_ja = self.name_ja;
+    copyedModel.name_ko = self.name_ko;
+    copyedModel.accessibilityDetail = self.accessibilityDetail;
+    copyedModel.accessibilityDetail_en = self.accessibilityDetail_en;
+    copyedModel.accessibilityDetail_cn = self.accessibilityDetail_cn;
+    copyedModel.accessibilityDetail_zh = self.accessibilityDetail_zh;
+    copyedModel.accessibilityDetail_ja = self.accessibilityDetail_ja;
+    copyedModel.accessibilityDetail_ko = self.accessibilityDetail_ko;
+    copyedModel.category = [self.category copy];
+
+    return copyedModel;
+}
+
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"identifier" : @[@"identifier", @"osm:ref"],
              @"buildingId" : @[@"buildingId", @"ref:building"],

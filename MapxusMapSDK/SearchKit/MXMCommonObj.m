@@ -143,13 +143,29 @@
 
 
 @implementation MXMOrdinal
-
+- (id)copyWithZone:(NSZone *)zone
+{
+    MXMOrdinal *copyedModel = [[self.class allocWithZone:zone] init];
+    copyedModel.level = self.level;
+    
+    return copyedModel;
+}
 @end
 
 
 
 
 @implementation MXMFloor
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    MXMFloor *copyedModel = [[self.class allocWithZone:zone] init];
+    copyedModel.floorId = self.floorId;
+    copyedModel.code = self.code;
+    copyedModel.ordinal = [self.ordinal copy];
+
+    return copyedModel;
+}
 
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"floorId" : @[@"floorId", @"id"],
