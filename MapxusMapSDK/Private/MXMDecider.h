@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 将要选中
 - (void)decideMapViewShouldChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode;
 // 选中
-- (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor trackingMode:(BOOL)changeTrackingMode;
+- (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor trackingMode:(BOOL)changeTrackingMode shouldCallBack:(BOOL)shouldCallBack;
 // 操作缩放
 - (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox zoomMode:(MXMZoomMode)zoomMode withEdgePadding:(UIEdgeInsets)insets;
 
@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMDecider : NSObject
 
 @property (nonatomic, assign) BOOL isMapReload;
+@property (nonatomic, strong) NSMutableDictionary *buildingSelectFloorDic; // 保存运行期间看过大厦最后选中的对应楼层
+@property (nonatomic, strong) NSMutableArray<NSString *> *historicalBuildingIds; // 保存运行期间看过的大厦Id，防止同一地点两栋大厦间互相切换
 
 @property (nonatomic, weak) id<MXMDeciderDelegate> delegate;
 

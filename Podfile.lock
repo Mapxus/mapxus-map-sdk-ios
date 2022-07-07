@@ -6,13 +6,13 @@ PODS:
   - AFNetworking/Reachability (4.0.1)
   - AFNetworking/Security (4.0.1)
   - AFNetworking/Serialization (4.0.1)
-  - MapxusBaseSDK (4.0.0):
+  - MapxusBaseSDK (4.1.0):
     - AFNetworking/NSURLSession (~> 4.0)
     - AFNetworking/Reachability (~> 4.0)
     - AFNetworking/Security (~> 4.0)
     - AFNetworking/Serialization (~> 4.0)
     - YYModel (~> 1.0.4)
-  - MapxusRenderSDK (5.12.0)
+  - MapxusRenderSDK (5.12.2)
   - OCMock (3.9.1)
   - YYModel (1.0.4)
 
@@ -22,7 +22,7 @@ DEPENDENCIES:
   - OCMock
 
 SPEC REPOS:
-  trunk:
+  https://nexus3.mapxus.com/repository/cocoapods-proxy/:
     - AFNetworking
     - MapxusRenderSDK
     - OCMock
@@ -33,12 +33,12 @@ EXTERNAL SOURCES:
     :path: "../mapxus-base-sdk-ios"
 
 SPEC CHECKSUMS:
-  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
-  MapxusBaseSDK: d28a15f57283dc476eee8be827bc6d87f8a600eb
-  MapxusRenderSDK: fd17c79fa727a5c2d8b6f8dec65836fba73d98ea
-  OCMock: 9491e4bec59e0b267d52a9184ff5605995e74be8
-  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+  AFNetworking: 918f38660c2fed63562c7c15d79748bbfe85d9b4
+  MapxusBaseSDK: 5fcb8a2d714050e88f80c731484f244cb37717b8
+  MapxusRenderSDK: e623db224813cf4ef0f1f36a1f1a357522cdef9b
+  OCMock: 4628711eed9bee458e888367149f521b68f56f35
+  YYModel: 47e490c065087c7c7ca264de8f2b418b28e77371
 
-PODFILE CHECKSUM: e8ae35e063beb5f39f6946410705017c84c3ff59
+PODFILE CHECKSUM: e389cf7b5afec0d4432e87fa39c8cbad6349bc20
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

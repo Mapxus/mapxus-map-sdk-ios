@@ -1,6 +1,8 @@
 # Uncomment the next line to define a global platform for your project
  platform :ios, '9.0'
 
+source 'https://nexus3.mapxus.com/repository/cocoapods-proxy/'
+
  use_frameworks!
  inhibit_all_warnings!
 
@@ -20,9 +22,9 @@ target 'MapxusMapSDK' do
 
 end
 
-target 'SDKExample' do
+# target 'SDKExample' do
     
-end
+# end
 
 
 #bitcode enable

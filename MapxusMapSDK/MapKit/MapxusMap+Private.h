@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
 @property (nonatomic, copy, readwrite, nullable) NSDictionary<NSString *, MXMGeoBuilding *> *innerbuildings;
 @property (nonatomic, copy, readwrite) NSDictionary<NSString *, NSDictionary *> *venues;
+@property (nonatomic, copy, readwrite) NSSet *floorIds;
 
 // 移动地图时自动选择建筑
 - (void)automaticAnalyseOfIndoorData;

@@ -20,8 +20,6 @@
 
 @property (nonatomic, copy, readwrite) NSString *currentFloor;
 @property (nonatomic, strong, readwrite) MXMGeoBuilding *currentBuilding;
-@property (nonatomic, strong) NSMutableDictionary *buildingSelectFloorDic; // 保存运行期间看过大厦最后选中的对应楼层
-@property (nonatomic, strong) NSMutableArray<NSString *> *historicalBuildingIds; // 保存运行期间看过的大厦Id，防止同一地点两栋大厦间互相切换
 @property (nonatomic, strong) MXMSearchBuildingOperation2 *operation;
 
 @end
@@ -238,23 +236,23 @@
         [self.delegate decideMapViewShouldChangeBuilding:building floor:floor shouldChangeTrackingMode:changeTrackingMode];
     }
     
-    if (![self canGoOnFilterWithBuilding:building floor:floor currentBuilding:self.currentBuilding currentFloor:self.currentFloor andMapReload:self.isMapReload]) {
-        return;
-    }
+    BOOL shouldCallBack = NO;
+    if ([self canGoOnFilterWithBuilding:building floor:floor currentBuilding:self.currentBuilding currentFloor:self.currentFloor andMapReload:self.isMapReload]) {
+        shouldCallBack = YES;
+        self.currentBuilding = building;
+        self.currentFloor = floor;
+        // 保存id到选中队列，并取100条数据
+        [self.historicalBuildingIds insertObject:building.identifier atIndex:0];
+        if (self.historicalBuildingIds.count>100) {
+            [self.historicalBuildingIds removeLastObject];
+        }
 
-    self.currentBuilding = building;
-    self.currentFloor = floor;
-    // 保存id到选中队列，并取100条数据
-    [self.historicalBuildingIds insertObject:building.identifier atIndex:0];
-    if (self.historicalBuildingIds.count>100) {
-        [self.historicalBuildingIds removeLastObject];
+        // 保持建筑的选择楼层，下次作为默认选中楼层
+        [self.buildingSelectFloorDic setObject:floor forKey:building.identifier];
     }
-
-    // 保持建筑的选择楼层，下次作为默认选中楼层
-    [self.buildingSelectFloorDic setObject:floor forKey:building.identifier];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewChangeBuilding:floor:trackingMode:)]) {
-        [self.delegate decideMapViewChangeBuilding:building floor:floor trackingMode:changeTrackingMode];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewChangeBuilding:floor:trackingMode:shouldCallBack:)]) {
+        [self.delegate decideMapViewChangeBuilding:building floor:floor trackingMode:changeTrackingMode shouldCallBack:shouldCallBack];
     }
 }
 

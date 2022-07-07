@@ -32,6 +32,7 @@
         self.mapView = mapView;
         self.mapView.mxmMap = self;
         
+        self.floorIds = [NSSet set];
         self.decider = [[MXMDecider alloc] initWithDelegate:self];
         self.dataQueryer = [[MXMDataQuerier alloc] initWithMapView:mapView];
         self.annHolder = [[MXMAnnotationsHolder alloc] initWithMapView:mapView];
@@ -196,7 +197,7 @@
                 [self setMapStyleWithName:@"halloween_mims2_v1"];
                 break;
             case MXMStyleMAPPYBEE:
-                [self setMapStyleWithName:@"mappybee_mims2_v1"];
+                [self setMapStyleWithName:@"mappybee_mims2_v2"];
                 break;
             case MXMStyleMAPXUS:
                 [self setMapStyleWithName:@"mapxus_mims2_v4"];
@@ -243,6 +244,33 @@
     if (!self.autoChangeBuilding) {
         BOOL show = self.building.identifier ? YES : NO;
         [self decideMapViewShowFloorBar:show onBuilding:self.building.identifier floor:self.floor];
+        NSMutableArray *levelIds = [NSMutableArray array];
+        for (MXMGeoBuilding *building in self.buildings.allValues) {
+            if ([self.decider.historicalBuildingIds containsObject:building.identifier]) { // 有历史查看记录，显示历史
+                NSString *floorName = self.decider.buildingSelectFloorDic[building.identifier];
+                for (MXMFloor *floor in building.floors) {
+                    if ([floorName isEqualToString:floor.code]) {
+                        [levelIds addObject:floor.floorId];
+                    }
+                }
+            } else { // 没有历史查看记录，显示最近地面的楼层
+                NSMutableArray *floors = [NSMutableArray array];
+                for (MXMFloor *floor in building.floors) {
+                    if (floor.ordinal) {
+                        [floors addObject:floor];
+                    }
+                }
+                MXMFloor *floor = [self absMin:floors];
+                if (floor) {
+                    [levelIds addObject:floor.floorId];
+                }
+            }
+        }
+        NSSet *levelIdSet = [NSSet setWithArray:levelIds];
+        if (![levelIdSet isSubsetOfSet:self.floorIds]) {
+            [self.mapView.style filerLevelIds:levelIds];
+        }
+        self.floorIds = levelIdSet;
         return;
     }
 
@@ -347,27 +375,42 @@
     NSString *floor = self.floor;
     if (building && floor) {
         // 配置过滤条件
-        MXMFloor *fm = nil;
-        for (MXMFloor *ft in building.floors) {
-            if ([ft.code isEqualToString:floor]) {
-                fm = ft;
-                break;
+        NSMutableArray *levelIds = [NSMutableArray array];
+        for (MXMGeoBuilding *building in self.buildings.allValues) {
+            if ([self.decider.historicalBuildingIds containsObject:building.identifier]) { // 有历史查看记录，显示历史
+                NSString *floorName = self.decider.buildingSelectFloorDic[building.identifier];
+                for (MXMFloor *floor in building.floors) {
+                    if ([floorName isEqualToString:floor.code]) {
+                        [levelIds addObject:floor.floorId];
+                    }
+                }
+            } else { // 没有历史查看记录，显示最近地面的楼层
+                NSMutableArray *floors = [NSMutableArray array];
+                for (MXMFloor *floor in building.floors) {
+                    if (floor.ordinal) {
+                        [floors addObject:floor];
+                    }
+                }
+                MXMFloor *floor = [self absMin:floors];
+                if (floor) {
+                    [levelIds addObject:floor.floorId];
+                }
             }
         }
-        [self.mapView.style filerBuildingId:building.identifier floor:floor levelId:fm.floorId];
-        [self.mapView.style updateBuildingFillOpacityWith:building.identifier indoorState:self.isIndoor];
+        [self.mapView.style filerLevelIds:levelIds];
+        [self.mapView.style updateBuildingFillOpacityWithIndoorState:self.isIndoor];
     } else {
-        [self.mapView.style filerBuildingId:@"" floor:@"" levelId:@""];
+        [self.mapView.style filerLevelIds:@[]];
     }
 }
 
 - (void)decideMapViewShowFloorBar:(BOOL)show onBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor
 {
     // 设置建筑选择按钮和楼层选择按钮是否显示
-    self.buildingSelectButton.hidden = self.indoorControllerAlwaysHidden || !((self.innerbuildings.count>=2)&&(self.mapView.zoomLevel>15.7));
+    self.buildingSelectButton.hidden = self.indoorControllerAlwaysHidden || !((self.buildings.count>=2)&&(self.mapView.zoomLevel>15.7));
     self.floorBar.hidden = self.indoorControllerAlwaysHidden || !(show&&(self.mapView.zoomLevel>15.7));
     self.isIndoor = show && (self.mapView.zoomLevel>15.7);
-    [self.mapView.style updateBuildingFillOpacityWith:buildingId indoorState:self.isIndoor];
+    [self.mapView.style updateBuildingFillOpacityWithIndoorState:self.isIndoor];
     if (self.delegate && [self.delegate respondsToSelector: @selector(mapView:indoorMapWithIn:building:floor:)]) {
         [self.delegate mapView:self indoorMapWithIn:self.isIndoor building:buildingId floor:floor];
     }
@@ -384,30 +427,74 @@
     [self.annHolder filterMXMAnnotationsWithBuilding:building.identifier floor:floor indoorState:self.isIndoor];
 }
 
-- (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor trackingMode:(BOOL)changeTrackingMode
+- (nullable MXMFloor *)absMin:(NSArray<MXMFloor *> *)floors
 {
-    self.building = building;
-    self.floor = floor;
-    // 数据中的楼层都是从小到大，需要颠倒顺序显示
-    NSArray *reversalFloors = [[building.floors reverseObjectEnumerator] allObjects];
-    NSArray *codes = [reversalFloors valueForKey:@"code"];
-    [self.floorBar resetItems:codes defaultSelectRow:floor];
-    self.decider.isMapReload = NO;
+    NSUInteger size = floors.count;
+    NSInteger low = 0, high = size-1, mid = 0;
+    while (low <= high) {
+        NSInteger lowO = ((MXMFloor *)floors[low]).ordinal.level;
+        NSInteger highO = ((MXMFloor *)floors[high]).ordinal.level;
+        if (lowO * highO >= 0)
+            return (lowO >= 0) ? (MXMFloor *)floors[low] : (MXMFloor *)floors[high];
+        if (low + 1 == high)
+            return labs(lowO) < labs(highO) ? (MXMFloor *)floors[low] : (MXMFloor *)floors[high];
+        mid = low + (high - low) / 2;
+        NSInteger midO = ((MXMFloor *)floors[mid]).ordinal.level;
+        if(lowO * midO >= 0)
+            low = mid;
+        if(highO * midO >= 0)
+            high = mid;
+    }
+    return nil;
+}
+
+- (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor trackingMode:(BOOL)changeTrackingMode shouldCallBack:(BOOL)shouldCallBack
+{
+    if (shouldCallBack) {
+        self.building = building;
+        self.floor = floor;
+        // 数据中的楼层都是从小到大，需要颠倒顺序显示
+        NSArray *reversalFloors = [[building.floors reverseObjectEnumerator] allObjects];
+        NSArray *codes = [reversalFloors valueForKey:@"code"];
+        [self.floorBar resetItems:codes defaultSelectRow:floor];
+        self.decider.isMapReload = NO;
+    }
 
     // 配置过滤条件
-    MXMFloor *fm = nil;
-    for (MXMFloor *ft in building.floors) {
-        if ([ft.code isEqualToString:floor]) {
-            fm = ft;
-            break;
+    NSMutableArray *levelIds = [NSMutableArray array];
+    for (MXMGeoBuilding *building in self.buildings.allValues) {
+        if ([self.decider.historicalBuildingIds containsObject:building.identifier]) { // 有历史查看记录，显示历史
+            NSString *floorName = self.decider.buildingSelectFloorDic[building.identifier];
+            for (MXMFloor *floor in building.floors) {
+                if ([floorName isEqualToString:floor.code]) {
+                    [levelIds addObject:floor.floorId];
+                }
+            }
+        } else { // 没有历史查看记录，显示最近地面的楼层
+            NSMutableArray *floors = [NSMutableArray array];
+            for (MXMFloor *floor in building.floors) {
+                if (floor.ordinal) {
+                    [floors addObject:floor];
+                }
+            }
+            MXMFloor *floor = [self absMin:floors];
+            if (floor) {
+                [levelIds addObject:floor.floorId];
+            }
         }
     }
-    [self.mapView.style filerBuildingId:building.identifier floor:floor levelId:fm.floorId];
-    // 回调
-    if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didChangeFloor:atBuilding:)]) {
-        [self.delegate mapView:self didChangeFloor:floor atBuilding:building];
+    NSSet *levelIdSet = [NSSet setWithArray:levelIds];
+    if (![levelIdSet isSubsetOfSet:self.floorIds]) {
+        [self.mapView.style filerLevelIds:levelIds];
     }
-    [self updageLocationView];
+    self.floorIds = levelIdSet;
+    // 回调
+    if (shouldCallBack) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didChangeFloor:atBuilding:)]) {
+            [self.delegate mapView:self didChangeFloor:floor atBuilding:building];
+        }
+        [self updageLocationView];
+    }
 }
 
 - (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox zoomMode:(MXMZoomMode)zoomMode withEdgePadding:(UIEdgeInsets)insets
@@ -455,7 +542,7 @@
     }
     
     NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.buildings.count];
-    for (MXMGeoBuilding *b in [self.innerbuildings allValues]) {
+    for (MXMGeoBuilding *b in [self.buildings allValues]) {
         KxMenuItem *item = [KxMenuItem menuItem:b.name
                                      identifier:b.identifier
                                           image:nil
@@ -470,7 +557,7 @@
 
 - (void)chooseItem:(KxMenuItem *)sender
 {
-    MXMGeoBuilding *b = [self.innerbuildings objectForKey:sender.identifier];
+    MXMGeoBuilding *b = [self.buildings objectForKey:sender.identifier];
     [self selectBuilding:b.identifier zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero];
 }
 
