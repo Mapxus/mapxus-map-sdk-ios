@@ -22,22 +22,22 @@
 
         if (sk.text.expressionType != NSConstantValueExpressionType) {
             if ([localeLanguage containsString:@"en"]) {
-                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K})", @"name:en", @"name_en", @"name"];
+                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K, %K})", @"name:en", @"name_en", @"_name", @"name"];
                 
             } else if ([localeLanguage containsString:@"zh-Hant"]) {
-                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K, %K, %K})", @"name:zh-Hant", @"name_zh", @"name:zh", @"name_zh-Hans", @"name"];
+                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K, %K, %K, %K})", @"name:zh-Hant", @"name_zh", @"name:zh", @"name_zh-Hans", @"_name", @"name"];
                 
             } else if ([localeLanguage containsString:@"zh-Hans"]) {
-                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K, %K, %K})", @"name:zh-Hans", @"name_zh-Hans", @"name:cn", @"name_zh", @"name"];
+                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K, %K, %K, %K})", @"name:zh-Hans", @"name_zh-Hans", @"name:cn", @"name_zh", @"_name", @"name"];
                 
             } else if ([localeLanguage containsString:@"ja"]) {
-                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K})", @"name:ja", @"name"];
+                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K})", @"name:ja", @"_name", @"name"];
                 
             } else if ([localeLanguage containsString:@"ko"]) {
-                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K})", @"name:ko", @"name"];
+                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K, %K})", @"name:ko", @"_name", @"name"];
                 
             } else {
-                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K})", @"name"];
+                sk.text = [NSExpression expressionWithFormat:@"mgl_coalesce({%K, %K})", @"_name", @"name"];
             }
         }
     }
