@@ -97,6 +97,10 @@ typedef NS_ENUM(NSInteger, MXMRouteSign) {
      */
     MXMDownstairs = -100,
     /**
+      Make a U-Turn on left
+     */
+    MXMLeftUTurn = -8,
+    /**
      Keep to the left
      */
     MXMKeepLeft = -7,
@@ -135,15 +139,19 @@ typedef NS_ENUM(NSInteger, MXMRouteSign) {
     /**
      Arrival at the waypoint
      */
-    MXMReachedVia = 5,
+    MXMReachedVia __attribute__((deprecated)) = 5,
     /**
      Use of loops
      */
-    MXMUseRoundabout = 6,
+    MXMUseRoundabout __attribute__((deprecated)) = 6,
     /**
      Walk on the right
      */
     MXMKeepRight = 7,
+    /**
+     Make a U-Turn on right
+     */
+    MXMRightUTurn = 8,
     /**
      Upstairs
      */
@@ -156,6 +164,18 @@ typedef NS_ENUM(NSInteger, MXMRouteSign) {
      Enter the building
      */
     MXMEnterBuilding = 201,
+    /**
+     Pass gateline, such as subway gate
+     */
+    MXMPassGateline = 202,
+    /**
+     From one building to another building
+     */
+    MXMThroughConnectingCorridor = 300,
+    /**
+     Pass area, the area define with the instruction type
+     */
+    MXMPassArea = 301,
 };
 
 
