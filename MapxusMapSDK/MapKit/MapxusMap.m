@@ -209,7 +209,7 @@
 }
 
 - (void)setMapStyleWithName:(NSString *)styleName {
-    self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/bms/api/v2/tiles/styles/%@", MXMAPIHOSTURL, styleName]];
+    self.mapView.styleURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/bms/api/v3/tiles/styles/%@", MXMAPIHOSTURL, styleName]];
 }
 
 - (void)setMapLanguage:(NSString *)language

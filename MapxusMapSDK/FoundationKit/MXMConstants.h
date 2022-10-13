@@ -9,3 +9,4 @@
 #import <Foundation/Foundation.h>
 
 FOUNDATION_EXPORT NSString *const MXMAPIHOSTURL; // api host address
+FOUNDATION_EXPORT NSString *const MXMTOKENHOSTURL; // get token host address

@@ -16,7 +16,7 @@
 
 - (NSInteger)reverseGeoCode:(MXMReverseGeoCodeSearchOption *)reverseGeoCodeOption
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL,@"/bms/api/v1/locate/indoor-coding"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL,@"/bms/api/v3/locate/indoor-coding"];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     dic[@"lat"] = @(reverseGeoCodeOption.location.latitude);
     dic[@"lon"] = @(reverseGeoCodeOption.location.longitude);
