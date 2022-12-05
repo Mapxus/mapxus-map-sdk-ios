@@ -891,7 +891,7 @@
 			baseConfigurationReference = D6DF3F594E4720637AE9CCE7 /* Pods-MapxusMapSDK.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 202207.07.2154;
+				CURRENT_PROJECT_VERSION = 202212.06.0020;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -923,7 +923,7 @@
 			baseConfigurationReference = 4FCF427B3F9DD044A7E02D5F /* Pods-MapxusMapSDK.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 202207.07.2154;
+				CURRENT_PROJECT_VERSION = 202212.06.0020;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
