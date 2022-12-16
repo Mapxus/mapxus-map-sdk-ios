@@ -1,9 +1,8 @@
 //
-//  MXMGeoBuilding.h
+//  MXMGeoVenue.h
 //  MapxusMapSDK
 //
-//  Created by Chenghao Guo on 2018/7/16.
-//  Copyright © 2018年 MAPHIVE TECHNOLOGY LIMITED. All rights reserved.
+//  Created by chenghao guo on 2022/12/14.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,17 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- Building information in tiles
- */
-@interface MXMGeoBuilding : NSObject <NSCopying>
+@interface MXMGeoVenue : NSObject
 
-/// building id
 @property (nonatomic, strong) NSString *identifier;
 /// Building type, indicating the classification of the building, e.g. cathedral, car_park, hospital, office, retail, etc.
-@property (nonatomic, strong) NSString *building;
-/// The id of venue where the building is located
-@property (nonatomic, strong) NSString *venueId;
+@property (nonatomic, strong) NSString *venueType;
 /// Building name in default language
 @property (nonatomic, strong, nullable) NSString *name;
 /// Building name in English
@@ -34,12 +27,24 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *name_ja;
 /// Building name in Korean
 @property (nonatomic, strong, nullable) NSString *name_ko;
+/// Building address in default language
+@property (nonatomic, strong, nullable) MXMAddress *address_default;
+/// Building address in English
+@property (nonatomic, strong, nullable) MXMAddress *address_en;
+/// Building address in Simplified Chinese
+@property (nonatomic, strong, nullable) MXMAddress *address_cn;
+/// Building address in Traditional Chinese
+@property (nonatomic, strong, nullable) MXMAddress *address_zh;
+/// Building address in Japanese
+@property (nonatomic, strong, nullable) MXMAddress *address_ja;
+/// Building address in Korean
+@property (nonatomic, strong, nullable) MXMAddress *address_ko;
+
+@property (nonatomic, strong) NSArray<NSString *> *buildingIds;
 /// All floors of the building
 @property (nonatomic, strong) NSArray<MXMFloor *> *floors;
 /// The ground floor of the building
 @property (nonatomic, strong, nullable) NSString *groundFloor;
-/// Map rendering types, e.g. multipolygon
-@property (nonatomic, strong, nullable) NSString *type;
 
 @end
 

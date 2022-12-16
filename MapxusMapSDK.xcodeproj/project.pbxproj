@@ -95,6 +95,8 @@
 		D6BE1378286ED54400B84170 /* MXMGeoCodeSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = D6BE1332286ED54400B84170 /* MXMGeoCodeSearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D6BE1379286ED54400B84170 /* MXMGeoCodeSearchOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BE1333286ED54400B84170 /* MXMGeoCodeSearchOption.m */; };
 		D6BE137A286ED54400B84170 /* MXMGeoCodeSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BE1334286ED54400B84170 /* MXMGeoCodeSearch.m */; };
+		D6EE3CEC2949724F001E5433 /* MXMGeoVenue.h in Headers */ = {isa = PBXBuildFile; fileRef = D6EE3CEA2949724F001E5433 /* MXMGeoVenue.h */; };
+		D6EE3CED2949724F001E5433 /* MXMGeoVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EE3CEB2949724F001E5433 /* MXMGeoVenue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +201,8 @@
 		D6BE138A286ED5AB00B84170 /* mapxus.test.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = mapxus.test.xcconfig; sourceTree = "<group>"; };
 		D6BE138B286ED5AB00B84170 /* landsd.test.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = landsd.test.xcconfig; sourceTree = "<group>"; };
 		D6DF3F594E4720637AE9CCE7 /* Pods-MapxusMapSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDK.debug.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDK/Pods-MapxusMapSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		D6EE3CEA2949724F001E5433 /* MXMGeoVenue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMGeoVenue.h; sourceTree = "<group>"; };
+		D6EE3CEB2949724F001E5433 /* MXMGeoVenue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMGeoVenue.m; sourceTree = "<group>"; };
 		EC5575FF1C125D6D4C7E2FFF /* Pods-MapxusMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.release.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -329,12 +333,12 @@
 		D6BE12F0286ED54400B84170 /* SearchKit */ = {
 			isa = PBXGroup;
 			children = (
-				D6BE12F1286ED54400B84170 /* MXMCommonObj.m */,
-				D6BE12F2286ED54400B84170 /* MXMSearchAPI.h */,
-				D6BE12F3286ED54400B84170 /* MXMSearchObj.m */,
-				D6BE12F4286ED54400B84170 /* MXMSearchAPI.m */,
 				D6BE12F5286ED54400B84170 /* MXMCommonObj.h */,
+				D6BE12F1286ED54400B84170 /* MXMCommonObj.m */,
 				D6BE12F6286ED54400B84170 /* MXMSearchObj.h */,
+				D6BE12F3286ED54400B84170 /* MXMSearchObj.m */,
+				D6BE12F2286ED54400B84170 /* MXMSearchAPI.h */,
+				D6BE12F4286ED54400B84170 /* MXMSearchAPI.m */,
 			);
 			path = SearchKit;
 			sourceTree = "<group>";
@@ -414,6 +418,8 @@
 				D6BE1324286ED54400B84170 /* MXMIndoorMapInfo.m */,
 				D6BE132A286ED54400B84170 /* MXMAnnotationsHolder.h */,
 				D6BE1321286ED54400B84170 /* MXMAnnotationsHolder.m */,
+				D6EE3CEA2949724F001E5433 /* MXMGeoVenue.h */,
+				D6EE3CEB2949724F001E5433 /* MXMGeoVenue.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -493,6 +499,7 @@
 				D6BE1356286ED54400B84170 /* MapxusMap+Private.h in Headers */,
 				D6BE136E286ED54400B84170 /* MXMCacheManager.h in Headers */,
 				D6BE1338286ED54400B84170 /* MXMPickerTextRenderView.h in Headers */,
+				D6EE3CEC2949724F001E5433 /* MXMGeoVenue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,6 +723,7 @@
 				D6BE135A286ED54400B84170 /* MXMGeoPOI.m in Sources */,
 				D6BE1364286ED54400B84170 /* MXMDecider.m in Sources */,
 				D6BE135D286ED54400B84170 /* MXMGeoBuilding.m in Sources */,
+				D6EE3CED2949724F001E5433 /* MXMGeoVenue.m in Sources */,
 				D6BE1374286ED54400B84170 /* MXMGeoCodeSearchResult.m in Sources */,
 				D6BE1343286ED54400B84170 /* MXMSearchObj.m in Sources */,
 				D6BE1349286ED54400B84170 /* MXMSearchBuildingOperation2.m in Sources */,
@@ -820,7 +828,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -876,7 +884,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -897,6 +905,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -928,6 +937,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -985,6 +995,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
+				ENABLE_BITCODE = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -994,6 +1005,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
+				ENABLE_BITCODE = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

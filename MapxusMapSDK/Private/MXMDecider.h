@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MXMGeoBuilding.h"
+#import "MXMGeoVenue.h"
 #import "MXMIndoorMapInfo.h"
 #import <Mapbox/Mapbox.h>
 #import "MXMDefine.h"
@@ -23,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 将要选中
 - (void)decideMapViewShouldChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode;
 // 选中
-- (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor trackingMode:(BOOL)changeTrackingMode shouldCallBack:(BOOL)shouldCallBack;
+- (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building venue:(nullable MXMGeoVenue *)venue floor:(NSString *)floor trackingMode:(BOOL)changeTrackingMode shouldCallBack:(BOOL)shouldCallBack;
 // 操作缩放
 - (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox zoomMode:(MXMZoomMode)zoomMode withEdgePadding:(UIEdgeInsets)insets;
 
@@ -35,7 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMDecider : NSObject
 
 @property (nonatomic, assign) BOOL isMapReload;
-@property (nonatomic, strong) NSMutableDictionary *buildingSelectFloorDic; // 保存运行期间看过大厦最后选中的对应楼层
+@property (nonatomic, strong) NSMutableDictionary *venueSelectFloorDic; // 保存运行期间看过大厦最后选中的对应楼层
+@property (nonatomic, strong) NSMutableArray<NSString *> *historicalVenueIds; // 保存运行期间看过的venueId，防止同一地点个venue间互相切换
 @property (nonatomic, strong) NSMutableArray<NSString *> *historicalBuildingIds; // 保存运行期间看过的大厦Id，防止同一地点两栋大厦间互相切换
 
 @property (nonatomic, weak) id<MXMDeciderDelegate> delegate;
@@ -49,13 +51,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) MXMGeoBuilding *currentBuilding;
 
 // 移动地图确定建筑
-- (void)decideInRectBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
+- (void)decideInRectBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+                       venueDic:(NSDictionary<NSString *, MXMGeoVenue *> *)venues;
 
 // 点击地图确定建筑
-- (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings andFloorFeatures:(NSArray<MXMLevelModel *> *)floors;
+- (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+                            venueDic:(NSDictionary<NSString *, MXMGeoVenue *> *)venues
+                    andFloorFeatures:(NSArray<MXMLevelModel *> *)floors;
 
 // 定位时确定建筑
-- (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings atPointLevelInfoList:(NSArray<MXMLevelModel *> *)levelInfoList;
+- (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level
+                                        atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+                                                  venueDic:(NSDictionary<NSString *, MXMGeoVenue *> *)venues
+                                      atPointLevelInfoList:(NSArray<MXMLevelModel *> *)levelInfoList;
 
 // 指定建筑
 - (void)specifyTheBuilding:(NSString *)buildingId
@@ -63,9 +71,12 @@ NS_ASSUME_NONNULL_BEGIN
                   zoomMode:(MXMZoomMode)zoomMode
                edgePadding:(UIEdgeInsets)insets
   shouldChangeTrackingMode:(BOOL)changeTrackingMode
-       withRectBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
+           withGeoBuilding:(nullable MXMGeoBuilding *)building
+                  geoVenue:(nullable MXMGeoVenue *)venue;
 
-- (float)decideLocationViewAlphaWithCurrentBuilding:(MXMGeoBuilding *)curBuilding currentFloor:(NSString *)curFloor andLocalFloor:(nullable CLFloor *)floor;
+- (float)decideLocationViewAlphaWithCurrentBuilding:(MXMGeoBuilding *)curBuilding
+                                       currentFloor:(NSString *)curFloor
+                                      andLocalFloor:(nullable CLFloor *)floor;
 
 @end
 

@@ -277,6 +277,13 @@
     return _buildingId;
 }
 
+- (NSString *)venueId {
+  if (!_venueId) {
+    _venueId = @"";
+  }
+  return _venueId;
+}
+
 @end
 
 

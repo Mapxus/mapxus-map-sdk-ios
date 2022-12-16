@@ -8,7 +8,6 @@
 
 #import "MXMDecider.h"
 #import "MXMSearchBuildingOperation2.h"
-#import "MXMGeoBuilding.h"
 #import "MXMCommonObj.h"
 #import <YYModel/YYModel.h>
 #import "NSString+Compare.h"
@@ -44,42 +43,54 @@
 
 // 自动选择默认选中建筑
 - (void)decideInRectBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+                       venueDic:(NSDictionary<NSString *, MXMGeoVenue *> *)venues
+
 {
     // 默认选中building，规则为优先选中之前选过的
-    MXMGeoBuilding *defaultBuilding = [self electDefaultBuildingRecentlyWithHistory:self.historicalBuildingIds
-                                                                        inBuildings:[buildings allValues]];
-    NSString *defaultFloor = [self electDefaultFloorWithHistory:self.buildingSelectFloorDic
-                                                     inBuilding:defaultBuilding];
-
-    [self specifyTheBuilding:defaultBuilding.identifier
-                       floor:defaultFloor
-                    zoomMode:MXMZoomDisable
-                 edgePadding:UIEdgeInsetsZero
-    shouldChangeTrackingMode:NO
-         withRectBuildingDic:buildings];
+  MXMGeoBuilding *defaultBuilding = [self electDefaultBuildingRecentlyWithHistory:self.historicalBuildingIds
+                                                                      inBuildings:[buildings allValues]];
+  MXMGeoVenue *venue;
+  if (defaultBuilding) {
+    venue = venues[defaultBuilding.venueId];
+  }
+  NSString *defaultFloor = [self electDefaultFloorWithHistory:self.venueSelectFloorDic
+                                                   inBuilding:defaultBuilding];
+  
+  [self specifyTheBuilding:defaultBuilding.identifier
+                     floor:defaultFloor
+                  zoomMode:MXMZoomDisable
+               edgePadding:UIEdgeInsetsZero
+  shouldChangeTrackingMode:NO
+           withGeoBuilding:defaultBuilding
+                  geoVenue:venue];
 }
 
 
-- (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings andFloorFeatures:(NSArray<MXMLevelModel *> *)floors
+- (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+                            venueDic:(NSDictionary<NSString *, MXMGeoVenue *> *)venues
+                    andFloorFeatures:(NSArray<MXMLevelModel *> *)floors
 {
-    BOOL isClickOnCurrentBuilding = [self hasBelongsCurrentBuilding:self.currentBuilding.identifier onFloorsList:floors];
-    /// 不是点击在已选中的level上面时
-    if (!isClickOnCurrentBuilding) {
-        /// 查找该点上的其他建筑信息
-        NSMutableDictionary *muBuildings = [NSMutableDictionary dictionaryWithDictionary:buildings];
-        if (self.currentBuilding.identifier) {
-            [muBuildings removeObjectForKey:self.currentBuilding.identifier];
-        }
-        NSArray *buildingList = [muBuildings allValues];
-        MXMGeoBuilding *geoBuilding = buildingList.firstObject;
-        if (geoBuilding) {
-            NSString *defaultFloor = [self electDefaultFloorWithHistory:self.buildingSelectFloorDic inBuilding:geoBuilding];
-            [self specifyTheBuilding:geoBuilding.identifier
-                               floor:defaultFloor
-                            zoomMode:MXMZoomDisable
-                         edgePadding:UIEdgeInsetsZero
-            shouldChangeTrackingMode:YES
-                 withRectBuildingDic:muBuildings];
+  BOOL isClickOnCurrentBuilding = [self hasBelongsCurrentBuilding:self.currentBuilding.identifier onFloorsList:floors];
+  /// 不是点击在已选中的level上面时
+  if (!isClickOnCurrentBuilding) {
+    /// 查找该点上的其他建筑信息
+    NSMutableDictionary *muBuildings = [NSMutableDictionary dictionaryWithDictionary:buildings];
+    if (self.currentBuilding.identifier) {
+      [muBuildings removeObjectForKey:self.currentBuilding.identifier];
+    }
+    NSArray *buildingList = [muBuildings allValues];
+    MXMGeoBuilding *geoBuilding = buildingList.firstObject;
+    MXMGeoVenue *venue;
+    if (geoBuilding) {
+      venue = venues[geoBuilding.venueId];
+      NSString *defaultFloor = [self electDefaultFloorWithHistory:self.venueSelectFloorDic inBuilding:geoBuilding];
+      [self specifyTheBuilding:geoBuilding.identifier
+                         floor:defaultFloor
+                      zoomMode:MXMZoomDisable
+                   edgePadding:UIEdgeInsetsZero
+      shouldChangeTrackingMode:YES
+               withGeoBuilding:geoBuilding
+                      geoVenue:venue];
         }
     }
 }
@@ -94,23 +105,32 @@
     return NO;
 }
 
-- (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings atPointLevelInfoList:(NSArray<MXMLevelModel *> *)levelInfoList
+- (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level
+                                        atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+                                                  venueDic:(NSDictionary<NSString *, MXMGeoVenue *> *)venues
+                                      atPointLevelInfoList:(NSArray<MXMLevelModel *> *)levelInfoList
 {
-    for (MXMLevelModel *model in levelInfoList) {
-        if ([model.ordinal isEqualToNumber:@(level)]) {
-            NSString *buildingId = model.refBuildingId;
-            NSString *floorName = model.name;
-            MXMGeoBuilding *b = [buildings objectForKey:buildingId];
-            [self specifyTheBuilding:buildingId
-                               floor:floorName
-                            zoomMode:MXMZoomDisable
-                         edgePadding:UIEdgeInsetsZero
-            shouldChangeTrackingMode:NO
-                 withRectBuildingDic:buildings];
-            return [[MXMIndoorMapInfo alloc] initWithBuilding:b floor:floorName];
-        }
+  for (MXMLevelModel *model in levelInfoList) {
+    if ([model.ordinal isEqualToNumber:@(level)]) {
+      NSString *buildingId = model.refBuildingId;
+      NSString *floorName = model.name;
+      MXMGeoBuilding *building = [buildings objectForKey:buildingId];
+      MXMGeoVenue *venue;
+      if (building) {
+        venue = venues[building.venueId];
+      }
+
+      [self specifyTheBuilding:buildingId
+                         floor:floorName
+                      zoomMode:MXMZoomDisable
+                   edgePadding:UIEdgeInsetsZero
+      shouldChangeTrackingMode:NO
+               withGeoBuilding:building
+                      geoVenue:venue];
+      return [[MXMIndoorMapInfo alloc] initWithBuilding:building floor:floorName];
     }
-    return nil;
+  }
+  return nil;
 }
 
 
@@ -119,7 +139,8 @@
                   zoomMode:(MXMZoomMode)zoomMode
                edgePadding:(UIEdgeInsets)insets
   shouldChangeTrackingMode:(BOOL)changeTrackingMode
-       withRectBuildingDic:(NSDictionary<NSString *,MXMGeoBuilding *> *)buildings
+           withGeoBuilding:(nullable MXMGeoBuilding *)building
+                  geoVenue:(nullable MXMGeoVenue *)venue
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewShowFloorBar:onBuilding:floor:)]) {
         BOOL show = buildingId ? YES : NO;
@@ -130,35 +151,35 @@
         return;
     }
     // 从地图瓦片获取建筑数据
-    MXMGeoBuilding *theBuilding = [buildings objectForKey:buildingId];
-    BOOL state = [self shouldBeQueryWithBuilding:theBuilding shouldZoomTo:(zoomMode != MXMZoomDisable)];
+    BOOL state = [self shouldBeQueryWithBuilding:building shouldZoomTo:(zoomMode != MXMZoomDisable)];
     if (state) {
         __weak typeof(self) weakSelf = self;
-        self.operation.complateBlock = ^(MXMBuilding * _Nullable building) {
+        self.operation.complateBlock = ^(MXMBuilding * _Nullable netBuilding) {
             // 调用zoom map
             if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(decideMapViewZoomTo:zoomMode:withEdgePadding:)]) {
-                [weakSelf.delegate decideMapViewZoomTo:building.bbox zoomMode:zoomMode withEdgePadding:insets];
+                [weakSelf.delegate decideMapViewZoomTo:netBuilding.bbox zoomMode:zoomMode withEdgePadding:insets];
             }
             // 显示建筑
-            [weakSelf displayWihtGeoBuilding:theBuilding orNetBuilding:building setFloor:floor shouldChangeTrackingMode:changeTrackingMode];
+          [weakSelf displayWihtGeoBuilding:building orNetBuilding:netBuilding venue:venue setFloor:floor shouldChangeTrackingMode:changeTrackingMode];
         };
         [self.operation searchWithBuildingId:buildingId];
     } else { // 不用zoom也不用网络查询的情况
         // 显示建筑
-        [self displayWihtGeoBuilding:theBuilding orNetBuilding:nil setFloor:floor shouldChangeTrackingMode:changeTrackingMode];
+      [self displayWihtGeoBuilding:building orNetBuilding:nil venue:venue setFloor:floor shouldChangeTrackingMode:changeTrackingMode];
     }
 }
 
 // 选择正确的建筑与楼层
 - (void)displayWihtGeoBuilding:(nullable MXMGeoBuilding *)geo
                  orNetBuilding:(nullable MXMBuilding *)net
+                         venue:(nullable MXMGeoVenue *)venue
                       setFloor:(nullable NSString *)setFloor
       shouldChangeTrackingMode:(BOOL)changeTrackingMode
 {
-    // 显示建筑
-    MXMGeoBuilding *geoBuilding = geo ? : [self exchangeFrom:net];
-    NSString *theEndFloor = setFloor ? : [self electDefaultFloorWithHistory:self.buildingSelectFloorDic inBuilding:geoBuilding];
-    [self selectBuilding:geoBuilding floor:theEndFloor shouldChangeTrackingMode:changeTrackingMode];
+  // 显示建筑
+  MXMGeoBuilding *geoBuilding = geo ? : [self exchangeFrom:net];
+  NSString *theEndFloor = setFloor ? : [self electDefaultFloorWithHistory:self.venueSelectFloorDic inBuilding:geoBuilding];
+  [self selectBuilding:geoBuilding venue:venue floor:theEndFloor shouldChangeTrackingMode:changeTrackingMode];
 }
 
 - (BOOL)shouldBeQueryWithBuilding:(nullable MXMGeoBuilding *)building shouldZoomTo:(BOOL)zoomTo
@@ -216,7 +237,7 @@
 {
     NSAssert(building != nil, @"To query the history, you must pass in building");
     
-    NSString *defaultElectFloor = historyDic[building.identifier];
+    NSString *defaultElectFloor = historyDic[building.venueId];
     if (defaultElectFloor == nil) {
         defaultElectFloor = building.groundFloor;
     }
@@ -229,7 +250,10 @@
 
 
 // 主要作用是过滤空输入及保存历史
-- (void)selectBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
+- (void)selectBuilding:(MXMGeoBuilding *)building
+                 venue:(nullable MXMGeoVenue *)venue
+                 floor:(NSString *)floor
+shouldChangeTrackingMode:(BOOL)changeTrackingMode
 {
     // 无论是否
     if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewShouldChangeBuilding:floor:shouldChangeTrackingMode:)]) {
@@ -237,7 +261,7 @@
     }
     
     BOOL shouldCallBack = NO;
-    if ([self canGoOnFilterWithBuilding:building floor:floor currentBuilding:self.currentBuilding currentFloor:self.currentFloor andMapReload:self.isMapReload]) {
+  if ([self canGoOnFilterWithBuilding:building venue:venue floor:floor currentBuilding:self.currentBuilding currentFloor:self.currentFloor andMapReload:self.isMapReload]) {
         shouldCallBack = YES;
         self.currentBuilding = building;
         self.currentFloor = floor;
@@ -246,30 +270,44 @@
         if (self.historicalBuildingIds.count>100) {
             [self.historicalBuildingIds removeLastObject];
         }
+      // 保存id到选中队列，并取100条数据
+      [self.historicalVenueIds insertObject:building.venueId atIndex:0];
+      if (self.historicalVenueIds.count>100) {
+          [self.historicalVenueIds removeLastObject];
+      }
 
         // 保持建筑的选择楼层，下次作为默认选中楼层
-        [self.buildingSelectFloorDic setObject:floor forKey:building.identifier];
+        [self.venueSelectFloorDic setObject:floor forKey:building.venueId];
     }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewChangeBuilding:floor:trackingMode:shouldCallBack:)]) {
-        [self.delegate decideMapViewChangeBuilding:building floor:floor trackingMode:changeTrackingMode shouldCallBack:shouldCallBack];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewChangeBuilding:venue:floor:trackingMode:shouldCallBack:)]) {
+      [self.delegate decideMapViewChangeBuilding:building venue:venue floor:floor trackingMode:changeTrackingMode shouldCallBack:shouldCallBack];
     }
 }
 
 
-- (BOOL)canGoOnFilterWithBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor currentBuilding:(MXMGeoBuilding *)curBuilding currentFloor:(NSString *)curFloor andMapReload:(BOOL)isMapReload
+- (BOOL)canGoOnFilterWithBuilding:(MXMGeoBuilding *)building
+                            venue:(nullable MXMGeoVenue *)venue
+                            floor:(NSString *)floor
+                  currentBuilding:(MXMGeoBuilding *)curBuilding
+                     currentFloor:(NSString *)curFloor
+                     andMapReload:(BOOL)isMapReload
 {
     if (building == nil || floor == nil) {
         return NO;
     }
     // 判断楼层名是否正确
     BOOL contains = NO;
-    for (MXMFloor *f in building.floors) {
-        if ([f.code isEqualToString:floor]) {
-            contains = YES;
-            break;
-        }
+  NSArray *floors = venue.floors;
+  if (!floors.count) {
+    floors = building.floors;
+  }
+  for (MXMFloor *f in floors) {
+    if ([f.code isEqualToString:floor]) {
+      contains = YES;
+      break;
     }
+  }
     if (!contains) {
         return NO;
     }
@@ -305,12 +343,19 @@
 
 #pragma mark - access
 
-- (NSMutableDictionary *)buildingSelectFloorDic
+- (NSMutableDictionary *)venueSelectFloorDic
 {
-    if (!_buildingSelectFloorDic) {
-        _buildingSelectFloorDic = [NSMutableDictionary dictionary];
+    if (!_venueSelectFloorDic) {
+        _venueSelectFloorDic = [NSMutableDictionary dictionary];
     }
-    return _buildingSelectFloorDic;
+    return _venueSelectFloorDic;
+}
+
+- (NSMutableArray<NSString *> *)historicalVenueIds {
+    if (!_historicalVenueIds) {
+        _historicalVenueIds = [NSMutableArray array];
+    }
+    return _historicalVenueIds;
 }
 
 - (NSMutableArray<NSString *> *)historicalBuildingIds
