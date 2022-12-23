@@ -517,18 +517,19 @@
   if (shouldCallBack) {
     self.building = building;
     self.floor = floor;
-    // 数据中的楼层都是从小到大，需要颠倒顺序显示
-    if (venue && venue.floors.count) {
-      NSArray *reversalFloors = [[venue.floors reverseObjectEnumerator] allObjects];
-      NSArray *codes = [reversalFloors valueForKey:@"code"];
-      [self.floorBar resetItems:codes defaultSelectRow:floor];
-    } else {
-      NSArray *reversalFloors = [[building.floors reverseObjectEnumerator] allObjects];
-      NSArray *codes = [reversalFloors valueForKey:@"code"];
-      [self.floorBar resetItems:codes defaultSelectRow:floor];
-    }
     self.decider.isMapReload = NO;
   }
+  // 数据中的楼层都是从小到大，需要颠倒顺序显示
+  if (venue && venue.floors.count) {
+    NSArray *reversalFloors = [[venue.floors reverseObjectEnumerator] allObjects];
+    NSArray *codes = [reversalFloors valueForKey:@"code"];
+    [self.floorBar resetItems:codes defaultSelectRow:floor];
+  } else {
+    NSArray *reversalFloors = [[building.floors reverseObjectEnumerator] allObjects];
+    NSArray *codes = [reversalFloors valueForKey:@"code"];
+    [self.floorBar resetItems:codes defaultSelectRow:floor];
+  }
+
 
   // 配置过滤条件
   NSMutableArray *levelIds = [NSMutableArray array];
