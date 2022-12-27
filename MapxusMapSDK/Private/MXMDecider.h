@@ -22,9 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)decideMapViewShowFloorBar:(BOOL)show onBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor;
 // 将要选中
-- (void)decideMapViewShouldChangeBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode;
+- (void)decideMapViewShouldChangeBuilding:(MXMGeoBuilding *)building floor:(nullable NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode;
 // 选中
-- (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building venue:(nullable MXMGeoVenue *)venue floor:(NSString *)floor trackingMode:(BOOL)changeTrackingMode shouldCallBack:(BOOL)shouldCallBack;
+- (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building venue:(nullable MXMGeoVenue *)venue floorOrdinal:(MXMOrdinal *)floorOrdinal trackingMode:(BOOL)changeTrackingMode shouldCallBack:(BOOL)shouldCallBack;
 // 操作缩放
 - (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox zoomMode:(MXMZoomMode)zoomMode withEdgePadding:(UIEdgeInsets)insets;
 
@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithDelegate:(id<MXMDeciderDelegate>)delegate;
 
 // 当前选中楼层
-@property (nonatomic, copy, readonly) NSString *currentFloor;
+@property (nonatomic, copy, readonly) MXMOrdinal *currentFloorOrdinal;
 
 // 当前选中建筑
 @property (nonatomic, strong, readonly) MXMGeoBuilding *currentBuilding;

@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param floorName Floor name of the selected building.
  @param building Building information of the selected building. Detailed information can be referred at `MXMIndoorBuilding`.
  */
-- (void)mapView:(MapxusMap *)mapView didChangeFloor:(NSString *)floorName atBuilding:(MXMGeoBuilding *)building;
+- (void)mapView:(MapxusMap *)mapView didChangeFloor:(nullable NSString *)floorName atBuilding:(MXMGeoBuilding *)building;
 
 /**
  Enter/exit indoor scene callback, the same result may be called multiple times
@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param buildingId Enter the building ID of the scene
  @param floor Enter the floor of the scene
  */
-- (void)mapView:(MapxusMap *)mapView indoorMapWithIn:(BOOL)flag building:(NSString *)buildingId floor:(NSString *)floor;
+- (void)mapView:(MapxusMap *)mapView indoorMapWithIn:(BOOL)flag building:(NSString *)buildingId floor:(nullable NSString *)floor;
 
 @end
 
