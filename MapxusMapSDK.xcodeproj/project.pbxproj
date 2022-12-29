@@ -311,11 +311,11 @@
 		D6BE12E2286ED54400B84170 /* MXMPicker */ = {
 			isa = PBXGroup;
 			children = (
-				D6BE12E3286ED54400B84170 /* MXMPickerTextRenderView.m */,
-				D6BE12E4286ED54400B84170 /* MXMPickerView.h */,
-				D6BE12E5286ED54400B84170 /* MXMPickerContainerView.h */,
 				D6BE12E6286ED54400B84170 /* MXMPickerTextRenderView.h */,
+				D6BE12E3286ED54400B84170 /* MXMPickerTextRenderView.m */,
+				D6BE12E5286ED54400B84170 /* MXMPickerContainerView.h */,
 				D6BE12E7286ED54400B84170 /* MXMPickerContainerView.m */,
+				D6BE12E4286ED54400B84170 /* MXMPickerView.h */,
 				D6BE12E8286ED54400B84170 /* MXMPickerView.m */,
 			);
 			path = MXMPicker;
@@ -915,7 +915,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.1.0;
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -947,7 +947,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.1.0;
+				MARKETING_VERSION = 5.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

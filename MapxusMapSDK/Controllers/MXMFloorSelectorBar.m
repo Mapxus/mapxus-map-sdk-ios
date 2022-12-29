@@ -14,36 +14,64 @@
 
 @interface CellView : UIView
 @property (nonatomic, strong) UILabel *cellLabel;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @end
 
 @implementation CellView
 
 - (instancetype)init
 {
-    self = [super init];
-    if (self) {
-        self.backgroundColor = [UIColor clearColor];
-        [self addSubview:self.cellLabel];
-    }
-    return self;
+  self = [super init];
+  if (self) {
+    self.backgroundColor = [UIColor clearColor];
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addViews];
+    [self layoutViews];
+  }
+  return self;
 }
 
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    self.cellLabel.frame = self.bounds;
+- (void)addViews {
+  [self addSubview:self.scrollView];
+  [self.scrollView addSubview:self.cellLabel];
+}
+
+- (void)layoutViews {
+  
+  NSArray *layouts = @[
+    [self.scrollView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+    [self.scrollView.trailingAnchor constraintEqualToAnchor:self.trailingAnchor],
+    [self.scrollView.topAnchor constraintEqualToAnchor:self.topAnchor],
+    [self.scrollView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor],
+    [self.cellLabel.leadingAnchor constraintEqualToAnchor:self.scrollView.leadingAnchor],
+    [self.cellLabel.trailingAnchor constraintEqualToAnchor:self.scrollView.trailingAnchor],
+    [self.cellLabel.topAnchor constraintEqualToAnchor:self.scrollView.topAnchor],
+    [self.cellLabel.bottomAnchor constraintEqualToAnchor:self.scrollView.bottomAnchor],
+    [self.cellLabel.heightAnchor constraintEqualToAnchor:self.heightAnchor],
+    [self.cellLabel.widthAnchor constraintGreaterThanOrEqualToAnchor:self.widthAnchor]
+  ];
+  
+  [NSLayoutConstraint activateConstraints:layouts];
 }
 
 - (UILabel *)cellLabel
 {
-    if (!_cellLabel) {
-        _cellLabel = [[UILabel alloc] init];
-        _cellLabel.backgroundColor = [UIColor clearColor];
-        _cellLabel.textAlignment = NSTextAlignmentCenter;
-        _cellLabel.font = [UIFont systemFontOfSize:28];
-        _cellLabel.adjustsFontSizeToFitWidth = YES;
-    }
-    return _cellLabel;
+  if (!_cellLabel) {
+    _cellLabel = [[UILabel alloc] init];
+    _cellLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    _cellLabel.backgroundColor = [UIColor clearColor];
+    _cellLabel.textAlignment = NSTextAlignmentCenter;
+    _cellLabel.font = [UIFont systemFontOfSize:28];
+  }
+  return _cellLabel;
+}
+
+- (UIScrollView *)scrollView {
+  if (!_scrollView) {
+    _scrollView = [[UIScrollView alloc] init];
+    _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+  }
+  return _scrollView;
 }
 
 @end
