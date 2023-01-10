@@ -18,7 +18,7 @@
 // 查找建筑
 - (void)MXMBuildingSearch:(MXMBuildingSearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/buildings"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v3/buildings"];
 
     NSMutableDictionary *dic = nil;
     if (request.buildingIds.count) {
@@ -38,6 +38,10 @@
         }
         dic[@"region"] = @(0);
     }
+
+  if (dic && request.offset == 0) {
+    [dic setObject:@(10) forKey:@"offset"];
+  }
     
     [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onBuildingSearchDone:response:)]) {
@@ -73,12 +77,12 @@
 // 查找POI
 - (void)MXMPOISearch:(MXMPOISearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/pois"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v3/pois"];
 
     NSMutableDictionary *dic = nil;
     if (request.POIIds.count) {
         NSString *ids = [request.POIIds componentsJoinedByString:@","];
-        url = [NSString stringWithFormat:@"%@%@%@", MXMAPIHOSTURL, @"/bms/api/v1/pois/", ids];
+        url = [NSString stringWithFormat:@"%@%@%@", MXMAPIHOSTURL, @"/bms/api/v3/pois/", ids];
     } else {
         dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
         if ([dic objectForKey:@"bbox"]) {

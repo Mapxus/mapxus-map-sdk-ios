@@ -335,7 +335,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Total distance of the route in metres (m)
 @property (nonatomic, assign) double distance;
 /// Weighting values
-@property (nonatomic, assign) double weight;
+@property (nonatomic, assign) double weight DEPRECATED_MSG_ATTRIBUTE("Will be removed");
 /// Total time spent on the route in milliseconds (ms)
 @property (nonatomic, assign) NSUInteger time;
 /// The enclosing box for the route
