@@ -68,6 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 指定建筑
 - (void)specifyTheBuilding:(NSString *)buildingId
                      floor:(nullable NSString *)floor
+     floorNameFromBuilding:(BOOL)isBuilding
                   zoomMode:(MXMZoomMode)zoomMode
                edgePadding:(UIEdgeInsets)insets
   shouldChangeTrackingMode:(BOOL)changeTrackingMode

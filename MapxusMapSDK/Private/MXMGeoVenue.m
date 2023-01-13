@@ -10,6 +10,29 @@
 
 @implementation MXMGeoVenue
 
+- (id)copyWithZone:(NSZone *)zone
+{
+  MXMGeoVenue * copyedModel = [[self.class allocWithZone:zone] init];
+  copyedModel.identifier = self.identifier;
+  copyedModel.venueType = self.venueType;
+  copyedModel.name = self.name;
+  copyedModel.name_en = self.name_en;
+  copyedModel.name_cn = self.name_cn;
+  copyedModel.name_zh = self.name_zh;
+  copyedModel.name_ja = self.name_ja;
+  copyedModel.name_ko = self.name_ko;
+  copyedModel.address_default = self.address_default;
+  copyedModel.address_en = self.address_en;
+  copyedModel.address_cn = self.address_cn;
+  copyedModel.address_zh = self.address_zh;
+  copyedModel.address_ja = self.address_ja;
+  copyedModel.address_ko = self.address_ko;
+  copyedModel.buildingIds = [[NSArray alloc] initWithArray:self.buildingIds copyItems:YES];
+  copyedModel.floors = [[NSArray alloc] initWithArray:self.floors copyItems:YES];
+  copyedModel.groundFloor = self.groundFloor;
+  return copyedModel;
+}
+
 + (NSDictionary *)modelCustomPropertyMapper {
   return @{
     @"identifier": @[@"identifier", @"id"],
@@ -27,12 +50,12 @@
   if ([dic[@"level_names"] isKindOfClass:[NSString class]]) {
     floorCodes = [dic[@"level_names"] componentsSeparatedByString:@","];
   }
-
+  
   NSArray *floorOrdinals = nil;
   if ([dic[@"level_ordinals"] isKindOfClass:[NSString class]]) {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     NSArray *ordStr = [dic[@"level_ordinals"] componentsSeparatedByString:@","];
-
+    
     NSMutableArray *muArr = [NSMutableArray array];
     for (NSString *o in ordStr) {
       NSNumber *result = [formatter numberFromString:o];
@@ -53,7 +76,7 @@
     }
     floorOrdinals = [muArr copy];
   }
-
+  
   // 数组合并
   NSMutableArray *all = [[NSMutableArray alloc] init];
   for (int i=0; i<floorCodes.count; i++) {
@@ -64,13 +87,13 @@
     }
     [all addObject:floor];
   }
-
+  
   _floors = [all copy];
-
+  
   if ([dic[@"building_ids"] isKindOfClass:[NSString class]]) {
     _buildingIds = [dic[@"building_ids"] componentsSeparatedByString:@","];
   }
-
+  
   // address_default
   if (dic[@"addr:street"]) {
     if (self.address_default == nil) {
@@ -78,14 +101,14 @@
     }
     self.address_default.street = [NSString stringWithFormat:@"%@", dic[@"addr:street"]];
   }
-
+  
   if (dic[@"addr:housenumber"]) {
     if (self.address_default == nil) {
       self.address_default = [[MXMAddress alloc] init];
     }
     self.address_default.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber"]];
   }
-
+  
   // address_en
   if (dic[@"addr:street:en"]) {
     if (self.address_en == nil) {
@@ -93,14 +116,14 @@
     }
     self.address_en.street = [NSString stringWithFormat:@"%@", dic[@"addr:street:en"]];
   }
-
+  
   if (dic[@"addr:housenumber:en"]) {
     if (self.address_en == nil) {
       self.address_en = [[MXMAddress alloc] init];
     }
     self.address_en.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber:en"]];
   }
-
+  
   // address_cn
   if (dic[@"addr:street:zh-Hans"]) {
     if (self.address_cn == nil) {
@@ -108,14 +131,14 @@
     }
     self.address_cn.street = [NSString stringWithFormat:@"%@", dic[@"addr:street:zh-Hans"]];
   }
-
+  
   if (dic[@"addr:housenumber:zh-Hans"]) {
     if (self.address_cn == nil) {
       self.address_cn = [[MXMAddress alloc] init];
     }
     self.address_cn.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber:zh-Hans"]];
   }
-
+  
   // address_zh
   if (dic[@"addr:street:zh-Hant"]) {
     if (self.address_zh == nil) {
@@ -123,14 +146,14 @@
     }
     self.address_zh.street = [NSString stringWithFormat:@"%@", dic[@"addr:street:zh-Hant"]];
   }
-
+  
   if (dic[@"addr:housenumber:zh-Hant"]) {
     if (self.address_zh == nil) {
       self.address_zh = [[MXMAddress alloc] init];
     }
     self.address_zh.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber:zh-Hant"]];
   }
-
+  
   // address_ja
   if (dic[@"addr:street:ja"]) {
     if (self.address_ja == nil) {
@@ -138,14 +161,14 @@
     }
     self.address_ja.street = [NSString stringWithFormat:@"%@", dic[@"addr:street:ja"]];
   }
-
+  
   if (dic[@"addr:housenumber:ja"]) {
     if (self.address_ja == nil) {
       self.address_ja = [[MXMAddress alloc] init];
     }
     self.address_ja.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber:ja"]];
   }
-
+  
   // address_ko
   if (dic[@"addr:street:ko"]) {
     if (self.address_ko == nil) {
@@ -153,14 +176,14 @@
     }
     self.address_ko.street = [NSString stringWithFormat:@"%@", dic[@"addr:street:ko"]];
   }
-
+  
   if (dic[@"addr:housenumber:ko"]) {
     if (self.address_ko == nil) {
       self.address_ko = [[MXMAddress alloc] init];
     }
     self.address_ko.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber:ko"]];
   }
-
+  
   return YES;
 }
 
