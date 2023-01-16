@@ -10,12 +10,13 @@
 
 
 @protocol MXMFloorSelectorBarDelegate <NSObject>
-- (void)floorSelectorBarDidSelectFloor:(NSString *)floorName;
+- (void)floorSelectorBarDidSelectFloor:(NSString *)floorName floorNameFromBuilding:(BOOL)isBuilding;
 @end
 
 @interface MXMFloorSelectorBar ()
 
 @property (nonatomic, weak) id<MXMFloorSelectorBarDelegate> delegate;
+@property (nonatomic, assign) BOOL floorNameFromBuilding;
 
 - (void)selectRow:(NSString *)floorName;
 - (void)resetItems:(NSArray<NSString *> *)items defaultSelectRow:(NSString *)defaultFloorName;

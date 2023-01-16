@@ -207,8 +207,8 @@
     self.selectedRow = row;
     NSString *name = [self getStringFromRow:row];
     [self updateAccessibilityValueWithRowString:name];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(floorSelectorBarDidSelectFloor:)]) {
-        [self.delegate floorSelectorBarDidSelectFloor:name];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(floorSelectorBarDidSelectFloor:floorNameFromBuilding:)]) {
+        [self.delegate floorSelectorBarDidSelectFloor:name floorNameFromBuilding:self.floorNameFromBuilding];
     }
 }
 

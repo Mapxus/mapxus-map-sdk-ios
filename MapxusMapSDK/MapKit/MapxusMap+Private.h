@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readwrite, nullable) NSString *floor;
 @property (nonatomic, copy, readwrite, nullable) MXMGeoBuilding *building;
+@property (nonatomic, copy, readwrite, nullable) MXMGeoVenue *venue;
 @property (nonatomic, copy, readwrite, nullable) NSString *userLocationFloor;
 @property (nonatomic, copy, readwrite, nullable) MXMGeoBuilding *userLocationBuilding;
 @property (nonatomic, copy, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
