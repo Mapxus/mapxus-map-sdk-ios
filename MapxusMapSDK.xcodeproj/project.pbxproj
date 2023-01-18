@@ -307,12 +307,12 @@
 		D6BE12E2286ED54400B84170 /* MXMPicker */ = {
 			isa = PBXGroup;
 			children = (
+				D6BE12E6286ED54400B84170 /* MXMPickerTextRenderView.h */,
 				D6BE12E3286ED54400B84170 /* MXMPickerTextRenderView.m */,
 				D6BE12E4286ED54400B84170 /* MXMPickerView.h */,
-				D6BE12E5286ED54400B84170 /* MXMPickerContainerView.h */,
-				D6BE12E6286ED54400B84170 /* MXMPickerTextRenderView.h */,
-				D6BE12E7286ED54400B84170 /* MXMPickerContainerView.m */,
 				D6BE12E8286ED54400B84170 /* MXMPickerView.m */,
+				D6BE12E5286ED54400B84170 /* MXMPickerContainerView.h */,
+				D6BE12E7286ED54400B84170 /* MXMPickerContainerView.m */,
 			);
 			path = MXMPicker;
 			sourceTree = "<group>";
@@ -331,10 +331,10 @@
 			children = (
 				D6BE12F5286ED54400B84170 /* MXMCommonObj.h */,
 				D6BE12F1286ED54400B84170 /* MXMCommonObj.m */,
-				D6BE12F2286ED54400B84170 /* MXMSearchAPI.h */,
-				D6BE12F3286ED54400B84170 /* MXMSearchObj.m */,
-				D6BE12F4286ED54400B84170 /* MXMSearchAPI.m */,
 				D6BE12F6286ED54400B84170 /* MXMSearchObj.h */,
+				D6BE12F3286ED54400B84170 /* MXMSearchObj.m */,
+				D6BE12F2286ED54400B84170 /* MXMSearchAPI.h */,
+				D6BE12F4286ED54400B84170 /* MXMSearchAPI.m */,
 			);
 			path = SearchKit;
 			sourceTree = "<group>";
@@ -351,10 +351,10 @@
 		D6BE12FE286ED54400B84170 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				D6BE12FF286ED54400B84170 /* MXMSearchBuildingOperation2.m */,
-				D6BE1300286ED54400B84170 /* MXMSearchPOIOperation.m */,
 				D6BE1301286ED54400B84170 /* MXMSearchBuildingOperation2.h */,
+				D6BE12FF286ED54400B84170 /* MXMSearchBuildingOperation2.m */,
 				D6BE1302286ED54400B84170 /* MXMSearchPOIOperation.h */,
+				D6BE1300286ED54400B84170 /* MXMSearchPOIOperation.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -422,13 +422,13 @@
 			isa = PBXGroup;
 			children = (
 				D6BE132D286ED54400B84170 /* MXMSearchBase.h */,
+				D6BE1331286ED54400B84170 /* MXMSearchBase.m */,
+				D6BE1330286ED54400B84170 /* MXMGeoCodeSearch.h */,
+				D6BE1334286ED54400B84170 /* MXMGeoCodeSearch.m */,
+				D6BE1332286ED54400B84170 /* MXMGeoCodeSearchResult.h */,
 				D6BE132E286ED54400B84170 /* MXMGeoCodeSearchResult.m */,
 				D6BE132F286ED54400B84170 /* MXMGeoCodeSearchOption.h */,
-				D6BE1330286ED54400B84170 /* MXMGeoCodeSearch.h */,
-				D6BE1331286ED54400B84170 /* MXMSearchBase.m */,
-				D6BE1332286ED54400B84170 /* MXMGeoCodeSearchResult.h */,
 				D6BE1333286ED54400B84170 /* MXMGeoCodeSearchOption.m */,
-				D6BE1334286ED54400B84170 /* MXMGeoCodeSearch.m */,
 			);
 			path = NewSearchKit;
 			sourceTree = "<group>";
@@ -907,7 +907,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.0;
+				MARKETING_VERSION = 4.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -939,7 +939,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.0;
+				MARKETING_VERSION = 4.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

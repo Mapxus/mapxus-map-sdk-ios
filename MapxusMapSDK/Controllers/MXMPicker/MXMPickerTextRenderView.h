@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIFont *font;
 
 @property (nonatomic, strong) UIColor *textColor; //default darkGrayColor
+
 @property (nonatomic, strong) UIColor *selectedTextColor; //default blackColor
 
 @property (nonatomic, assign) CGRect selectedTextDrawingRect;

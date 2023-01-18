@@ -1,11 +1,13 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '9.0'
 
+source 'https://nexus3.mapxus.com/repository/cocoapods-proxy/'
+
 use_frameworks!
 inhibit_all_warnings!
 
 # Pods for MapxusMapSDK
-pod 'MapxusRenderSDK', '5.12.0'
+pod 'MapxusRenderSDK'
 pod 'MapxusBaseSDK', :path => '../mapxus-base-sdk-ios'
 
 target 'MapxusMapSDK' do
@@ -17,10 +19,6 @@ target 'MapxusMapSDK' do
     pod 'OCMock'
     
   end
-  
-end
-
-target 'SDKExample' do
   
 end
 
