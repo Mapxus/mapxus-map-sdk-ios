@@ -355,10 +355,10 @@
 		D6BE12FE286ED54400B84170 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				D6BE12FF286ED54400B84170 /* MXMSearchBuildingOperation2.m */,
+				D6BE1302286ED54400B84170 /* MXMSearchPOIOperation.h */,
 				D6BE1300286ED54400B84170 /* MXMSearchPOIOperation.m */,
 				D6BE1301286ED54400B84170 /* MXMSearchBuildingOperation2.h */,
-				D6BE1302286ED54400B84170 /* MXMSearchPOIOperation.h */,
+				D6BE12FF286ED54400B84170 /* MXMSearchBuildingOperation2.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -428,12 +428,12 @@
 			isa = PBXGroup;
 			children = (
 				D6BE132D286ED54400B84170 /* MXMSearchBase.h */,
-				D6BE132E286ED54400B84170 /* MXMGeoCodeSearchResult.m */,
-				D6BE132F286ED54400B84170 /* MXMGeoCodeSearchOption.h */,
-				D6BE1330286ED54400B84170 /* MXMGeoCodeSearch.h */,
 				D6BE1331286ED54400B84170 /* MXMSearchBase.m */,
 				D6BE1332286ED54400B84170 /* MXMGeoCodeSearchResult.h */,
+				D6BE132E286ED54400B84170 /* MXMGeoCodeSearchResult.m */,
+				D6BE132F286ED54400B84170 /* MXMGeoCodeSearchOption.h */,
 				D6BE1333286ED54400B84170 /* MXMGeoCodeSearchOption.m */,
+				D6BE1330286ED54400B84170 /* MXMGeoCodeSearch.h */,
 				D6BE1334286ED54400B84170 /* MXMGeoCodeSearch.m */,
 			);
 			path = NewSearchKit;
