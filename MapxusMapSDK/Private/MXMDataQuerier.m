@@ -90,8 +90,8 @@
         NSString *theId = [feature attributeForKey:@"id"];
         if (theId) {
             MXMGeoBuilding *b = [MXMGeoBuilding yy_modelWithJSON:feature.attributes];
-            NSDictionary *venue = self.mapView.mxmMap.venues[b.venueId];
-            b.building = venue[@"venue"]; //building的类型放到了venue上，需要从venue里拿
+          MXMGeoVenue *venue = self.mapView.mxmMap.venues[b.venueId];
+            b.building = venue.venueType; //building的类型放到了venue上，需要从venue里拿
             [resultBuildings setObject:b forKey:theId];
         }
     }
@@ -101,16 +101,17 @@
 
 - (NSDictionary *)venueDeduplicationInFeatures:(NSArray<id <MGLFeature>> *)features
 {
-    // 建筑信息去重
-    NSMutableDictionary *resultVenues = [NSMutableDictionary dictionary];
-    for (id <MGLFeature> feature in features) {
-        NSString *theId = [feature attributeForKey:@"id"];
-        if (theId) {
-            [resultVenues setObject:feature.attributes forKey:theId];
-        }
+  // 建筑信息去重
+  NSMutableDictionary *resultVenues = [NSMutableDictionary dictionary];
+  for (id <MGLFeature> feature in features) {
+    NSString *theId = [feature attributeForKey:@"id"];
+    if (theId) {
+      MXMGeoVenue *venue = [MXMGeoVenue yy_modelWithJSON:feature.attributes];
+      [resultVenues setObject:venue forKey:theId];
     }
-    
-    return [resultVenues copy];
+  }
+
+  return [resultVenues copy];
 }
 
 

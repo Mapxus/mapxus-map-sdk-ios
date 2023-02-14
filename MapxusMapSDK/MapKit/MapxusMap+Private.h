@@ -17,6 +17,8 @@
 #import "MXMDataQuerier.h"
 #import "MXMAnnotationsHolder.h"
 #import "MXMCacheManager.h"
+#import "MXMGeoBuilding.h"
+#import "MXMGeoVenue.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,11 +47,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, readwrite, nullable) NSString *floor;
 @property (nonatomic, copy, readwrite, nullable) MXMGeoBuilding *building;
+@property (nonatomic, copy, readwrite, nullable) MXMGeoVenue *venue;
 @property (nonatomic, copy, readwrite, nullable) NSString *userLocationFloor;
 @property (nonatomic, copy, readwrite, nullable) MXMGeoBuilding *userLocationBuilding;
 @property (nonatomic, copy, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
 @property (nonatomic, copy, readwrite, nullable) NSDictionary<NSString *, MXMGeoBuilding *> *innerbuildings;
-@property (nonatomic, copy, readwrite) NSDictionary<NSString *, NSDictionary *> *venues;
+@property (nonatomic, copy, readwrite) NSDictionary<NSString *, MXMGeoVenue *> *venues;
 @property (nonatomic, copy, readwrite) NSSet *floorIds;
 
 // 移动地图时自动选择建筑

@@ -311,7 +311,10 @@ static void *mapKey = &mapKey;
         CGPoint locationPoint = [mapView convertCoordinate:userLocation.location.coordinate toPointToView:mapView];
         NSArray<MXMLevelModel *> *floorFeatures = [mapView.mxmMap.dataQueryer findOutAssistantFloorFeaturesAtPoint:locationPoint];
         NSDictionary *buildingDic = [mapView.mxmMap.dataQueryer findOutBuildingAtPoint:locationPoint];
-        MXMIndoorMapInfo *info = [mapView.mxmMap.decider decideWithUserLocationLevel:userLocation.location.floor.level atPointBuildingDic:buildingDic atPointLevelInfoList:floorFeatures];
+      MXMIndoorMapInfo *info = [mapView.mxmMap.decider decideWithUserLocationLevel:userLocation.location.floor.level
+                                                                atPointBuildingDic:buildingDic
+                                                                          venueDic:mapView.mxmMap.venues
+                                                              atPointLevelInfoList:floorFeatures];
         if (info) {
             if (![info.floor isEqualToString:mapView.mxmMap.userLocationFloor]) {
                 mapView.mxmMap.userLocationFloor = info.floor;

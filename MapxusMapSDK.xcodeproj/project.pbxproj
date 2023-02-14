@@ -95,6 +95,8 @@
 		D6BE1378286ED54400B84170 /* MXMGeoCodeSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = D6BE1332286ED54400B84170 /* MXMGeoCodeSearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D6BE1379286ED54400B84170 /* MXMGeoCodeSearchOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BE1333286ED54400B84170 /* MXMGeoCodeSearchOption.m */; };
 		D6BE137A286ED54400B84170 /* MXMGeoCodeSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = D6BE1334286ED54400B84170 /* MXMGeoCodeSearch.m */; };
+		D6EE3CEC2949724F001E5433 /* MXMGeoVenue.h in Headers */ = {isa = PBXBuildFile; fileRef = D6EE3CEA2949724F001E5433 /* MXMGeoVenue.h */; };
+		D6EE3CED2949724F001E5433 /* MXMGeoVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = D6EE3CEB2949724F001E5433 /* MXMGeoVenue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +201,8 @@
 		D6BE138A286ED5AB00B84170 /* mapxus.test.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = mapxus.test.xcconfig; sourceTree = "<group>"; };
 		D6BE138B286ED5AB00B84170 /* landsd.test.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = landsd.test.xcconfig; sourceTree = "<group>"; };
 		D6DF3F594E4720637AE9CCE7 /* Pods-MapxusMapSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDK.debug.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDK/Pods-MapxusMapSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		D6EE3CEA2949724F001E5433 /* MXMGeoVenue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMGeoVenue.h; sourceTree = "<group>"; };
+		D6EE3CEB2949724F001E5433 /* MXMGeoVenue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMGeoVenue.m; sourceTree = "<group>"; };
 		EC5575FF1C125D6D4C7E2FFF /* Pods-MapxusMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.release.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -351,10 +355,10 @@
 		D6BE12FE286ED54400B84170 /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				D6BE1301286ED54400B84170 /* MXMSearchBuildingOperation2.h */,
-				D6BE12FF286ED54400B84170 /* MXMSearchBuildingOperation2.m */,
 				D6BE1302286ED54400B84170 /* MXMSearchPOIOperation.h */,
 				D6BE1300286ED54400B84170 /* MXMSearchPOIOperation.m */,
+				D6BE1301286ED54400B84170 /* MXMSearchBuildingOperation2.h */,
+				D6BE12FF286ED54400B84170 /* MXMSearchBuildingOperation2.m */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -414,6 +418,8 @@
 				D6BE1324286ED54400B84170 /* MXMIndoorMapInfo.m */,
 				D6BE132A286ED54400B84170 /* MXMAnnotationsHolder.h */,
 				D6BE1321286ED54400B84170 /* MXMAnnotationsHolder.m */,
+				D6EE3CEA2949724F001E5433 /* MXMGeoVenue.h */,
+				D6EE3CEB2949724F001E5433 /* MXMGeoVenue.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -493,6 +499,7 @@
 				D6BE1356286ED54400B84170 /* MapxusMap+Private.h in Headers */,
 				D6BE136E286ED54400B84170 /* MXMCacheManager.h in Headers */,
 				D6BE1338286ED54400B84170 /* MXMPickerTextRenderView.h in Headers */,
+				D6EE3CEC2949724F001E5433 /* MXMGeoVenue.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,6 +723,7 @@
 				D6BE135A286ED54400B84170 /* MXMGeoPOI.m in Sources */,
 				D6BE1364286ED54400B84170 /* MXMDecider.m in Sources */,
 				D6BE135D286ED54400B84170 /* MXMGeoBuilding.m in Sources */,
+				D6EE3CED2949724F001E5433 /* MXMGeoVenue.m in Sources */,
 				D6BE1374286ED54400B84170 /* MXMGeoCodeSearchResult.m in Sources */,
 				D6BE1343286ED54400B84170 /* MXMSearchObj.m in Sources */,
 				D6BE1349286ED54400B84170 /* MXMSearchBuildingOperation2.m in Sources */,
@@ -907,7 +915,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.1;
+				MARKETING_VERSION = 5.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -939,7 +947,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.2.1;
+				MARKETING_VERSION = 5.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

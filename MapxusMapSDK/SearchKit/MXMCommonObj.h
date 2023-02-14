@@ -167,7 +167,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// building id
 @property (nonatomic, strong) NSString *buildingId;
 /// The id of venue where the building is located
-@property (nonatomic, strong, nullable) NSString *venueId;
+@property (nonatomic, strong) NSString *venueId;
 /// The default name of venue where the building is located
 @property (nonatomic, strong, nullable) NSString *venueName_default;
 /// The English name of venue where the building is located

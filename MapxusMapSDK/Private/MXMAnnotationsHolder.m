@@ -45,7 +45,7 @@
 }
 
 // annotation过滤
-- (void)filterMXMAnnotationsWithBuilding:(NSString *)buildingId floor:(NSString *)floor indoorState:(BOOL)isIndoor
+- (void)filterMXMAnnotationsWithBuilding:(NSString *)buildingId floor:(nullable NSString *)floor indoorState:(BOOL)isIndoor
 {
     NSMutableArray *MXMAnns = [NSMutableArray array];
     for (MXMPointAnnotation *ann in self.mxmPointAnnotations) {
@@ -63,11 +63,12 @@
     [self.mapView addAnnotations:MXMAnns];
 }
 
-- (BOOL)decideShouldBeHiddenWithAnnotation:(MXMPointAnnotation *)ann Building:(NSString *)buildingId floor:(NSString *)floor indoorState:(BOOL)isIndoor
+- (BOOL)decideShouldBeHiddenWithAnnotation:(MXMPointAnnotation *)ann Building:(NSString *)buildingId floor:(nullable NSString *)floor indoorState:(BOOL)isIndoor
 {
     if (isIndoor &&
         [ann.buildingId isEqualToString:buildingId] &&
         ann.floor &&
+        floor &&
         ![ann.floor isEqualToString:floor]) {
         return YES;
     } else {

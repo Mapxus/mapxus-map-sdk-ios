@@ -109,6 +109,13 @@
     return _building;
 }
 
+- (NSString *)venueId {
+  if (!_venueId) {
+    _venueId = @"";
+  }
+  return _venueId;
+}
+
 - (NSArray<MXMFloor *> *)floors {
     if (!_floors) {
         _floors = @[];
