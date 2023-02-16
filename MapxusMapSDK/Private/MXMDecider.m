@@ -210,7 +210,7 @@
         }
       }
     }
-    BOOL show = geoBuilding ? YES : NO;
+    BOOL show = geo ? YES : NO;
     [self.delegate decideMapViewShowFloorBar:show onBuilding:geoBuilding.identifier floor:setFloor.code];
   }
   
