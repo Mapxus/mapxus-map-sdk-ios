@@ -79,6 +79,8 @@ NS_ASSUME_NONNULL_BEGIN
                                        currentFloor:(NSString *)curFloor
                                       andLocalFloor:(nullable CLFloor *)floor;
 
+- (nullable MXMFloor *)absMin:(NSArray<MXMFloor *> *)floors;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -299,7 +299,7 @@
             [floors addObject:floor];
           }
         }
-        MXMFloor *floor = [self absMin:floors];
+        MXMFloor *floor = [self.decider absMin:floors];
         if (floor) {
           if (floor.floorId.length) {
             [levelIds addObject:floor.floorId];
@@ -454,7 +454,7 @@
             [floors addObject:floor];
           }
         }
-        MXMFloor *floor = [self absMin:floors];
+        MXMFloor *floor = [self.decider absMin:floors];
         if (floor) {
           if (floor.floorId.length) {
             [levelIds addObject:floor.floorId];
@@ -497,28 +497,6 @@
   // 重新过滤标注点
 #warning 放在这里目的是在缩放地图到室外时及时显示所有Marker，但会造成Marker不能callout的Bug
   [self.annHolder filterMXMAnnotationsWithBuilding:building.identifier floor:floor indoorState:self.isIndoor];
-}
-
-// nil表明传入了空的floors数组
-- (nullable MXMFloor *)absMin:(NSArray<MXMFloor *> *)floors
-{
-  NSUInteger size = floors.count;
-  NSInteger low = 0, high = size-1, mid = 0;
-  while (low <= high) {
-    NSInteger lowO = ((MXMFloor *)floors[low]).ordinal.level;
-    NSInteger highO = ((MXMFloor *)floors[high]).ordinal.level;
-    if (lowO * highO >= 0)
-      return (lowO >= 0) ? (MXMFloor *)floors[low] : (MXMFloor *)floors[high];
-    if (low + 1 == high)
-      return labs(lowO) < labs(highO) ? (MXMFloor *)floors[low] : (MXMFloor *)floors[high];
-    mid = low + (high - low) / 2;
-    NSInteger midO = ((MXMFloor *)floors[mid]).ordinal.level;
-    if(lowO * midO >= 0)
-      low = mid;
-    if(highO * midO >= 0)
-      high = mid;
-  }
-  return nil;
 }
 
 - (void)decideMapViewChangeBuilding:(MXMGeoBuilding *)building venue:(nullable MXMGeoVenue *)venue floorOrdinal:(MXMOrdinal *)floorOrdinal trackingMode:(BOOL)changeTrackingMode shouldCallBack:(BOOL)shouldCallBack
@@ -591,7 +569,7 @@
           [floors addObject:ifloor];
         }
       }
-      MXMFloor *minFloor = [self absMin:floors];
+      MXMFloor *minFloor = [self.decider absMin:floors];
       if (minFloor) {
         if (minFloor.floorId.length) {
           [levelIds addObject:minFloor.floorId];

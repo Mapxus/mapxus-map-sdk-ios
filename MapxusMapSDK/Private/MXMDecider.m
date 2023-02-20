@@ -285,16 +285,40 @@
     }
   }
   if (defaultElectFloorOrdinal == nil) {
-    for (MXMFloor *iFloor in building.floors) {
-      if (iFloor.ordinal) {
-        defaultElectFloorOrdinal = iFloor.ordinal;
-        break;
+    NSMutableArray *floors = [NSMutableArray array];
+    // 去除没有ordinal的楼层
+    for (MXMFloor *floor in building.floors) {
+      if (floor.ordinal) {
+        [floors addObject:floor];
       }
     }
+    MXMFloor *minFloor = [self absMin:floors];
+    defaultElectFloorOrdinal = minFloor.ordinal;
   }
   return defaultElectFloorOrdinal;
 }
 
+// nil表明传入了空的floors数组
+- (nullable MXMFloor *)absMin:(NSArray<MXMFloor *> *)floors
+{
+  NSUInteger size = floors.count;
+  NSInteger low = 0, high = size-1, mid = 0;
+  while (low <= high) {
+    NSInteger lowO = ((MXMFloor *)floors[low]).ordinal.level;
+    NSInteger highO = ((MXMFloor *)floors[high]).ordinal.level;
+    if (lowO * highO >= 0)
+      return (lowO >= 0) ? (MXMFloor *)floors[low] : (MXMFloor *)floors[high];
+    if (low + 1 == high)
+      return labs(lowO) < labs(highO) ? (MXMFloor *)floors[low] : (MXMFloor *)floors[high];
+    mid = low + (high - low) / 2;
+    NSInteger midO = ((MXMFloor *)floors[mid]).ordinal.level;
+    if(lowO * midO >= 0)
+      low = mid;
+    if(highO * midO >= 0)
+      high = mid;
+  }
+  return nil;
+}
 
 // 主要作用是过滤空输入及保存历史
 - (void)selectBuilding:(MXMGeoBuilding *)building
