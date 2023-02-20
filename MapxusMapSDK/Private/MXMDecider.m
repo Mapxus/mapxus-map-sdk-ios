@@ -145,6 +145,9 @@
 {
   // 建筑ID没有指定则直接跳过
   if (buildingId == nil) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewShowFloorBar:onBuilding:floor:)]) {
+      [self.delegate decideMapViewShowFloorBar:NO onBuilding:nil floor:nil];
+    }
     return;
   }
   // 从地图瓦片获取建筑数据
