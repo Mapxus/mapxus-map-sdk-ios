@@ -7,7 +7,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 # Pods for MapxusMapSDK
-pod 'MapxusRenderSDK'
+pod 'MapxusRenderSDK', '5.12.2'
 pod 'MapxusBaseSDK', :path => '../mapxus-base-sdk-ios'
 
 target 'MapxusMapSDK' do
