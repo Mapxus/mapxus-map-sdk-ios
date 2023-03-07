@@ -56,6 +56,7 @@
   
   [self specifyTheBuilding:defaultBuilding.identifier
                      floor:nil
+                   ordinal:nil
      floorNameFromBuilding:(venue == nil)
                   zoomMode:MXMZoomDisable
                edgePadding:UIEdgeInsetsZero
@@ -84,6 +85,7 @@
       venue = venues[geoBuilding.venueId];
       [self specifyTheBuilding:geoBuilding.identifier
                          floor:nil
+                       ordinal:nil
          floorNameFromBuilding:(venue == nil)
                       zoomMode:MXMZoomDisable
                    edgePadding:UIEdgeInsetsZero
@@ -118,10 +120,12 @@
       if (building) {
         venue = venues[building.venueId];
       }
-      
+      MXMOrdinal *ordinal = [[MXMOrdinal alloc] init];
+      ordinal.level = level;
       [self specifyTheBuilding:buildingId
                          floor:floorName
-         floorNameFromBuilding:(venue == nil)
+                       ordinal:ordinal
+         floorNameFromBuilding:YES // 只能是YES,因为floorName是从level layer上获取的
                       zoomMode:MXMZoomDisable
                    edgePadding:UIEdgeInsetsZero
       shouldChangeTrackingMode:NO
@@ -136,6 +140,7 @@
 
 - (void)specifyTheBuilding:(NSString *)buildingId
                      floor:(nullable NSString *)floor
+                   ordinal:(nullable MXMOrdinal *)ordinal
      floorNameFromBuilding:(BOOL)isBuilding
                   zoomMode:(MXMZoomMode)zoomMode
                edgePadding:(UIEdgeInsets)insets
@@ -160,12 +165,12 @@
         [weakSelf.delegate decideMapViewZoomTo:netBuilding.bbox zoomMode:zoomMode withEdgePadding:insets];
       }
       // 显示建筑
-      [weakSelf displayWihtGeoBuilding:building orNetBuilding:netBuilding venue:venue setFloor:floor floorNameFromBuilding:isBuilding shouldChangeTrackingMode:changeTrackingMode];
+      [weakSelf displayWihtGeoBuilding:building orNetBuilding:netBuilding venue:venue setFloor:floor setOrdinal:ordinal floorNameFromBuilding:isBuilding shouldChangeTrackingMode:changeTrackingMode];
     };
     [self.operation searchWithBuildingId:buildingId];
   } else { // 不用zoom也不用网络查询的情况
     // 显示建筑
-    [self displayWihtGeoBuilding:building orNetBuilding:nil venue:venue setFloor:floor floorNameFromBuilding:isBuilding shouldChangeTrackingMode:changeTrackingMode];
+    [self displayWihtGeoBuilding:building orNetBuilding:nil venue:venue setFloor:floor setOrdinal:ordinal floorNameFromBuilding:isBuilding shouldChangeTrackingMode:changeTrackingMode];
   }
 }
 
@@ -174,14 +179,15 @@
                  orNetBuilding:(nullable MXMBuilding *)net
                          venue:(nullable MXMGeoVenue *)venue
                       setFloor:(nullable NSString *)setFloor
+                    setOrdinal:(nullable MXMOrdinal *)setOrdinal
          floorNameFromBuilding:(BOOL)isBuilding
       shouldChangeTrackingMode:(BOOL)changeTrackingMode
 {
   // 显示建筑
   MXMGeoBuilding *geoBuilding = geo ? : [self exchangeFrom:net];
   
-  MXMOrdinal *floorOrdinal;
-  if (setFloor) {
+  MXMOrdinal *floorOrdinal = setOrdinal;
+  if (setFloor && !setOrdinal) {
     if (isBuilding) {
       for (MXMFloor *iFloor in geoBuilding.floors) {
         if ([iFloor.code isEqualToString:setFloor]) {

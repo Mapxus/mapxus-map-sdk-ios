@@ -300,9 +300,9 @@
 			isa = PBXGroup;
 			children = (
 				D6BE12E2286ED54400B84170 /* MXMPicker */,
-				D6BE12E9286ED54400B84170 /* MXMFloorSelectorBar.h */,
 				D6BE12EA286ED54400B84170 /* KxMenu */,
 				D6BE12ED286ED54400B84170 /* MXMFloorSelectorBar+Private.h */,
+				D6BE12E9286ED54400B84170 /* MXMFloorSelectorBar.h */,
 				D6BE12EE286ED54400B84170 /* MXMFloorSelectorBar.m */,
 			);
 			path = Controllers;

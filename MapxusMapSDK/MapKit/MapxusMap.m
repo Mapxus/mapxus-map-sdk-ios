@@ -83,6 +83,7 @@
       
       [strongSelf.decider specifyTheBuilding:buildingId
                                        floor:floor
+                                     ordinal:nil
                        floorNameFromBuilding:YES
                                     zoomMode:MXMZoomDisable
                                  edgePadding:UIEdgeInsetsZero
@@ -105,6 +106,7 @@
     
     [self.decider specifyTheBuilding:_configuration.buildingId
                                floor:_configuration.floor
+                             ordinal:nil
                floorNameFromBuilding:YES
                             zoomMode:MXMZoomDirect
                          edgePadding:_configuration.zoomInsets
@@ -521,21 +523,19 @@
   }
   // 数据中的楼层都是从小到大，需要颠倒顺序显示
   if (venue && venue.floors.count) {
-    NSString *theCode;
+    MXMFloor *vFloor;
     for (MXMFloor *iFloor in venue.floors) {
       if (iFloor.ordinal.level == floorOrdinal.level) {
-        theCode = iFloor.code;
+        vFloor = iFloor;
         break;
       }
     }
     NSArray *reversalFloors = [[venue.floors reverseObjectEnumerator] allObjects];
-    NSArray *codes = [reversalFloors valueForKey:@"code"];
-    [self.floorBar resetItems:codes defaultSelectRow:theCode];
+    [self.floorBar resetItems:reversalFloors defaultSelectRow:vFloor];
     self.floorBar.floorNameFromBuilding = NO;
   } else {
     NSArray *reversalFloors = [[building.floors reverseObjectEnumerator] allObjects];
-    NSArray *codes = [reversalFloors valueForKey:@"code"];
-    [self.floorBar resetItems:codes defaultSelectRow:floor.code];
+    [self.floorBar resetItems:reversalFloors defaultSelectRow:floor];
     self.floorBar.floorNameFromBuilding = YES;
   }
   
@@ -664,10 +664,11 @@
   [self selectBuilding:b.identifier zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero];
 }
 
-- (void)floorSelectorBarDidSelectFloor:(NSString *)floorName floorNameFromBuilding:(BOOL)isBuilding
+- (void)floorSelectorBarDidSelectFloor:(MXMFloor *)floor floorNameFromBuilding:(BOOL)isBuilding
 {
   [self.decider specifyTheBuilding:self.building.identifier
-                             floor:floorName
+                             floor:floor.code
+                           ordinal:floor.ordinal
              floorNameFromBuilding:isBuilding
                           zoomMode:MXMZoomDisable
                        edgePadding:UIEdgeInsetsZero
@@ -682,6 +683,7 @@
 {
   [self.decider specifyTheBuilding:self.building.identifier
                              floor:floor
+                           ordinal:nil
              floorNameFromBuilding:YES
                           zoomMode:MXMZoomAnimated
                        edgePadding:UIEdgeInsetsZero
@@ -696,6 +698,7 @@
 {
   [self.decider specifyTheBuilding:self.building.identifier
                              floor:floor
+                           ordinal:nil
              floorNameFromBuilding:YES
                           zoomMode:zoomMode
                        edgePadding:insets
@@ -716,6 +719,7 @@
   }
   [self.decider specifyTheBuilding:buildingId
                              floor:nil
+                           ordinal:nil
              floorNameFromBuilding:YES
                           zoomMode:MXMZoomAnimated
                        edgePadding:UIEdgeInsetsZero
@@ -736,6 +740,7 @@
   }
   [self.decider specifyTheBuilding:buildingId
                              floor:nil
+                           ordinal:nil
              floorNameFromBuilding:YES
                           zoomMode:zoomMode
                        edgePadding:insets
@@ -756,6 +761,7 @@
   }
   [self.decider specifyTheBuilding:buildingId
                              floor:floor
+                           ordinal:nil
              floorNameFromBuilding:YES
                           zoomMode:MXMZoomAnimated
                        edgePadding:UIEdgeInsetsZero
@@ -776,6 +782,7 @@
   }
   [self.decider specifyTheBuilding:buildingId
                              floor:floor
+                           ordinal:nil
              floorNameFromBuilding:YES
                           zoomMode:zoomMode
                        edgePadding:insets

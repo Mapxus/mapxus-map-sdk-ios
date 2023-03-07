@@ -125,27 +125,28 @@
     [self.pickerView reloadAllComponents];
 }
 
-- (void)selectRow:(NSString *)floorName
+- (void)selectRow:(MXMFloor *)floor
 {
-    if ([self.dataSourceArr containsObject:floorName]) {
-        [self resetItems:nil defaultSelectRow:floorName];
-    }
+  [self resetItems:nil defaultSelectRow:floor];
 }
 
-- (void)resetItems:(NSArray<NSString *> *)items defaultSelectRow:(NSString *)defaultFloorName
+- (void)resetItems:(NSArray<MXMFloor *> *)items defaultSelectRow:(MXMFloor *)defaultFloor
 {
-    // 更新列表
-    if (items) {
-        [self.dataSourceArr removeAllObjects];
-        [self.dataSourceArr addObjectsFromArray:items];
-        [self.pickerView reloadAllComponents];
+  // 更新列表
+  if (items) {
+    [self.dataSourceArr removeAllObjects];
+    [self.dataSourceArr addObjectsFromArray:items];
+    [self.pickerView reloadAllComponents];
+  }
+  // 计算选中行
+  NSUInteger r = 0;
+  for (MXMFloor *floor in self.dataSourceArr) {
+    if (floor.ordinal && defaultFloor.ordinal && floor.ordinal.level == defaultFloor.ordinal.level) {
+      break;
     }
-    // 计算选中行
-    NSUInteger r = 0;
-    if (defaultFloorName) {
-        r = [self.dataSourceArr indexOfObject:defaultFloorName];
-    }
-    [self codingSelectRow:r animated:NO];
+    r++;
+  }
+  [self codingSelectRow:r animated:NO];
 }
 
 - (void)layoutSubviews
@@ -163,17 +164,14 @@
 
 - (UIView *_Nonnull)pickerView:(MXMPickerView *_Nonnull)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView *)view
 {
-    NSString *name = @"";
-    if (self.dataSourceArr.count > row) {
-        name = self.dataSourceArr[row];
-    }
-    CellView *aView = (CellView *)view;
-    if (aView == nil) {
-        aView = [[CellView alloc] init];
-    }
-    aView.cellLabel.text = name;
-    aView.cellLabel.textColor = (self.selectedRow == row) ? self.selectFontColor : self.fontColor;
-    return aView;
+  NSString *name = [self getStringFromRow:row];
+  CellView *aView = (CellView *)view;
+  if (aView == nil) {
+    aView = [[CellView alloc] init];
+  }
+  aView.cellLabel.text = name;
+  aView.cellLabel.textColor = (self.selectedRow == row) ? self.selectFontColor : self.fontColor;
+  return aView;
 }
 
 - (void)pickerView:(MXMPickerView *)pickerView willSelectRow:(NSInteger)row inComponent:(NSInteger)component
@@ -200,16 +198,22 @@
 
 - (void)pickerView:(MXMPickerView *_Nonnull)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    // 如果选中行已经和回调的一致，则回调不传递出去，以防止死循环
-    if (self.selectedRow == row) {
-        return;
-    }
-    self.selectedRow = row;
-    NSString *name = [self getStringFromRow:row];
-    [self updateAccessibilityValueWithRowString:name];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(floorSelectorBarDidSelectFloor:floorNameFromBuilding:)]) {
-        [self.delegate floorSelectorBarDidSelectFloor:name floorNameFromBuilding:self.floorNameFromBuilding];
-    }
+  // 如果选中行已经和回调的一致，则回调不传递出去，以防止死循环
+  if (self.selectedRow == row) {
+    return;
+  }
+  self.selectedRow = row;
+  
+  MXMFloor *floor;
+  NSString *name = @"";
+  if (self.dataSourceArr.count > row) {
+    floor = self.dataSourceArr[row];
+    name = floor.code;
+  }
+  [self updateAccessibilityValueWithRowString:name];
+  if (self.delegate && [self.delegate respondsToSelector:@selector(floorSelectorBarDidSelectFloor:floorNameFromBuilding:)]) {
+    [self.delegate floorSelectorBarDidSelectFloor:floor floorNameFromBuilding:self.floorNameFromBuilding];
+  }
 }
 
 - (CGFloat)pickerView:(MXMPickerView *)pickerView widthRatioForComponent:(NSInteger)component {
@@ -257,11 +261,12 @@
 }
 
 - (NSString *)getStringFromRow:(NSUInteger)row {
-    NSString *name = @"";
-    if (self.dataSourceArr.count > row) {
-        name = self.dataSourceArr[row];
-    }
-    return name;
+  NSString *name = @"";
+  if (self.dataSourceArr.count > row) {
+    MXMFloor *floor = self.dataSourceArr[row];
+    name = floor.code;
+  }
+  return name;
 }
 
 - (void)updateAccessibilityValueWithRowString:(NSString *)rowString {

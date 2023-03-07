@@ -7,10 +7,11 @@
 //
 
 #import "MXMFloorSelectorBar.h"
+#import "MXMCommonObj.h"
 
 
 @protocol MXMFloorSelectorBarDelegate <NSObject>
-- (void)floorSelectorBarDidSelectFloor:(NSString *)floorName floorNameFromBuilding:(BOOL)isBuilding;
+- (void)floorSelectorBarDidSelectFloor:(MXMFloor *)floor floorNameFromBuilding:(BOOL)isBuilding;
 @end
 
 @interface MXMFloorSelectorBar ()
@@ -18,8 +19,8 @@
 @property (nonatomic, weak) id<MXMFloorSelectorBarDelegate> delegate;
 @property (nonatomic, assign) BOOL floorNameFromBuilding;
 
-- (void)selectRow:(NSString *)floorName;
-- (void)resetItems:(NSArray<NSString *> *)items defaultSelectRow:(NSString *)defaultFloorName;
+- (void)selectRow:(MXMFloor *)floor;
+- (void)resetItems:(NSArray<MXMFloor *> *)items defaultSelectRow:(MXMFloor *)defaultFloor;
 
 @end
 
