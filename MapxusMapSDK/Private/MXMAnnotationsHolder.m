@@ -65,15 +65,22 @@
 
 - (BOOL)decideShouldBeHiddenWithAnnotation:(MXMPointAnnotation *)ann Building:(NSString *)buildingId floor:(nullable NSString *)floor indoorState:(BOOL)isIndoor
 {
-    if (isIndoor &&
-        [ann.buildingId isEqualToString:buildingId] &&
-        ann.floor &&
-        floor &&
-        ![ann.floor isEqualToString:floor]) {
-        return YES;
+  // 只要buildingId或者floor为空，则为室外marker，室外marker会一直显示
+  if (ann.buildingId == nil || ann.floor == nil) {
+    return NO;
+  }
+  // 室内marker分成当前在室外和室内两种情况
+  if (isIndoor) {
+    // 在室内在只显示当前选中building,floor的marker
+    if ([ann.buildingId isEqualToString:buildingId] && [ann.floor isEqualToString:floor]) {
+      return NO;
     } else {
-        return NO;
+      return YES;
     }
+  } else {
+    // 在室外隐藏所有室内marker
+    return YES;
+  }
 }
 
 #pragma mark - access
