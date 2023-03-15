@@ -47,20 +47,24 @@
 // annotation过滤
 - (void)filterMXMAnnotationsWithBuilding:(NSString *)buildingId floor:(nullable NSString *)floor indoorState:(BOOL)isIndoor
 {
-    NSMutableArray *MXMAnns = [NSMutableArray array];
-    for (MXMPointAnnotation *ann in self.mxmPointAnnotations) {
-        ann.hidden = [self decideShouldBeHiddenWithAnnotation:ann Building:buildingId floor:floor indoorState:isIndoor];
-        ann.hidden ? nil : [MXMAnns addObject:ann];
-    }
-    // 找交集
-    NSMutableSet *all = [NSMutableSet setWithArray:self.mapView.annotations];
-    NSMutableSet *mxms = [NSMutableSet setWithArray:self.mxmPointAnnotations];
-    [all intersectSet:mxms];
-    NSArray *intersection = all.allObjects;
-    // 移除公共部分
-    [self.mapView removeAnnotations:intersection];
-    // 添加不隐藏的marker
-    [self.mapView addAnnotations:MXMAnns];
+  NSMutableArray *hiddenAnn = [NSMutableArray array];
+  NSMutableArray *noHiddenAnn = [NSMutableArray array];
+  for (MXMPointAnnotation *ann in self.mxmPointAnnotations) {
+    ann.hidden = [self decideShouldBeHiddenWithAnnotation:ann Building:buildingId floor:floor indoorState:isIndoor];
+    ann.hidden ? [hiddenAnn addObject:ann] : [noHiddenAnn addObject:ann];
+  }
+  // 找交集
+  NSMutableSet *showingAnnSet = [NSMutableSet setWithArray:self.mapView.annotations];
+  NSMutableSet *hiddenAnnSet = [NSMutableSet setWithArray:hiddenAnn];
+  NSMutableSet *noHiddenAnnSet = [NSMutableSet setWithArray:noHiddenAnn];
+  
+  [hiddenAnnSet intersectSet:showingAnnSet];
+  [noHiddenAnnSet minusSet:showingAnnSet];
+  
+  // 移除公共部分
+  [self.mapView removeAnnotations:hiddenAnnSet.allObjects];
+  // 添加不隐藏的marker
+  [self.mapView addAnnotations:noHiddenAnnSet.allObjects];
 }
 
 - (BOOL)decideShouldBeHiddenWithAnnotation:(MXMPointAnnotation *)ann Building:(NSString *)buildingId floor:(nullable NSString *)floor indoorState:(BOOL)isIndoor

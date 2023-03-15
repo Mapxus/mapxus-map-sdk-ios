@@ -497,7 +497,6 @@
     [self.mapView setUserTrackingMode:MGLUserTrackingModeNone];
   }
   // 重新过滤标注点
-#warning 放在这里目的是在缩放地图到室外时及时显示所有Marker，但会造成Marker不能callout的Bug
   [self.annHolder filterMXMAnnotationsWithBuilding:building.identifier floor:floor indoorState:self.isIndoor];
 }
 
