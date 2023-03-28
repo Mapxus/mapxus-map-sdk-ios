@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MXMFloorSelectorBar.h"
-#import "MXMConfiguration.h"
-#import "MXMDefine.h"
+#import <MapxusMapSDK/MXMFloorSelectorBar.h>
+#import <MapxusMapSDK/MXMConfiguration.h>
+#import <MapxusMapSDK/MXMDefine.h>
 
 @class MGLMapView;
 @class MXMGeoBuilding;
@@ -60,7 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Set the margin of the Mapxus logo from the bottom of the mapView, you can only pass 0 or a positive number, passing a negative number will reset it to 0
 @property (nonatomic, assign) CGFloat logoBottomMargin;
 
-/// Set the margin of the Open Street Source from the bottom of the mapView, you can only pass in 0 or a positive number, passing in a negative number will reset it to 0
+/// Set the margin of the Open Street Source from the bottom of the mapView, you can only pass in 0 or a positive number, passing in a negative number will reset
+/// it to 0
 @property (nonatomic, assign) CGFloat openStreetSourceBottomMargin;
 
 /// Whether the outdoor map is displayed
@@ -69,23 +70,27 @@ NS_ASSUME_NONNULL_BEGIN
 /// The function of click on the map to switch the building, the default is YES.
 @property (nonatomic, assign) BOOL gestureSwitchingBuilding;
 
-/// When auto switch mode is on, the building is moved to the centre of the view and the building is automatically selected to show its internal structure. The default is YES
+/// When auto switch mode is on, the building is moved to the centre of the view and the building is automatically selected to show its internal structure. The
+/// default is YES
 @property (nonatomic, assign) BOOL autoChangeBuilding;
 
 /**
  Setting the general map appearance
+ 
  @param style Appearance type. Please refer to `MXMStyle` for specific attribute fields.
  */
 - (void)setMapSytle:(MXMStyle)style;
 
 /**
  Set up custom map appearance, you can contact us for map appearance customization
+ 
  @param styleName Appearance mame
  */
 - (void)setMapStyleWithName:(NSString *)styleName;
 
 /**
  Setting the map language
+ 
  @param language Map language with options for en, zh-Hant, zh-Hans, ja, ko, default
  */
 - (void)setMapLanguage:(NSString *)language;
@@ -112,14 +117,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
 
 /**
- Select the floor of the currently selected building and the map will move to that building area by default, with a zoom adaptation margin of 0
- @param floor The floor name of your choice.
+ By selecting the floor of the current building, the map will automatically zoom in to that area with a margin of 0.
+ 
+ @param floor The floor name of your choice. When the value passed in is null or invalid, the program does the following: if no buildings are selected, it clears
+              the selection of buildings and floors; if some buildings are selected, it restores the previous selection of floors from the history saved after map
+              initialization; if there is no history, it selects the floor with the ordinal closest to 0; if there are two such floors, it prefers the positive one.
  */
 - (void)selectFloor:(nullable NSString *)floor;
 
 /**
- Select the floor of the currently selected building
- @param floor The floor name of your choice.
+ Select the floor of the currently selected building.
+ 
+ @param floor The floor name of your choice. When the value passed in is null or invalid, the program does the following: if no buildings are selected, it clears
+              the selection of buildings and floors; if some buildings are selected, it restores the previous selection of floors from the history saved after map
+              initialization; if there is no history, it selects the floor with the ordinal closest to 0; if there are two such floors, it prefers the positive one.
  @param zoomMode Zoom method
  @param insets Zoom to fit the margins, if zoomMode is `MXMZoomDisable` then the value passed in is invalid
  */
@@ -128,14 +139,20 @@ NS_ASSUME_NONNULL_BEGIN
         edgePadding:(UIEdgeInsets)insets;
 
 /**
- Selecting a building, the floor will automatically switch to the map's most recent floor switching history from creation, or if not, to the ground level, and the map will move to that building area by default, with a zoom adaptation margin of 0
- @param buildingId Id of the building to be selected
+ Selecting a building. When you select a building, the floor will automatically switch to the one that was previously selected and saved in the history after the map
+ initialization. If there is no history, it will select the floor that has the closest ordinal to 0. If there are two such floors, it will prefer the positive one.
+ 
+ @param buildingId The ID of the building to be selected. If you pass in null, the currently selected building and floor will be cleared. If you pass in invalid values,
+                   nothing will happen.
  */
 - (void)selectBuilding:(nullable NSString *)buildingId;
 
 /**
- Select the building and the floor will automatically switch to map's most recent floor switching history from creation, or if not, to the ground floor
- @param buildingId The ID of the building to be selected
+ Selecting a building. When you select a building, the floor will automatically switch to the one that was previously selected and saved in the history after the map
+ initialization. If there is no history, it will select the floor that has the closest ordinal to 0. If there are two such floors, it will prefer the positive one.
+ 
+ @param buildingId The ID of the building to be selected. If you pass in null, the currently selected building and floor will be cleared. If you pass in invalid values,
+                   nothing will happen.
  @param zoomMode Zoom method
  @param insets Zoom to fit the margins, if zoomMode is `MXMZoomDisable` then the value passed in is invalid
  */
@@ -144,16 +161,24 @@ NS_ASSUME_NONNULL_BEGIN
            edgePadding:(UIEdgeInsets)insets;
 
 /**
- Select the building and the floor of that building and the map will move to that building area by default, with a zoom adaptation margin of 0
- @param buildingId ID of the building to be selected
- @param floor Floor name of choice
+ Select the building and the floor of that building and the map will automatically zoom in to that area with a margin of 0.
+ 
+ @param buildingId The ID of the building to be selected. If you pass in null, the currently selected building and floor will be cleared. If you pass in invalid values,
+                   nothing will happen.
+ @param floor The floor name of your choice. When the value passed in is null or invalid, the program does the following: if buildingId is null, it clears
+              the selection of building and floor; if buildingId is valid, it restores the previous selection of floors from the history saved after map
+              initialization; if there is no history, it selects the floor with the ordinal closest to 0; if there are two such floors, it prefers the positive one.
  */
 - (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor;
 
 /**
  Select the building and the floor of that building
- @param buildingId The ID of the building to be selected
- @param floor The name of the selected floor
+ 
+ @param buildingId The ID of the building to be selected. If you pass in null, the currently selected building and floor will be cleared. If you pass in invalid values,
+                   nothing will happen.
+ @param floor The floor name of your choice. When the value passed in is null or invalid, the program does the following: if buildingId is null, it clears
+              the selection of building and floor; if buildingId is valid, it restores the previous selection of floors from the history saved after map
+              initialization; if there is no history, it selects the floor with the ordinal closest to 0; if there are two such floors, it prefers the positive one.
  @param zoomMode Zoom method
  @param insets Zoom to fit the margins, if zoomMode is `MXMZoomDisable` then the value passed in is invalid
  */
@@ -167,12 +192,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  Add map annotations, if you need to add indoor points, you must call this method to layer them.
+ 
  @param annotations `MXMPointAnnotation` list
  */
 - (void)addMXMPointAnnotations:(NSArray<MXMPointAnnotation *> *)annotations;
 
 /**
  To delete a map marker, if you need to delete an indoor point, you must call this method to delete it completely.
+ 
  @param annotations `MXMPointAnnotation` list
  */
 - (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations;

@@ -14,9 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)MXMlocalizeLabelsIntoLocale:(nullable NSString *)localeLanguage;
 
-- (void)updateBuildingFillOpacityWithIndoorState:(BOOL)isIndoor;
+- (void)updateBuildingFillOpacityWithIndoorState:(BOOL)isIndoor refVenue:(nullable NSString *)venueId;
 
 - (void)filerLevelIds:(NSArray *)levelIds;
+
+- (void)outLineLevel:(NSString *)levelId;
 
 @end
 

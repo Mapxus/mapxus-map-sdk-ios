@@ -43,46 +43,19 @@
     }
 }
 
-- (void)updateBuildingFillOpacityWithIndoorState:(BOOL)isIndoor {
+- (void)updateBuildingFillOpacityWithIndoorState:(BOOL)isIndoor refVenue:(nullable NSString *)venueId {
     MGLStyleLayer *layer = [self layerWithIdentifier:@"mapxus-building-line"];
     if ([layer isKindOfClass:[MGLFillStyleLayer class]]) {
         MGLFillStyleLayer *buildingFill = (MGLFillStyleLayer *)layer;
         if (isIndoor) {
-            buildingFill.fillOpacity = [NSExpression expressionForConstantValue:@(0)];
+          NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:venue", venueId];
+          buildingFill.fillOpacity = [NSExpression mgl_expressionForConditional:predicate
+                                                                 trueExpression:[NSExpression expressionForConstantValue:@(0)]
+                                                               falseExpresssion:[NSExpression expressionForConstantValue:@(1)]];
         } else {
             buildingFill.fillOpacity = [NSExpression expressionForConstantValue:@(1)];
         }
     }
-    
-    // 因为需要在缩放时隐藏/显示，所以需要在这里设置过滤更新「mapxus-building-line-color」
-//    MGLStyleLayer *line_layer = [self layerWithIdentifier:@"mapxus-building-line-color"];
-//    if ([line_layer isKindOfClass:[MGLLineStyleLayer class]]) {
-//        MGLLineStyleLayer *building_line = (MGLLineStyleLayer *)line_layer;
-//        // 获取原始predicate队列
-//        id originalPredicate = building_line.predicate;
-//        NSMutableArray *mu = [NSMutableArray arrayWithCapacity:0];
-//        if ([originalPredicate isKindOfClass:[NSCompoundPredicate class]]) {
-//            NSArray *sub = ((NSCompoundPredicate *)originalPredicate).subpredicates;
-//            for (NSCompoundPredicate *s in sub) {
-//                NSString *str = s.predicateFormat;
-//                if (![str containsString:@"id !="]) {
-//                    [mu addObject:s];
-//                }
-//            }
-//        } else {
-//            if (originalPredicate) {
-//                [mu addObject:originalPredicate];
-//            }
-//        }
-//        // 根据是否在室内修改predicate
-//        if (isIndoor) {
-//            NSPredicate *b = [NSPredicate predicateWithFormat:@"%K != %@", @"id", buildingId];
-//            [mu addObject:b];
-//        }
-//        NSCompoundPredicate *reSetPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:mu];
-//        // 重置过滤
-//        building_line.predicate = reSetPredicate;
-//    }
 
     MGLStyleLayer *line_layer = [self layerWithIdentifier:@"mapxus-building-line-color"];
     if ([line_layer isKindOfClass:[MGLLineStyleLayer class]]) {
@@ -139,6 +112,20 @@
         // 重置过滤
         vk.predicate = reSetPredicate;
     }
+}
+
+- (void)outLineLevel:(NSString *)levelId {
+  MGLStyleLayer *line_layer = [self layerWithIdentifier:@"assistant-mapxus-level-outline"];
+  if ([line_layer isKindOfClass:[MGLLineStyleLayer class]]) {
+    MGLLineStyleLayer *level_line = (MGLLineStyleLayer *)line_layer;
+    level_line.lineWidth = [NSExpression expressionForConstantValue:@(3)];
+    level_line.lineOffset = [NSExpression expressionForConstantValue:@(3)];
+    level_line.lineColor = [NSExpression expressionForConstantValue:[UIColor colorWithRed:165/255.0 green:227/255.0 blue:255/255.0 alpha:1]];
+    
+    NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
+    NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"id == %@", levelId];
+    level_line.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate1, predicate2]];
+  }
 }
 
 @end

@@ -11,7 +11,7 @@
 
 @implementation MXMIndoorMapInfo
 
-- (instancetype)initWithBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor
+- (instancetype)initWithBuilding:(MXMGeoBuilding *)building floor:(MXMFloor *)floor
 {
     self = [super init];
     if (self) {

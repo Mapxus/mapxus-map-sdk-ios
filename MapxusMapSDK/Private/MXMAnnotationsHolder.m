@@ -45,7 +45,7 @@
 }
 
 // annotation过滤
-- (void)filterMXMAnnotationsWithBuilding:(NSString *)buildingId floor:(nullable NSString *)floor indoorState:(BOOL)isIndoor
+- (void)filterMXMAnnotationsWithBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor indoorState:(BOOL)isIndoor
 {
   NSMutableArray *hiddenAnn = [NSMutableArray array];
   NSMutableArray *noHiddenAnn = [NSMutableArray array];
@@ -67,7 +67,7 @@
   [self.mapView addAnnotations:noHiddenAnnSet.allObjects];
 }
 
-- (BOOL)decideShouldBeHiddenWithAnnotation:(MXMPointAnnotation *)ann Building:(NSString *)buildingId floor:(nullable NSString *)floor indoorState:(BOOL)isIndoor
+- (BOOL)decideShouldBeHiddenWithAnnotation:(MXMPointAnnotation *)ann Building:(nullable NSString *)buildingId floor:(nullable NSString *)floor indoorState:(BOOL)isIndoor
 {
   // 只要buildingId或者floor为空，则为室外marker，室外marker会一直显示
   if (ann.buildingId == nil || ann.floor == nil) {

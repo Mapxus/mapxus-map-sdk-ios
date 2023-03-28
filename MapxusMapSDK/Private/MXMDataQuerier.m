@@ -72,7 +72,6 @@
 - (NSSet *)getBuildingLayerIdentifiersInLayers:(NSArray<MGLStyleLayer *> *)layers
 {
     NSMutableSet *identifiersSet = [NSMutableSet set];
-    // 筛选出『mapxus-building』开头的layer
     for (MGLStyleLayer *theLayer in layers) {
         if ([theLayer isBuildingFillLayer]) {
             [identifiersSet addObject:theLayer.identifier];

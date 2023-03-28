@@ -353,10 +353,21 @@
 @implementation MXMInstruction
 
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{
-            @"buildingId" : @[@"buildingId", @"building_id"],
-            @"streetName" : @[@"streetName", @"street_name"],
-             };
+  return @{
+    @"venueId" : @[@"venueId", @"venue_id"],
+    @"buildingId" : @[@"buildingId", @"building_id"],
+    @"streetName" : @[@"streetName", @"street_name"],
+  };
+}
+
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+  NSNumber *result = DecodeNumberFromDic(dic, @"ordinal");
+  if (result) {
+    MXMOrdinal *ordinal = [[MXMOrdinal alloc] init];
+    ordinal.level = [result integerValue];
+    self.ordinal = ordinal;
+  }
+  return YES;
 }
 
 - (NSArray<NSNumber *> *)interval {

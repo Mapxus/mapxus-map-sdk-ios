@@ -290,10 +290,14 @@ NS_ASSUME_NONNULL_BEGIN
  Key instruction for the route
  */
 @interface MXMInstruction : NSObject
+/// The id of the venue in which this instruction is located
+@property (nonatomic, strong, nullable) NSString *venueId;
 /// The id of the building in which this instruction is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
 /// The name of the floor in which this instruction is located
 @property (nonatomic, strong, nullable) NSString *floor;
+/// The ordinal of the floor in which this instruction is located
+@property (nonatomic, strong, nullable) MXMOrdinal *ordinal;
 /// Name of the road being taken
 @property (nonatomic, strong, nullable) NSString *streetName;
 /// Distance of this instruction in metres (m)

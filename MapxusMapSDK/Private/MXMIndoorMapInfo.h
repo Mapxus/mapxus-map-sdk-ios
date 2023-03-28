@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MXMGeoBuilding.h"
+#import "MXMCommonObj.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) MXMGeoBuilding *building;
 
-@property (nonatomic, strong) NSString *floor;
+@property (nonatomic, strong) MXMFloor *floor;
 
-- (instancetype)initWithBuilding:(MXMGeoBuilding *)building floor:(NSString *)floor;
+- (instancetype)initWithBuilding:(MXMGeoBuilding *)building floor:(MXMFloor *)floor;
 
 @end
 

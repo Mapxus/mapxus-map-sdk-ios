@@ -20,9 +20,10 @@
 #import "MXMGeoBuilding.h"
 #import "MXMGeoVenue.h"
 
+@import Mapbox;
+
 NS_ASSUME_NONNULL_BEGIN
 
-@import Mapbox;
 
 @interface MapxusMap () <MXMFloorSelectorBarDelegate, UIGestureRecognizerDelegate, MXMSearchDelegate, MXMDeciderDelegate> {
     BOOL _isFristLoad;
@@ -46,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL flying; // 是否在飞行切换 camera ，YES 时忽略自动过滤建筑
 
 @property (nonatomic, copy, readwrite, nullable) NSString *floor;
+@property (nonatomic, copy, readwrite, nullable) MXMOrdinal *ordinal;
 @property (nonatomic, copy, readwrite, nullable) MXMGeoBuilding *building;
 @property (nonatomic, copy, readwrite, nullable) MXMGeoVenue *venue;
 @property (nonatomic, copy, readwrite, nullable) NSString *userLocationFloor;

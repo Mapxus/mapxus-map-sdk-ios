@@ -88,9 +88,20 @@ static void *mapKey = &mapKey;
         assistantLevelFill.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
         assistantLevelFill.fillOpacity = [NSExpression expressionForConstantValue:@(0)];
         [style addLayer:assistantLevelFill];
+      
+      MGLLineStyleLayer *assistantLevelLine = [[MGLLineStyleLayer alloc] initWithIdentifier:@"assistant-mapxus-level-outline" source:indoorSource];
+      assistantLevelLine.sourceLayerIdentifier = @"mapxus_level";
+      assistantLevelLine.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
+      for (MGLStyleLayer *layer in style.layers) {
+        if ([layer.identifier hasPrefix:@"mapxus-poi"]) {
+          [style insertLayer:assistantLevelLine belowLayer:layer];
+          break;
+        }
+      }
     }
 
     // 加载后全部室内结构隐藏或者重新过滤更换style之前的选择
+    mapView.mxmMap.decider.isMapReload = YES;
     [mapView.mxmMap cleanMapSelected];
     // 结束异步operation
     [mapView.mxmMap searchConfigurationInfo];
@@ -307,32 +318,31 @@ static void *mapKey = &mapKey;
 }
 - (void)hook_mapView:(MGLMapView *)mapView didUpdateUserLocation:(MGLUserLocation *)userLocation
 {
-    if ((mapView.userTrackingMode != MGLUserTrackingModeNone) && userLocation.location.floor) { // 跟随模式且有楼层数据
-        CGPoint locationPoint = [mapView convertCoordinate:userLocation.location.coordinate toPointToView:mapView];
-        NSArray<MXMLevelModel *> *floorFeatures = [mapView.mxmMap.dataQueryer findOutAssistantFloorFeaturesAtPoint:locationPoint];
-        NSDictionary *buildingDic = [mapView.mxmMap.dataQueryer findOutBuildingAtPoint:locationPoint];
-      MXMIndoorMapInfo *info = [mapView.mxmMap.decider decideWithUserLocationLevel:userLocation.location.floor.level
-                                                                atPointBuildingDic:buildingDic
-                                                                          venueDic:mapView.mxmMap.venues
-                                                              atPointLevelInfoList:floorFeatures];
-        if (info) {
-            if (![info.floor isEqualToString:mapView.mxmMap.userLocationFloor]) {
-                mapView.mxmMap.userLocationFloor = info.floor;
-            }
-            if (![info.building.identifier isEqualToString:mapView.mxmMap.userLocationBuilding.identifier]) {
-                mapView.mxmMap.userLocationBuilding = info.building;
-            }
-        }
-    } else {
-        [mapView.mxmMap updageLocationView];
-        if (mapView.mxmMap.userLocationFloor != nil) {
-            mapView.mxmMap.userLocationFloor = nil;
-        }
-        if (mapView.mxmMap.userLocationBuilding != nil) {
-            mapView.mxmMap.userLocationBuilding = nil;
-        }
+  if ((mapView.userTrackingMode != MGLUserTrackingModeNone) && userLocation.location.floor) { // 跟随模式且有楼层数据
+    CGPoint locationPoint = [mapView convertCoordinate:userLocation.location.coordinate toPointToView:mapView];
+    NSArray<MXMLevelModel *> *floorFeatures = [mapView.mxmMap.dataQueryer findOutAssistantFloorFeaturesAtPoint:locationPoint];
+    NSDictionary *buildingDic = [mapView.mxmMap.dataQueryer findOutBuildingAtPoint:locationPoint];
+    MXMIndoorMapInfo *info = [mapView.mxmMap.decider decideWithUserLocationLevel:userLocation.location.floor.level
+                                                              atPointBuildingDic:buildingDic
+                                                            atPointLevelInfoList:floorFeatures];
+    if (info) {
+      if (![info.floor.code isEqualToString:mapView.mxmMap.userLocationFloor]) {
+        mapView.mxmMap.userLocationFloor = info.floor.code;
+      }
+      if (![info.building.identifier isEqualToString:mapView.mxmMap.userLocationBuilding.identifier]) {
+        mapView.mxmMap.userLocationBuilding = info.building;
+      }
     }
-    [self hook_mapView:mapView didUpdateUserLocation:userLocation];
+  } else {
+    [mapView.mxmMap updageLocationView];
+    if (mapView.mxmMap.userLocationFloor != nil) {
+      mapView.mxmMap.userLocationFloor = nil;
+    }
+    if (mapView.mxmMap.userLocationBuilding != nil) {
+      mapView.mxmMap.userLocationBuilding = nil;
+    }
+  }
+  [self hook_mapView:mapView didUpdateUserLocation:userLocation];
 }
 - (void)mapView:(MGLMapView *)mapView didUpdateUserLocation:(MGLUserLocation *)userLocation
 {

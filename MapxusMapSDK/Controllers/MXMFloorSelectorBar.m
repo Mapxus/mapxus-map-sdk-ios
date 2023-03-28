@@ -211,8 +211,8 @@
     name = floor.code;
   }
   [self updateAccessibilityValueWithRowString:name];
-  if (self.delegate && [self.delegate respondsToSelector:@selector(floorSelectorBarDidSelectFloor:floorNameFromBuilding:)]) {
-    [self.delegate floorSelectorBarDidSelectFloor:floor floorNameFromBuilding:self.floorNameFromBuilding];
+  if (self.delegate && [self.delegate respondsToSelector:@selector(floorSelectorBarDidSelectFloor:)]) {
+    [self.delegate floorSelectorBarDidSelectFloor:floor];
   }
 }
 
