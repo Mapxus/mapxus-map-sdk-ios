@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MXMSearchObj.h"
+#import <MapxusMapSDK/MXMSearchObj.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

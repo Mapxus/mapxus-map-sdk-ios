@@ -6,9 +6,9 @@
 //  Copyright © 2019 MAPHIVE TECHNOLOGY LIMITED. All rights reserved.
 //
 
-#import "MXMSearchBase.h"
-#import "MXMGeoCodeSearchOption.h"
-#import "MXMGeoCodeSearchResult.h"
+#import <MapxusMapSDK/MXMSearchBase.h>
+#import <MapxusMapSDK/MXMGeoCodeSearchOption.h>
+#import <MapxusMapSDK/MXMGeoCodeSearchResult.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

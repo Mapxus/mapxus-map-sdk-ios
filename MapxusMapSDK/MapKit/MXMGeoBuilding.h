@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MXMCommonObj.h"
+#import <MapxusMapSDK/MXMCommonObj.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

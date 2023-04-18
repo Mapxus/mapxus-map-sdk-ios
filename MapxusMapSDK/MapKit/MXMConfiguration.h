@@ -6,9 +6,8 @@
 //  Copyright © 2018年 MAPHIVE TECHNOLOGY LIMITED. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "MXMDefine.h"
+#import <MapxusMapSDK/MXMDefine.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

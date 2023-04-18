@@ -8,7 +8,7 @@
 
 #ifndef MXMDefine_h
 #define MXMDefine_h
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 /**
  MapxusMap map appearance
