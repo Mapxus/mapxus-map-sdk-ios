@@ -46,15 +46,11 @@
 - (void)updateBuildingFillOpacityWithIndoorState:(BOOL)isIndoor refVenue:(nullable NSString *)venueId {
     MGLStyleLayer *layer = [self layerWithIdentifier:@"mapxus-building-line"];
     if ([layer isKindOfClass:[MGLFillStyleLayer class]]) {
-        MGLFillStyleLayer *buildingFill = (MGLFillStyleLayer *)layer;
-        if (isIndoor) {
-          NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:venue", venueId];
-          buildingFill.fillOpacity = [NSExpression mgl_expressionForConditional:predicate
-                                                                 trueExpression:[NSExpression expressionForConstantValue:@(0)]
-                                                               falseExpresssion:[NSExpression expressionForConstantValue:@(1)]];
-        } else {
-            buildingFill.fillOpacity = [NSExpression expressionForConstantValue:@(1)];
-        }
+      MGLFillStyleLayer *buildingFill = (MGLFillStyleLayer *)layer;
+      NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:venue", venueId];
+      buildingFill.fillOpacity = [NSExpression mgl_expressionForConditional:predicate
+                                                             trueExpression:[NSExpression expressionForConstantValue:@(0)]
+                                                           falseExpresssion:[NSExpression expressionForConstantValue:@(1)]];
     }
 
     MGLStyleLayer *line_layer = [self layerWithIdentifier:@"mapxus-building-line-color"];
