@@ -44,25 +44,23 @@
 }
 
 - (void)updateBuildingFillOpacityWithIndoorState:(BOOL)isIndoor refVenue:(nullable NSString *)venueId {
-    MGLStyleLayer *layer = [self layerWithIdentifier:@"mapxus-building-line"];
-    if ([layer isKindOfClass:[MGLFillStyleLayer class]]) {
-      MGLFillStyleLayer *buildingFill = (MGLFillStyleLayer *)layer;
-      NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:venue", venueId];
-      buildingFill.fillOpacity = [NSExpression mgl_expressionForConditional:predicate
-                                                             trueExpression:[NSExpression expressionForConstantValue:@(0)]
-                                                           falseExpresssion:[NSExpression expressionForConstantValue:@(1)]];
-    }
-
-    MGLStyleLayer *line_layer = [self layerWithIdentifier:@"mapxus-building-line-color"];
-    if ([line_layer isKindOfClass:[MGLLineStyleLayer class]]) {
-        MGLLineStyleLayer *building_line = (MGLLineStyleLayer *)line_layer;
-        if (isIndoor) {
-            building_line.lineOpacity = [NSExpression expressionForConstantValue:@(0)];
-        } else {
-            building_line.lineOpacity = [NSExpression expressionForConstantValue:@(1)];
-        }
-    }
-
+  MGLStyleLayer *layer = [self layerWithIdentifier:@"mapxus-building-line"];
+  if ([layer isKindOfClass:[MGLFillStyleLayer class]]) {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:venue", venueId];
+    MGLFillStyleLayer *buildingFill = (MGLFillStyleLayer *)layer;
+    buildingFill.fillOpacity = [NSExpression mgl_expressionForConditional:predicate
+                                                           trueExpression:[NSExpression expressionForConstantValue:@(0)]
+                                                         falseExpresssion:[NSExpression expressionForConstantValue:@(1)]];
+  }
+  
+  MGLStyleLayer *line_layer = [self layerWithIdentifier:@"mapxus-building-line-color"];
+  if ([line_layer isKindOfClass:[MGLLineStyleLayer class]]) {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:venue", venueId];
+    MGLLineStyleLayer *building_line = (MGLLineStyleLayer *)line_layer;
+    building_line.lineOpacity = [NSExpression mgl_expressionForConditional:predicate
+                                                            trueExpression:[NSExpression expressionForConstantValue:@(0)]
+                                                          falseExpresssion:[NSExpression expressionForConstantValue:@(1)]];
+  }
 }
 
 // 地图图层数据过滤，保证buildingId和floor不能为空
