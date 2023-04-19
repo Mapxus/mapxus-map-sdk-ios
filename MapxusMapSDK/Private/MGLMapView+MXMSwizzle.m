@@ -88,7 +88,7 @@ static void *mapKey = &mapKey;
         assistantLevelFill.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
         assistantLevelFill.fillOpacity = [NSExpression expressionForConstantValue:@(0)];
         [style addLayer:assistantLevelFill];
-      
+            
       MGLLineStyleLayer *assistantLevelLine = [[MGLLineStyleLayer alloc] initWithIdentifier:@"assistant-mapxus-level-outline" source:indoorSource];
       assistantLevelLine.sourceLayerIdentifier = @"mapxus_level";
       assistantLevelLine.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];

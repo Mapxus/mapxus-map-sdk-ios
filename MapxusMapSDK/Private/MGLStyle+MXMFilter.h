@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)filerLevelIds:(NSArray *)levelIds;
 
+- (void)setLevelIdsTransparent:(NSArray *)levelIds;
+
 - (void)outLineLevel:(NSString *)levelId;
 
 @end

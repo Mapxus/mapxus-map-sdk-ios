@@ -74,6 +74,8 @@ NS_ASSUME_NONNULL_BEGIN
                                        currentFloor:(NSString *)curFloor
                                       andLocalFloor:(nullable CLFloor *)floor;
 
+
+- (nullable MXMOrdinal *)electDefaultFloorWithHistory:(NSDictionary *)historyDic inBuilding:(MXMGeoBuilding *)building;
 - (nullable MXMFloor *)absMin:(NSArray<MXMFloor *> *)floors;
 
 @end

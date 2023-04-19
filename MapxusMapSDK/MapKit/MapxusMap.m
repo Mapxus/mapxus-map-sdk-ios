@@ -433,20 +433,37 @@
   
   // 配置过滤条件
   NSMutableArray *levelIds = [NSMutableArray array];
+  NSMutableArray *sameVenueLevelIds = [NSMutableArray array];
+
   for (MXMGeoBuilding *buildingItem in self.buildings.allValues) {
     if ([buildingItem.venueId isEqualToString:building.venueId]) {
+      // 已选中venue的建筑
       for (MXMFloor *floorItem in buildingItem.floors) {
         if (floorItem.ordinal && floorItem.ordinal.level == floorOrdinal.level) {
           [levelIds addObject:floorItem.floorId];
+          [sameVenueLevelIds addObject:floorItem.floorId];
           break;
         }
       }
+      
+    } else {
+      // 未选中venue的建筑
+      MXMOrdinal *ordianl = [self.decider electDefaultFloorWithHistory:self.decider.venueSelectFloorDic
+                                                            inBuilding:buildingItem];
+      for (MXMFloor *floorItem in buildingItem.floors) {
+        if (floorItem.ordinal && floorItem.ordinal.level == ordianl.level) {
+          [levelIds addObject:floorItem.floorId];
+        }
+      }
+      
     }
   }
   NSSet *levelIdSet = [NSSet setWithArray:levelIds];
   if (levelIdSet.count == 0 || ![levelIdSet isSubsetOfSet:self.floorIds] || self.decider.isMapReload) {
     [self.mapView.style filerLevelIds:levelIds];
   }
+  [self.mapView.style setLevelIdsTransparent:sameVenueLevelIds];
+  
   self.floorIds = levelIdSet;
   self.decider.isMapReload = NO;
   // 回调

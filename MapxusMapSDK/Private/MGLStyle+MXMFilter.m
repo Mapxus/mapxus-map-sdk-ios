@@ -46,21 +46,12 @@
 - (void)updateBuildingFillOpacityWithIndoorState:(BOOL)isIndoor refVenue:(nullable NSString *)venueId {
   MGLStyleLayer *layer = [self layerWithIdentifier:@"mapxus-building-line"];
   if ([layer isKindOfClass:[MGLFillStyleLayer class]]) {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:venue", venueId];
     MGLFillStyleLayer *buildingFill = (MGLFillStyleLayer *)layer;
-    buildingFill.fillOpacity = [NSExpression mgl_expressionForConditional:predicate
-                                                           trueExpression:[NSExpression expressionForConstantValue:@(0)]
-                                                         falseExpresssion:[NSExpression expressionForConstantValue:@(1)]];
+    buildingFill.fillOpacity = [NSExpression expressionForConstantValue:@(0)];
   }
   
   MGLStyleLayer *line_layer = [self layerWithIdentifier:@"mapxus-building-line-color"];
-  if ([line_layer isKindOfClass:[MGLLineStyleLayer class]]) {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:venue", venueId];
-    MGLLineStyleLayer *building_line = (MGLLineStyleLayer *)line_layer;
-    building_line.lineOpacity = [NSExpression mgl_expressionForConditional:predicate
-                                                            trueExpression:[NSExpression expressionForConstantValue:@(0)]
-                                                          falseExpresssion:[NSExpression expressionForConstantValue:@(1)]];
-  }
+  line_layer.visible = NO;
 }
 
 // 地图图层数据过滤，保证buildingId和floor不能为空
@@ -106,6 +97,68 @@
         // 重置过滤
         vk.predicate = reSetPredicate;
     }
+}
+
+- (void)setLevelIdsTransparent:(NSArray *)levelIds {
+  NSArray *arr = self.layers;
+  for (MGLStyleLayer *k in arr) {
+    // 过滤不需要处理的layer
+    if (![k isKindOfClass:[MGLVectorStyleLayer class]]) {
+      continue;
+    }
+    MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
+    NSString *ident = vk.identifier;
+    if (![ident hasPrefix:@"mapxus"] || [ident hasPrefix:@"mapxus-building"] || [vk.sourceLayerIdentifier hasPrefix:@"mapxus_venue"]) {
+        continue;
+    }
+
+    NSString *levelKey = @"ref:level";
+    if ([vk.sourceLayerIdentifier hasPrefix:@"mapxus_level"]) {
+        levelKey = @"id";
+    }
+    NSPredicate *pp = [NSPredicate predicateWithFormat:@"%K IN %@", levelKey, levelIds];
+    if ([k isKindOfClass:[MGLCircleStyleLayer class]]) {
+      MGLCircleStyleLayer *ck = (MGLCircleStyleLayer *)k;
+      ck.circleOpacity = [NSExpression mgl_expressionForConditional:pp
+                                                     trueExpression:[NSExpression expressionForConstantValue:@(1)]
+                                                   falseExpresssion:[NSExpression expressionForConstantValue:@(0.4)]];
+      
+    } else if ([k isKindOfClass:[MGLFillStyleLayer class]]) {
+      MGLFillStyleLayer *ck = (MGLFillStyleLayer *)k;
+      ck.fillOpacity = [NSExpression mgl_expressionForConditional:pp
+                                                   trueExpression:[NSExpression expressionForConstantValue:@(1)]
+                                                 falseExpresssion:[NSExpression expressionForConstantValue:@(0.4)]];
+      
+    } else if ([k isKindOfClass:[MGLLineStyleLayer class]]) {
+      MGLLineStyleLayer *ck = (MGLLineStyleLayer *)k;
+      ck.lineOpacity = [NSExpression mgl_expressionForConditional:pp
+                                                   trueExpression:[NSExpression expressionForConstantValue:@(1)]
+                                                 falseExpresssion:[NSExpression expressionForConstantValue:@(0.4)]];
+      
+    } else if ([k isKindOfClass:[MGLSymbolStyleLayer class]]) {
+      MGLSymbolStyleLayer *ck = (MGLSymbolStyleLayer *)k;
+      ck.iconOpacity = [NSExpression mgl_expressionForConditional:pp
+                                                   trueExpression:[NSExpression expressionForConstantValue:@(1)]
+                                                 falseExpresssion:[NSExpression expressionForConstantValue:@(0.4)]];
+      ck.textOpacity = [NSExpression mgl_expressionForConditional:pp
+                                                   trueExpression:[NSExpression expressionForConstantValue:@(1)]
+                                                 falseExpresssion:[NSExpression expressionForConstantValue:@(0.4)]];
+      
+    } else if ([k isKindOfClass:[MGLHeatmapStyleLayer class]]) {
+      MGLHeatmapStyleLayer *ck = (MGLHeatmapStyleLayer *)k;
+      ck.heatmapOpacity = [NSExpression mgl_expressionForConditional:pp
+                                                      trueExpression:[NSExpression expressionForConstantValue:@(1)]
+                                                    falseExpresssion:[NSExpression expressionForConstantValue:@(0.4)]];
+      
+    }
+//    else if ([k isKindOfClass:[MGLFillExtrusionStyleLayer class]]) {
+//      MGLFillExtrusionStyleLayer *ck = (MGLFillExtrusionStyleLayer *)k;
+//      ck.fillExtrusionOpacity = [NSExpression mgl_expressionForConditional:pp
+//                                                            trueExpression:[NSExpression expressionForConstantValue:@(1)]
+//                                                          falseExpresssion:[NSExpression expressionForConstantValue:@(0.4)]];
+//
+//    }
+  }
 }
 
 - (void)outLineLevel:(NSString *)levelId {
