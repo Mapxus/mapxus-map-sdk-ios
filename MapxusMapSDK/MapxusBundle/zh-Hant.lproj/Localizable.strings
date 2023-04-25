@@ -9,3 +9,5 @@
 "Level switcher" = "樓層選擇器";
 
 "%1$@, %2$lu of %3$lu" = "%1$@，%3$lu 之 %2$lu";
+
+"Cancel" = "關閉";

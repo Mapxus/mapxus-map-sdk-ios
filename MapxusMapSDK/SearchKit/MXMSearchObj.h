@@ -29,11 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMGeoPoint *center;
 /// Radius for searching circular areas. Unit is km, must be used with center
 @property (nonatomic, assign) double distance;
-/// The number of data to display per page
+/// The number displayed per page in the results. The default value is 10, and the maximum number cannot exceed 100.
 @property (nonatomic, assign) NSUInteger offset;
 /// Page number
 @property (nonatomic, assign) NSUInteger page;
-/// List of building ids to query. Mutually exclusive with other parameters
+/// List of building ids to query, the maximum ID number of buildings can not exceed 10. Mutually exclusive with other parameters
 @property (nonatomic, strong, nullable) NSArray<NSString *> *buildingIds;
 @end
 
@@ -96,13 +96,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *buildingId;
 /// The name of floor which you want to search on
 @property (nonatomic, strong, nullable) NSString *floor;
-/// Square search area
+/// Enter latitude and longitude to form a rectangular search range. The maximum rectangular search area cannot exceed  400 km².
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
 /// The centre of circular area search
 @property (nonatomic, strong, nullable) MXMGeoPoint *center;
-/// Radius for searching circular areas. Unit is m, must be used with center
+/// This parameter is used in the POI  search and represents the radius distance in meters. The maximum radius distance cannot exceed 10000m.
 @property (nonatomic, assign) NSUInteger meterDistance;
-/// The number of data to display per page
+/// The number displayed per page in the results. The default value is 10, and the maximum number cannot exceed 100.
 @property (nonatomic, assign) NSUInteger offset;
 /// Page number
 @property (nonatomic, assign) NSUInteger page;
@@ -112,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *sort;
 /// Search for the actual building height of the location, take the level value of the CLFloor and pass in the value when the sort value is ActualDistance
 @property (nonatomic, assign) NSInteger ordinal;
-/// The list of POI ids to query. Mutually exclusive with the above parameters
+/// The list of POI ids to query, the maximum ID number of buildings can not exceed 10. Mutually exclusive with the above parameters
 @property (nonatomic, strong, nullable) NSArray<NSString *> *POIIds;
 @end
 
@@ -146,7 +146,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *floor;
 /// The centre of circular area search
 @property (nonatomic, strong, nullable) MXMGeoPoint *center;
-/// Radius for searching circular areas. Unit is m
+/// This parameter is used in the POI orientation search and represents the radius distance in meters. The maximum radius distance cannot exceed 100m.
 @property (nonatomic, assign) NSUInteger distance;
 @end
 

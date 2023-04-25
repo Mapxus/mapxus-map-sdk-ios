@@ -22,6 +22,11 @@
 
 /* Begin PBXBuildFile section */
 		1C4A9D2057A7A29341284FA7 /* Pods_MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F5BA4C07AEC8BE19BCEE18 /* Pods_MapxusMapSDK.framework */; };
+		896BD7F829F2610300ED8D9F /* MXMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BD7F729F2610300ED8D9F /* MXMAlertController.m */; };
+		896BD85C2A0C7C0700ED8D9F /* MXMLogoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 896BD85A2A0C7C0700ED8D9F /* MXMLogoView.h */; };
+		896BD85D2A0C7C0700ED8D9F /* MXMLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BD85B2A0C7C0700ED8D9F /* MXMLogoView.m */; };
+		896BD8602A0C866C00ED8D9F /* MXMLogoButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 896BD85E2A0C866C00ED8D9F /* MXMLogoButton.h */; };
+		896BD8612A0C866C00ED8D9F /* MXMLogoButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BD85F2A0C866C00ED8D9F /* MXMLogoButton.m */; };
 		89865F1329E9090700E984A1 /* MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89865F0A29E9090700E984A1 /* MapxusMapSDK.framework */; };
 		89865F1929E9090700E984A1 /* MapxusMapSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F0D29E9090700E984A1 /* MapxusMapSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89865F2B29E925EB00E984A1 /* MXMAnnotationsHolderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F2329E925EB00E984A1 /* MXMAnnotationsHolderTests.m */; };
@@ -118,6 +123,14 @@
 /* Begin PBXFileReference section */
 		04F3A1DB5EB6BB5F6C6A7566 /* Pods_MapxusMapSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapxusMapSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D22435475B5222BB8270E9F /* Pods-MapxusMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.release.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		896BD7F729F2610300ED8D9F /* MXMAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMAlertController.m; sourceTree = "<group>"; };
+		896BD7F929F2614500ED8D9F /* MXMAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMAlertController.h; sourceTree = "<group>"; };
+		896BD8582A0BA21000ED8D9F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		896BD8592A0BA22200ED8D9F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		896BD85A2A0C7C0700ED8D9F /* MXMLogoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMLogoView.h; sourceTree = "<group>"; };
+		896BD85B2A0C7C0700ED8D9F /* MXMLogoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMLogoView.m; sourceTree = "<group>"; };
+		896BD85E2A0C866C00ED8D9F /* MXMLogoButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMLogoButton.h; sourceTree = "<group>"; };
+		896BD85F2A0C866C00ED8D9F /* MXMLogoButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMLogoButton.m; sourceTree = "<group>"; };
 		89865F0A29E9090700E984A1 /* MapxusMapSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MapxusMapSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89865F0D29E9090700E984A1 /* MapxusMapSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapxusMapSDK.h; sourceTree = "<group>"; };
 		89865F1229E9090700E984A1 /* MapxusMapSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapxusMapSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -414,12 +427,12 @@
 		89865F5C29E9262700E984A1 /* MXMPicker */ = {
 			isa = PBXGroup;
 			children = (
+				89865F6029E9262700E984A1 /* MXMPickerTextRenderView.h */,
 				89865F5D29E9262700E984A1 /* MXMPickerTextRenderView.m */,
 				89865F5E29E9262700E984A1 /* MXMPickerView.h */,
-				89865F5F29E9262700E984A1 /* MXMPickerContainerView.h */,
-				89865F6029E9262700E984A1 /* MXMPickerTextRenderView.h */,
-				89865F6129E9262700E984A1 /* MXMPickerContainerView.m */,
 				89865F6229E9262700E984A1 /* MXMPickerView.m */,
+				89865F5F29E9262700E984A1 /* MXMPickerContainerView.h */,
+				89865F6129E9262700E984A1 /* MXMPickerContainerView.m */,
 			);
 			path = MXMPicker;
 			sourceTree = "<group>";
@@ -476,6 +489,12 @@
 				89865F7B29E9262700E984A1 /* MapxusMap+Private.h */,
 				89865F8529E9262700E984A1 /* MapxusMap.h */,
 				89865F7D29E9262700E984A1 /* MapxusMap.m */,
+				896BD7F929F2614500ED8D9F /* MXMAlertController.h */,
+				896BD7F729F2610300ED8D9F /* MXMAlertController.m */,
+				896BD85A2A0C7C0700ED8D9F /* MXMLogoView.h */,
+				896BD85B2A0C7C0700ED8D9F /* MXMLogoView.m */,
+				896BD85E2A0C866C00ED8D9F /* MXMLogoButton.h */,
+				896BD85F2A0C866C00ED8D9F /* MXMLogoButton.m */,
 			);
 			path = MapKit;
 			sourceTree = "<group>";
@@ -540,7 +559,9 @@
 				89865F8829E9262700E984A1 /* MXMLoggerService.h in Headers */,
 				89865FB129E9262700E984A1 /* MXMFloorSelectorBar+Private.h in Headers */,
 				89865FA229E9262700E984A1 /* MGLMapView+MXMSwizzle.h in Headers */,
+				896BD8602A0C866C00ED8D9F /* MXMLogoButton.h in Headers */,
 				89865F9629E9262700E984A1 /* MXMIndoorMapInfo.h in Headers */,
+				896BD85C2A0C7C0700ED8D9F /* MXMLogoView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,6 +637,8 @@
 				"zh-Hans",
 				"zh-HK",
 				"zh-Hant",
+				ja,
+				ko,
 			);
 			mainGroup = 89865F0029E9090700E984A1;
 			productRefGroup = 89865F0B29E9090700E984A1 /* Products */;
@@ -741,7 +764,9 @@
 				89865F9729E9262700E984A1 /* MXMDecider.m in Sources */,
 				89865F9429E9262700E984A1 /* MGLMapView+MXMSwizzle.m in Sources */,
 				89865FBB29E9262700E984A1 /* MXMSearchBase.m in Sources */,
+				896BD7F829F2610300ED8D9F /* MXMAlertController.m in Sources */,
 				89865F9029E9262700E984A1 /* MXMSearchObj.m in Sources */,
+				896BD8612A0C866C00ED8D9F /* MXMLogoButton.m in Sources */,
 				89865FA829E9262700E984A1 /* MXMPickerTextRenderView.m in Sources */,
 				89865FAD29E9262700E984A1 /* MXMPickerView.m in Sources */,
 				89865FA429E9262700E984A1 /* MXMDataQuerier.m in Sources */,
@@ -751,6 +776,7 @@
 				89865FAC29E9262700E984A1 /* MXMPickerContainerView.m in Sources */,
 				89865FA529E9262700E984A1 /* MGLStyle+MXMFilter.m in Sources */,
 				89865FB229E9262700E984A1 /* MXMFloorSelectorBar.m in Sources */,
+				896BD85D2A0C7C0700ED8D9F /* MXMLogoView.m in Sources */,
 				89865F9129E9262700E984A1 /* MXMSearchAPI.m in Sources */,
 				89865FB829E9262700E984A1 /* MXMGeoCodeSearchResult.m in Sources */,
 				89865F9B29E9262700E984A1 /* MGLStyleLayer+MXMFilter.m in Sources */,
@@ -797,6 +823,8 @@
 				89865F3B29E9262700E984A1 /* en */,
 				89865F3C29E9262700E984A1 /* zh-HK */,
 				89865F3D29E9262700E984A1 /* zh-Hant */,
+				896BD8582A0BA21000ED8D9F /* ja */,
+				896BD8592A0BA22200ED8D9F /* ko */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -838,7 +866,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 23.04.19.17.43;
+				CURRENT_PROJECT_VERSION = 23.05.11.12.12;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -900,7 +928,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 23.04.19.17.43;
+				CURRENT_PROJECT_VERSION = 23.05.11.12.12;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -927,11 +955,11 @@
 			baseConfigurationReference = 94F3B6382301B7E3738DF8C9 /* Pods-MapxusMapSDK.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23.04.19.17.43;
+				CURRENT_PROJECT_VERSION = 23.05.11.12.12;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 23.04.19.17.43;
+				DYLIB_CURRENT_VERSION = 23.05.11.12.12;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -961,11 +989,11 @@
 			baseConfigurationReference = E9BF3B270BB2C9A419AC875C /* Pods-MapxusMapSDK.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23.04.19.17.43;
+				CURRENT_PROJECT_VERSION = 23.05.11.12.12;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 23.04.19.17.43;
+				DYLIB_CURRENT_VERSION = 23.05.11.12.12;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -995,7 +1023,7 @@
 			baseConfigurationReference = C11F268EFF8379E21C30B08A /* Pods-MapxusMapSDKTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23.04.19.17.43;
+				CURRENT_PROJECT_VERSION = 23.05.11.12.12;
 				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -1011,7 +1039,7 @@
 			baseConfigurationReference = 1D22435475B5222BB8270E9F /* Pods-MapxusMapSDKTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23.04.19.17.43;
+				CURRENT_PROJECT_VERSION = 23.05.11.12.12;
 				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;

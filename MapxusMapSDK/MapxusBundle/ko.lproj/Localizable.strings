@@ -6,8 +6,8 @@
   Copyright © 2021 MAPHIVE TECHNOLOGY LIMITED. All rights reserved.
 */
 
-"Level switcher" = "樓層選擇器";
+"Level switcher" = "층 선택기";
 
-"%1$@, %2$lu of %3$lu" = "%1$@，%3$lu 之 %2$lu";
+"%1$@, %2$lu of %3$lu" = "%1$@, %2$lu of %3$lu";
 
-"Cancel" = "關閉";
+"Cancel" = "닫기";

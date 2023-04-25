@@ -19,6 +19,7 @@
 #import "MXMCacheManager.h"
 #import "MXMGeoBuilding.h"
 #import "MXMGeoVenue.h"
+#import "MXMLogoButton.h"
 
 @import Mapbox;
 
@@ -39,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MGLMapView *mapView;
 @property (nonatomic, strong, readwrite) UIButton *buildingSelectButton;
 @property (nonatomic, strong, readwrite) MXMFloorSelectorBar *floorBar;
-@property (nonatomic, strong) UIButton *MXMLogo;
+@property (nonatomic, strong) MXMLogoButton *MXMLogo;
 @property (nonatomic, strong) UIButton *openStreetSourceBtn;
 
 @property (nonatomic, assign) BOOL isIndoor;

@@ -74,6 +74,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// default is YES
 @property (nonatomic, assign) BOOL autoChangeBuilding;
 
+/// If the attribution has been set to YES, an ‘(i)’ button will appear in the left corner of the map. If the attribution has been set to NO, two logo buttons will appear
+/// in the bottom corners of the map.   The default is NO
+@property (nonatomic, assign) BOOL collapseCopyright;
+
 /**
  Setting the general map appearance
  

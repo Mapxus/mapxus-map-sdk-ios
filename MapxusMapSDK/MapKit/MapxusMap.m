@@ -15,6 +15,7 @@
 #import "MGLStyle+MXMFilter.h"
 #import "MGLStyleLayer+MXMFilter.h"
 #import "JXJsonFunctionDefine.h"
+#import "MXMAlertController.h"
 
 @implementation MapxusMap
 
@@ -717,8 +718,8 @@
                        [self.openStreetSourceBtn.heightAnchor constraintEqualToConstant:13.0f],
                        [self.openStreetSourceBtn.trailingAnchor constraintEqualToAnchor:self.mapView.trailingAnchor constant:-10.0f],
                        openStreetBottom,
-                       [self.MXMLogo.widthAnchor constraintEqualToConstant:76.0f],
-                       [self.MXMLogo.heightAnchor constraintEqualToConstant:20.0f],
+//                       [self.MXMLogo.widthAnchor constraintEqualToConstant:76.0f],
+//                       [self.MXMLogo.heightAnchor constraintEqualToConstant:20.0f],
                        [self.MXMLogo.leadingAnchor constraintEqualToAnchor:self.mapView.leadingAnchor constant:10.0f],
                        logoBottom,
                        [self.buildingSelectButton.widthAnchor constraintEqualToConstant:50.0f],
@@ -815,38 +816,62 @@
   return _venues;
 }
 
-- (UIButton *)MXMLogo
+- (MXMLogoButton *)MXMLogo
 {
   if (!_MXMLogo) {
-    NSBundle *bundle = [NSBundle bundleForClass:[MapxusMap class]];
-    UIImage *image = [UIImage imageNamed:@"mapxusLogo" inBundle:bundle compatibleWithTraitCollection:nil];
-    _MXMLogo = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_MXMLogo setImage:image forState:UIControlStateNormal];
+    _MXMLogo = [[MXMLogoButton alloc] initWithCopyright:self.collapseCopyright];
     _MXMLogo.translatesAutoresizingMaskIntoConstraints = NO;
     [_MXMLogo addTarget:self action:@selector(logoOnClickAction:) forControlEvents:UIControlEventTouchUpInside];
   }
   return _MXMLogo;
 }
 
+- (void)setCollapseCopyright:(BOOL)collapseCopyright {
+  _collapseCopyright = collapseCopyright;
+  self.MXMLogo.collapseCopyright = collapseCopyright;
+  self.openStreetSourceBtn.hidden = collapseCopyright;
+}
+
 - (void)logoOnClickAction:(UIButton *)sender
 {
-  UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"Mapxus Maps SDK for iOS" message:nil preferredStyle:UIAlertControllerStyleAlert];
-  
-  UIAlertAction *fristAction = [UIAlertAction actionWithTitle:@"© Mapxus" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mapxus.com"]];
-  }];
-  [alertCtrl addAction:fristAction];
-  
-  UIAlertAction *secondAction = [UIAlertAction actionWithTitle:ABOUT_SOURCE_TITLE style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:ABOUT_SOURCE_URL]];
-  }];
-  [alertCtrl addAction:secondAction];
-  
-  UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-  [alertCtrl addAction:cancelAction];
-  
-  UIViewController *viewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-  [viewController presentViewController:alertCtrl animated:YES completion:nil];
+  if (self.collapseCopyright) {
+    [MXMAlertController presentAlert];
+  } else {
+    UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"Mapxus Maps SDK for iOS" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *fristAction = [UIAlertAction actionWithTitle:@"© Mapxus" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mapxus.com"]];
+    }];
+    [alertCtrl addAction:fristAction];
+    
+    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:ABOUT_SOURCE_TITLE style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:ABOUT_SOURCE_URL]];
+    }];
+    [alertCtrl addAction:secondAction];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    [alertCtrl addAction:cancelAction];
+        
+    UIViewController *viewController = [self getRootVC];
+    [viewController presentViewController:alertCtrl animated:YES completion:nil];
+  }
+}
+
+- (UIViewController *)getRootVC {
+  if (@available(iOS 13.0, *)) {
+    for (UIWindowScene *scene in [UIApplication sharedApplication].connectedScenes) {
+      if (scene.activationState == UISceneActivationStateForegroundActive) {
+        for (UIWindow *window in scene.windows) {
+          if (window.isKeyWindow) {
+            return window.rootViewController;
+          }
+        }
+      }
+    }
+  } else {
+    return [UIApplication sharedApplication].delegate.window.rootViewController;
+  }
+  return nil;
 }
 
 - (UIButton *)openStreetSourceBtn
