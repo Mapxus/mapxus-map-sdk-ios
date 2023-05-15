@@ -141,10 +141,10 @@
 - (void)clickOnMapxusBtn {
   [self dismissViewControllerAnimated:NO completion:nil];
   if (@available(iOS 10.0, *)) {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mapxus.com"] options:@{} completionHandler:nil];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPXUS_COPYRIGHT_URL] options:@{} completionHandler:nil];
   } else {
     // Fallback on earlier versions
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mapxus.com"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPXUS_COPYRIGHT_URL]];
   }
 }
 

@@ -837,41 +837,13 @@
   if (self.collapseCopyright) {
     [MXMAlertController presentAlert];
   } else {
-    UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"Mapxus Maps SDK for iOS" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *fristAction = [UIAlertAction actionWithTitle:@"© Mapxus" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.mapxus.com"]];
-    }];
-    [alertCtrl addAction:fristAction];
-    
-    UIAlertAction *secondAction = [UIAlertAction actionWithTitle:ABOUT_SOURCE_TITLE style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:ABOUT_SOURCE_URL]];
-    }];
-    [alertCtrl addAction:secondAction];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-    [alertCtrl addAction:cancelAction];
-        
-    UIViewController *viewController = [self getRootVC];
-    [viewController presentViewController:alertCtrl animated:YES completion:nil];
-  }
-}
-
-- (UIViewController *)getRootVC {
-  if (@available(iOS 13.0, *)) {
-    for (UIWindowScene *scene in [UIApplication sharedApplication].connectedScenes) {
-      if (scene.activationState == UISceneActivationStateForegroundActive) {
-        for (UIWindow *window in scene.windows) {
-          if (window.isKeyWindow) {
-            return window.rootViewController;
-          }
-        }
-      }
+    if (@available(iOS 10.0, *)) {
+      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPXUS_COPYRIGHT_URL] options:@{} completionHandler:nil];
+    } else {
+      // Fallback on earlier versions
+      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:MAPXUS_COPYRIGHT_URL]];
     }
-  } else {
-    return [UIApplication sharedApplication].delegate.window.rootViewController;
   }
-  return nil;
 }
 
 - (UIButton *)openStreetSourceBtn
