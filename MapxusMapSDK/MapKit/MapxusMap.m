@@ -434,7 +434,7 @@
   
   // 配置过滤条件
   NSMutableArray *levelIds = [NSMutableArray array];
-  NSMutableArray *sameVenueLevelIds = [NSMutableArray array];
+//  NSMutableArray *sameVenueLevelIds = [NSMutableArray array];
 
   for (MXMGeoBuilding *buildingItem in self.buildings.allValues) {
     if ([buildingItem.venueId isEqualToString:building.venueId]) {
@@ -442,7 +442,7 @@
       for (MXMFloor *floorItem in buildingItem.floors) {
         if (floorItem.ordinal && floorItem.ordinal.level == floorOrdinal.level) {
           [levelIds addObject:floorItem.floorId];
-          [sameVenueLevelIds addObject:floorItem.floorId];
+//          [sameVenueLevelIds addObject:floorItem.floorId];
           break;
         }
       }
@@ -463,7 +463,7 @@
   if (levelIdSet.count == 0 || ![levelIdSet isSubsetOfSet:self.floorIds] || self.decider.isMapReload) {
     [self.mapView.style filerLevelIds:levelIds];
   }
-  [self.mapView.style setLevelIdsTransparent:sameVenueLevelIds];
+//  [self.mapView.style setLevelIdsTransparent:sameVenueLevelIds];
   
   self.floorIds = levelIdSet;
   self.decider.isMapReload = NO;
