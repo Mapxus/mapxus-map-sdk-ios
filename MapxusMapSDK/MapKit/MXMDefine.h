@@ -137,14 +137,6 @@ typedef NS_ENUM(NSInteger, MXMRouteSign) {
      */
     MXMFinish = 4,
     /**
-     Arrival at the waypoint
-     */
-    MXMReachedVia __attribute__((deprecated)) = 5,
-    /**
-     Use of loops
-     */
-    MXMUseRoundabout __attribute__((deprecated)) = 6,
-    /**
      Walk on the right
      */
     MXMKeepRight = 7,
