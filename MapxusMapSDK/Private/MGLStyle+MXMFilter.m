@@ -161,14 +161,21 @@
 //  }
 //}
 
+- (void)outLineLevelBorderStyle:(MXMBorderStyle *)borderStyle {
+  MGLStyleLayer *line_layer = [self layerWithIdentifier:@"assistant-mapxus-level-outline"];
+  if ([line_layer isKindOfClass:[MGLLineStyleLayer class]]) {
+    MGLLineStyleLayer *level_line = (MGLLineStyleLayer *)line_layer;
+    level_line.lineWidth = borderStyle.lineWidth;
+    level_line.lineOffset = borderStyle.lineWidth;
+    level_line.lineColor = borderStyle.lineColor;
+    level_line.lineOpacity = borderStyle.lineOpacity;
+  }
+}
+
 - (void)outLineLevel:(NSString *)levelId {
   MGLStyleLayer *line_layer = [self layerWithIdentifier:@"assistant-mapxus-level-outline"];
   if ([line_layer isKindOfClass:[MGLLineStyleLayer class]]) {
     MGLLineStyleLayer *level_line = (MGLLineStyleLayer *)line_layer;
-    level_line.lineWidth = [NSExpression expressionForConstantValue:@(3)];
-    level_line.lineOffset = [NSExpression expressionForConstantValue:@(3)];
-    level_line.lineColor = [NSExpression expressionForConstantValue:[UIColor colorWithRed:165/255.0 green:227/255.0 blue:255/255.0 alpha:1]];
-    
     NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
     NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"id == %@", levelId];
     level_line.predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate1, predicate2]];

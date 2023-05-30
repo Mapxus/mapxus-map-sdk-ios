@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <MapxusMapSDK/MXMFloorSelectorBar.h>
 #import <MapxusMapSDK/MXMConfiguration.h>
+#import <MapxusMapSDK/MXMBorderStyle.h>
 #import <MapxusMapSDK/MXMDefine.h>
 
 @class MGLMapView;
@@ -24,6 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MapxusMap : NSObject
 
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
+
 /**
  MapxusMap initialisation function
  @param mapView Bind MGLMapView and introduce MapBox as a map rendering tool
@@ -38,9 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
  @return MapxusMap object
  */
 - (instancetype)initWithMapView:(MGLMapView *)mapView configuration:(nullable MXMConfiguration *)configuration;
-
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
 
 /// Event callback agent for MapxusMap
 @property (nonatomic, weak, nullable) id<MapxusMapDelegate> delegate;
@@ -64,6 +65,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// it to 0
 @property (nonatomic, assign) CGFloat openStreetSourceBottomMargin;
 
+/// If the attribution has been set to YES, an ‘(i)’ button will appear in the left corner of the map. If the attribution has been set to NO, two logo buttons will appear
+/// in the bottom corners of the map.   The default is NO
+@property (nonatomic, assign) BOOL collapseCopyright;
+
+/**
+ The style of the border that will be drawn for the selected building.
+ 
+ The default value of this property is an MXMBorderStyle that evaluates to `[MXMBorderStyle defaultSelectedBuildingBorderStyle]`. Set this
+ property to `nil` to reset it to the default style.
+ */
+@property (nonatomic, null_resettable) MXMBorderStyle *selectedBuildingBorderStyle;
+
 /// Whether the outdoor map is displayed
 @property (nonatomic, assign) BOOL outdoorHidden;
 
@@ -73,10 +86,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// When auto switch mode is on, the building is moved to the centre of the view and the building is automatically selected to show its internal structure. The
 /// default is YES
 @property (nonatomic, assign) BOOL autoChangeBuilding;
-
-/// If the attribution has been set to YES, an ‘(i)’ button will appear in the left corner of the map. If the attribution has been set to NO, two logo buttons will appear
-/// in the bottom corners of the map.   The default is NO
-@property (nonatomic, assign) BOOL collapseCopyright;
 
 /**
  Setting the general map appearance

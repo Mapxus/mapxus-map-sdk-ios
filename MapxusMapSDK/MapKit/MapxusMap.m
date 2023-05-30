@@ -866,6 +866,14 @@
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:SOURCE_COPYRIGHT_URL]];
 }
 
+- (MXMBorderStyle *)selectedBuildingBorderStyle {
+  if (_selectedBuildingBorderStyle == nil) {
+    _selectedBuildingBorderStyle = [MXMBorderStyle defaultSelectedBuildingBorderStyle];
+  }
+  [self.mapView.style outLineLevelBorderStyle:_selectedBuildingBorderStyle];
+  return _selectedBuildingBorderStyle;
+}
+
 - (void)dealloc
 {
   // 清除mapView对self的引用

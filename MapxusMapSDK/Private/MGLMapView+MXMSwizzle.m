@@ -95,6 +95,7 @@ static void *mapKey = &mapKey;
       for (MGLStyleLayer *layer in style.layers) {
         if ([layer.identifier hasPrefix:@"mapxus-poi"]) {
           [style insertLayer:assistantLevelLine belowLayer:layer];
+          [style outLineLevelBorderStyle:mapView.mxmMap.selectedBuildingBorderStyle];
           break;
         }
       }
