@@ -199,7 +199,7 @@
   if (!_mapxusBtn) {
     _mapxusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _mapxusBtn.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
-    [_mapxusBtn addTarget:self action:@selector(clickOnMapxusBtn) forControlEvents:UIControlEventTouchUpInside];
+//    [_mapxusBtn addTarget:self action:@selector(clickOnMapxusBtn) forControlEvents:UIControlEventTouchUpInside];
     _mapxusBtn.translatesAutoresizingMaskIntoConstraints = NO;
   }
   return _mapxusBtn;
@@ -221,7 +221,7 @@
   if (!_osmBtn) {
     _osmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _osmBtn.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
-    [_osmBtn addTarget:self action:@selector(clickOnOsmBtn) forControlEvents:UIControlEventTouchUpInside];
+//    [_osmBtn addTarget:self action:@selector(clickOnOsmBtn) forControlEvents:UIControlEventTouchUpInside];
     _osmBtn.translatesAutoresizingMaskIntoConstraints = NO;
   }
   return _osmBtn;

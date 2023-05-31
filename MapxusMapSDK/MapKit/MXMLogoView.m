@@ -27,7 +27,7 @@
 }
 
 - (void)addViews {
-  [self addArrangedSubview:self.mapxusIcon];
+//  [self addArrangedSubview:self.mapxusIcon];
   [self addArrangedSubview:self.mapxusLabel];
   [self.mapxusIcon.widthAnchor constraintEqualToConstant:26.5].active = YES;
   [self.mapxusIcon.heightAnchor constraintEqualToConstant:18.5].active = YES;
@@ -47,7 +47,7 @@
 - (UILabel *)mapxusLabel {
   if (!_mapxusLabel) {
     _mapxusLabel = [[UILabel alloc] init];
-    _mapxusLabel.text = @"Mapxus";
+    _mapxusLabel.text = @"© Mapxus";
     _mapxusLabel.font = [UIFont boldSystemFontOfSize:17];
     _mapxusLabel.textColor = [UIColor colorWithRed:31/255.0 green:31/255.0 blue:31/255.0 alpha:1];
     _mapxusLabel.userInteractionEnabled = NO;
