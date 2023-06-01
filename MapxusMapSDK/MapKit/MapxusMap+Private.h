@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL regionBecomeIdle; //
 @property (nonatomic, assign) BOOL flying; // 是否在飞行切换 camera ，YES 时忽略自动过滤建筑
 
+@property (nonatomic, copy, readwrite, nullable) MXMFloor *selectedFloor;
+
 @property (nonatomic, copy, readwrite, nullable) NSString *floor;
 @property (nonatomic, copy, readwrite, nullable) MXMOrdinal *ordinal;
 @property (nonatomic, copy, readwrite, nullable) MXMGeoBuilding *building;

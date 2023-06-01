@@ -6,11 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MXMCommonObj.h"
+#import <MapxusMapSDK/MXMCommonObj.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MXMGeoVenue : NSObject
+@interface MXMGeoVenue : NSObject <NSCopying>
 
 @property (nonatomic, strong) NSString *identifier;
 /// Building type, indicating the classification of the building, e.g. cathedral, car_park, hospital, office, retail, etc.

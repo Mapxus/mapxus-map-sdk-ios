@@ -117,7 +117,7 @@
 {
   _indoorControllerAlwaysHidden = indoorControllerAlwaysHidden;
   BOOL show = self.building.identifier ? YES : NO;
-  [self decideMapViewShowFloorBar:show onBuilding:self.building.identifier floor:self.floor];
+  [self decideMapViewShowFloorBar:show inBuilding:self.building floor:self.selectedFloor];
 }
 
 - (void)setSelectorPosition:(MXMSelectorPosition)selectorPosition
@@ -298,50 +298,65 @@
   }
   // 查找点击楼层
   /////////////////////////////////////////////////////
-  if (self.delegate &&
-      ([self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)] ||
-       [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)])) {
-    // 非点击POI
-    NSArray<MXMLevelModel *> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
-    MXMLevelModel *feature = theFeatures.firstObject;
-    
-    NSString *floor = feature.name;
-    NSString *floorId = feature.levelId;
-    NSNumber *floorOrdinal = feature.ordinal;
-    NSString *buildingId = feature.refBuildingId;
-    
-    MXMGeoBuilding *pointBuilding = [self.buildings[buildingId] copy];
-    
-    // 点击了POI
-    MXMFloor *floorModel = [[MXMFloor alloc] init];
-    floorModel.floorId = floorId;
-    floorModel.code = floor;
-    if (floorOrdinal) {
-      MXMOrdinal *ordinal = [[MXMOrdinal alloc] init];
-      ordinal.level = [floorOrdinal integerValue];
-      floorModel.ordinal = ordinal;
-    }
-    
-    NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point];
-    NSArray *poiList = [poiDic allValues];
-    MXMGeoPOI *poi = [poiList.firstObject copy];
-    poi.floor = floorModel;
-    if (poi) {
-      if (self.delegate &&
-          [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)]) {
-        [self.delegate mapView:self didSingleTappedOnPOI:poi atCoordinate:coor onFloor:floor inBuilding:pointBuilding];
+  if (
+      self.delegate &&
+      (
+       [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)] ||
+       [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)] ||
+       [self.delegate respondsToSelector:@selector(map:didSingleTapOnPOI:atCoordinate:atSite:)] ||
+       [self.delegate respondsToSelector:@selector(map:didSingleTapOnBlank:atSite:)]
+       )
+      ) {
+        // 非点击POI
+        NSArray<MXMLevelModel *> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+        MXMLevelModel *feature = theFeatures.firstObject;
+        
+        NSString *floor = feature.name;
+        NSString *floorId = feature.levelId;
+        NSNumber *floorOrdinal = feature.ordinal;
+        NSString *buildingId = feature.refBuildingId;
+        
+        MXMGeoBuilding *pointBuilding = [self.buildings[buildingId] copy];
+        MXMGeoVenue *pointVenue = [self.venues[pointBuilding.identifier] copy];
+        
+        // 点击了POI
+        MXMFloor *floorModel = [[MXMFloor alloc] init];
+        floorModel.floorId = floorId;
+        floorModel.code = floor;
+        if (floorOrdinal) {
+          MXMOrdinal *ordinal = [[MXMOrdinal alloc] init];
+          ordinal.level = [floorOrdinal integerValue];
+          floorModel.ordinal = ordinal;
+        }
+        
+        MXMSite *site = [[MXMSite alloc] init];
+        site.floor = floorModel;
+        site.building = pointBuilding;
+        site.venue = pointVenue;
+        
+        NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point];
+        NSArray *poiList = [poiDic allValues];
+        MXMGeoPOI *poi = [poiList.firstObject copy];
+        poi.floor = floorModel;
+        if (poi) {
+          if ([self.delegate respondsToSelector:@selector(map:didSingleTapOnPOI:atCoordinate:atSite:)]) {
+            [self.delegate map:self didSingleTapOnPOI:poi atCoordinate:coor atSite:site];
+          } else if ([self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)]) {
+            [self.delegate mapView:self didSingleTappedOnPOI:poi atCoordinate:coor onFloor:floor inBuilding:pointBuilding];
+          }
+        } else {
+          if ([self.delegate respondsToSelector:@selector(map:didSingleTapOnBlank:atSite:)]) {
+            [self.delegate map:self didSingleTapOnBlank:coor atSite:site];
+          } else if ([self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)]) {
+            [self.delegate mapView:self didSingleTappedOnMapBlank:coor onFloor:floor inBuilding:pointBuilding];
+          }
+        }
+        
+      } else if (self.delegate && [self.delegate respondsToSelector:@selector(map:didSingleTapAtCoordinate:)]) {
+        [self.delegate map:self didSingleTapAtCoordinate:coor];
+      } else if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:)]) {
+        [self.delegate mapView:self didSingleTappedAtCoordinate:coor];
       }
-    } else {
-      if (self.delegate &&
-          [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)]) {
-        [self.delegate mapView:self didSingleTappedOnMapBlank:coor onFloor:floor inBuilding:pointBuilding];
-      }
-    }
-    
-  } else if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:)]) {
-    [self.delegate mapView:self didSingleTappedAtCoordinate:coor];
-    
-  }
 }
 
 // 长按手势响应
@@ -353,21 +368,57 @@
     CLLocationCoordinate2D coor = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     // 查找长按楼层
     /////////////////////////////////////////////////////
-    if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)]) {
-      NSArray<MXMLevelModel *> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
-      MXMLevelModel *feature = theFeatures.firstObject;
-      NSString *floor = feature.name;
-      NSString *buildingId = feature.refBuildingId;
-      MXMGeoBuilding *pointBuilding = self.buildings[buildingId];
-      [self.delegate mapView:self didLongPressedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
-    } else if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:)]) {
-      [self.delegate mapView:self didLongPressedAtCoordinate:coor];
-    }
+    if (
+        self.delegate &&
+        (
+         [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)] ||
+         [self.delegate respondsToSelector:@selector(map:didLongPressAtCoordinate:atSite:)]
+         )
+        ) {
+          NSArray<MXMLevelModel *> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+          MXMLevelModel *feature = theFeatures.firstObject;
+          
+          NSString *floor = feature.name;
+          NSString *floorId = feature.levelId;
+          NSNumber *floorOrdinal = feature.ordinal;
+          NSString *buildingId = feature.refBuildingId;
+          
+          MXMGeoBuilding *pointBuilding = [self.buildings[buildingId] copy];
+          MXMGeoVenue *pointVenue = [self.venues[pointBuilding.identifier] copy];
+          
+          // 点击了POI
+          MXMFloor *floorModel = [[MXMFloor alloc] init];
+          floorModel.floorId = floorId;
+          floorModel.code = floor;
+          if (floorOrdinal) {
+            MXMOrdinal *ordinal = [[MXMOrdinal alloc] init];
+            ordinal.level = [floorOrdinal integerValue];
+            floorModel.ordinal = ordinal;
+          }
+          
+          MXMSite *site = [[MXMSite alloc] init];
+          site.floor = floorModel;
+          site.building = pointBuilding;
+          site.venue = pointVenue;
+          
+          if ([self.delegate respondsToSelector:@selector(map:didLongPressAtCoordinate:atSite:)]) {
+            [self.delegate map:self didLongPressAtCoordinate:coor atSite:site];
+          } else {
+            [self.delegate mapView:self didLongPressedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
+          }
+        } else if (self.delegate) {
+          if ([self.delegate respondsToSelector:@selector(map:didLongPressAtCoordinate:)]) {
+            [self.delegate map:self didLongPressAtCoordinate:coor];
+          } else if ([self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:)]) {
+            [self.delegate mapView:self didLongPressedAtCoordinate:coor];
+          }
+        }
     /////////////////////////////////////////////////////
   }
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+    shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
   return YES;
 }
@@ -383,18 +434,35 @@
                    withGeoBuilding:self.building];
 }
 
-- (void)decideMapViewShowFloorBar:(BOOL)show onBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor
+- (void)decideMapViewShowFloorBar:(BOOL)show
+                       inBuilding:(nullable MXMGeoBuilding *)building
+                            floor:(nullable MXMFloor *)floor
 {
   // 设置建筑选择按钮和楼层选择按钮是否显示
-  self.isIndoor = show && (self.mapView.zoomLevel>15.7) && self.buildings[buildingId];
+  self.isIndoor = show && (self.mapView.zoomLevel>15.7) && self.buildings[building.identifier];
   self.buildingSelectButton.hidden = self.indoorControllerAlwaysHidden || !((self.buildings.count>=2)&&(self.mapView.zoomLevel>15.7));
   self.floorBar.hidden = self.indoorControllerAlwaysHidden || !self.isIndoor;
-  if (self.delegate && [self.delegate respondsToSelector: @selector(mapView:indoorMapWithIn:building:floor:)]) {
-    [self.delegate mapView:self indoorMapWithIn:self.isIndoor building:buildingId floor:floor];
+  if (self.delegate) {
+    
+    if ([self.delegate respondsToSelector:@selector(map:didChangeIndoorSiteAccess:selectedFloor:selectedBuilding:selectedVenue:)]) {
+      MXMGeoVenue *venue;
+      if (building.venueId) {
+        venue = [self.venues[building.venueId] copy];
+      }
+      [self.delegate map:self
+        didChangeIndoorSiteAccess:self.isIndoor
+        selectedFloor:floor
+        selectedBuilding:building
+        selectedVenue:venue];
+    } else {
+      [self.delegate mapView:self indoorMapWithIn:self.isIndoor building:building.identifier floor:floor.code];
+    }
   }
 }
 
-- (void)decideMapViewShouldChangeBuilding:(nullable MXMGeoBuilding *)building floor:(nullable NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode
+- (void)decideMapViewShouldChangeBuilding:(nullable MXMGeoBuilding *)building
+                                    floor:(nullable MXMFloor *)floor
+                 shouldChangeTrackingMode:(BOOL)changeTrackingMode
 {
   [self.mapView.style updateBuildingFillOpacityWithIndoorState:self.isIndoor refVenue:building.venueId];
   if (changeTrackingMode && (self.mapView.userTrackingMode != MGLUserTrackingModeNone)) {
@@ -402,26 +470,23 @@
     [self.mapView setUserTrackingMode:MGLUserTrackingModeNone];
   }
   // 重新过滤标注点
-  [self.annHolder filterMXMAnnotationsWithBuilding:building.identifier floor:floor indoorState:self.isIndoor];
+  [self.annHolder filterMXMAnnotationsWithBuilding:building.identifier floor:floor.code indoorState:self.isIndoor];
 }
 
-- (void)decideMapViewChangeBuilding:(nullable MXMGeoBuilding *)building floorOrdinal:(nullable MXMOrdinal *)floorOrdinal trackingMode:(BOOL)changeTrackingMode shouldCallBack:(BOOL)shouldCallBack
+- (void)decideMapViewChangeBuilding:(nullable MXMGeoBuilding *)building
+                              floor:(nullable MXMFloor *)floor
+                       trackingMode:(BOOL)changeTrackingMode
+                     shouldCallBack:(BOOL)shouldCallBack
 {
-  // 转换成building上的code
-  MXMFloor *floor;
-  if (floorOrdinal) {
-    NSArray *floors = building.floors;
-    for (MXMFloor *iFloor in floors) {
-      if (iFloor.ordinal && iFloor.ordinal.level == floorOrdinal.level) {
-        floor = iFloor;
-        break;
-      }
-    }
+  MXMGeoVenue *venue;
+  if (building.venueId) {
+    venue = [self.venues[building.venueId] copy];
   }
   
   if (shouldCallBack) {
     self.building = building;
     self.floor = floor.code;
+    self.selectedFloor = floor;
     self.ordinal = floor.ordinal;
     // 绘制选中边框
     [self.mapView.style outLineLevel:floor.floorId];
@@ -440,7 +505,7 @@
     if ([buildingItem.venueId isEqualToString:building.venueId]) {
       // 已选中venue的建筑
       for (MXMFloor *floorItem in buildingItem.floors) {
-        if (floorItem.ordinal && floorItem.ordinal.level == floorOrdinal.level) {
+        if (floorItem.ordinal && floorItem.ordinal.level == floor.ordinal.level) {
           [levelIds addObject:floorItem.floorId];
 //          [sameVenueLevelIds addObject:floorItem.floorId];
           break;
@@ -469,10 +534,14 @@
   self.decider.isMapReload = NO;
   // 回调
   if (shouldCallBack) {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didChangeFloor:atBuilding:)]) {
-      [self.delegate mapView:self didChangeFloor:floor.code atBuilding:building];
+    if (self.delegate) {
+      if ([self.delegate respondsToSelector:@selector(map:didChangeSelectedFloor:inSelectedBuilding:atSelectedVenue:)]) {
+        [self.delegate map:self didChangeSelectedFloor:floor inSelectedBuilding:building atSelectedVenue:venue];
+      } else {
+        [self.delegate mapView:self didChangeFloor:floor.code atBuilding:building];
+      }
+      [self updageLocationView];
     }
-    [self updageLocationView];
   }
 }
 

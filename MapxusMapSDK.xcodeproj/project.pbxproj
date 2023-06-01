@@ -53,7 +53,7 @@
 		89865F9529E9262700E984A1 /* MXMLevelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F4829E9262700E984A1 /* MXMLevelModel.m */; };
 		89865F9629E9262700E984A1 /* MXMIndoorMapInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F4929E9262700E984A1 /* MXMIndoorMapInfo.h */; };
 		89865F9729E9262700E984A1 /* MXMDecider.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F4A29E9262700E984A1 /* MXMDecider.m */; };
-		89865F9829E9262700E984A1 /* MXMGeoVenue.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F4B29E9262700E984A1 /* MXMGeoVenue.h */; };
+		89865F9829E9262700E984A1 /* MXMGeoVenue.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F4B29E9262700E984A1 /* MXMGeoVenue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89865F9929E9262700E984A1 /* MXMCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F4C29E9262700E984A1 /* MXMCacheManager.m */; };
 		89865F9A29E9262700E984A1 /* MXMDataQuerier.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F4D29E9262700E984A1 /* MXMDataQuerier.h */; };
 		89865F9B29E9262700E984A1 /* MGLStyleLayer+MXMFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F4E29E9262700E984A1 /* MGLStyleLayer+MXMFilter.m */; };
@@ -107,6 +107,8 @@
 		89865FCB29E9262700E984A1 /* MXMPointAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F8429E9262700E984A1 /* MXMPointAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89865FCC29E9262700E984A1 /* MapxusMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F8529E9262700E984A1 /* MapxusMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89865FF229E9345B00E984A1 /* Mapbox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89865FF129E9345B00E984A1 /* Mapbox.xcframework */; };
+		89B2EB7C2A284E1200A369E4 /* MXMSite.h in Headers */ = {isa = PBXBuildFile; fileRef = 89B2EB7A2A284E1200A369E4 /* MXMSite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		89B2EB7D2A284E1200A369E4 /* MXMSite.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B2EB7B2A284E1200A369E4 /* MXMSite.m */; };
 		8B47EDA58BF706ACF7E0B2A7 /* Pods_MapxusMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F3A1DB5EB6BB5F6C6A7566 /* Pods_MapxusMapSDKTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -228,6 +230,8 @@
 		89865FDB29E9273F00E984A1 /* AutoBuild.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = AutoBuild.sh; sourceTree = "<group>"; };
 		89865FDC29E9273F00E984A1 /* IOS-Universal-Framework_aggregate.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "IOS-Universal-Framework_aggregate.sh"; sourceTree = "<group>"; };
 		89865FF129E9345B00E984A1 /* Mapbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Mapbox.xcframework; path = Pods/MapxusRenderSDK/Mapbox.xcframework; sourceTree = "<group>"; };
+		89B2EB7A2A284E1200A369E4 /* MXMSite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSite.h; sourceTree = "<group>"; };
+		89B2EB7B2A284E1200A369E4 /* MXMSite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSite.m; sourceTree = "<group>"; };
 		94F3B6382301B7E3738DF8C9 /* Pods-MapxusMapSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDK.debug.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDK/Pods-MapxusMapSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		C11F268EFF8379E21C30B08A /* Pods-MapxusMapSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.debug.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E3F5BA4C07AEC8BE19BCEE18 /* Pods_MapxusMapSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapxusMapSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -402,8 +406,6 @@
 				89865F4F29E9262700E984A1 /* MXMAnnotationsHolder.m */,
 				89865F5029E9262700E984A1 /* MGLStyle+MXMFilter.h */,
 				89865F5829E9262700E984A1 /* MGLStyle+MXMFilter.m */,
-				89865F4B29E9262700E984A1 /* MXMGeoVenue.h */,
-				89865F5129E9262700E984A1 /* MXMGeoVenue.m */,
 				89865F5229E9262700E984A1 /* MXMDecider.h */,
 				89865F4A29E9262700E984A1 /* MXMDecider.m */,
 				89865F5429E9262700E984A1 /* MXMLevelModel.h */,
@@ -476,6 +478,10 @@
 			isa = PBXGroup;
 			children = (
 				89865F7C29E9262700E984A1 /* MXMDefine.h */,
+				89B2EB7A2A284E1200A369E4 /* MXMSite.h */,
+				89B2EB7B2A284E1200A369E4 /* MXMSite.m */,
+				89865F4B29E9262700E984A1 /* MXMGeoVenue.h */,
+				89865F5129E9262700E984A1 /* MXMGeoVenue.m */,
 				89865F7829E9262700E984A1 /* MXMGeoBuilding.h */,
 				89865F8229E9262700E984A1 /* MXMGeoBuilding.m */,
 				89865F7929E9262700E984A1 /* MXMGeoPOI.h */,
@@ -535,6 +541,8 @@
 				89865F9229E9262700E984A1 /* MXMCommonObj.h in Headers */,
 				89865F8F29E9262700E984A1 /* MXMSearchAPI.h in Headers */,
 				89865FAE29E9262700E984A1 /* MXMFloorSelectorBar.h in Headers */,
+				89B2EB7C2A284E1200A369E4 /* MXMSite.h in Headers */,
+				89865F9829E9262700E984A1 /* MXMGeoVenue.h in Headers */,
 				89865F8A29E9262700E984A1 /* MXMMapServices+Private.h in Headers */,
 				89865FB529E9262700E984A1 /* MXMSearchBuildingOperation2.h in Headers */,
 				89865FC729E9262700E984A1 /* MXMPointAnnotation+Private.h in Headers */,
@@ -543,7 +551,6 @@
 				89865FAA29E9262700E984A1 /* MXMPickerContainerView.h in Headers */,
 				89865F9A29E9262700E984A1 /* MXMDataQuerier.h in Headers */,
 				89865FB029E9262700E984A1 /* KxMenu.h in Headers */,
-				89865F9829E9262700E984A1 /* MXMGeoVenue.h in Headers */,
 				89865F8929E9262700E984A1 /* NSString+Compare.h in Headers */,
 				89865FA929E9262700E984A1 /* MXMPickerView.h in Headers */,
 				89865F9F29E9262700E984A1 /* MXMDecider.h in Headers */,
@@ -785,6 +792,7 @@
 				896BD7F829F2610300ED8D9F /* MXMAlertController.m in Sources */,
 				89865F9029E9262700E984A1 /* MXMSearchObj.m in Sources */,
 				896BD8612A0C866C00ED8D9F /* MXMLogoButton.m in Sources */,
+				89B2EB7D2A284E1200A369E4 /* MXMSite.m in Sources */,
 				89865FA829E9262700E984A1 /* MXMPickerTextRenderView.m in Sources */,
 				89865FAD29E9262700E984A1 /* MXMPickerView.m in Sources */,
 				89865FA429E9262700E984A1 /* MXMDataQuerier.m in Sources */,
@@ -884,7 +892,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 23.05.23.15.51;
+				CURRENT_PROJECT_VERSION = 23.06.02.07.11;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -946,7 +954,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 23.05.23.15.51;
+				CURRENT_PROJECT_VERSION = 23.06.02.07.11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -973,11 +981,11 @@
 			baseConfigurationReference = 94F3B6382301B7E3738DF8C9 /* Pods-MapxusMapSDK.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23.05.23.15.51;
+				CURRENT_PROJECT_VERSION = 23.06.02.07.11;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 23.05.23.15.51;
+				DYLIB_CURRENT_VERSION = 23.06.02.07.11;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1007,11 +1015,11 @@
 			baseConfigurationReference = E9BF3B270BB2C9A419AC875C /* Pods-MapxusMapSDK.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23.05.23.15.51;
+				CURRENT_PROJECT_VERSION = 23.06.02.07.11;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 23.05.23.15.51;
+				DYLIB_CURRENT_VERSION = 23.06.02.07.11;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1041,7 +1049,7 @@
 			baseConfigurationReference = C11F268EFF8379E21C30B08A /* Pods-MapxusMapSDKTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23.05.23.15.51;
+				CURRENT_PROJECT_VERSION = 23.06.02.07.11;
 				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -1057,7 +1065,7 @@
 			baseConfigurationReference = 1D22435475B5222BB8270E9F /* Pods-MapxusMapSDKTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23.05.23.15.51;
+				CURRENT_PROJECT_VERSION = 23.06.02.07.11;
 				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;

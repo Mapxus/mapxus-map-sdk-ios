@@ -187,7 +187,8 @@
       }
     }
     // 如果没有设置，通过历史找或者最接近地面的层
-    theEndFloorOrdinal = floorOrdinal ? : [self electDefaultFloorWithHistory:self.venueSelectFloorDic inBuilding:geoBuilding];
+    theEndFloorOrdinal = floorOrdinal ? : [self electDefaultFloorWithHistory:self.venueSelectFloorDic
+                                                                  inBuilding:geoBuilding];
     // 如果找不到有效楼层，建筑也设置为空
     if (theEndFloorOrdinal == nil) {
       geoBuilding = nil;
@@ -203,25 +204,25 @@
 shouldChangeTrackingMode:(BOOL)changeTrackingMode {
   
   // 转换成building上的code
-  NSString *floorName;
+  MXMFloor *theFloor;
   if (floorOrdinal) {
     NSArray *floors = building.floors;
     for (MXMFloor *floor in floors) {
       if (floor.ordinal.level == floorOrdinal.level) {
-        floorName = floor.code;
+        theFloor = floor;
         break;
       }
     }
   }
   
-  if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewShowFloorBar:onBuilding:floor:)]) {
+  if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewShowFloorBar:inBuilding:floor:)]) {
     BOOL show = building ? YES : NO;
-    [self.delegate decideMapViewShowFloorBar:show onBuilding:building.identifier floor:floorName];
+    [self.delegate decideMapViewShowFloorBar:show inBuilding:building floor:theFloor];
   }
   
   if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewShouldChangeBuilding:floor:shouldChangeTrackingMode:)]) {
     [self.delegate decideMapViewShouldChangeBuilding:building
-                                               floor:floorName
+                                               floor:theFloor
                             shouldChangeTrackingMode:changeTrackingMode];
   }
   
@@ -247,9 +248,9 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode {
   }
   
   
-  if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewChangeBuilding:floorOrdinal:trackingMode:shouldCallBack:)]) {
+  if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewChangeBuilding:floor:trackingMode:shouldCallBack:)]) {
     [self.delegate decideMapViewChangeBuilding:building
-                                  floorOrdinal:floorOrdinal
+                                         floor:theFloor
                                   trackingMode:changeTrackingMode
                                 shouldCallBack:hasChangedBuildingOrOrdinal];
   }
