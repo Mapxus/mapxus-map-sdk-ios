@@ -9,6 +9,30 @@
 #import "MXMSearchObj.h"
 #import <YYModel/YYModel.h>
 
+@implementation MXMVenueSearchRequest
+
+@end
+
+@implementation MXMVenueSearchResponse
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    // value should be Class or Class name.
+    return @{@"venues" : [MXMVenue class]};
+}
+
+- (NSArray<MXMVenue *> *)venues {
+  if (!_venues) {
+    _venues = @[];
+  }
+  return _venues;
+}
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
+@end
 
 @implementation MXMBuildingSearchRequest
 

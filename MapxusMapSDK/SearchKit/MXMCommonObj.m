@@ -201,6 +201,7 @@
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{
              @"hasVisualMap" : @[@"hasVisualMap", @"visualMap"],
+             @"hasSignalMap" : @[@"hasSignalMap", @"signalMap"],
              };
 }
 
@@ -251,6 +252,7 @@
              @"address_ko" : @[@"address_ko", @"address.ko"],
              @"buildingId" : @[@"buildingId", @"id"],
              @"hasVisualMap" : @[@"hasVisualMap", @"visualMap"],
+             @"hasSignalMap" : @[@"hasSignalMap", @"signalMap"],
              };
 }
 
@@ -286,6 +288,54 @@
 
 @end
 
+
+
+@implementation MXMVenue
+
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{
+      @"venueId" : @[@"venueId", @"id"],
+      @"name_default" : @[@"name_default", @"name.default"],
+      @"name_en" : @[@"name_en", @"name.en"],
+      @"name_cn" : @[@"name_cn", @"name.zh-Hans"],
+      @"name_zh" : @[@"name_zh", @"name.zh-Hant"],
+      @"name_ja" : @[@"name_ja", @"name.ja"],
+      @"name_ko" : @[@"name_ko", @"name.ko"],
+      @"address_default" : @[@"address_default", @"address.default"],
+      @"address_en" : @[@"address_en", @"address.en"],
+      @"address_cn" : @[@"address_cn", @"address.zh-Hans"],
+      @"address_zh" : @[@"address_zh", @"address.zh-Hant"],
+      @"address_ja" : @[@"address_ja", @"address.ja"],
+      @"address_ko" : @[@"address_ko", @"address.ko"],
+      @"hasVisualMap" : @[@"hasVisualMap", @"visualMap"],
+      @"hasSignalMap" : @[@"hasSignalMap", @"signalMap"],
+    };
+}
+
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"buildings" : [MXMBuilding class]};
+}
+
+- (NSString *)description
+{
+    return [self yy_modelDescription];
+}
+
+- (NSArray<MXMBuilding *> *)buildings {
+  if (!_buildings) {
+    _buildings = @[];
+  }
+  return _buildings;
+}
+
+- (NSString *)venueId {
+  if (!_venueId) {
+    _venueId = @"";
+  }
+  return _venueId;
+}
+
+@end
 
 
 

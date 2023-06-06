@@ -20,6 +20,48 @@ NS_ASSUME_NONNULL_BEGIN
  3. Specify a keyword search in a circular area with the combination of keywords(optional), center, distance, offset, page.
  4. Specify building ID search with the parameter buildingIds.
  */
+@interface MXMVenueSearchRequest : NSObject
+/// Keyword. Currently only single keyword queries are supported
+@property (nonatomic, strong, nullable) NSString *keywords;
+/// Square search area
+@property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
+/// The centre of circular area search
+@property (nonatomic, strong, nullable) MXMGeoPoint *center;
+/// Radius for searching circular areas. Unit is km, must be used with center
+@property (nonatomic, assign) double distance;
+/// The number displayed per page in the results. The default value is 10, and the maximum number cannot exceed 100.
+@property (nonatomic, assign) NSUInteger offset;
+/// Page number
+@property (nonatomic, assign) NSUInteger page;
+/// List of building ids to query, the maximum ID number of buildings can not exceed 10. Mutually exclusive with other parameters
+@property (nonatomic, strong, nullable) NSArray<NSString *> *venueIds;
+@end
+
+
+
+
+/**
+ Building search results
+ */
+@interface MXMVenueSearchResponse : NSObject
+/// The total number of results
+@property (nonatomic, assign) NSInteger total;
+/// `MXMBuilding` list
+@property (nonatomic, strong) NSArray<MXMVenue *> *venues;
+@end
+
+
+
+
+/**
+ Building search parameters
+
+ There are four search modes.
+ 1. global search with the parameter combinations keywords(optional), offset, page.
+ 2. Specify a keyword search within a specified square area, with the parameters keywords(optional), bbox, offset, page.
+ 3. Specify a keyword search in a circular area with the combination of keywords(optional), center, distance, offset, page.
+ 4. Specify building ID search with the parameter buildingIds.
+ */
 @interface MXMBuildingSearchRequest : NSObject
 /// Keyword. Currently only single keyword queries are supported
 @property (nonatomic, strong, nullable) NSString *keywords;

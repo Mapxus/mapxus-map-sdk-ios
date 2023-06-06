@@ -15,6 +15,45 @@
 
 @implementation MXMSearchAPI
 
+- (void)MXMVenueSearch:(MXMVenueSearchRequest *)request
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v3/venues"];
+
+    NSMutableDictionary *dic = nil;
+    if (request.venueIds.count) {
+        NSString *ids = [request.venueIds componentsJoinedByString:@","];
+        url = [url stringByAppendingString:[NSString stringWithFormat:@"/%@", ids]];
+    } else {
+        dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
+        if ([dic objectForKey:@"bbox"]) {
+            [dic setObject:[NSString stringWithFormat:@"%f,%f,%f,%f", request.bbox.min_longitude, request.bbox.min_latitude, request.bbox.max_longitude, request.bbox.max_latitude] forKey:@"bbox"];
+        }
+        if ([dic objectForKey:@"center"]) {
+            [dic setObject:[NSString stringWithFormat:@"%f,%f", request.center.longitude, request.center.latitude] forKey:@"center"];
+        }
+        // keywords为空时，不传该参数，返回所有结果
+        if ([NSString isEmpty:[dic objectForKey:@"keywords"]]) {
+            [dic removeObjectForKey:@"keywords"];
+        }
+    }
+
+    if (dic && request.offset == 0) {
+      [dic setObject:@(10) forKey:@"offset"];
+    }
+    
+    [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(onBuildingSearchDone:response:)]) {
+            MXMVenueSearchResponse *response = [MXMVenueSearchResponse yy_modelWithJSON:content];
+            [self.delegate onVenueSearchDone:request response:response];
+        }
+    } failure:^(NSError *error) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
+            [self.delegate MXMSearchRequest:request didFailWithError:error];
+        }
+    }];
+}
+
+
 // 查找建筑
 - (void)MXMBuildingSearch:(MXMBuildingSearchRequest *)request
 {
