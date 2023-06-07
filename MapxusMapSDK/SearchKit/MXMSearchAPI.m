@@ -42,7 +42,7 @@
     }
     
     [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(onBuildingSearchDone:response:)]) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(onVenueSearchDone:response:)]) {
             MXMVenueSearchResponse *response = [MXMVenueSearchResponse yy_modelWithJSON:content];
             [self.delegate onVenueSearchDone:request response:response];
         }
