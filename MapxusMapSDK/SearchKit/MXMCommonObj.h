@@ -156,7 +156,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MXMFloor *floor;
 /// Whether the floor have visual map data
 @property (nonatomic, assign) BOOL hasVisualMap;
-
+/// Whether the floor have signal map data
 @property (nonatomic, assign) BOOL hasSignalMap;
 @end
 
@@ -166,7 +166,7 @@ NS_ASSUME_NONNULL_BEGIN
  Building information
  */
 @interface MXMBuilding : NSObject
-/// building id
+/// A string that uniquely identifies the building in the mapxus system.
 @property (nonatomic, strong) NSString *buildingId;
 /// The id of venue where the building is located
 @property (nonatomic, strong) NSString *venueId;
@@ -206,7 +206,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMAddress *address_ja;
 /// Building address in Korean
 @property (nonatomic, strong, nullable) MXMAddress *address_ko;
-/// Building type, indicating the classification of the building, e.g. cathedral, car_park, hospital, office, retail, etc.
+/// Building type, indicating the classification of the building, e.g. residential, commercial, retail, industrial, transportation, etc.
 @property (nonatomic, strong, nullable) NSString *type;
 /// External rectangular area where the building is located
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
@@ -224,57 +224,57 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *city;
 /// Whether the building have visual map data
 @property (nonatomic, assign) BOOL hasVisualMap;
-
+/// Whether the building have signal map data
 @property (nonatomic, assign) BOOL hasSignalMap;
 @end
 
 
 
 /**
- Building information
+ Venue information
  */
 @interface MXMVenue : NSObject
-/// The id of venue where the building is located
+/// A string that uniquely identifies the venue in the mapxus system.
 @property (nonatomic, strong) NSString *venueId;
-/// Building name in default language
+/// Venue name in default language
 @property (nonatomic, strong, nullable) NSString *name_default;
-/// Building name in English
+/// Venue name in English
 @property (nonatomic, strong, nullable) NSString *name_en;
-/// Building name in Simplified Chinese
+/// Venue name in Simplified Chinese
 @property (nonatomic, strong, nullable) NSString *name_cn;
-/// Building name in Traditional Chinese
+/// Venue name in Traditional Chinese
 @property (nonatomic, strong, nullable) NSString *name_zh;
-/// Building name in Japanese
+/// Venue name in Japanese
 @property (nonatomic, strong, nullable) NSString *name_ja;
-/// Building name in Korean
+/// Venue name in Korean
 @property (nonatomic, strong, nullable) NSString *name_ko;
-/// Building address in default language
+/// Venue address in default language
 @property (nonatomic, strong, nullable) MXMAddress *address_default;
-/// Building address in English
+/// Venue address in English
 @property (nonatomic, strong, nullable) MXMAddress *address_en;
-/// Building address in Simplified Chinese
+/// Venue address in Simplified Chinese
 @property (nonatomic, strong, nullable) MXMAddress *address_cn;
-/// Building address in Traditional Chinese
+/// Venue address in Traditional Chinese
 @property (nonatomic, strong, nullable) MXMAddress *address_zh;
-/// Building address in Japanese
+/// Venue address in Japanese
 @property (nonatomic, strong, nullable) MXMAddress *address_ja;
-/// Building address in Korean
+/// Venue address in Korean
 @property (nonatomic, strong, nullable) MXMAddress *address_ko;
-/// Building type, indicating the classification of the building, e.g. cathedral, car_park, hospital, office, retail, etc.
+/// Venue type, indicating the classification of the venue, e.g. residential, commercial, retail, industrial, transportation, etc.
 @property (nonatomic, strong, nullable) NSString *type;
-/// External rectangular area where the building is located
+/// External rectangular area where the venue is located
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
-/// The Longitude and Latitude of the building name label
+/// The Longitude and Latitude of the venue name label
 @property (nonatomic, strong, nullable) MXMGeoPoint *labelCenter;
-/// All floors information of the building
+/// All buildings information of the venue
 @property (nonatomic, strong) NSArray<MXMBuilding *> *buildings;
-/// The contry where the building is located
+/// The contry where the venue is located
 @property (nonatomic, strong, nullable) NSString *country;
-/// The region where the building is located
+/// The region where the venue is located
 @property (nonatomic, strong, nullable) NSString *region;
-/// Whether the building have visual map data
+/// Whether the venue have visual map data
 @property (nonatomic, assign) BOOL hasVisualMap;
-
+/// Whether the venue have signal map data
 @property (nonatomic, assign) BOOL hasSignalMap;
 @end
 
@@ -284,7 +284,7 @@ NS_ASSUME_NONNULL_BEGIN
  POI information
  */
 @interface MXMPOI : NSObject
-/// POI id
+/// A string that uniquely identifies the POI in the mapxus system.
 @property (nonatomic, strong) NSString *poiId;
 /// The id of building where the POI is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
