@@ -316,6 +316,28 @@
     return @{@"buildings" : [MXMBuilding class]};
 }
 
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+  for (MXMBuilding *building in self.buildings) {
+    building.venueId = self.venueId;
+    building.type = self.type;
+    building.venueName_default = self.name_default;
+    building.venueName_cn = self.name_cn;
+    building.venueName_zh = self.name_zh;
+    building.venueName_en = self.name_en;
+    building.venueName_ja = self.name_ja;
+    building.venueName_ko = self.name_ko;
+    building.address_default = self.address_default;
+    building.address_cn = self.address_cn;
+    building.address_zh = self.address_zh;
+    building.address_en = self.address_en;
+    building.address_ja = self.address_ja;
+    building.address_ko = self.address_ko;
+    building.country = self.country;
+    building.region = self.region;
+  }
+  return YES;
+}
+
 - (NSString *)description
 {
     return [self yy_modelDescription];

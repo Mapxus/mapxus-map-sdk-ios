@@ -12,13 +12,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- Building search parameters
+ Venue search parameters
 
  There are four search modes.
  1. global search with the parameter combinations keywords(optional), offset, page.
  2. Specify a keyword search within a specified square area, with the parameters keywords(optional), bbox, offset, page.
  3. Specify a keyword search in a circular area with the combination of keywords(optional), center, distance, offset, page.
- 4. Specify building ID search with the parameter buildingIds.
+ 4. Specify building ID search with the parameter venueIds.
  */
 @interface MXMVenueSearchRequest : NSObject
 /// Keyword. Currently only single keyword queries are supported
@@ -31,9 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) double distance;
 /// The number displayed per page in the results. The default value is 10, and the maximum number cannot exceed 100.
 @property (nonatomic, assign) NSUInteger offset;
-/// Page number
+/// Page number, start from 1
 @property (nonatomic, assign) NSUInteger page;
-/// List of building ids to query, the maximum ID number of buildings can not exceed 10. Mutually exclusive with other parameters
+/// List of venue ids to query, the maximum ID number of venues can not exceed 10. Mutually exclusive with other parameters
 @property (nonatomic, strong, nullable) NSArray<NSString *> *venueIds;
 @end
 
@@ -41,12 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- Building search results
+ Venue search results
  */
 @interface MXMVenueSearchResponse : NSObject
 /// The total number of results
 @property (nonatomic, assign) NSInteger total;
-/// `MXMBuilding` list
+/// `MXMVenue` list
 @property (nonatomic, strong) NSArray<MXMVenue *> *venues;
 @end
 
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) double distance;
 /// The number displayed per page in the results. The default value is 10, and the maximum number cannot exceed 100.
 @property (nonatomic, assign) NSUInteger offset;
-/// Page number
+/// Page number, start from 1
 @property (nonatomic, assign) NSUInteger page;
 /// List of building ids to query, the maximum ID number of buildings can not exceed 10. Mutually exclusive with other parameters
 @property (nonatomic, strong, nullable) NSArray<NSString *> *buildingIds;
@@ -146,7 +146,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger meterDistance;
 /// The number displayed per page in the results. The default value is 10, and the maximum number cannot exceed 100.
 @property (nonatomic, assign) NSUInteger offset;
-/// Page number
+/// Page number, start from 1
 @property (nonatomic, assign) NSUInteger page;
 /// Category to be filtered
 @property (nonatomic, strong, nullable) NSString *category;

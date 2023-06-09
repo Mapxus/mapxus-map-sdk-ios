@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, weak, nullable) id<MXMSearchDelegate> delegate;
 
+/**
+ * @brief Venue search interface
+ * @param request Query options. Please refer to the `MXMVenueSearchRequest` class for specific property fields.
+ */
 - (void)MXMVenueSearch:(MXMVenueSearchRequest *)request;
 
 /**
@@ -78,9 +82,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)MXMSearchRequest:(id)request didFailWithError:(NSError *)error;
 
 /**
- * @brief Building query callback methods
- * @param request Query options. Please refer to the `MXMBuildingSearchRequest` class for specific property fields.
- * @param response Query results. Please refer to the `MXMBuildingSearchResponse` class for specific property fields.
+ * @brief Venue query callback methods
+ * @param request Query options. Please refer to the `MXMVenueSearchRequest` class for specific property fields.
+ * @param response Query results. Please refer to the `MXMVenueSearchResponse` class for specific property fields.
  */
 - (void)onVenueSearchDone:(MXMVenueSearchRequest *)request response:(MXMVenueSearchResponse *)response;
 
