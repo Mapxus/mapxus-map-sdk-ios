@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MXMSearchDelegate;
 
+FOUNDATION_EXPORT NSString * const MXMParamErrorDomain;
 
 /**
  Search Interface Manager

@@ -13,6 +13,8 @@
 #import "JXJsonFunctionDefine.h"
 #import "NSString+Compare.h"
 
+NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
+
 @implementation MXMSearchAPI
 
 // 查找建筑
@@ -143,24 +145,68 @@
 // 查找路径
 - (void)MXMRouteSearch:(MXMRouteSearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/route"];
-    NSDictionary *dic = [request yy_modelToJSONObject];
-    
-    [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(onRouteSearchDone:response:)]) {
-            // 途经点赋值
-            MXMIndoorPoint *startP = [MXMIndoorPoint locationWithLatitude:request.fromLat longitude:request.fromLon building:request.fromBuilding floor:request.fromFloor];
-            MXMIndoorPoint *endP = [MXMIndoorPoint locationWithLatitude:request.toLat longitude:request.toLon building:request.toBuilding floor:request.toFloor];
+  // 更新属性名
+  if (!request.fromBuildingId) {
+    request.fromBuildingId = request.fromBuilding;
+  }
+  if (!request.toBuildingId) {
+    request.toBuildingId = request.toBuilding;
+  }
 
-            MXMRouteSearchResponse *response = [MXMRouteSearchResponse yy_modelWithJSON:content];
-            response.wayPointList = @[startP, endP];
-            [self.delegate onRouteSearchDone:request response:response];
-        }
-    } failure:^(NSError *error) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
-            [self.delegate MXMSearchRequest:request didFailWithError:error];
-        }
-    }];
+  int version = 1;
+  NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/route"];
+  NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
+
+  BOOL notInPairs1 = request.fromFloorId && request.toFloor && !request.fromFloor && !request.toFloorId;
+  BOOL notInPairs2 = request.fromFloor && request.toFloorId && !request.fromFloorId && !request.toFloor;
+  BOOL notInPairs = notInPairs1 || notInPairs2;
+  
+  if (notInPairs) {
+    // floor 和 floorId 一样用了一个，报错
+    if (self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
+      NSError *error = [NSError errorWithDomain:MXMParamErrorDomain
+                                           code:-1601
+                                       userInfo:@{NSLocalizedDescriptionKey: @"Please use either floor or floorId in pairs."}];
+      [self.delegate MXMSearchRequest:request didFailWithError:error];
+    }
+    return;
+  } else if ((request.fromFloorId || request.toFloorId) || (!request.fromFloor && !request.toFloor)) {
+    // 除了上面的情况，只要其中一个不为空，就用v3
+    version = 3;
+    url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v3/route"];
+    dic[@"fromFloor"] = request.fromFloorId;
+    dic[@"toFloor"] = request.toFloorId;
+    [dic removeObjectForKey:@"fromFloorId"];
+    [dic removeObjectForKey:@"toFloorId"];
+  } else {
+    [dic removeObjectForKey:@"fromFloorId"];
+    [dic removeObjectForKey:@"toFloorId"];
+  }
+  // 过渡版本删除，最终版本使用YYModel转换
+  [dic removeObjectForKey:@"fromBuildingId"];
+  [dic removeObjectForKey:@"toBuildingId"];
+  
+  NSLog(@"#### %@", dic);
+    
+  [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onRouteSearchDone:response:)]) {
+      // 途经点赋值
+      MXMIndoorPoint *startP = [MXMIndoorPoint locationWithLatitude:request.fromLat longitude:request.fromLon building:request.fromBuilding floor:request.fromFloor];
+      MXMIndoorPoint *endP = [MXMIndoorPoint locationWithLatitude:request.toLat longitude:request.toLon building:request.toBuilding floor:request.toFloor];
+      if (version == 3) {
+        startP = [MXMIndoorPoint locationWithLatitude:request.fromLat longitude:request.fromLon buildingId:request.fromBuildingId floorId:request.fromFloorId];
+        endP = [MXMIndoorPoint locationWithLatitude:request.toLat longitude:request.toLon buildingId:request.toBuildingId floorId:request.toFloorId];
+      }
+      
+      MXMRouteSearchResponse *response = [MXMRouteSearchResponse yy_modelWithJSON:content];
+      response.wayPointList = @[startP, endP];
+      [self.delegate onRouteSearchDone:request response:response];
+    }
+  } failure:^(NSError *error) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
+      [self.delegate MXMSearchRequest:request didFailWithError:error];
+    }
+  }];
 }
 
 
