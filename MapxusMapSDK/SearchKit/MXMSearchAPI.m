@@ -185,6 +185,8 @@ NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
   // 过渡版本删除，最终版本使用YYModel转换
   [dic removeObjectForKey:@"fromBuildingId"];
   [dic removeObjectForKey:@"toBuildingId"];
+  dic[@"fromBuilding"] = request.fromBuildingId;
+  dic[@"toBuilding"] = request.toBuildingId;
   
   NSLog(@"#### %@", dic);
     
