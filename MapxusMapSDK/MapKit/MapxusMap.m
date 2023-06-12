@@ -454,7 +454,7 @@
         selectedFloor:floor
         selectedBuilding:building
         selectedVenue:venue];
-    } else {
+    } else if ([self.delegate respondsToSelector:@selector(mapView:indoorMapWithIn:building:floor:)]) {
       [self.delegate mapView:self indoorMapWithIn:self.isIndoor building:building.identifier floor:floor.code];
     }
   }
