@@ -83,7 +83,7 @@
       }
       
       [strongSelf.decider specifyTheBuilding:buildingId
-                                       floor:floor
+                                   floorCode:floor
                                      ordinal:nil
                                     zoomMode:MXMZoomDisable
                                  edgePadding:UIEdgeInsetsZero
@@ -104,7 +104,7 @@
     }
     
     [self.decider specifyTheBuilding:_configuration.buildingId
-                               floor:_configuration.floor
+                           floorCode:_configuration.floor
                              ordinal:nil
                             zoomMode:MXMZoomDirect
                          edgePadding:_configuration.zoomInsets
@@ -267,7 +267,7 @@
   
   if (!self.autoChangeBuilding) {
     [self.decider specifyTheBuilding:self.building.identifier
-                               floor:self.floor
+                           floorCode:self.floor
                              ordinal:self.ordinal
                             zoomMode:MXMZoomDisable
                          edgePadding:UIEdgeInsetsZero
@@ -426,7 +426,7 @@
 #pragma mark - MXMDeciderDelegate
 - (void)cleanMapSelected {
   [self.decider specifyTheBuilding:self.building.identifier
-                             floor:self.floor
+                         floorCode:self.floor
                            ordinal:self.ordinal
                           zoomMode:MXMZoomDisable
                        edgePadding:UIEdgeInsetsZero
@@ -502,7 +502,11 @@
 //  NSMutableArray *sameVenueLevelIds = [NSMutableArray array];
 
   for (MXMGeoBuilding *buildingItem in self.buildings.allValues) {
-    if ([buildingItem.venueId isEqualToString:building.venueId]) {
+    BOOL isSame = [buildingItem.identifier isEqualToString:building.identifier];
+    if (self.syncFloorAtVenue) {
+      isSame = [buildingItem.venueId isEqualToString:building.venueId];
+    }
+    if (isSame) {
       // 已选中venue的建筑
       for (MXMFloor *floorItem in buildingItem.floors) {
         if (floorItem.ordinal && floorItem.ordinal.level == floor.ordinal.level) {
@@ -514,11 +518,20 @@
       
     } else {
       // 未选中venue的建筑
-      MXMOrdinal *ordianl = [self.decider electDefaultFloorWithHistory:self.decider.venueSelectFloorDic
-                                                            inBuilding:buildingItem];
-      for (MXMFloor *floorItem in buildingItem.floors) {
-        if (floorItem.ordinal && floorItem.ordinal.level == ordianl.level) {
-          [levelIds addObject:floorItem.floorId];
+      if (self.syncFloorAtVenue) {
+        MXMOrdinal *ordianl = [self.decider electDefaultFloorWithHistory:self.decider.venueSelectFloorDic
+                                                              inBuilding:buildingItem];
+        for (MXMFloor *floorItem in buildingItem.floors) {
+          if (floorItem.ordinal && floorItem.ordinal.level == ordianl.level) {
+            [levelIds addObject:floorItem.floorId];
+          }
+        }
+      } else {
+        NSString *theFloorId = [self.decider electDefaultFloorIdWithHistory:self.decider.buildingSelectFloorIdDic
+                                                                 inBuilding:buildingItem];
+        self.decider.buildingSelectFloorIdDic[buildingItem.identifier] = theFloorId;
+        if (theFloorId) {
+          [levelIds addObject:theFloorId];
         }
       }
       
@@ -612,7 +625,7 @@
 - (void)floorSelectorBarDidSelectFloor:(MXMFloor *)floor
 {
   [self.decider specifyTheBuilding:self.building.identifier
-                             floor:floor.code
+                         floorCode:floor.code
                            ordinal:floor.ordinal
                           zoomMode:MXMZoomDisable
                        edgePadding:UIEdgeInsetsZero
@@ -625,7 +638,7 @@
 - (void)selectFloor:(NSString *)floor
 {
   [self.decider specifyTheBuilding:self.building.identifier
-                             floor:floor
+                         floorCode:floor
                            ordinal:nil
                           zoomMode:MXMZoomAnimated
                        edgePadding:UIEdgeInsetsZero
@@ -638,7 +651,7 @@
         edgePadding:(UIEdgeInsets)insets
 {
   [self.decider specifyTheBuilding:self.building.identifier
-                             floor:floor
+                         floorCode:floor
                            ordinal:nil
                           zoomMode:zoomMode
                        edgePadding:insets
@@ -653,7 +666,7 @@
     building = self.buildings[buildingId];
   }
   [self.decider specifyTheBuilding:buildingId
-                             floor:nil
+                         floorCode:nil
                            ordinal:nil
                           zoomMode:MXMZoomAnimated
                        edgePadding:UIEdgeInsetsZero
@@ -668,7 +681,7 @@
     building = self.buildings[buildingId];
   }
   [self.decider specifyTheBuilding:buildingId
-                             floor:nil
+                         floorCode:nil
                            ordinal:nil
                           zoomMode:zoomMode
                        edgePadding:insets
@@ -683,7 +696,7 @@
     building = self.buildings[buildingId];
   }
   [self.decider specifyTheBuilding:buildingId
-                             floor:floor
+                         floorCode:floor
                            ordinal:nil
                           zoomMode:MXMZoomAnimated
                        edgePadding:UIEdgeInsetsZero
@@ -698,7 +711,7 @@
     building = self.buildings[buildingId];
   }
   [self.decider specifyTheBuilding:buildingId
-                             floor:floor
+                         floorCode:floor
                            ordinal:nil
                           zoomMode:zoomMode
                        edgePadding:insets
@@ -899,6 +912,11 @@
   _collapseCopyright = collapseCopyright;
   self.MXMLogo.collapseCopyright = collapseCopyright;
   self.openStreetSourceBtn.hidden = collapseCopyright;
+}
+
+- (void)setSyncFloorAtVenue:(BOOL)syncFloorAtVenue {
+  _syncFloorAtVenue = syncFloorAtVenue;
+  self.decider.syncFloorAtVenue = syncFloorAtVenue;
 }
 
 - (void)logoOnClickAction:(UIButton *)sender

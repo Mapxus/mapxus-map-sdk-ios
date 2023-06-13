@@ -78,6 +78,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// in the bottom corners of the map.   The default is NO
 @property (nonatomic, assign) BOOL collapseCopyright;
 
+@property (nonatomic, assign) BOOL syncFloorAtVenue;
+
 /**
  Setting the general map appearance
  
