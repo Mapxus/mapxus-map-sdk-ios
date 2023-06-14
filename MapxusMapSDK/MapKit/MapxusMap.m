@@ -42,6 +42,7 @@
     self.gestureSwitchingBuilding = YES;
     self.autoChangeBuilding = YES;
     self.indoorControllerAlwaysHidden = NO;
+    self.syncFloorAtVenue = YES;
     self.mapView.attributionButton.hidden = YES;
     self.mapView.logoView.hidden = YES;
     _isFristLoad = YES;
@@ -498,45 +499,15 @@
   }
   
   // 配置过滤条件
-  NSMutableArray *levelIds = [NSMutableArray array];
+  NSArray *levelIds = [NSArray array];
 //  NSMutableArray *sameVenueLevelIds = [NSMutableArray array];
 
-  for (MXMGeoBuilding *buildingItem in self.buildings.allValues) {
-    BOOL isSame = [buildingItem.identifier isEqualToString:building.identifier];
-    if (self.syncFloorAtVenue) {
-      isSame = [buildingItem.venueId isEqualToString:building.venueId];
-    }
-    if (isSame) {
-      // 已选中venue的建筑
-      for (MXMFloor *floorItem in buildingItem.floors) {
-        if (floorItem.ordinal && floorItem.ordinal.level == floor.ordinal.level) {
-          [levelIds addObject:floorItem.floorId];
-//          [sameVenueLevelIds addObject:floorItem.floorId];
-          break;
-        }
-      }
-      
-    } else {
-      // 未选中venue的建筑
-      if (self.syncFloorAtVenue) {
-        MXMOrdinal *ordianl = [self.decider electDefaultFloorWithHistory:self.decider.venueSelectFloorDic
-                                                              inBuilding:buildingItem];
-        for (MXMFloor *floorItem in buildingItem.floors) {
-          if (floorItem.ordinal && floorItem.ordinal.level == ordianl.level) {
-            [levelIds addObject:floorItem.floorId];
-          }
-        }
-      } else {
-        NSString *theFloorId = [self.decider electDefaultFloorIdWithHistory:self.decider.buildingSelectFloorIdDic
-                                                                 inBuilding:buildingItem];
-        self.decider.buildingSelectFloorIdDic[buildingItem.identifier] = theFloorId;
-        if (theFloorId) {
-          [levelIds addObject:theFloorId];
-        }
-      }
-      
-    }
+  if (self.syncFloorAtVenue) {
+    levelIds = [self syncModelToGetShowFloorIdsWithFloor:floor building:building];
+  } else {
+    levelIds = [self asyncModelToGetShowFloorIdsWithFloor:floor building:building];
   }
+  
   NSSet *levelIdSet = [NSSet setWithArray:levelIds];
   if (levelIdSet.count == 0 || ![levelIdSet isSubsetOfSet:self.floorIds] || self.decider.isMapReload) {
     [self.mapView.style filerLevelIds:levelIds];
@@ -556,6 +527,58 @@
       [self updageLocationView];
     }
   }
+}
+
+- (NSArray *)syncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor building:(nullable MXMGeoBuilding *)building {
+  NSMutableArray *levelIds = [NSMutableArray array];
+  
+  for (MXMGeoBuilding *buildingItem in self.buildings.allValues) {
+    if ([buildingItem.venueId isEqualToString:building.venueId]) {
+      // 已选中venue的建筑
+      for (MXMFloor *floorItem in buildingItem.floors) {
+        if (floorItem.ordinal && floorItem.ordinal.level == floor.ordinal.level) {
+          [levelIds addObject:floorItem.floorId];
+          break;
+        }
+      }
+      
+    } else {
+      // 未选中venue的建筑
+      MXMOrdinal *ordianl = [self.decider electDefaultFloorWithHistory:self.decider.venueSelectFloorDic
+                                                            inBuilding:buildingItem];
+      for (MXMFloor *floorItem in buildingItem.floors) {
+        if (floorItem.ordinal && floorItem.ordinal.level == ordianl.level) {
+          [levelIds addObject:floorItem.floorId];
+        }
+      }
+      
+    }
+  }
+  return levelIds;
+}
+
+- (NSArray *)asyncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor building:(nullable MXMGeoBuilding *)building {
+  NSMutableArray *levelIds = [NSMutableArray array];
+  
+  for (MXMGeoBuilding *buildingItem in self.buildings.allValues) {
+    if ([buildingItem.identifier isEqualToString:building.identifier]) {
+      // 已选中的建筑
+      if (floor.floorId) {
+        [levelIds addObject:floor.floorId];
+      }
+      
+    } else {
+      // 未选中的建筑
+      NSString *theFloorId = [self.decider electDefaultFloorIdWithHistory:self.decider.buildingSelectFloorIdDic
+                                                               inBuilding:buildingItem];
+      self.decider.buildingSelectFloorIdDic[buildingItem.identifier] = theFloorId;
+      if (theFloorId) {
+        [levelIds addObject:theFloorId];
+      }
+      
+    }
+  }
+  return levelIds;
 }
 
 - (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox zoomMode:(MXMZoomMode)zoomMode withEdgePadding:(UIEdgeInsets)insets
@@ -917,6 +940,9 @@
 - (void)setSyncFloorAtVenue:(BOOL)syncFloorAtVenue {
   _syncFloorAtVenue = syncFloorAtVenue;
   self.decider.syncFloorAtVenue = syncFloorAtVenue;
+  if (syncFloorAtVenue) {
+    [self cleanMapSelected];
+  }
 }
 
 - (void)logoOnClickAction:(UIButton *)sender

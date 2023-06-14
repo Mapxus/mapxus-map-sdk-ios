@@ -78,6 +78,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// in the bottom corners of the map.   The default is NO
 @property (nonatomic, assign) BOOL collapseCopyright;
 
+/// If attribution has been set to YES, switching floor will synchronize the floor ordinal for all buildings on the same venue; If the attribution has been set to NO, only
+/// the current building’s floor will change. The default is YES.
 @property (nonatomic, assign) BOOL syncFloorAtVenue;
 
 /**
