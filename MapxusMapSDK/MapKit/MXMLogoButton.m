@@ -7,6 +7,7 @@
 
 #import "MXMLogoButton.h"
 #import "MXMLogoView.h"
+#import "UIImage+MXMSdk.h"
 
 @interface MXMLogoButton ()
 @property (nonatomic, strong) MXMLogoView *logoView;
@@ -28,13 +29,11 @@
 }
 
 - (void)layoutView:(BOOL)newType {
-  NSBundle *bundle = [NSBundle bundleForClass:[self class]];
   if (newType) {
     if (self.logoView.superview) {
       [self.logoView removeFromSuperview];
     }
-    UIImage *image = [UIImage imageNamed:@"copyrightInfo" inBundle:bundle compatibleWithTraitCollection:nil];
-    [self setImage:image forState:UIControlStateNormal];
+    [self setImage:[UIImage getMXMSdkImage:@"copyrightInfo"] forState:UIControlStateNormal];
   } else {
     [self setImage:nil forState:UIControlStateNormal];
     [self addSubview:self.logoView];

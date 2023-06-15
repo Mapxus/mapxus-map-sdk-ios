@@ -6,6 +6,7 @@
 //
 
 #import "MXMLogoView.h"
+#import "UIImage+MXMSdk.h"
 
 @interface MXMLogoView ()
 @property (nonatomic, strong) UIImageView *mapxusIcon;
@@ -35,9 +36,7 @@
 
 - (UIImageView *)mapxusIcon {
   if (!_mapxusIcon) {
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    UIImage *image = [UIImage imageNamed:@"mapxus_icon" inBundle:bundle compatibleWithTraitCollection:nil];
-    _mapxusIcon = [[UIImageView alloc] initWithImage:image];
+    _mapxusIcon = [[UIImageView alloc] initWithImage:[UIImage getMXMSdkImage:@"mapxus_icon"]];
     _mapxusIcon.userInteractionEnabled = NO;
     _mapxusIcon.translatesAutoresizingMaskIntoConstraints = NO;
   }

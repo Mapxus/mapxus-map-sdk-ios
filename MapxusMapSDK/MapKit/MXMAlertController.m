@@ -7,6 +7,7 @@
 
 #import "MXMAlertController.h"
 #import "MXMLogoView.h"
+#import "MXMSDKBundle.h"
 
 @interface MXMAlertController ()
 @property (nonatomic, strong) UIView *boxShadow;
@@ -229,9 +230,7 @@
 
 - (UIButton *)cancelBtn {
   if (!_cancelBtn) {
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString *cancelStr = NSLocalizedStringFromTableInBundle(@"Cancel", @"Localizable", bundle, nil);
-
+    NSString *cancelStr = MXMLocalizedString(@"Cancel");
     _cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _cancelBtn.backgroundColor = [UIColor whiteColor];
     [_cancelBtn setTitle:cancelStr forState:UIControlStateNormal];

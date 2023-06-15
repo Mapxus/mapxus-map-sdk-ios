@@ -16,6 +16,8 @@
 #import "MGLStyleLayer+MXMFilter.h"
 #import "JXJsonFunctionDefine.h"
 #import "MXMAlertController.h"
+#import "UIImage+MXMSdk.h"
+#import "MXMFloorBarModel.h"
 
 @implementation MapxusMap
 
@@ -428,7 +430,26 @@
     // 数据中的楼层都是从小到大，需要颠倒顺序显示
     if (building && floor) {
       NSArray *reversalFloors = [[building.floors reverseObjectEnumerator] allObjects];
-      [self.floorBar resetItems:reversalFloors defaultSelectRow:floor];
+      if (![self.floorBar.refBuildingId isEqualToString:building.identifier]) {
+        NSMutableArray *list = [NSMutableArray array];
+        for (MXMFloor *iFloor in reversalFloors) {
+          MXMFloorBarModel *model = [[MXMFloorBarModel alloc] init];
+          model.floor = iFloor;
+          if (iFloor.ordinal.level == floor.ordinal.level) {
+            model.selected = YES;
+          }
+          [list addObject:model];
+        }
+        [self.floorBar refershList:list refBuildingId:building.identifier];
+      }
+      int i = 0;
+      for (MXMFloor *iFloor in reversalFloors) {
+        if ([floor.floorId isEqualToString:iFloor.floorId]) {
+          [self.floorBar selectFloorIndex:i];
+          break;
+        }
+        i++;
+      }
     }
   }
   
@@ -714,22 +735,22 @@
   NSLayoutConstraint *logoBottom = [self.MXMLogo.bottomAnchor constraintEqualToAnchor:self.mapView.bottomAnchor constant:-_logoBottomMargin];
   logoBottom.identifier = @"logoBottom";
   
-  NSArray *layouts = @[btnSpaceLc,
-                       [self.openStreetSourceBtn.heightAnchor constraintEqualToConstant:13.0f],
-                       [self.openStreetSourceBtn.trailingAnchor constraintEqualToAnchor:self.mapView.trailingAnchor constant:-10.0f],
-                       openStreetBottom,
-//                       [self.MXMLogo.widthAnchor constraintEqualToConstant:76.0f],
-//                       [self.MXMLogo.heightAnchor constraintEqualToConstant:20.0f],
-                       [self.MXMLogo.leadingAnchor constraintEqualToAnchor:self.mapView.leadingAnchor constant:10.0f],
-                       logoBottom,
-                       [self.buildingSelectButton.widthAnchor constraintEqualToConstant:50.0f],
-                       [self.buildingSelectButton.heightAnchor constraintEqualToConstant:50.0f],
-                       [self.buildingSelectButton.centerXAnchor constraintEqualToAnchor:self.floorBar.centerXAnchor],
-                       [self.buildingSelectButton.bottomAnchor constraintEqualToAnchor:self.floorBar.topAnchor constant:-4],
-                       [self.floorBar.widthAnchor constraintEqualToConstant:42],
-                       [self.floorBar.heightAnchor constraintEqualToConstant:200.0f],
-                       floorBarXLc,
-                       floorBarYLc];
+  NSArray *layouts = @[
+    btnSpaceLc,
+    [self.openStreetSourceBtn.heightAnchor constraintEqualToConstant:13.0f],
+    [self.openStreetSourceBtn.trailingAnchor constraintEqualToAnchor:self.mapView.trailingAnchor constant:-10.0f],
+    openStreetBottom,
+    //                       [self.MXMLogo.widthAnchor constraintEqualToConstant:76.0f],
+    //                       [self.MXMLogo.heightAnchor constraintEqualToConstant:20.0f],
+    [self.MXMLogo.leadingAnchor constraintEqualToAnchor:self.mapView.leadingAnchor constant:10.0f],
+    logoBottom,
+    [self.buildingSelectButton.widthAnchor constraintEqualToConstant:50.0f],
+    [self.buildingSelectButton.heightAnchor constraintEqualToConstant:50.0f],
+    [self.buildingSelectButton.centerXAnchor constraintEqualToAnchor:self.floorBar.centerXAnchor],
+    [self.buildingSelectButton.bottomAnchor constraintEqualToAnchor:self.floorBar.topAnchor constant:-4],
+    floorBarXLc,
+    floorBarYLc,
+  ];
   
   [NSLayoutConstraint activateConstraints:layouts];
   
@@ -782,9 +803,7 @@
   if (!_buildingSelectButton) {
     _buildingSelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
     _buildingSelectButton.translatesAutoresizingMaskIntoConstraints = NO;
-    NSBundle *bundle = [NSBundle bundleForClass:[MapxusMap class]];
-    UIImage *image = [UIImage imageNamed:@"selectBuilding" inBundle:bundle compatibleWithTraitCollection:nil];
-    [_buildingSelectButton setImage:image forState:UIControlStateNormal];
+    [_buildingSelectButton setImage:[UIImage getMXMSdkImage:@"selectBuilding"] forState:UIControlStateNormal];
     [_buildingSelectButton addTarget:self action:@selector(selectBuildingOnClick:) forControlEvents:UIControlEventTouchUpInside];
     _buildingSelectButton.hidden = YES;
   }
