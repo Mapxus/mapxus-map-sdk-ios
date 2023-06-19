@@ -12,7 +12,7 @@
 @property (nonatomic, strong) UIView *boxShadow;
 @property (nonatomic, strong) UIView *box;
 
-@property (nonatomic, strong) MXMLogoView *mapxusView;
+@property (nonatomic, strong) UILabel *mapxusLabel;
 @property (nonatomic, strong) UIButton *mapxusBtn;
 
 @property (nonatomic, strong) UILabel *osmLabel;
@@ -36,7 +36,7 @@
 }
 
 - (void)addViews {
-  [self.mapxusBtn addSubview:self.mapxusView];
+  [self.mapxusBtn addSubview:self.mapxusLabel];
   [self.osmBtn addSubview:self.osmLabel];
   
   [self.box addSubview:self.mapxusBtn];
@@ -93,8 +93,8 @@
     [self.osmBtn.rightAnchor constraintEqualToAnchor:self.box.rightAnchor],
     [self.osmBtn.heightAnchor constraintEqualToConstant:56],
     
-    [self.mapxusView.centerXAnchor constraintEqualToAnchor:self.mapxusBtn.centerXAnchor],
-    [self.mapxusView.centerYAnchor constraintEqualToAnchor:self.mapxusBtn.centerYAnchor],
+    [self.mapxusLabel.centerXAnchor constraintEqualToAnchor:self.mapxusBtn.centerXAnchor],
+    [self.mapxusLabel.centerYAnchor constraintEqualToAnchor:self.mapxusBtn.centerYAnchor],
 
     [self.osmLabel.centerXAnchor constraintEqualToAnchor:self.osmBtn.centerXAnchor],
     [self.osmLabel.centerYAnchor constraintEqualToAnchor:self.osmBtn.centerYAnchor],
@@ -186,13 +186,16 @@
   return _box;
 }
 
-- (MXMLogoView *)mapxusView {
-  if (!_mapxusView) {
-    _mapxusView = [[MXMLogoView alloc] init];
-    _mapxusView.userInteractionEnabled = NO;
-    _mapxusView.translatesAutoresizingMaskIntoConstraints = NO;
+- (UILabel *)mapxusLabel {
+  if (!_mapxusLabel) {
+    _mapxusLabel = [[UILabel alloc] init];
+    _mapxusLabel.text = @"© Mapxus";
+    _mapxusLabel.font = [UIFont boldSystemFontOfSize:17];
+    _mapxusLabel.textColor = [UIColor colorWithRed:31/255.0 green:31/255.0 blue:31/255.0 alpha:1];
+    _mapxusLabel.userInteractionEnabled = NO;
+    _mapxusLabel.translatesAutoresizingMaskIntoConstraints = NO;
   }
-  return _mapxusView;
+  return _mapxusLabel;
 }
 
 - (UIButton *)mapxusBtn {
