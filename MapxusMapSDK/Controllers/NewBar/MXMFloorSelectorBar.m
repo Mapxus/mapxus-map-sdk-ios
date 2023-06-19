@@ -295,6 +295,9 @@ static CGFloat headerFooterHeight = 35.0;
 - (void)setMaxVisibleFloors:(NSUInteger)maxVisibleFloors {
   _maxVisibleFloors = maxVisibleFloors;
   self.tableHeight.constant = [self getTableViewHeight];
+  if (_tableView) {
+    [_tableView reloadData];
+  }
 }
 
 
