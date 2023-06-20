@@ -187,7 +187,7 @@
       }
     }
     // 如果没有设置，通过历史找或者最接近地面的层
-    if (self.syncFloorAtVenue) {
+    if (self.floorSwitchMode == MXMSwitchingByVenue) {
       theEndFloorOrdinal = floorOrdinal ? : [self electDefaultFloorWithHistory:self.venueSelectFloorDic
                                                                     inBuilding:geoBuilding];
     } else {
@@ -317,7 +317,7 @@
   for (NSString *buildingId in self.historicalBuildingIds) {
     MXMGeoBuilding *building = buildings[buildingId];
     if (building) {
-      if (self.syncFloorAtVenue) {
+      if (self.floorSwitchMode == MXMSwitchingByVenue) {
         if ([building.venueId isEqualToString:self.currentBuilding.venueId]) {
           selectedFloor = [self buildingFloors:building.floors whichHasSameOrdinal:self.currentFloorOrdinal];
           if (selectedFloor) {

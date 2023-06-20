@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMDecider : NSObject
 
 @property (nonatomic, assign) BOOL isMapReload;
-@property (nonatomic, assign) BOOL syncFloorAtVenue;
+@property (nonatomic, assign) MXMFloorSwitchMode floorSwitchMode;
 @property (nonatomic, strong) NSMutableDictionary *venueSelectFloorDic; // 保存运行期间看过大厦最后选中的对应楼层
 @property (nonatomic, strong) NSMutableDictionary *buildingSelectFloorIdDic; // 保存运行期间大厦对应楼层历史
 @property (nonatomic, strong) NSMutableArray<NSString *> *historicalBuildingIds; // 保存运行期间看过的大厦Id，防止同一地点两栋大厦间互相切换

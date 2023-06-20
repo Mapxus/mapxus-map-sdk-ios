@@ -42,7 +42,7 @@
     self.gestureSwitchingBuilding = YES;
     self.autoChangeBuilding = YES;
     self.indoorControllerAlwaysHidden = NO;
-    self.syncFloorAtVenue = YES;
+    self.floorSwitchMode = MXMSwitchingByVenue;
     self.mapView.attributionButton.hidden = YES;
     self.mapView.logoView.hidden = YES;
     _isFristLoad = YES;
@@ -502,7 +502,7 @@
   NSArray *levelIds = [NSArray array];
 //  NSMutableArray *sameVenueLevelIds = [NSMutableArray array];
 
-  if (self.syncFloorAtVenue) {
+  if (self.floorSwitchMode == MXMSwitchingByVenue) {
     levelIds = [self syncModelToGetShowFloorIdsWithFloor:floor building:building];
   } else {
     levelIds = [self asyncModelToGetShowFloorIdsWithFloor:floor building:building];
@@ -937,10 +937,10 @@
   self.openStreetSourceBtn.hidden = collapseCopyright;
 }
 
-- (void)setSyncFloorAtVenue:(BOOL)syncFloorAtVenue {
-  _syncFloorAtVenue = syncFloorAtVenue;
-  self.decider.syncFloorAtVenue = syncFloorAtVenue;
-  if (syncFloorAtVenue) {
+- (void)setFloorSwitchMode:(MXMFloorSwitchMode)floorSwitchMode {
+  _floorSwitchMode = floorSwitchMode;
+  self.decider.floorSwitchMode = floorSwitchMode;
+  if (self.floorSwitchMode == MXMSwitchingByVenue) {
     [self cleanMapSelected];
   }
 }
