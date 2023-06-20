@@ -39,6 +39,7 @@
     self.annHolder = [[MXMAnnotationsHolder alloc] initWithMapView:mapView];
     self.cacheManager = [[MXMCacheManager alloc] init];
     
+    self.selectedBuildingBorderStyle = nil;
     self.gestureSwitchingBuilding = YES;
     self.autoChangeBuilding = YES;
     self.indoorControllerAlwaysHidden = NO;
@@ -866,12 +867,13 @@
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:SOURCE_COPYRIGHT_URL]];
 }
 
-- (MXMBorderStyle *)selectedBuildingBorderStyle {
-  if (_selectedBuildingBorderStyle == nil) {
+- (void)setSelectedBuildingBorderStyle:(MXMBorderStyle *)selectedBuildingBorderStyle {
+  if (selectedBuildingBorderStyle == nil) {
     _selectedBuildingBorderStyle = [MXMBorderStyle defaultSelectedBuildingBorderStyle];
+  } else {
+    _selectedBuildingBorderStyle = selectedBuildingBorderStyle;
   }
   [self.mapView.style outLineLevelBorderStyle:_selectedBuildingBorderStyle];
-  return _selectedBuildingBorderStyle;
 }
 
 - (void)dealloc
