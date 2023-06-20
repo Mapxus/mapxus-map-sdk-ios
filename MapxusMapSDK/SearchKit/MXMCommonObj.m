@@ -372,6 +372,7 @@
   return @{
     @"venueId" : @[@"venueId", @"venue_id"],
     @"buildingId" : @[@"buildingId", @"building_id"],
+    @"floorId" : @[@"floorId", @"floor_id"],
     @"streetName" : @[@"streetName", @"street_name"],
   };
 }
