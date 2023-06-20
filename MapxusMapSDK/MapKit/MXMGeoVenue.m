@@ -28,8 +28,6 @@
   copyedModel.address_ja = self.address_ja;
   copyedModel.address_ko = self.address_ko;
   copyedModel.buildingIds = [[NSArray alloc] initWithArray:self.buildingIds copyItems:YES];
-  copyedModel.floors = [[NSArray alloc] initWithArray:self.floors copyItems:YES];
-  copyedModel.groundFloor = self.groundFloor;
   return copyedModel;
 }
 
@@ -46,50 +44,6 @@
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-  NSArray *floorCodes = nil;
-  if ([dic[@"level_names"] isKindOfClass:[NSString class]]) {
-    floorCodes = [dic[@"level_names"] componentsSeparatedByString:@","];
-  }
-  
-  NSArray *floorOrdinals = nil;
-  if ([dic[@"level_ordinals"] isKindOfClass:[NSString class]]) {
-    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-    NSArray *ordStr = [dic[@"level_ordinals"] componentsSeparatedByString:@","];
-    
-    NSMutableArray *muArr = [NSMutableArray array];
-    for (NSString *o in ordStr) {
-      NSNumber *result = [formatter numberFromString:o];
-      if (result) {
-        MXMOrdinal *ordinal = [[MXMOrdinal alloc] init];
-        ordinal.level = [result integerValue];
-        [muArr addObject:ordinal];
-        // Find the ground floor
-        if (ordinal.level == 0) {
-          NSUInteger i = [ordStr indexOfObject:o];
-          if (floorCodes.count > i) {
-            _groundFloor = floorCodes[i];
-          }
-        }
-      } else {
-        [muArr addObject:[NSNull null]];
-      }
-    }
-    floorOrdinals = [muArr copy];
-  }
-  
-  // 数组合并
-  NSMutableArray *all = [[NSMutableArray alloc] init];
-  for (int i=0; i<floorCodes.count; i++) {
-    MXMFloor *floor = [[MXMFloor alloc] init];
-    floor.code = floorCodes[i];
-    if (floorOrdinals.count > i && [floorOrdinals[i] isKindOfClass:[MXMOrdinal class]]) {
-      floor.ordinal = floorOrdinals[i];
-    }
-    [all addObject:floor];
-  }
-  
-  _floors = [all copy];
-  
   if ([dic[@"building_ids"] isKindOfClass:[NSString class]]) {
     _buildingIds = [dic[@"building_ids"] componentsSeparatedByString:@","];
   }
@@ -207,13 +161,6 @@
     _buildingIds = @[];
   }
   return _buildingIds;
-}
-
-- (NSArray<MXMFloor *> *)floors {
-  if (!_floors) {
-    _floors = @[];
-  }
-  return _floors;
 }
 
 - (NSString *)description
