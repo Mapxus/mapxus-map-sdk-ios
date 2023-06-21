@@ -20,13 +20,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MXMDeciderDelegate <NSObject>
 
-- (void)decideMapViewShowFloorBar:(BOOL)show onBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor;
+- (void)decideMapViewShowFloorBar:(BOOL)show
+                       inBuilding:(nullable MXMGeoBuilding *)building
+                            floor:(nullable MXMFloor *)floor;
 // 将要选中
-- (void)decideMapViewShouldChangeBuilding:(nullable MXMGeoBuilding *)building floor:(nullable NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode;
+- (void)decideMapViewShouldChangeBuilding:(nullable MXMGeoBuilding *)building
+                                    floor:(nullable MXMFloor *)floor
+                 shouldChangeTrackingMode:(BOOL)changeTrackingMode;
 // 选中
-- (void)decideMapViewChangeBuilding:(nullable MXMGeoBuilding *)building floorOrdinal:(nullable MXMOrdinal *)floorOrdinal trackingMode:(BOOL)changeTrackingMode shouldCallBack:(BOOL)shouldCallBack;
+- (void)decideMapViewChangeBuilding:(nullable MXMGeoBuilding *)building
+                              floor:(nullable MXMFloor *)floor
+                       trackingMode:(BOOL)changeTrackingMode
+                     shouldCallBack:(BOOL)shouldCallBack;
 // 操作缩放
-- (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox zoomMode:(MXMZoomMode)zoomMode withEdgePadding:(UIEdgeInsets)insets;
+- (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox
+                   zoomMode:(MXMZoomMode)zoomMode
+            withEdgePadding:(UIEdgeInsets)insets;
 
 
 @end

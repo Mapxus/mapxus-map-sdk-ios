@@ -6,11 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MXMCommonObj.h"
+#import <MapxusMapSDK/MXMCommonObj.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MXMGeoVenue : NSObject
+@interface MXMGeoVenue : NSObject <NSCopying>
 
 @property (nonatomic, strong) NSString *identifier;
 /// Building type, indicating the classification of the building, e.g. cathedral, car_park, hospital, office, retail, etc.
@@ -41,10 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMAddress *address_ko;
 
 @property (nonatomic, strong) NSArray<NSString *> *buildingIds;
-/// All floors of the building
-@property (nonatomic, strong) NSArray<MXMFloor *> *floors;
-/// The ground floor of the building
-@property (nonatomic, strong, nullable) NSString *groundFloor;
 
 @end
 
