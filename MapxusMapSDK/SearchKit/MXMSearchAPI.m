@@ -172,8 +172,8 @@ NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
     return;
   } else if ((request.fromFloorId || request.toFloorId) || (!request.fromFloor && !request.toFloor)) {
     // 除了上面的情况，只要其中一个不为空，就用v3
-    version = 3;
-    url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v3/route"];
+    version = 2;
+    url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v2/route"];
     dic[@"fromFloor"] = request.fromFloorId;
     dic[@"toFloor"] = request.toFloorId;
     [dic removeObjectForKey:@"fromFloorId"];
@@ -187,15 +187,13 @@ NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
   [dic removeObjectForKey:@"toBuildingId"];
   dic[@"fromBuilding"] = request.fromBuildingId;
   dic[@"toBuilding"] = request.toBuildingId;
-  
-  NSLog(@"#### %@", dic);
-    
+      
   [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
     if (self.delegate && [self.delegate respondsToSelector:@selector(onRouteSearchDone:response:)]) {
       // 途经点赋值
       MXMIndoorPoint *startP = [MXMIndoorPoint locationWithLatitude:request.fromLat longitude:request.fromLon building:request.fromBuilding floor:request.fromFloor];
       MXMIndoorPoint *endP = [MXMIndoorPoint locationWithLatitude:request.toLat longitude:request.toLon building:request.toBuilding floor:request.toFloor];
-      if (version == 3) {
+      if (version == 2) {
         startP = [MXMIndoorPoint locationWithLatitude:request.fromLat longitude:request.fromLon buildingId:request.fromBuildingId floorId:request.fromFloorId];
         endP = [MXMIndoorPoint locationWithLatitude:request.toLat longitude:request.toLon buildingId:request.toBuildingId floorId:request.toFloorId];
       }
