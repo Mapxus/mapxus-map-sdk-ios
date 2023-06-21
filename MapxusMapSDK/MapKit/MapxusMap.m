@@ -732,17 +732,23 @@
 {
   for (MXMPointAnnotation *ann in annotations) {
     __weak typeof(self) weakSelf = self;
-    ann.sceneRefreshBlock = ^(NSString *buildingId, NSString *floor) {
+    ann.sceneRefreshBlock = ^(NSString *buildingId, NSString *floor, NSString *floorId) {
       [weakSelf filterMXMAnnotation];
     };
   }
   [self.annHolder addMXMPointAnnotations:annotations];
-  [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier floor:self.floor indoorState:self.isIndoor];
+  [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier
+                                             floor:self.selectedFloor.code
+                                           floorId:self.selectedFloor.floorId
+                                       indoorState:self.isIndoor];
 }
 
 - (void)filterMXMAnnotation
 {
-  [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier floor:self.floor indoorState:self.isIndoor];
+  [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier
+                                             floor:self.selectedFloor.code
+                                           floorId:self.selectedFloor.floorId
+                                       indoorState:self.isIndoor];
 }
 
 - (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations

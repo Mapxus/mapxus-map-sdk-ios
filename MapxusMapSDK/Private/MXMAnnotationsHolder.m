@@ -20,37 +20,43 @@
 
 - (instancetype)initWithMapView:(MGLMapView *)mapView
 {
-    self = [super init];
-    if (self) {
-        self.mapView = mapView;
-    }
-    return self;
+  self = [super init];
+  if (self) {
+    self.mapView = mapView;
+  }
+  return self;
 }
 
 - (void)addMXMPointAnnotations:(NSArray<MXMPointAnnotation *> *)annotations
 {
-    [self.mxmPointAnnotations addObjectsFromArray:annotations];
-    [self.mapView addAnnotations:annotations];
+  [self.mxmPointAnnotations addObjectsFromArray:annotations];
+  [self.mapView addAnnotations:annotations];
 }
 
 - (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations
 {
-    // 找交集
-    NSMutableSet *all = [NSMutableSet setWithArray:self.mapView.annotations];
-    NSMutableSet *mxms = [NSMutableSet setWithArray:annotations];
-    [all intersectSet:mxms];
-    NSArray *intersection = all.allObjects;
-    [self.mapView removeAnnotations:intersection];
-    [self.mxmPointAnnotations removeObjectsInArray:annotations];
+  // 找交集
+  NSMutableSet *all = [NSMutableSet setWithArray:self.mapView.annotations];
+  NSMutableSet *mxms = [NSMutableSet setWithArray:annotations];
+  [all intersectSet:mxms];
+  NSArray *intersection = all.allObjects;
+  [self.mapView removeAnnotations:intersection];
+  [self.mxmPointAnnotations removeObjectsInArray:annotations];
 }
 
 // annotation过滤
-- (void)filterMXMAnnotationsWithBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor indoorState:(BOOL)isIndoor
-{
+- (void)filterMXMAnnotationsWithBuilding:(nullable NSString *)buildingId
+                                   floor:(nullable NSString *)floor
+                                 floorId:(nullable NSString *)floorId
+                             indoorState:(BOOL)isIndoor {
   NSMutableArray *hiddenAnn = [NSMutableArray array];
   NSMutableArray *noHiddenAnn = [NSMutableArray array];
   for (MXMPointAnnotation *ann in self.mxmPointAnnotations) {
-    ann.hidden = [self decideShouldBeHiddenWithAnnotation:ann Building:buildingId floor:floor indoorState:isIndoor];
+    ann.hidden = [self decideShouldBeHiddenWithAnnotation:ann
+                                               buildingId:buildingId
+                                                  floorId:floorId
+                                                    floor:floor
+                                              indoorState:isIndoor];
     ann.hidden ? [hiddenAnn addObject:ann] : [noHiddenAnn addObject:ann];
   }
   // 找交集
@@ -67,16 +73,30 @@
   [self.mapView addAnnotations:noHiddenAnnSet.allObjects];
 }
 
-- (BOOL)decideShouldBeHiddenWithAnnotation:(MXMPointAnnotation *)ann Building:(nullable NSString *)buildingId floor:(nullable NSString *)floor indoorState:(BOOL)isIndoor
+- (BOOL)decideShouldBeHiddenWithAnnotation:(MXMPointAnnotation *)ann
+                                buildingId:(nullable NSString *)buildingId
+                                   floorId:(nullable NSString *)floorId
+                                     floor:(nullable NSString *)floor
+                               indoorState:(BOOL)isIndoor
 {
   // 只要buildingId或者floor为空，则为室外marker，室外marker会一直显示
-  if (ann.buildingId == nil || ann.floor == nil) {
+  NSString *benchmarkFloor = nil;
+  NSString *annFloor = nil;
+  if (ann.floor) {
+    annFloor = ann.floor;
+    benchmarkFloor = floor;
+  }
+  if (ann.floorId) {
+    annFloor = ann.floorId;
+    benchmarkFloor = floorId;
+  }
+  if (ann.buildingId == nil || annFloor == nil) {
     return NO;
   }
   // 室内marker分成当前在室外和室内两种情况
   if (isIndoor) {
     // 在室内在只显示当前选中building,floor的marker
-    if ([ann.buildingId isEqualToString:buildingId] && [ann.floor isEqualToString:floor]) {
+    if ([ann.buildingId isEqualToString:buildingId] && [annFloor isEqualToString:benchmarkFloor]) {
       return NO;
     } else {
       return YES;
@@ -91,10 +111,10 @@
 
 - (NSMutableArray *)mxmPointAnnotations
 {
-    if (!_mxmPointAnnotations) {
-        _mxmPointAnnotations = [NSMutableArray array];
-    }
-    return _mxmPointAnnotations;
+  if (!_mxmPointAnnotations) {
+    _mxmPointAnnotations = [NSMutableArray array];
+  }
+  return _mxmPointAnnotations;
 }
 
 @end
