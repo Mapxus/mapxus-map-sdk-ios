@@ -470,7 +470,10 @@
     [self.mapView setUserTrackingMode:MGLUserTrackingModeNone];
   }
   // 重新过滤标注点
-  [self.annHolder filterMXMAnnotationsWithBuilding:building.identifier floor:floor.code indoorState:self.isIndoor];
+  [self.annHolder filterMXMAnnotationsWithBuilding:building.identifier
+                                             floor:floor.code
+                                           floorId:floor.floorId
+                                       indoorState:self.isIndoor];
 }
 
 - (void)decideMapViewChangeBuilding:(nullable MXMGeoBuilding *)building
