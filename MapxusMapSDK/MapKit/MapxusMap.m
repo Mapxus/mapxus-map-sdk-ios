@@ -307,7 +307,6 @@
        [self.delegate respondsToSelector:@selector(map:didSingleTapOnBlank:atSite:)]
        )
       ) {
-        // 非点击POI
         NSArray<MXMLevelModel *> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
         MXMLevelModel *feature = theFeatures.firstObject;
         
@@ -319,7 +318,6 @@
         MXMGeoBuilding *pointBuilding = [self.buildings[buildingId] copy];
         MXMGeoVenue *pointVenue = [self.venues[pointBuilding.identifier] copy];
         
-        // 点击了POI
         MXMFloor *floorModel = [[MXMFloor alloc] init];
         floorModel.floorId = floorId;
         floorModel.code = floor;
@@ -341,7 +339,11 @@
         if (poi) {
           if ([self.delegate respondsToSelector:@selector(map:didSingleTapOnPOI:atCoordinate:atSite:)]) {
             [self.delegate map:self didSingleTapOnPOI:poi atCoordinate:coor atSite:site];
-          } else if ([self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)]) {
+          } else if ([self.delegate respondsToSelector:@selector(mapView:
+                                                                 didSingleTappedOnPOI:
+                                                                 atCoordinate:
+                                                                 onFloor:
+                                                                 inBuilding:)]) {
             [self.delegate mapView:self didSingleTappedOnPOI:poi atCoordinate:coor onFloor:floor inBuilding:pointBuilding];
           }
         } else {
@@ -403,7 +405,7 @@
           
           if ([self.delegate respondsToSelector:@selector(map:didLongPressAtCoordinate:atSite:)]) {
             [self.delegate map:self didLongPressAtCoordinate:coor atSite:site];
-          } else {
+          } else if ([self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)]) {
             [self.delegate mapView:self didLongPressedAtCoordinate:coor onFloor:floor inBuilding:pointBuilding];
           }
         } else if (self.delegate) {
@@ -535,9 +537,12 @@
   // 回调
   if (shouldCallBack) {
     if (self.delegate) {
-      if ([self.delegate respondsToSelector:@selector(map:didChangeSelectedFloor:inSelectedBuilding:atSelectedVenue:)]) {
+      if ([self.delegate respondsToSelector:@selector(map:
+                                                      didChangeSelectedFloor:
+                                                      inSelectedBuilding:
+                                                      atSelectedVenue:)]) {
         [self.delegate map:self didChangeSelectedFloor:floor inSelectedBuilding:building atSelectedVenue:venue];
-      } else {
+      } else if ([self.delegate respondsToSelector:@selector(mapView:didChangeFloor:atBuilding:)]) {
         [self.delegate mapView:self didChangeFloor:floor.code atBuilding:building];
       }
       [self updageLocationView];
