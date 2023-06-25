@@ -22,6 +22,8 @@
 
 /* Begin PBXBuildFile section */
 		1C4A9D2057A7A29341284FA7 /* Pods_MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F5BA4C07AEC8BE19BCEE18 /* Pods_MapxusMapSDK.framework */; };
+		892933202A247AF8003C0DE6 /* MXMBorderStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		892933212A247AF8003C0DE6 /* MXMBorderStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */; };
 		896BD7F829F2610300ED8D9F /* MXMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BD7F729F2610300ED8D9F /* MXMAlertController.m */; };
 		896BD85C2A0C7C0700ED8D9F /* MXMLogoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 896BD85A2A0C7C0700ED8D9F /* MXMLogoView.h */; };
 		896BD85D2A0C7C0700ED8D9F /* MXMLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BD85B2A0C7C0700ED8D9F /* MXMLogoView.m */; };
@@ -131,6 +133,8 @@
 /* Begin PBXFileReference section */
 		04F3A1DB5EB6BB5F6C6A7566 /* Pods_MapxusMapSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapxusMapSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D22435475B5222BB8270E9F /* Pods-MapxusMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.release.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMBorderStyle.h; sourceTree = "<group>"; };
+		8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMBorderStyle.m; sourceTree = "<group>"; };
 		896BD7F729F2610300ED8D9F /* MXMAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMAlertController.m; sourceTree = "<group>"; };
 		896BD7F929F2614500ED8D9F /* MXMAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMAlertController.h; sourceTree = "<group>"; };
 		896BD8582A0BA21000ED8D9F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -519,6 +523,8 @@
 				896BD85B2A0C7C0700ED8D9F /* MXMLogoView.m */,
 				896BD85E2A0C866C00ED8D9F /* MXMLogoButton.h */,
 				896BD85F2A0C866C00ED8D9F /* MXMLogoButton.m */,
+				8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */,
+				8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */,
 			);
 			path = MapKit;
 			sourceTree = "<group>";
@@ -566,6 +572,7 @@
 				89865FAE29E9262700E984A1 /* MXMFloorSelectorBar.h in Headers */,
 				89B2EB7C2A284E1200A369E4 /* MXMSite.h in Headers */,
 				89865F9829E9262700E984A1 /* MXMGeoVenue.h in Headers */,
+				892933202A247AF8003C0DE6 /* MXMBorderStyle.h in Headers */,
 				89865F8A29E9262700E984A1 /* MXMMapServices+Private.h in Headers */,
 				89865FB529E9262700E984A1 /* MXMSearchBuildingOperation2.h in Headers */,
 				89865FC729E9262700E984A1 /* MXMPointAnnotation+Private.h in Headers */,
@@ -813,6 +820,7 @@
 				89C9E1B02A39963800D93569 /* MXMFloorFoldButton.m in Sources */,
 				89865F9729E9262700E984A1 /* MXMDecider.m in Sources */,
 				89865F9429E9262700E984A1 /* MGLMapView+MXMSwizzle.m in Sources */,
+				892933212A247AF8003C0DE6 /* MXMBorderStyle.m in Sources */,
 				89865FBB29E9262700E984A1 /* MXMSearchBase.m in Sources */,
 				896BD7F829F2610300ED8D9F /* MXMAlertController.m in Sources */,
 				89865F9029E9262700E984A1 /* MXMSearchObj.m in Sources */,

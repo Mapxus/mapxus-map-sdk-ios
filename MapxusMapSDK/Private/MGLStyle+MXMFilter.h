@@ -7,6 +7,7 @@
 //
 
 #import <Mapbox/Mapbox.h>
+#import <MapxusMapSDK/MXMBorderStyle.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)filerLevelIds:(NSArray *)levelIds;
 
 //- (void)setLevelIdsTransparent:(NSArray *)levelIds;
+
+- (void)outLineLevelBorderStyle:(MXMBorderStyle *)borderStyle;
 
 - (void)outLineLevel:(NSString *)levelId;
 

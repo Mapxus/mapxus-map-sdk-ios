@@ -19,6 +19,7 @@ FOUNDATION_EXPORT const unsigned char MapxusMapSDKVersionString[];
 #import <MapxusMapSDK/MXMDefine.h>
 #import <MapxusMapSDK/MapxusMap.h>
 #import <MapxusMapSDK/MXMConfiguration.h>
+#import <MapxusMapSDK/MXMBorderStyle.h>
 #import <MapxusMapSDK/MapxusMapDelegate.h>
 #import <MapxusMapSDK/MXMSite.h>
 #import <MapxusMapSDK/MXMGeoVenue.h>
