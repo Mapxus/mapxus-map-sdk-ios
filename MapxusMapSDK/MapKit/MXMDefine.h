@@ -89,6 +89,19 @@ typedef NS_ENUM(NSInteger, MXMZoomMode) {
 
 
 /**
+ The floor switch mode.
+ */
+typedef NS_ENUM(NSInteger, MXMFloorSwitchMode) {
+  
+  /// Switching floor will synchronize the floor ordinal for all buildings on the same venue.
+  MXMSwitchedByVenue,
+  
+  /// Only the current building’s floor will change.
+  MXMSwitchedByBuilding
+};
+
+
+/**
  Routing Instructions
  */
 typedef NS_ENUM(NSInteger, MXMRouteSign) {

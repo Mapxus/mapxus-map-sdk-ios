@@ -11,8 +11,10 @@
 
 @class MapxusMap;
 @class MXMGeoPOI;
+@class MXMFloor;
 @class MXMGeoBuilding;
-@class MXMOrdinal;
+@class MXMGeoVenue;
+@class MXMSite;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,70 +26,121 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 
 /**
- Callback of clicking the map. If `- mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:` or `- mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:` is implemented, there will be no callback of this method.
+ Tell the delegate that the user clicked on the map.
  
- @param mapView Responding MapxusMap object.
- @param coordinate Coordinates of the clicking position.
+ If either the `- [MapxusMapDelegate map:didSingleTapOnPOI:atCoordinate:onFloor:inBuilding:]` or the
+ `- [map:didSingleTapOnBlank:onFloor:inBuilding:]` method is implemented, this method will not be called back.
+ 
+ @param map Responding `MapxusMap` object.
+ @param coordinate The coordinates of where the user clicked.
  */
-- (void)mapView:(MapxusMap *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate;
+- (void)map:(MapxusMap *)map
+    didSingleTapAtCoordinate:(CLLocationCoordinate2D)coordinate;
+
+- (void)mapView:(MapxusMap *)mapView
+    didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didSingleTapAtCoordinate:]");
 
 /**
- Call this interface when clicking POI.
+ Tell the delegate that the user clicked on the POI.
  
- @param mapView Responding MapxusMap object.
- @param poi Information of selected POI. Detailed information can be referred at `MXMIndoorPOI`.
- @param coordinate The latitude and longitude of the real click position, it could be different from poi's coordinate.
- @param floorName The name of the floor which you clicked on. It will be nil if you clicked outdoors.
- @param building The building information which you clicked on. It will be nil if you clicked outdoors.
+ @param map Responding `MapxusMap` object.
+ @param poi The information of the selected POI. Detailed information can be referred at `MXMGeoPOI`.
+ @param coordinate The latitude and longitude of the actual click position. It may differ from the POI’s coordinates.
+ @param site The information of the site which the user clicked on. If the user clicked outdoors, it will be nil.
 */
-- (void)mapView:(MapxusMap *)mapView didSingleTappedOnPOI:(MXMGeoPOI *)poi atCoordinate:(CLLocationCoordinate2D)coordinate onFloor:(nullable NSString *)floorName inBuilding:(nullable MXMGeoBuilding *)building;
+- (void)map:(MapxusMap *)map
+    didSingleTapOnPOI:(MXMGeoPOI *)poi
+    atCoordinate:(CLLocationCoordinate2D)coordinate
+    atSite:(nullable MXMSite *)site;
+
+- (void)mapView:(MapxusMap *)mapView
+    didSingleTappedOnPOI:(MXMGeoPOI *)poi
+    atCoordinate:(CLLocationCoordinate2D)coordinate
+    onFloor:(nullable NSString *)floorName
+    inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didSingleTapOnPOI:atCoordinate:atSite:]");
 
 /**
- Clicking on the blank space in the map will call back this interface.
+ Tell the delegate that the user clicked on the blank space in the map.
  
- @param mapView Responding MapxusMap object.
- @param coordinate The coordinate point of the blank where you clicked.
- @param floorName The name of the floor which you clicked on. It will be nil if you clicked outdoors.
- @param building The building information which you clicked on. It will be nil if you clicked outdoors.
+ @param map Responding `MapxusMap` object.
+ @param coordinate The coordinate of the blank where the user clicked.
+ @param site The information of the site which the user clicked on. If the user clicked outdoors, it will be nil.
 */
-- (void)mapView:(MapxusMap *)mapView didSingleTappedOnMapBlank:(CLLocationCoordinate2D)coordinate onFloor:(nullable NSString *)floorName inBuilding:(nullable MXMGeoBuilding *)building;
+- (void)map:(MapxusMap *)map
+    didSingleTapOnBlank:(CLLocationCoordinate2D)coordinate
+    atSite:(nullable MXMSite *)site;
+
+- (void)mapView:(MapxusMap *)mapView
+    didSingleTappedOnMapBlank:(CLLocationCoordinate2D)coordinate
+    onFloor:(nullable NSString *)floorName
+    inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didSingleTapOnBlank:atSite:]");
 
 /**
- It would be callbacked when you long press on the map. And it would not be callbacked if `- mapView:didLongPressedAtCoordinate:onFloor:inBuilding:` is implemented.
+ Tell the delegate that the user long press on the map.
+
+ If `- [MapxusMapDelegate map:didLongPressAtCoordinate:onFloor:inBuilding:]` method is implemented, this method will not be called back.
  
- @param mapView Responding MapxusMap object.
+ @param map Responding `MapxusMap` object.
  @param coordinate Coordinates of the clicking position.
  */
-- (void)mapView:(MapxusMap *)mapView didLongPressedAtCoordinate:(CLLocationCoordinate2D)coordinate;
+- (void)map:(MapxusMap *)map
+    didLongPressAtCoordinate:(CLLocationCoordinate2D)coordinate;
+
+- (void)mapView:(MapxusMap *)mapView
+    didLongPressedAtCoordinate:(CLLocationCoordinate2D)coordinate DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didLongPressAtCoordinate:]");
 
 /**
- It would be callbacked when you long press on the map.
- 
- @param mapView Responding MapxusMap object.
+ Tell the delegate that the user long press on the map.
+
+ @param map Responding `MapxusMap` object.
  @param coordinate Coordinates of the clicking position.
- @param floorName The name of the floor which you long press on. It will be nil if you clicked outdoors.
- @param building The building information which you long press on. It will be nil if you clicked outdoors.
+ @param site The information of the site which the user long press. If the user clicked outdoors, it will be nil.
  */
-- (void)mapView:(MapxusMap *)mapView didLongPressedAtCoordinate:(CLLocationCoordinate2D)coordinate onFloor:(nullable NSString *)floorName inBuilding:(nullable MXMGeoBuilding *)building;
+- (void)map:(MapxusMap *)map
+    didLongPressAtCoordinate:(CLLocationCoordinate2D)coordinate
+    atSite:(nullable MXMSite *)site;
+
+- (void)mapView:(MapxusMap *)mapView
+    didLongPressedAtCoordinate:(CLLocationCoordinate2D)coordinate
+    onFloor:(nullable NSString *)floorName
+    inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didLongPressAtCoordinate:atSite:]");
 
 /**
- Use this interface when changing selected floor.
- 
- @param mapView Responding MapxusMap object.
- @param floorName Floor name of the selected building.
- @param building Building information of the selected building. Detailed information can be referred at `MXMIndoorBuilding`.
+ Tell the delegate that the selected floor and building have been changed.
+
+ @param map Responding `MapxusMap` object.
+ @param floor The information of the selected floor. It can be nil when the selection is cleared.
+ @param building The information of the selected building.  It can be nil when the selection is cleared.
+ @param venue The information of the selected venue.  It can be nil when the selection is cleared.
  */
-- (void)mapView:(MapxusMap *)mapView didChangeFloor:(nullable NSString *)floorName atBuilding:(nullable MXMGeoBuilding *)building;
+- (void)map:(MapxusMap *)map
+    didChangeSelectedFloor:(nullable MXMFloor *)floor
+    inSelectedBuilding:(nullable MXMGeoBuilding *)building
+    atSelectedVenue:(nullable MXMGeoVenue *)venue;
+
+- (void)mapView:(MapxusMap *)mapView
+ didChangeFloor:(nullable NSString *)floorName
+     atBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didChangeSelectedFloor:inSelectedBuilding:atSelectedVenue:]");
 
 /**
  Enter/exit indoor scene callback, the same result may be called multiple times
  
- @param mapView Responding MapxusMap object.
- @param flag Enter/exit indoor scene sign，YES:enter；NO:exit
- @param buildingId Enter the building ID of the scene
- @param floor Enter the floor of the scene
+ @param map Responding `MapxusMap` object.
+ @param flag Enter/exit indoor site sign，YES:enter；NO:exit
+ @param floor The information of the selected floor. It can be nil when the selection is cleared.
+ @param building The information of the selected building.  It can be nil when the selection is cleared.
+ @param venue The information of the selected venue.  It can be nil when the selection is cleared.
  */
-- (void)mapView:(MapxusMap *)mapView indoorMapWithIn:(BOOL)flag building:(nullable NSString *)buildingId floor:(nullable NSString *)floor;
+- (void)map:(MapxusMap *)map
+    didChangeIndoorSiteAccess:(BOOL)flag
+    selectedFloor:(nullable MXMFloor *)floor
+    selectedBuilding:(nullable MXMGeoBuilding *)building
+    selectedVenue:(nullable MXMGeoVenue *)venue;
+
+- (void)mapView:(MapxusMap *)mapView
+indoorMapWithIn:(BOOL)flag
+       building:(nullable NSString *)buildingId
+          floor:(nullable NSString *)floor DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didChangeIndoorSiteAccess:selectedFloor:selectedBuilding:selectedVenue:]");
 
 @end
 

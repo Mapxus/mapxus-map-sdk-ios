@@ -20,13 +20,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MXMDeciderDelegate <NSObject>
 
-- (void)decideMapViewShowFloorBar:(BOOL)show onBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor;
+- (void)decideMapViewShowFloorBar:(BOOL)show
+                       inBuilding:(nullable MXMGeoBuilding *)building
+                            floor:(nullable MXMFloor *)floor;
 // 将要选中
-- (void)decideMapViewShouldChangeBuilding:(nullable MXMGeoBuilding *)building floor:(nullable NSString *)floor shouldChangeTrackingMode:(BOOL)changeTrackingMode;
+- (void)decideMapViewShouldChangeBuilding:(nullable MXMGeoBuilding *)building
+                                    floor:(nullable MXMFloor *)floor
+                 shouldChangeTrackingMode:(BOOL)changeTrackingMode;
 // 选中
-- (void)decideMapViewChangeBuilding:(nullable MXMGeoBuilding *)building floorOrdinal:(nullable MXMOrdinal *)floorOrdinal trackingMode:(BOOL)changeTrackingMode shouldCallBack:(BOOL)shouldCallBack;
+- (void)decideMapViewChangeBuilding:(nullable MXMGeoBuilding *)building
+                              floor:(nullable MXMFloor *)floor
+                       trackingMode:(BOOL)changeTrackingMode
+                     shouldCallBack:(BOOL)shouldCallBack;
 // 操作缩放
-- (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox zoomMode:(MXMZoomMode)zoomMode withEdgePadding:(UIEdgeInsets)insets;
+- (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox
+                   zoomMode:(MXMZoomMode)zoomMode
+            withEdgePadding:(UIEdgeInsets)insets;
 
 
 @end
@@ -36,7 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMDecider : NSObject
 
 @property (nonatomic, assign) BOOL isMapReload;
+@property (nonatomic, assign) MXMFloorSwitchMode floorSwitchMode;
 @property (nonatomic, strong) NSMutableDictionary *venueSelectFloorDic; // 保存运行期间看过大厦最后选中的对应楼层
+@property (nonatomic, strong) NSMutableDictionary *buildingSelectFloorIdDic; // 保存运行期间大厦对应楼层历史
 @property (nonatomic, strong) NSMutableArray<NSString *> *historicalBuildingIds; // 保存运行期间看过的大厦Id，防止同一地点两栋大厦间互相切换
 
 @property (nonatomic, weak) id<MXMDeciderDelegate> delegate;
@@ -63,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 指定建筑
 - (void)specifyTheBuilding:(nullable NSString *)buildingId
-                     floor:(nullable NSString *)floor
+                 floorCode:(nullable NSString *)floorCode
                    ordinal:(nullable MXMOrdinal *)ordinal
                   zoomMode:(MXMZoomMode)zoomMode
                edgePadding:(UIEdgeInsets)insets
@@ -76,6 +87,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (nullable MXMOrdinal *)electDefaultFloorWithHistory:(NSDictionary *)historyDic inBuilding:(MXMGeoBuilding *)building;
+- (nullable NSString *)electDefaultFloorIdWithHistory:(NSDictionary *)historyDic inBuilding:(MXMGeoBuilding *)building;
+
 - (nullable MXMFloor *)absMin:(NSArray<MXMFloor *> *)floors;
 
 @end

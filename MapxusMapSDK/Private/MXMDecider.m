@@ -50,7 +50,7 @@
                                                          inBuildings:buildings];
   if (info) {
     [self specifyTheBuilding:info.building.identifier
-                       floor:info.floor.code
+                   floorCode:info.floor.code
                      ordinal:info.floor.ordinal
                     zoomMode:MXMZoomDisable
                  edgePadding:UIEdgeInsetsZero
@@ -58,7 +58,7 @@
              withGeoBuilding:info.building];
   } else {
     [self specifyTheBuilding:self.currentBuilding.identifier
-                       floor:nil
+                   floorCode:nil
                      ordinal:self.currentFloorOrdinal
                     zoomMode:MXMZoomDisable
                  edgePadding:UIEdgeInsetsZero
@@ -76,7 +76,7 @@
                                                        floorFeatures:floors];
   if (info == nil) { return; }
   [self specifyTheBuilding:info.building.identifier
-                     floor:info.floor.code
+                 floorCode:info.floor.code
                    ordinal:info.floor.ordinal
                   zoomMode:MXMZoomDisable
                edgePadding:UIEdgeInsetsZero
@@ -104,7 +104,7 @@
       floor.ordinal = ordinal;
       
       [self specifyTheBuilding:buildingId
-                         floor:floorName
+                     floorCode:floorName
                        ordinal:ordinal
                       zoomMode:MXMZoomDisable
                    edgePadding:UIEdgeInsetsZero
@@ -118,7 +118,7 @@
 
 
 - (void)specifyTheBuilding:(nullable NSString *)buildingId
-                     floor:(nullable NSString *)floor
+                 floorCode:(nullable NSString *)floorCode
                    ordinal:(nullable MXMOrdinal *)ordinal
                   zoomMode:(MXMZoomMode)zoomMode
                edgePadding:(UIEdgeInsets)insets
@@ -130,7 +130,7 @@
   if (state) {
     // 因为接口不能什么参数都不传，所以如果 buildingId 为空，不进行网络搜索直接进入下一环节，清理当前选中
     if (buildingId == nil || buildingId.length <= 0) {
-      [self displayWihtGeoBuilding:nil orNetBuilding:nil setFloor:nil setOrdinal:nil shouldChangeTrackingMode:changeTrackingMode];
+      [self displayWihtGeoBuilding:nil orNetBuilding:nil setFloorCode:nil setOrdinal:nil shouldChangeTrackingMode:changeTrackingMode];
       return;
     }
     __weak typeof(self) weakSelf = self;
@@ -141,13 +141,13 @@
           [weakSelf.delegate decideMapViewZoomTo:netBuilding.bbox zoomMode:zoomMode withEdgePadding:insets];
         }
         // 显示建筑
-        [weakSelf displayWihtGeoBuilding:building orNetBuilding:netBuilding setFloor:floor setOrdinal:ordinal shouldChangeTrackingMode:changeTrackingMode];
+        [weakSelf displayWihtGeoBuilding:building orNetBuilding:netBuilding setFloorCode:floorCode setOrdinal:ordinal shouldChangeTrackingMode:changeTrackingMode];
       }
     };
     [self.operation searchWithBuildingId:buildingId];
   } else { // 不用zoom也不用网络查询的情况
     // 显示建筑
-    [self displayWihtGeoBuilding:building orNetBuilding:nil setFloor:floor setOrdinal:ordinal shouldChangeTrackingMode:changeTrackingMode];
+    [self displayWihtGeoBuilding:building orNetBuilding:nil setFloorCode:floorCode setOrdinal:ordinal shouldChangeTrackingMode:changeTrackingMode];
   }
 }
 
@@ -156,7 +156,7 @@
 // 取出有效的值building与ordinal，如果取不了，置为building与ordinal应该都为nil
 - (void)displayWihtGeoBuilding:(nullable MXMGeoBuilding *)geo
                  orNetBuilding:(nullable MXMBuilding *)net
-                      setFloor:(nullable NSString *)setFloor
+                  setFloorCode:(nullable NSString *)setFloorCode
                     setOrdinal:(nullable MXMOrdinal *)setOrdinal
       shouldChangeTrackingMode:(BOOL)changeTrackingMode
 {
@@ -178,16 +178,30 @@
       }
     }
     // 通过name找ordinal
-    if (setFloor && !setOrdinal) {
+    if (setFloorCode && !setOrdinal) {
       for (MXMFloor *iFloor in geoBuilding.floors) {
-        if ([iFloor.code isEqualToString:setFloor]) {
+        if ([iFloor.code isEqualToString:setFloorCode]) {
           floorOrdinal = iFloor.ordinal;
           break;
         }
       }
     }
     // 如果没有设置，通过历史找或者最接近地面的层
-    theEndFloorOrdinal = floorOrdinal ? : [self electDefaultFloorWithHistory:self.venueSelectFloorDic inBuilding:geoBuilding];
+    if (self.floorSwitchMode == MXMSwitchedByVenue) {
+      theEndFloorOrdinal = floorOrdinal ? : [self electDefaultFloorWithHistory:self.venueSelectFloorDic
+                                                                    inBuilding:geoBuilding];
+    } else {
+      NSString *defaultFloorId = [self electDefaultFloorIdWithHistory:self.buildingSelectFloorIdDic
+                                                           inBuilding:geoBuilding];
+      MXMOrdinal *defaultOrdinal;
+      for (MXMFloor *iFloor in geoBuilding.floors) {
+        if ([defaultFloorId isEqualToString:iFloor.floorId]) {
+          defaultOrdinal = iFloor.ordinal;
+          break;
+        }
+      }
+      theEndFloorOrdinal = floorOrdinal ? : defaultOrdinal;
+    }
     // 如果找不到有效楼层，建筑也设置为空
     if (theEndFloorOrdinal == nil) {
       geoBuilding = nil;
@@ -199,29 +213,29 @@
 
 // 拿到有效唯一值信息，且保证building与floorOrdinal同时为nil或不同时为nil，如果为nil，则清除选中
 - (void)selectBuilding:(nullable MXMGeoBuilding *)building
-          floorOrdinal:(nullable MXMOrdinal *)floorOrdinal
-shouldChangeTrackingMode:(BOOL)changeTrackingMode {
+    floorOrdinal:(nullable MXMOrdinal *)floorOrdinal
+    shouldChangeTrackingMode:(BOOL)changeTrackingMode {
   
   // 转换成building上的code
-  NSString *floorName;
+  MXMFloor *theFloor;
   if (floorOrdinal) {
     NSArray *floors = building.floors;
     for (MXMFloor *floor in floors) {
       if (floor.ordinal.level == floorOrdinal.level) {
-        floorName = floor.code;
+        theFloor = floor;
         break;
       }
     }
   }
   
-  if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewShowFloorBar:onBuilding:floor:)]) {
+  if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewShowFloorBar:inBuilding:floor:)]) {
     BOOL show = building ? YES : NO;
-    [self.delegate decideMapViewShowFloorBar:show onBuilding:building.identifier floor:floorName];
+    [self.delegate decideMapViewShowFloorBar:show inBuilding:building floor:theFloor];
   }
   
   if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewShouldChangeBuilding:floor:shouldChangeTrackingMode:)]) {
     [self.delegate decideMapViewShouldChangeBuilding:building
-                                               floor:floorName
+                                               floor:theFloor
                             shouldChangeTrackingMode:changeTrackingMode];
   }
   
@@ -243,13 +257,14 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode {
       
       // 保持建筑的选择楼层，下次作为默认选中楼层
       [self.venueSelectFloorDic setObject:floorOrdinal forKey:building.venueId];
+      [self.buildingSelectFloorIdDic setObject:theFloor.floorId forKey:building.identifier];
     }
   }
   
   
-  if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewChangeBuilding:floorOrdinal:trackingMode:shouldCallBack:)]) {
+  if (self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewChangeBuilding:floor:trackingMode:shouldCallBack:)]) {
     [self.delegate decideMapViewChangeBuilding:building
-                                  floorOrdinal:floorOrdinal
+                                         floor:theFloor
                                   trackingMode:changeTrackingMode
                                 shouldCallBack:hasChangedBuildingOrOrdinal];
   }
@@ -302,19 +317,31 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode {
   for (NSString *buildingId in self.historicalBuildingIds) {
     MXMGeoBuilding *building = buildings[buildingId];
     if (building) {
-      if ([building.venueId isEqualToString:self.currentBuilding.venueId]) {
-        selectedFloor = [self buildingFloors:building.floors whichHasSameOrdinal:self.currentFloorOrdinal];
-        if (selectedFloor) {
-          selectedBuilding = building;
-          break;
+      if (self.floorSwitchMode == MXMSwitchedByVenue) {
+        if ([building.venueId isEqualToString:self.currentBuilding.venueId]) {
+          selectedFloor = [self buildingFloors:building.floors whichHasSameOrdinal:self.currentFloorOrdinal];
+          if (selectedFloor) {
+            selectedBuilding = building;
+            break;
+          }
+        } else {
+          MXMOrdinal *historyOrdinal = self.venueSelectFloorDic[building.venueId];
+          selectedFloor = [self buildingFloors:building.floors whichHasSameOrdinal:historyOrdinal];
+          if (selectedFloor) {
+            selectedBuilding = building;
+            break;
+          }
         }
       } else {
-        MXMOrdinal *historyOrdinal = self.venueSelectFloorDic[building.venueId];
-        selectedFloor = [self buildingFloors:building.floors whichHasSameOrdinal:historyOrdinal];
-        if (selectedFloor) {
-          selectedBuilding = building;
-          break;
+        selectedBuilding = building;
+        NSString *floorId = self.buildingSelectFloorIdDic[building.identifier];
+        for (MXMFloor *iFloor in building.floors) {
+          if ([floorId isEqualToString:iFloor.floorId]) {
+            selectedFloor = iFloor;
+            break;
+          }
         }
+        break;
       }
     }
   }
@@ -443,6 +470,23 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode {
   return defaultElectFloorOrdinal;
 }
 
+- (nullable NSString *)electDefaultFloorIdWithHistory:(NSDictionary *)historyDic inBuilding:(MXMGeoBuilding *)building
+{
+  NSString *defaultElectFloorId = historyDic[building.identifier];
+  if (defaultElectFloorId == nil) {
+    NSMutableArray *floors = [NSMutableArray array];
+    // 去除没有ordinal的楼层
+    for (MXMFloor *floor in building.floors) {
+      if (floor.ordinal) {
+        [floors addObject:floor];
+      }
+    }
+    MXMFloor *minFloor = [self absMin:floors];
+    defaultElectFloorId = minFloor.floorId;
+  }
+  return defaultElectFloorId;
+}
+
 // nil表明传入了空的floors数组
 - (nullable MXMFloor *)absMin:(NSArray<MXMFloor *> *)floors
 {
@@ -518,6 +562,13 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode {
     _venueSelectFloorDic = [NSMutableDictionary dictionary];
   }
   return _venueSelectFloorDic;
+}
+
+- (NSMutableDictionary *)buildingSelectFloorIdDic {
+  if (!_buildingSelectFloorIdDic) {
+    _buildingSelectFloorIdDic = [NSMutableDictionary dictionary];
+  }
+  return _buildingSelectFloorIdDic;
 }
 
 - (NSMutableArray<NSString *> *)historicalBuildingIds

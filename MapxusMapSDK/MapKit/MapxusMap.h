@@ -79,6 +79,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL collapseCopyright;
 
 /**
+ Set the floor switch mode.
+ 
+ If attribution has been set to MXMSwitchingByVenue, switching floor will synchronize the floor ordinal for all buildings on the same venue; If the attribution has
+ been set to MXMSwitchingByBuilding, only the current building’s floor will change. The default is MXMSwitchingByVenue.
+ */
+@property (nonatomic, assign) MXMFloorSwitchMode floorSwitchMode;
+
+/**
  Setting the general map appearance
  
  @param style Appearance type. Please refer to `MXMStyle` for specific attribute fields.
