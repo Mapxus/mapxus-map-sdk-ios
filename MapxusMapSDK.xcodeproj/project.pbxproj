@@ -69,17 +69,8 @@
 		89865FA529E9262700E984A1 /* MGLStyle+MXMFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F5829E9262700E984A1 /* MGLStyle+MXMFilter.m */; };
 		89865FA629E9262700E984A1 /* MXMAnnotationsHolder.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F5929E9262700E984A1 /* MXMAnnotationsHolder.h */; };
 		89865FA729E9262700E984A1 /* MGLStyleLayer+MXMFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F5A29E9262700E984A1 /* MGLStyleLayer+MXMFilter.h */; };
-		89865FA829E9262700E984A1 /* MXMPickerTextRenderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F5D29E9262700E984A1 /* MXMPickerTextRenderView.m */; };
-		89865FA929E9262700E984A1 /* MXMPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F5E29E9262700E984A1 /* MXMPickerView.h */; };
-		89865FAA29E9262700E984A1 /* MXMPickerContainerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F5F29E9262700E984A1 /* MXMPickerContainerView.h */; };
-		89865FAB29E9262700E984A1 /* MXMPickerTextRenderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F6029E9262700E984A1 /* MXMPickerTextRenderView.h */; };
-		89865FAC29E9262700E984A1 /* MXMPickerContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F6129E9262700E984A1 /* MXMPickerContainerView.m */; };
-		89865FAD29E9262700E984A1 /* MXMPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F6229E9262700E984A1 /* MXMPickerView.m */; };
-		89865FAE29E9262700E984A1 /* MXMFloorSelectorBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F6329E9262700E984A1 /* MXMFloorSelectorBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89865FAF29E9262700E984A1 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F6529E9262700E984A1 /* KxMenu.m */; };
 		89865FB029E9262700E984A1 /* KxMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F6629E9262700E984A1 /* KxMenu.h */; };
-		89865FB129E9262700E984A1 /* MXMFloorSelectorBar+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F6729E9262700E984A1 /* MXMFloorSelectorBar+Private.h */; };
-		89865FB229E9262700E984A1 /* MXMFloorSelectorBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F6829E9262700E984A1 /* MXMFloorSelectorBar.m */; };
 		89865FB329E9262700E984A1 /* MXMSearchBuildingOperation2.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F6A29E9262700E984A1 /* MXMSearchBuildingOperation2.m */; };
 		89865FB429E9262700E984A1 /* MXMSearchPOIOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 89865F6B29E9262700E984A1 /* MXMSearchPOIOperation.m */; };
 		89865FB529E9262700E984A1 /* MXMSearchBuildingOperation2.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F6C29E9262700E984A1 /* MXMSearchBuildingOperation2.h */; };
@@ -107,6 +98,21 @@
 		89865FCB29E9262700E984A1 /* MXMPointAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F8429E9262700E984A1 /* MXMPointAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89865FCC29E9262700E984A1 /* MapxusMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F8529E9262700E984A1 /* MapxusMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89865FF229E9345B00E984A1 /* Mapbox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89865FF129E9345B00E984A1 /* Mapbox.xcframework */; };
+		89C9E1AF2A39963800D93569 /* MXMFloorFoldButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C9E1AD2A39963800D93569 /* MXMFloorFoldButton.h */; };
+		89C9E1B02A39963800D93569 /* MXMFloorFoldButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C9E1AE2A39963800D93569 /* MXMFloorFoldButton.m */; };
+		89C9E1B32A39966A00D93569 /* MXMFloorBarHeaderFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C9E1B12A39966A00D93569 /* MXMFloorBarHeaderFooterView.h */; };
+		89C9E1B42A39966A00D93569 /* MXMFloorBarHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C9E1B22A39966A00D93569 /* MXMFloorBarHeaderFooterView.m */; };
+		89C9E1B72A39968F00D93569 /* MXMFloorSelectorBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C9E1B52A39968F00D93569 /* MXMFloorSelectorBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		89C9E1B82A39968F00D93569 /* MXMFloorSelectorBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C9E1B62A39968F00D93569 /* MXMFloorSelectorBar.m */; };
+		89C9E1BB2A3996BE00D93569 /* MXMFloorBarCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C9E1B92A3996BE00D93569 /* MXMFloorBarCell.h */; };
+		89C9E1BC2A3996BE00D93569 /* MXMFloorBarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C9E1BA2A3996BE00D93569 /* MXMFloorBarCell.m */; };
+		89C9E1BF2A39998500D93569 /* MXMFloorBarModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C9E1BD2A39998500D93569 /* MXMFloorBarModel.h */; };
+		89C9E1C02A39998500D93569 /* MXMFloorBarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C9E1BE2A39998500D93569 /* MXMFloorBarModel.m */; };
+		89C9E1C32A3AE20500D93569 /* MXMSDKBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C9E1C12A3AE20500D93569 /* MXMSDKBundle.h */; };
+		89C9E1C42A3AE20500D93569 /* MXMSDKBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C9E1C22A3AE20500D93569 /* MXMSDKBundle.m */; };
+		89C9E1C72A3AE3FE00D93569 /* UIImage+MXMSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C9E1C52A3AE3FE00D93569 /* UIImage+MXMSdk.h */; };
+		89C9E1C82A3AE3FE00D93569 /* UIImage+MXMSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C9E1C62A3AE3FE00D93569 /* UIImage+MXMSdk.m */; };
+		89C9E1CA2A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C9E1C92A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h */; };
 		8B47EDA58BF706ACF7E0B2A7 /* Pods_MapxusMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F3A1DB5EB6BB5F6C6A7566 /* Pods_MapxusMapSDKTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -178,17 +184,8 @@
 		89865F5829E9262700E984A1 /* MGLStyle+MXMFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MGLStyle+MXMFilter.m"; sourceTree = "<group>"; };
 		89865F5929E9262700E984A1 /* MXMAnnotationsHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMAnnotationsHolder.h; sourceTree = "<group>"; };
 		89865F5A29E9262700E984A1 /* MGLStyleLayer+MXMFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MGLStyleLayer+MXMFilter.h"; sourceTree = "<group>"; };
-		89865F5D29E9262700E984A1 /* MXMPickerTextRenderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXMPickerTextRenderView.m; sourceTree = "<group>"; };
-		89865F5E29E9262700E984A1 /* MXMPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMPickerView.h; sourceTree = "<group>"; };
-		89865F5F29E9262700E984A1 /* MXMPickerContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMPickerContainerView.h; sourceTree = "<group>"; };
-		89865F6029E9262700E984A1 /* MXMPickerTextRenderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMPickerTextRenderView.h; sourceTree = "<group>"; };
-		89865F6129E9262700E984A1 /* MXMPickerContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXMPickerContainerView.m; sourceTree = "<group>"; };
-		89865F6229E9262700E984A1 /* MXMPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXMPickerView.m; sourceTree = "<group>"; };
-		89865F6329E9262700E984A1 /* MXMFloorSelectorBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMFloorSelectorBar.h; sourceTree = "<group>"; };
 		89865F6529E9262700E984A1 /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
 		89865F6629E9262700E984A1 /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
-		89865F6729E9262700E984A1 /* MXMFloorSelectorBar+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MXMFloorSelectorBar+Private.h"; sourceTree = "<group>"; };
-		89865F6829E9262700E984A1 /* MXMFloorSelectorBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXMFloorSelectorBar.m; sourceTree = "<group>"; };
 		89865F6A29E9262700E984A1 /* MXMSearchBuildingOperation2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXMSearchBuildingOperation2.m; sourceTree = "<group>"; };
 		89865F6B29E9262700E984A1 /* MXMSearchPOIOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXMSearchPOIOperation.m; sourceTree = "<group>"; };
 		89865F6C29E9262700E984A1 /* MXMSearchBuildingOperation2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMSearchBuildingOperation2.h; sourceTree = "<group>"; };
@@ -228,6 +225,21 @@
 		89865FDB29E9273F00E984A1 /* AutoBuild.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = AutoBuild.sh; sourceTree = "<group>"; };
 		89865FDC29E9273F00E984A1 /* IOS-Universal-Framework_aggregate.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "IOS-Universal-Framework_aggregate.sh"; sourceTree = "<group>"; };
 		89865FF129E9345B00E984A1 /* Mapbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Mapbox.xcframework; path = Pods/MapxusRenderSDK/Mapbox.xcframework; sourceTree = "<group>"; };
+		89C9E1AD2A39963800D93569 /* MXMFloorFoldButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMFloorFoldButton.h; sourceTree = "<group>"; };
+		89C9E1AE2A39963800D93569 /* MXMFloorFoldButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMFloorFoldButton.m; sourceTree = "<group>"; };
+		89C9E1B12A39966A00D93569 /* MXMFloorBarHeaderFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMFloorBarHeaderFooterView.h; sourceTree = "<group>"; };
+		89C9E1B22A39966A00D93569 /* MXMFloorBarHeaderFooterView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMFloorBarHeaderFooterView.m; sourceTree = "<group>"; };
+		89C9E1B52A39968F00D93569 /* MXMFloorSelectorBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMFloorSelectorBar.h; sourceTree = "<group>"; };
+		89C9E1B62A39968F00D93569 /* MXMFloorSelectorBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMFloorSelectorBar.m; sourceTree = "<group>"; };
+		89C9E1B92A3996BE00D93569 /* MXMFloorBarCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMFloorBarCell.h; sourceTree = "<group>"; };
+		89C9E1BA2A3996BE00D93569 /* MXMFloorBarCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMFloorBarCell.m; sourceTree = "<group>"; };
+		89C9E1BD2A39998500D93569 /* MXMFloorBarModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMFloorBarModel.h; sourceTree = "<group>"; };
+		89C9E1BE2A39998500D93569 /* MXMFloorBarModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMFloorBarModel.m; sourceTree = "<group>"; };
+		89C9E1C12A3AE20500D93569 /* MXMSDKBundle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSDKBundle.h; sourceTree = "<group>"; };
+		89C9E1C22A3AE20500D93569 /* MXMSDKBundle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSDKBundle.m; sourceTree = "<group>"; };
+		89C9E1C52A3AE3FE00D93569 /* UIImage+MXMSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+MXMSdk.h"; sourceTree = "<group>"; };
+		89C9E1C62A3AE3FE00D93569 /* UIImage+MXMSdk.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MXMSdk.m"; sourceTree = "<group>"; };
+		89C9E1C92A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MXMFloorSelectorBar+Private.h"; sourceTree = "<group>"; };
 		94F3B6382301B7E3738DF8C9 /* Pods-MapxusMapSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDK.debug.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDK/Pods-MapxusMapSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		C11F268EFF8379E21C30B08A /* Pods-MapxusMapSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.debug.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E3F5BA4C07AEC8BE19BCEE18 /* Pods_MapxusMapSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapxusMapSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,6 +287,24 @@
 				1D22435475B5222BB8270E9F /* Pods-MapxusMapSDKTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		893FDBD92A39692C006218D0 /* NewBar */ = {
+			isa = PBXGroup;
+			children = (
+				89C9E1C92A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h */,
+				89C9E1B52A39968F00D93569 /* MXMFloorSelectorBar.h */,
+				89C9E1B62A39968F00D93569 /* MXMFloorSelectorBar.m */,
+				89C9E1AD2A39963800D93569 /* MXMFloorFoldButton.h */,
+				89C9E1AE2A39963800D93569 /* MXMFloorFoldButton.m */,
+				89C9E1B92A3996BE00D93569 /* MXMFloorBarCell.h */,
+				89C9E1BA2A3996BE00D93569 /* MXMFloorBarCell.m */,
+				89C9E1B12A39966A00D93569 /* MXMFloorBarHeaderFooterView.h */,
+				89C9E1B22A39966A00D93569 /* MXMFloorBarHeaderFooterView.m */,
+				89C9E1BD2A39998500D93569 /* MXMFloorBarModel.h */,
+				89C9E1BE2A39998500D93569 /* MXMFloorBarModel.m */,
+			);
+			path = NewBar;
 			sourceTree = "<group>";
 		};
 		89865F0029E9090700E984A1 = {
@@ -415,33 +445,21 @@
 		89865F5B29E9262700E984A1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				89865F5C29E9262700E984A1 /* MXMPicker */,
+				89C9E1C12A3AE20500D93569 /* MXMSDKBundle.h */,
+				89C9E1C22A3AE20500D93569 /* MXMSDKBundle.m */,
+				89C9E1C52A3AE3FE00D93569 /* UIImage+MXMSdk.h */,
+				89C9E1C62A3AE3FE00D93569 /* UIImage+MXMSdk.m */,
+				893FDBD92A39692C006218D0 /* NewBar */,
 				89865F6429E9262700E984A1 /* KxMenu */,
-				89865F6729E9262700E984A1 /* MXMFloorSelectorBar+Private.h */,
-				89865F6329E9262700E984A1 /* MXMFloorSelectorBar.h */,
-				89865F6829E9262700E984A1 /* MXMFloorSelectorBar.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		89865F5C29E9262700E984A1 /* MXMPicker */ = {
-			isa = PBXGroup;
-			children = (
-				89865F6029E9262700E984A1 /* MXMPickerTextRenderView.h */,
-				89865F5D29E9262700E984A1 /* MXMPickerTextRenderView.m */,
-				89865F5E29E9262700E984A1 /* MXMPickerView.h */,
-				89865F6229E9262700E984A1 /* MXMPickerView.m */,
-				89865F5F29E9262700E984A1 /* MXMPickerContainerView.h */,
-				89865F6129E9262700E984A1 /* MXMPickerContainerView.m */,
-			);
-			path = MXMPicker;
 			sourceTree = "<group>";
 		};
 		89865F6429E9262700E984A1 /* KxMenu */ = {
 			isa = PBXGroup;
 			children = (
-				89865F6529E9262700E984A1 /* KxMenu.m */,
 				89865F6629E9262700E984A1 /* KxMenu.h */,
+				89865F6529E9262700E984A1 /* KxMenu.m */,
 			);
 			path = KxMenu;
 			sourceTree = "<group>";
@@ -521,6 +539,7 @@
 			files = (
 				89865FC329E9262700E984A1 /* MXMDefine.h in Headers */,
 				89865FA129E9262700E984A1 /* MXMLevelModel.h in Headers */,
+				89C9E1BF2A39998500D93569 /* MXMFloorBarModel.h in Headers */,
 				89865FCA29E9262700E984A1 /* MXMConfiguration.h in Headers */,
 				89865FCC29E9262700E984A1 /* MapxusMap.h in Headers */,
 				89865FC029E9262700E984A1 /* MXMGeoPOI.h in Headers */,
@@ -529,23 +548,25 @@
 				89865FCB29E9262700E984A1 /* MXMPointAnnotation.h in Headers */,
 				89865FBA29E9262700E984A1 /* MXMGeoCodeSearch.h in Headers */,
 				89865F9329E9262700E984A1 /* MXMSearchObj.h in Headers */,
+				89C9E1BB2A3996BE00D93569 /* MXMFloorBarCell.h in Headers */,
 				89865FBC29E9262700E984A1 /* MXMGeoCodeSearchResult.h in Headers */,
 				89865FC829E9262700E984A1 /* MapxusMapDelegate.h in Headers */,
 				89865FB929E9262700E984A1 /* MXMGeoCodeSearchOption.h in Headers */,
+				89C9E1B72A39968F00D93569 /* MXMFloorSelectorBar.h in Headers */,
+				89C9E1CA2A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h in Headers */,
 				89865F9229E9262700E984A1 /* MXMCommonObj.h in Headers */,
+				89C9E1C32A3AE20500D93569 /* MXMSDKBundle.h in Headers */,
 				89865F8F29E9262700E984A1 /* MXMSearchAPI.h in Headers */,
-				89865FAE29E9262700E984A1 /* MXMFloorSelectorBar.h in Headers */,
 				89865F8A29E9262700E984A1 /* MXMMapServices+Private.h in Headers */,
 				89865FB529E9262700E984A1 /* MXMSearchBuildingOperation2.h in Headers */,
 				89865FC729E9262700E984A1 /* MXMPointAnnotation+Private.h in Headers */,
-				89865FAB29E9262700E984A1 /* MXMPickerTextRenderView.h in Headers */,
+				89C9E1AF2A39963800D93569 /* MXMFloorFoldButton.h in Headers */,
 				89865F8729E9262700E984A1 /* JXJsonFunctionDefine.h in Headers */,
-				89865FAA29E9262700E984A1 /* MXMPickerContainerView.h in Headers */,
+				89C9E1C72A3AE3FE00D93569 /* UIImage+MXMSdk.h in Headers */,
 				89865F9A29E9262700E984A1 /* MXMDataQuerier.h in Headers */,
 				89865FB029E9262700E984A1 /* KxMenu.h in Headers */,
 				89865F9829E9262700E984A1 /* MXMGeoVenue.h in Headers */,
 				89865F8929E9262700E984A1 /* NSString+Compare.h in Headers */,
-				89865FA929E9262700E984A1 /* MXMPickerView.h in Headers */,
 				89865F9F29E9262700E984A1 /* MXMDecider.h in Headers */,
 				89865FA329E9262700E984A1 /* MXMCacheManager.h in Headers */,
 				89865F9D29E9262700E984A1 /* MGLStyle+MXMFilter.h in Headers */,
@@ -553,11 +574,11 @@
 				89865F1929E9090700E984A1 /* MapxusMapSDK.h in Headers */,
 				89865F8629E9262700E984A1 /* MXMHttpManager.h in Headers */,
 				89865FC229E9262700E984A1 /* MapxusMap+Private.h in Headers */,
+				89C9E1B32A39966A00D93569 /* MXMFloorBarHeaderFooterView.h in Headers */,
 				89865FA629E9262700E984A1 /* MXMAnnotationsHolder.h in Headers */,
 				89865FB629E9262700E984A1 /* MXMSearchPOIOperation.h in Headers */,
 				89865FA729E9262700E984A1 /* MGLStyleLayer+MXMFilter.h in Headers */,
 				89865F8829E9262700E984A1 /* MXMLoggerService.h in Headers */,
-				89865FB129E9262700E984A1 /* MXMFloorSelectorBar+Private.h in Headers */,
 				89865FA229E9262700E984A1 /* MGLMapView+MXMSwizzle.h in Headers */,
 				896BD8602A0C866C00ED8D9F /* MXMLogoButton.h in Headers */,
 				89865F9629E9262700E984A1 /* MXMIndoorMapInfo.h in Headers */,
@@ -615,7 +636,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				CLASSPREFIX = MXM;
 				LastUpgradeCheck = 1430;
+				ORGANIZATIONNAME = "MAPHIVE TECHNOLOGY LIMITED.";
 				TargetAttributes = {
 					89865F0929E9090700E984A1 = {
 						CreatedOnToolsVersion = 14.3;
@@ -779,32 +802,35 @@
 				89865F9529E9262700E984A1 /* MXMLevelModel.m in Sources */,
 				89865FC429E9262700E984A1 /* MapxusMap.m in Sources */,
 				89865FC629E9262700E984A1 /* MXMGeoPOI.m in Sources */,
+				89C9E1B02A39963800D93569 /* MXMFloorFoldButton.m in Sources */,
 				89865F9729E9262700E984A1 /* MXMDecider.m in Sources */,
 				89865F9429E9262700E984A1 /* MGLMapView+MXMSwizzle.m in Sources */,
 				89865FBB29E9262700E984A1 /* MXMSearchBase.m in Sources */,
 				896BD7F829F2610300ED8D9F /* MXMAlertController.m in Sources */,
 				89865F9029E9262700E984A1 /* MXMSearchObj.m in Sources */,
 				896BD8612A0C866C00ED8D9F /* MXMLogoButton.m in Sources */,
-				89865FA829E9262700E984A1 /* MXMPickerTextRenderView.m in Sources */,
-				89865FAD29E9262700E984A1 /* MXMPickerView.m in Sources */,
 				89865FA429E9262700E984A1 /* MXMDataQuerier.m in Sources */,
 				89865FB329E9262700E984A1 /* MXMSearchBuildingOperation2.m in Sources */,
 				89865F9E29E9262700E984A1 /* MXMGeoVenue.m in Sources */,
+				89C9E1C02A39998500D93569 /* MXMFloorBarModel.m in Sources */,
 				89865FBE29E9262700E984A1 /* MXMGeoCodeSearch.m in Sources */,
-				89865FAC29E9262700E984A1 /* MXMPickerContainerView.m in Sources */,
 				89865FA529E9262700E984A1 /* MGLStyle+MXMFilter.m in Sources */,
-				89865FB229E9262700E984A1 /* MXMFloorSelectorBar.m in Sources */,
 				896BD85D2A0C7C0700ED8D9F /* MXMLogoView.m in Sources */,
 				89865F9129E9262700E984A1 /* MXMSearchAPI.m in Sources */,
 				89865FB829E9262700E984A1 /* MXMGeoCodeSearchResult.m in Sources */,
+				89C9E1B42A39966A00D93569 /* MXMFloorBarHeaderFooterView.m in Sources */,
+				89C9E1C82A3AE3FE00D93569 /* UIImage+MXMSdk.m in Sources */,
+				89C9E1B82A39968F00D93569 /* MXMFloorSelectorBar.m in Sources */,
 				89865F9B29E9262700E984A1 /* MGLStyleLayer+MXMFilter.m in Sources */,
 				89865FC129E9262700E984A1 /* MXMConfiguration.m in Sources */,
 				89865F9929E9262700E984A1 /* MXMCacheManager.m in Sources */,
 				89865FA029E9262700E984A1 /* MXMIndoorMapInfo.m in Sources */,
 				89865FAF29E9262700E984A1 /* KxMenu.m in Sources */,
+				89C9E1C42A3AE20500D93569 /* MXMSDKBundle.m in Sources */,
 				89865FC529E9262700E984A1 /* MXMPointAnnotation.m in Sources */,
 				89865F9C29E9262700E984A1 /* MXMAnnotationsHolder.m in Sources */,
 				89865FC929E9262700E984A1 /* MXMGeoBuilding.m in Sources */,
+				89C9E1BC2A3996BE00D93569 /* MXMFloorBarCell.m in Sources */,
 				89865F8E29E9262700E984A1 /* MXMCommonObj.m in Sources */,
 				89865FB429E9262700E984A1 /* MXMSearchPOIOperation.m in Sources */,
 			);
@@ -884,7 +910,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 23.05.23.15.51;
+				CURRENT_PROJECT_VERSION = 23.06.19.14.07;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -946,7 +972,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 23.05.23.15.51;
+				CURRENT_PROJECT_VERSION = 23.06.19.14.07;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -973,11 +999,11 @@
 			baseConfigurationReference = 94F3B6382301B7E3738DF8C9 /* Pods-MapxusMapSDK.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23.05.23.15.51;
+				CURRENT_PROJECT_VERSION = 23.06.19.14.07;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 23.05.23.15.51;
+				DYLIB_CURRENT_VERSION = 23.06.19.14.07;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1007,11 +1033,11 @@
 			baseConfigurationReference = E9BF3B270BB2C9A419AC875C /* Pods-MapxusMapSDK.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 23.05.23.15.51;
+				CURRENT_PROJECT_VERSION = 23.06.19.14.07;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 23.05.23.15.51;
+				DYLIB_CURRENT_VERSION = 23.06.19.14.07;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1041,7 +1067,7 @@
 			baseConfigurationReference = C11F268EFF8379E21C30B08A /* Pods-MapxusMapSDKTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23.05.23.15.51;
+				CURRENT_PROJECT_VERSION = 23.06.19.14.07;
 				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -1057,7 +1083,7 @@
 			baseConfigurationReference = 1D22435475B5222BB8270E9F /* Pods-MapxusMapSDKTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23.05.23.15.51;
+				CURRENT_PROJECT_VERSION = 23.06.19.14.07;
 				DEVELOPMENT_TEAM = ZNBZ7BZAKZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
