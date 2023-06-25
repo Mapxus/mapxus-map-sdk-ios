@@ -22,7 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations;
 
-- (void)filterMXMAnnotationsWithBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor indoorState:(BOOL)isIndoor;
+- (void)filterMXMAnnotationsWithBuilding:(nullable NSString *)buildingId
+                                   floor:(nullable NSString *)floor
+                                 floorId:(nullable NSString *)floorId
+                             indoorState:(BOOL)isIndoor;
 
 @end
 

@@ -474,7 +474,10 @@
     [self.mapView setUserTrackingMode:MGLUserTrackingModeNone];
   }
   // 重新过滤标注点
-  [self.annHolder filterMXMAnnotationsWithBuilding:building.identifier floor:floor.code indoorState:self.isIndoor];
+  [self.annHolder filterMXMAnnotationsWithBuilding:building.identifier
+                                             floor:floor.code
+                                           floorId:floor.floorId
+                                       indoorState:self.isIndoor];
 }
 
 - (void)decideMapViewChangeBuilding:(nullable MXMGeoBuilding *)building
@@ -790,17 +793,23 @@
 {
   for (MXMPointAnnotation *ann in annotations) {
     __weak typeof(self) weakSelf = self;
-    ann.sceneRefreshBlock = ^(NSString *buildingId, NSString *floor) {
+    ann.sceneRefreshBlock = ^(NSString *buildingId, NSString *floor, NSString *floorId) {
       [weakSelf filterMXMAnnotation];
     };
   }
   [self.annHolder addMXMPointAnnotations:annotations];
-  [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier floor:self.floor indoorState:self.isIndoor];
+  [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier
+                                             floor:self.selectedFloor.code
+                                           floorId:self.selectedFloor.floorId
+                                       indoorState:self.isIndoor];
 }
 
 - (void)filterMXMAnnotation
 {
-  [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier floor:self.floor indoorState:self.isIndoor];
+  [self.annHolder filterMXMAnnotationsWithBuilding:self.building.identifier
+                                             floor:self.selectedFloor.code
+                                           floorId:self.selectedFloor.floorId
+                                       indoorState:self.isIndoor];
 }
 
 - (void)removeMXMPointAnnotaions:(NSArray<MXMPointAnnotation *> *)annotations

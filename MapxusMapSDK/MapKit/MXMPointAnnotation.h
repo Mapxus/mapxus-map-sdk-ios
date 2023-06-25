@@ -15,8 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MXMPointAnnotation : MGLPointAnnotation
 
-/// The name of the floor where the annotation is located
-@property (nonatomic, strong, nullable) NSString *floor;
+/// The id of the floor where the annotation is located
+@property (nonatomic, strong, nullable) NSString *floorId;
+@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 
 /// The id of the building where the annotation is located
 @property (nonatomic, strong, nullable) NSString *buildingId;

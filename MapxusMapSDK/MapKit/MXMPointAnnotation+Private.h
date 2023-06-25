@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMPointAnnotation ()
 
 @property (nonatomic, assign) BOOL hidden;
-@property (nonatomic, copy, nullable) void (^sceneRefreshBlock)(NSString *buildingId, NSString *floor); // 在 annotation 的楼层有变更时调用的 block
+@property (nonatomic, copy, nullable) void (^sceneRefreshBlock)( NSString * _Nullable buildingId, NSString * _Nullable floor, NSString * _Nullable floorId); // 在 annotation 的楼层有变更时调用的 block
 
 @end
 

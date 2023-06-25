@@ -71,16 +71,28 @@ NS_ASSUME_NONNULL_BEGIN
 /// The id of building in which it is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
 /// The name of floor on which it is located
-@property (nonatomic, strong, nullable) NSString *floor;
+@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
+/// The id of floor on which it is located
+@property (nonatomic, strong, nullable) NSString *floorId;
+
 /**
  MXMIndoorPoint factory method
  @param lat Latitude (vertical)
  @param lng Longitude (horizontal)
  @param buildingId The id of building in which it is located
- @param floor The name of floor on which it is located
+ @param floorId The id of floor on which it is located
  @return MXMIndoorPoint object
  */
-+ (MXMIndoorPoint *)locationWithLatitude:(double)lat longitude:(double)lng building:(nullable NSString *)buildingId floor:(nullable NSString *)floor;
++ (MXMIndoorPoint *)locationWithLatitude:(double)lat
+                               longitude:(double)lng
+                              buildingId:(nullable NSString *)buildingId
+                                 floorId:(nullable NSString *)floorId;
+
++ (MXMIndoorPoint *)locationWithLatitude:(double)lat
+                               longitude:(double)lng
+                                building:(nullable NSString *)buildingId
+                                   floor:(nullable NSString *)floor DEPRECATED_MSG_ATTRIBUTE("Please use `+ [MXMIndoorPoint locationWithLatitude:longitude:buildingId:floorId:]`");
+
 @end
 
 
@@ -348,7 +360,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// The id of the building in which this instruction is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
 /// The name of the floor in which this instruction is located
-@property (nonatomic, strong, nullable) NSString *floor;
+@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
+/// The id of the floor in which this instruction is located
+@property (nonatomic, strong, nullable) NSString *floorId;
 /// The ordinal of the floor in which this instruction is located
 @property (nonatomic, strong, nullable) MXMOrdinal *ordinal;
 /// Name of the road being taken

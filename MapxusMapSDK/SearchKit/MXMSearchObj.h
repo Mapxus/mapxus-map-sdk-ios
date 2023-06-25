@@ -211,22 +211,28 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MXMRouteSearchRequest : NSObject
 /// The id of building where the start point is located
-@property (nonatomic, strong, nullable) NSString *fromBuilding;
+@property (nonatomic, strong, nullable) NSString *fromBuildingId;
+@property (nonatomic, strong, nullable) NSString *fromBuilding DEPRECATED_MSG_ATTRIBUTE("Please use `fromBuildingId`");
 /// The name of floor where the start point is located
-@property (nonatomic, strong, nullable) NSString *fromFloor;
+@property (nonatomic, strong, nullable) NSString *fromFloor DEPRECATED_MSG_ATTRIBUTE("Please use `fromFloorId`");
+/// The id of floor where the start point is located
+@property (nonatomic, strong, nullable) NSString *fromFloorId;
 /// Starting longitude
 @property (nonatomic, assign) double fromLon;
 /// Starting latitude
 @property (nonatomic, assign) double fromLat;
+/// The id of building where the end point is located
+@property (nonatomic, strong, nullable) NSString *toBuildingId;
+@property (nonatomic, strong, nullable) NSString *toBuilding DEPRECATED_MSG_ATTRIBUTE("Please use `toBuildingId`");
 /// The name of floor where the end point is located
-@property (nonatomic, strong, nullable) NSString *toBuilding;
-/// The name of floor where the end point is located
-@property (nonatomic, strong, nullable) NSString *toFloor;
+@property (nonatomic, strong, nullable) NSString *toFloor DEPRECATED_MSG_ATTRIBUTE("Please use `toFloorId`");
+/// The id of floor where the end point is located
+@property (nonatomic, strong, nullable) NSString *toFloorId;
 /// Ending longitude
 @property (nonatomic, assign) double toLon;
 /// Ending latitude
 @property (nonatomic, assign) double toLat;
-/// Navigation method. Optional values are foot, wheelchair. foot by default
+/// Navigation method. Optional values are foot, wheelchair, escalator. foot by default
 @property (nonatomic, strong, nullable) NSString *vehicle;
 /// Returns the result language. Possible values are en, zh-Hans, zh-Hant, ja, ko. en by default
 @property (nonatomic, strong, nullable) NSString *locale;

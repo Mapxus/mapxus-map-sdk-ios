@@ -79,7 +79,23 @@
 
 @implementation MXMIndoorPoint
 
-+ (MXMIndoorPoint *)locationWithLatitude:(double)lat longitude:(double)lng building:(NSString *)buildingId floor:(NSString *)floor
++ (MXMIndoorPoint *)locationWithLatitude:(double)lat
+                               longitude:(double)lng
+                              buildingId:(nullable NSString *)buildingId
+                                 floorId:(nullable NSString *)floorId {
+  MXMIndoorPoint *point = [[MXMIndoorPoint alloc] init];
+  point.latitude = lat;
+  point.longitude = lng;
+  point.buildingId = buildingId;
+  point.floorId = floorId;
+  return point;
+}
+
+
++ (MXMIndoorPoint *)locationWithLatitude:(double)lat
+                               longitude:(double)lng
+                                building:(NSString *)buildingId
+                                   floor:(NSString *)floor
 {
     MXMIndoorPoint *point = [[MXMIndoorPoint alloc] init];
     point.latitude = lat;
@@ -428,6 +444,7 @@
   return @{
     @"venueId" : @[@"venueId", @"venue_id"],
     @"buildingId" : @[@"buildingId", @"building_id"],
+    @"floorId" : @[@"floorId", @"floor_id"],
     @"streetName" : @[@"streetName", @"street_name"],
   };
 }

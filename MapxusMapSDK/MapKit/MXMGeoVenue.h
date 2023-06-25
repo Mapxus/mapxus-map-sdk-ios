@@ -41,10 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMAddress *address_ko;
 
 @property (nonatomic, strong) NSArray<NSString *> *buildingIds;
-/// All floors of the building
-@property (nonatomic, strong) NSArray<MXMFloor *> *floors;
-/// The ground floor of the building
-@property (nonatomic, strong, nullable) NSString *groundFloor;
 
 @end
 
