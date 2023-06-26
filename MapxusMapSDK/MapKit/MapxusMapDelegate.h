@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
     didSingleTapAtCoordinate:(CLLocationCoordinate2D)coordinate;
 
 - (void)mapView:(MapxusMap *)mapView
-    didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didSingleTapAtCoordinate:]");
+    didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didSingleTapAtCoordinate:]`");
 
 /**
  Tell the delegate that the user clicked on the POI.
@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
     didSingleTappedOnPOI:(MXMGeoPOI *)poi
     atCoordinate:(CLLocationCoordinate2D)coordinate
     onFloor:(nullable NSString *)floorName
-    inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didSingleTapOnPOI:atCoordinate:atSite:]");
+    inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didSingleTapOnPOI:atCoordinate:atSite:]`");
 
 /**
  Tell the delegate that the user clicked on the blank space in the map.
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)mapView:(MapxusMap *)mapView
     didSingleTappedOnMapBlank:(CLLocationCoordinate2D)coordinate
     onFloor:(nullable NSString *)floorName
-    inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didSingleTapOnBlank:atSite:]");
+    inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didSingleTapOnBlank:atSite:]`");
 
 /**
  Tell the delegate that the user long press on the map.
@@ -87,7 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
     didLongPressAtCoordinate:(CLLocationCoordinate2D)coordinate;
 
 - (void)mapView:(MapxusMap *)mapView
-    didLongPressedAtCoordinate:(CLLocationCoordinate2D)coordinate DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didLongPressAtCoordinate:]");
+    didLongPressedAtCoordinate:(CLLocationCoordinate2D)coordinate DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didLongPressAtCoordinate:]`");
 
 /**
  Tell the delegate that the user long press on the map.
@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)mapView:(MapxusMap *)mapView
     didLongPressedAtCoordinate:(CLLocationCoordinate2D)coordinate
     onFloor:(nullable NSString *)floorName
-    inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didLongPressAtCoordinate:atSite:]");
+    inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didLongPressAtCoordinate:atSite:]`");
 
 /**
  Tell the delegate that the selected floor and building have been changed.
@@ -120,7 +120,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)mapView:(MapxusMap *)mapView
  didChangeFloor:(nullable NSString *)floorName
-     atBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didChangeSelectedFloor:inSelectedBuilding:atSelectedVenue:]");
+     atBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didChangeSelectedFloor:inSelectedBuilding:atSelectedVenue:]`");
 
 /**
  Enter/exit indoor scene callback, the same result may be called multiple times
@@ -140,7 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)mapView:(MapxusMap *)mapView
 indoorMapWithIn:(BOOL)flag
        building:(nullable NSString *)buildingId
-          floor:(nullable NSString *)floor DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMapDelegate map:didChangeIndoorSiteAccess:selectedFloor:selectedBuilding:selectedVenue:]");
+          floor:(nullable NSString *)floor DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didChangeIndoorSiteAccess:selectedFloor:selectedBuilding:selectedVenue:]`");
 
 @end
 

@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Building name in Korean
 @property (nonatomic, strong, nullable) NSString *name_ko;
 /// Building address in default language
-@property (nonatomic, strong, nullable) MXMAddress *address_default;
+@property (nonatomic, strong, nullable) MXMAddress *address;
 /// Building address in English
 @property (nonatomic, strong, nullable) MXMAddress *address_en;
 /// Building address in Simplified Chinese
@@ -41,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMAddress *address_ko;
 
 @property (nonatomic, strong) NSArray<NSString *> *buildingIds;
+
+@property (nonatomic, strong, nullable) NSString *defaultDisplayedBuildingId;
 
 @end
 

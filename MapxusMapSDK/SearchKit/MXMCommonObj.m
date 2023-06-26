@@ -267,6 +267,7 @@
              @"address_ja" : @[@"address_ja", @"address.ja"],
              @"address_ko" : @[@"address_ko", @"address.ko"],
              @"buildingId" : @[@"buildingId", @"id"],
+             @"defaultDisplayedFloorId" : @[@"defaultDisplayedFloorId", @"defaultFloor"],
              @"hasVisualMap" : @[@"hasVisualMap", @"visualMap"],
              @"hasSignalMap" : @[@"hasSignalMap", @"signalMap"],
              };
@@ -323,6 +324,7 @@
       @"address_zh" : @[@"address_zh", @"address.zh-Hant"],
       @"address_ja" : @[@"address_ja", @"address.ja"],
       @"address_ko" : @[@"address_ko", @"address.ko"],
+      @"defaultDisplayedBuildingId" : @[@"defaultDisplayedBuildingId", @"defaultBuilding"],
       @"hasVisualMap" : @[@"hasVisualMap", @"visualMap"],
       @"hasSignalMap" : @[@"hasSignalMap", @"signalMap"],
     };

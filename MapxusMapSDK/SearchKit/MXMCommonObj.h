@@ -227,7 +227,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// All floors information of the building
 @property (nonatomic, strong) NSArray<MXMFloorInfo *> *floors;
 /// The ground floor name of the building
-@property (nonatomic, strong, nullable) NSString *groundFloor;
+@property (nonatomic, strong, nullable) NSString *groundFloor DEPRECATED_MSG_ATTRIBUTE("Will be removed");
+
+@property (nonatomic, strong, nullable) NSString *defaultDisplayedFloorId;
 /// The contry where the building is located
 @property (nonatomic, strong, nullable) NSString *country;
 /// The region where the building is located
@@ -284,6 +286,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *country;
 /// The region where the venue is located
 @property (nonatomic, strong, nullable) NSString *region;
+
+@property (nonatomic, strong, nullable) NSString *defaultDisplayedBuildingId;
 /// Whether the venue have visual map data
 @property (nonatomic, assign) BOOL hasVisualMap;
 /// Whether the venue have signal map data

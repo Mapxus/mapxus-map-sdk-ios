@@ -21,13 +21,14 @@
   copyedModel.name_zh = self.name_zh;
   copyedModel.name_ja = self.name_ja;
   copyedModel.name_ko = self.name_ko;
-  copyedModel.address_default = self.address_default;
+  copyedModel.address = self.address;
   copyedModel.address_en = self.address_en;
   copyedModel.address_cn = self.address_cn;
   copyedModel.address_zh = self.address_zh;
   copyedModel.address_ja = self.address_ja;
   copyedModel.address_ko = self.address_ko;
   copyedModel.buildingIds = [[NSArray alloc] initWithArray:self.buildingIds copyItems:YES];
+  copyedModel.defaultDisplayedBuildingId = self.defaultDisplayedBuildingId;
   return copyedModel;
 }
 
@@ -40,6 +41,7 @@
     @"name_zh": @[@"name_zh", @"name:zh-Hant"],
     @"name_ja": @[@"name_ja", @"name:ja"],
     @"name_ko": @[@"name_ko", @"name:ko"],
+    @"defaultDisplayedBuildingId": @[@"defaultDisplayedBuildingId", @"default_displayed_building"]
   };
 }
 
@@ -50,17 +52,17 @@
   
   // address_default
   if (dic[@"addr:street"]) {
-    if (self.address_default == nil) {
-      self.address_default = [[MXMAddress alloc] init];
+    if (self.address == nil) {
+      self.address = [[MXMAddress alloc] init];
     }
-    self.address_default.street = [NSString stringWithFormat:@"%@", dic[@"addr:street"]];
+    self.address.street = [NSString stringWithFormat:@"%@", dic[@"addr:street"]];
   }
   
   if (dic[@"addr:housenumber"]) {
-    if (self.address_default == nil) {
-      self.address_default = [[MXMAddress alloc] init];
+    if (self.address == nil) {
+      self.address = [[MXMAddress alloc] init];
     }
-    self.address_default.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber"]];
+    self.address.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber"]];
   }
   
   // address_en

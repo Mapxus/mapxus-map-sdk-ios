@@ -25,6 +25,7 @@
     copyedModel.name_ko = self.name_ko;
     copyedModel.floors = [[NSArray alloc] initWithArray:self.floors copyItems:YES];
     copyedModel.groundFloor = self.groundFloor;
+    copyedModel.defaultDisplayedFloorId = self.defaultDisplayedFloorId;
     copyedModel.type = self.type;
 
     return copyedModel;
@@ -38,6 +39,7 @@
              @"name_ko" : @[@"name_ko", @"name:ko"],
              @"identifier" : @[@"identifier", @"id"],
              @"venueId" : @[@"venueId", @"ref:venue"],
+             @"defaultDisplayedFloorId": @[@"defaultDisplayedFloorId", @"default_displayed_floor"]
              };
 }
 

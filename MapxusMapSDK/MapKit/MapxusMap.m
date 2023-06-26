@@ -280,7 +280,7 @@
     return;
   }
   
-  [self.decider decideInRectBuildingDic:self.innerbuildings];
+  [self.decider decideInRectWithBuildingDic:self.innerbuildings venueDic:self.venues];
 }
 
 // 单击手势响应
@@ -320,7 +320,7 @@
         NSString *buildingId = feature.refBuildingId;
         
         MXMGeoBuilding *pointBuilding = [self.buildings[buildingId] copy];
-        MXMGeoVenue *pointVenue = [self.venues[pointBuilding.identifier] copy];
+        MXMGeoVenue *pointVenue = [self.venues[pointBuilding.venueId] copy];
         
         MXMFloor *floorModel = [[MXMFloor alloc] init];
         floorModel.floorId = floorId;
@@ -330,7 +330,6 @@
           ordinal.level = [floorOrdinal integerValue];
           floorModel.ordinal = ordinal;
         }
-        
         MXMSite *site = [[MXMSite alloc] init];
         site.floor = floorModel;
         site.building = pointBuilding;
@@ -390,7 +389,7 @@
           NSString *buildingId = feature.refBuildingId;
           
           MXMGeoBuilding *pointBuilding = [self.buildings[buildingId] copy];
-          MXMGeoVenue *pointVenue = [self.venues[pointBuilding.identifier] copy];
+          MXMGeoVenue *pointVenue = [self.venues[pointBuilding.venueId] copy];
           
           // 点击了POI
           MXMFloor *floorModel = [[MXMFloor alloc] init];
@@ -424,7 +423,7 @@
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-    shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
   return YES;
 }
@@ -456,10 +455,10 @@
         venue = [self.venues[building.venueId] copy];
       }
       [self.delegate map:self
-        didChangeIndoorSiteAccess:self.isIndoor
-        selectedFloor:floor
+didChangeIndoorSiteAccess:self.isIndoor
+           selectedFloor:floor
         selectedBuilding:building
-        selectedVenue:venue];
+           selectedVenue:venue];
     } else if ([self.delegate respondsToSelector:@selector(mapView:indoorMapWithIn:building:floor:)]) {
       [self.delegate mapView:self indoorMapWithIn:self.isIndoor building:building.identifier floor:floor.code];
     }
@@ -527,8 +526,8 @@
   
   // 配置过滤条件
   NSArray *levelIds = [NSArray array];
-//  NSMutableArray *sameVenueLevelIds = [NSMutableArray array];
-
+  //  NSMutableArray *sameVenueLevelIds = [NSMutableArray array];
+  
   if (self.floorSwitchMode == MXMSwitchedByVenue) {
     levelIds = [self syncModelToGetShowFloorIdsWithFloor:floor building:building];
   } else {
@@ -539,7 +538,7 @@
   if (levelIdSet.count == 0 || ![levelIdSet isSubsetOfSet:self.floorIds] || self.decider.isMapReload) {
     [self.mapView.style filerLevelIds:levelIds];
   }
-//  [self.mapView.style setLevelIdsTransparent:sameVenueLevelIds];
+  //  [self.mapView.style setLevelIdsTransparent:sameVenueLevelIds];
   
   self.floorIds = levelIdSet;
   self.decider.isMapReload = NO;
@@ -559,27 +558,25 @@
   }
 }
 
-- (NSArray *)syncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor building:(nullable MXMGeoBuilding *)building {
+- (NSArray *)syncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor
+                                        building:(nullable MXMGeoBuilding *)building {
   NSMutableArray *levelIds = [NSMutableArray array];
   
   for (MXMGeoBuilding *buildingItem in self.buildings.allValues) {
     if ([buildingItem.venueId isEqualToString:building.venueId]) {
       // 已选中venue的建筑
-      for (MXMFloor *floorItem in buildingItem.floors) {
-        if (floorItem.ordinal && floorItem.ordinal.level == floor.ordinal.level) {
-          [levelIds addObject:floorItem.floorId];
-          break;
-        }
+      MXMFloor *theFloor = [self.decider buildingFloors:buildingItem.floors whichHasSameOrdinal:floor.ordinal];
+      if (theFloor) {
+        [levelIds addObject:theFloor.floorId];
       }
       
     } else {
       // 未选中venue的建筑
-      MXMOrdinal *ordianl = [self.decider electDefaultFloorWithHistory:self.decider.venueSelectFloorDic
-                                                            inBuilding:buildingItem];
-      for (MXMFloor *floorItem in buildingItem.floors) {
-        if (floorItem.ordinal && floorItem.ordinal.level == ordianl.level) {
-          [levelIds addObject:floorItem.floorId];
-        }
+      MXMFloor *theFloor = [self.decider electDefaultFloorWithVenueHistory:self.decider.venueSelectFloorDic
+                                                                inBuilding:buildingItem];
+      if (theFloor) {
+        self.decider.venueSelectFloorDic[buildingItem.venueId] = theFloor.ordinal;
+        [levelIds addObject:theFloor.floorId];
       }
       
     }
@@ -587,7 +584,8 @@
   return levelIds;
 }
 
-- (NSArray *)asyncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor building:(nullable MXMGeoBuilding *)building {
+- (NSArray *)asyncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor
+                                         building:(nullable MXMGeoBuilding *)building {
   NSMutableArray *levelIds = [NSMutableArray array];
   
   for (MXMGeoBuilding *buildingItem in self.buildings.allValues) {
@@ -599,11 +597,11 @@
       
     } else {
       // 未选中的建筑
-      NSString *theFloorId = [self.decider electDefaultFloorIdWithHistory:self.decider.buildingSelectFloorIdDic
-                                                               inBuilding:buildingItem];
-      self.decider.buildingSelectFloorIdDic[buildingItem.identifier] = theFloorId;
-      if (theFloorId) {
-        [levelIds addObject:theFloorId];
+      MXMFloor *theFloor = [self.decider electDefaultFloorWithBuildingHistory:self.decider.buildingSelectFloorIdDic
+                                                                   inBuilding:buildingItem];
+      if (theFloor) {
+        self.decider.buildingSelectFloorIdDic[buildingItem.identifier] = theFloor.floorId;
+        [levelIds addObject:theFloor.floorId];
       }
       
     }
@@ -613,7 +611,10 @@
 
 - (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox zoomMode:(MXMZoomMode)zoomMode withEdgePadding:(UIEdgeInsets)insets
 {
-  MGLCoordinateBounds bounds = MGLCoordinateBoundsMake(CLLocationCoordinate2DMake(bbox.min_latitude, bbox.min_longitude), CLLocationCoordinate2DMake(bbox.max_latitude, bbox.max_longitude));
+  MGLCoordinateBounds bounds = MGLCoordinateBoundsMake(
+                                                       CLLocationCoordinate2DMake(bbox.min_latitude, bbox.min_longitude),
+                                                       CLLocationCoordinate2DMake(bbox.max_latitude, bbox.max_longitude)
+                                                       );
   __weak typeof(self) weakSelf = self;
   
   switch (zoomMode) {

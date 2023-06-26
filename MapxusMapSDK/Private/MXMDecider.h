@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "MXMGeoBuilding.h"
 #import "MXMGeoVenue.h"
-#import "MXMIndoorMapInfo.h"
 #import <Mapbox/Mapbox.h>
 #import "MXMDefine.h"
 #import "MXMLevelModel.h"
+#import "MXMSite.h"
 
 @class MXMBoundingBox;
 
@@ -61,16 +61,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nullable) MXMGeoBuilding *currentBuilding;
 
 // 移动地图确定建筑
-- (void)decideInRectBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
+- (void)decideInRectWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+                           venueDic:(NSDictionary<NSString *, MXMGeoVenue *> *)venues;
 
 // 点击地图确定建筑
 - (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
                     andFloorFeatures:(NSArray<MXMLevelModel *> *)floors;
 
 // 定位时确定建筑
-- (nullable MXMIndoorMapInfo *)decideWithUserLocationLevel:(NSInteger)level
-                                        atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
-                                      atPointLevelInfoList:(NSArray<MXMLevelModel *> *)levelInfoList;
+- (nullable MXMSite *)decideWithUserLocationLevel:(NSInteger)level
+                               atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+                             atPointLevelInfoList:(NSArray<MXMLevelModel *> *)levelInfoList;
 
 // 指定建筑
 - (void)specifyTheBuilding:(nullable NSString *)buildingId
@@ -85,11 +86,14 @@ NS_ASSUME_NONNULL_BEGIN
                                        currentFloor:(NSString *)curFloor
                                       andLocalFloor:(nullable CLFloor *)floor;
 
+- (nullable MXMFloor *)buildingFloors:(NSArray *)floors whichHasSameOrdinal:(nullable MXMOrdinal *)ordinal;
+- (nullable MXMFloor *)buildingFloors:(NSArray *)floors whichHasSameId:(nullable NSString *)floorId;
+- (nullable MXMFloor *)buildingFloors:(NSArray *)floors whichHasSameCode:(nullable NSString *)floorCode;
 
-- (nullable MXMOrdinal *)electDefaultFloorWithHistory:(NSDictionary *)historyDic inBuilding:(MXMGeoBuilding *)building;
-- (nullable NSString *)electDefaultFloorIdWithHistory:(NSDictionary *)historyDic inBuilding:(MXMGeoBuilding *)building;
-
-- (nullable MXMFloor *)absMin:(NSArray<MXMFloor *> *)floors;
+- (nullable MXMFloor *)electDefaultFloorWithVenueHistory:(NSDictionary *)historyDic
+                                              inBuilding:(MXMGeoBuilding *)building;
+- (nullable MXMFloor *)electDefaultFloorWithBuildingHistory:(NSDictionary *)historyDic
+                                                 inBuilding:(MXMGeoBuilding *)building;
 
 @end
 

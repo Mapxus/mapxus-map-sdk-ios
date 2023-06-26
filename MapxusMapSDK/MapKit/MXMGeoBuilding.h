@@ -37,9 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// All floors of the building
 @property (nonatomic, strong) NSArray<MXMFloor *> *floors;
 /// The ground floor of the building
-@property (nonatomic, strong, nullable) NSString *groundFloor;
+@property (nonatomic, strong, nullable) NSString *groundFloor DEPRECATED_MSG_ATTRIBUTE("Will be removed");
 /// Map rendering types, e.g. multipolygon
-@property (nonatomic, strong, nullable) NSString *type;
+@property (nonatomic, strong, nullable) NSString *type DEPRECATED_MSG_ATTRIBUTE("Will be removed");
+
+@property (nonatomic, strong, nullable) NSString *defaultDisplayedFloorId;
 
 @end
 
