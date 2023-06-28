@@ -280,7 +280,7 @@
     return;
   }
   
-  [self.decider decideInRectWithBuildingDic:self.innerbuildings venueDic:self.venues];
+  [self.decider decideInRectWithBuildingDic:self.innerbuildings];
 }
 
 // 单击手势响应
@@ -573,7 +573,8 @@ didChangeIndoorSiteAccess:self.isIndoor
     } else {
       // 未选中venue的建筑
       MXMFloor *theFloor = [self.decider electDefaultFloorWithVenueHistory:self.decider.venueSelectFloorDic
-                                                                inBuilding:buildingItem];
+                                                                inBuilding:buildingItem
+                                                             ignoreHistory:NO];
       if (theFloor) {
         self.decider.venueSelectFloorDic[buildingItem.venueId] = theFloor.ordinal;
         [levelIds addObject:theFloor.floorId];

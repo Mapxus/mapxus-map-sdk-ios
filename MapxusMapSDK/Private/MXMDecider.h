@@ -61,8 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly, nullable) MXMGeoBuilding *currentBuilding;
 
 // 移动地图确定建筑
-- (void)decideInRectWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
-                           venueDic:(NSDictionary<NSString *, MXMGeoVenue *> *)venues;
+- (void)decideInRectWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings;
 
 // 点击地图确定建筑
 - (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
@@ -91,7 +90,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable MXMFloor *)buildingFloors:(NSArray *)floors whichHasSameCode:(nullable NSString *)floorCode;
 
 - (nullable MXMFloor *)electDefaultFloorWithVenueHistory:(NSDictionary *)historyDic
-                                              inBuilding:(MXMGeoBuilding *)building;
+                                              inBuilding:(MXMGeoBuilding *)building
+                                           ignoreHistory:(BOOL)ignore;
 - (nullable MXMFloor *)electDefaultFloorWithBuildingHistory:(NSDictionary *)historyDic
                                                  inBuilding:(MXMGeoBuilding *)building;
 

@@ -91,7 +91,7 @@
       MXMGeoBuilding *b = [MXMGeoBuilding yy_modelWithJSON:feature.attributes];
       MXMGeoVenue *venue = self.mapView.mxmMap.venues[b.venueId];
       b.building = venue.venueType; //building的类型放到了venue上，需要从venue里拿
-      [resultBuildings setObject:b forKey:theId];
+      resultBuildings[theId] = b;
     }
   }
   
@@ -106,7 +106,7 @@
     NSString *theId = [feature attributeForKey:@"id"];
     if (theId) {
       MXMGeoVenue *venue = [MXMGeoVenue yy_modelWithJSON:feature.attributes];
-      [resultVenues setObject:venue forKey:theId];
+      resultVenues[theId] = venue;
     }
   }
   
@@ -153,7 +153,7 @@
       MXMGeoPOI *poi = [MXMGeoPOI yy_modelWithJSON:feature.attributes];
       poi.coordinate = coord;
       
-      [resultPOIs setObject:poi forKey:theId];
+      resultPOIs[theId] = poi;
     }
   }
   
