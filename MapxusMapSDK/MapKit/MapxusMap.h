@@ -21,7 +21,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- * MapxusMap, managing indoor maps
+ MapxusMap, managing indoor maps.
  */
 @interface MapxusMap : NSObject
 
@@ -29,62 +29,64 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)new NS_UNAVAILABLE;
 
 /**
- MapxusMap initialisation function
+ MapxusMap initialisation function.
+ 
  @param mapView Bind MGLMapView and introduce MapBox as a map rendering tool
  @return MapxusMap object
  */
 - (instancetype)initWithMapView:(MGLMapView *)mapView;
 
 /**
- MapxusMap initialisation function
+ MapxusMap initialisation function.
+ 
  @param mapView Bind MGLMapView and introduce MapBox as a map rendering tool
  @param configuration Initialization parameters, see `MXMConfiguration` for details
  @return MapxusMap object
  */
 - (instancetype)initWithMapView:(MGLMapView *)mapView configuration:(nullable MXMConfiguration *)configuration;
 
-/// Event callback agent for MapxusMap
+/// Event callback agent for MapxusMap.
 @property (nonatomic, weak, nullable) id<MapxusMapDelegate> delegate;
 
-/// Building selection button, appears when multiple buildings appear in the rectangular area in the centre of the screen
+/// Building selection button, appears when multiple buildings appear in the rectangular area in the centre of the screen.
 @property (nonatomic, strong, readonly) UIButton *buildingSelectButton;
 
-/// Floor selector
+/// Floor selector bar.
 @property (nonatomic, strong, readonly) MXMFloorSelectorBar *floorBar;
 
-/// Always hide map controls, default is NO
+/// Always hide map controls, default is NO.
 @property (nonatomic, assign) BOOL indoorControllerAlwaysHidden;
 
-/// Set the position of the map control, default is `MXMSelectorPositionCenterLeft`
+/// Set the position of the map control, default is `MXMSelectorPositionCenterLeft`.
 @property (nonatomic, assign) MXMSelectorPosition selectorPosition;
 
 /// Set the margin of the Mapxus logo from the bottom of the mapView, you can only pass 0 or a positive number, passing a negative number will reset it to 0
 @property (nonatomic, assign) CGFloat logoBottomMargin;
 
 /// Set the margin of the Open Street Source from the bottom of the mapView, you can only pass in 0 or a positive number, passing in a negative number will reset
-/// it to 0
+/// it to 0.
 @property (nonatomic, assign) CGFloat openStreetSourceBottomMargin;
 
 /// If the attribution has been set to YES, an ‘(i)’ button will appear in the left corner of the map. If the attribution has been set to NO, two logo buttons will appear
-/// in the bottom corners of the map.   The default is NO
+/// in the bottom corners of the map.   The default is NO.
 @property (nonatomic, assign) BOOL collapseCopyright;
 
 /**
  The style of the border that will be drawn for the selected building.
  
- The default value of this property is an MXMBorderStyle that evaluates to `[MXMBorderStyle defaultSelectedBuildingBorderStyle]`. Set this
+ The default value of this property is an MXMBorderStyle that evaluates to `+ [MXMBorderStyle defaultSelectedBuildingBorderStyle]`. Set this
  property to `nil` to reset it to the default style.
  */
 @property (nonatomic, null_resettable) MXMBorderStyle *selectedBuildingBorderStyle;
 
-/// Whether the outdoor map is displayed
+/// Whether the outdoor map is displayed.
 @property (nonatomic, assign) BOOL outdoorHidden;
 
 /// The function of click on the map to switch the building, the default is YES.
 @property (nonatomic, assign) BOOL gestureSwitchingBuilding;
 
 /// When auto switch mode is on, the building is moved to the centre of the view and the building is automatically selected to show its internal structure. The
-/// default is YES
+/// default is YES.
 @property (nonatomic, assign) BOOL autoChangeBuilding;
 
 /**
@@ -94,27 +96,6 @@ NS_ASSUME_NONNULL_BEGIN
  been set to MXMSwitchingByBuilding, only the current building’s floor will change. The default is MXMSwitchingByVenue.
  */
 @property (nonatomic, assign) MXMFloorSwitchMode floorSwitchMode;
-
-/**
- Setting the general map appearance
- 
- @param style Appearance type. Please refer to `MXMStyle` for specific attribute fields.
- */
-- (void)setMapSytle:(MXMStyle)style;
-
-/**
- Set up custom map appearance, you can contact us for map appearance customization
- 
- @param styleName Appearance mame
- */
-- (void)setMapStyleWithName:(NSString *)styleName;
-
-/**
- Setting the map language
- 
- @param language Map language with options for en, zh-Hant, zh-Hans, ja, ko, default
- */
-- (void)setMapLanguage:(NSString *)language;
 
 /// Currently selected floor
 @property (nonatomic, copy, readonly, nullable) NSString *floor;
@@ -136,6 +117,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Returns all the measured buildings visible in the currently bound MGLMapView viewport
 @property (nonatomic, copy, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
+
+/**
+ Setting the general map appearance.
+ 
+ @param style Appearance type. Please refer to `MXMStyle` for specific attribute fields.
+ */
+- (void)setMapSytle:(MXMStyle)style;
+
+/**
+ Set up custom map appearance, you can contact us for map appearance customization.
+ 
+ @param styleName Appearance mame
+ */
+- (void)setMapStyleWithName:(NSString *)styleName;
+
+/**
+ Setting the map language.
+ 
+ @param language Map language with options for en, zh-Hant, zh-Hans, ja, ko, default.
+ */
+- (void)setMapLanguage:(NSString *)language;
 
 /**
  By selecting the floor of the current building, the map will automatically zoom in to that area with a margin of 0.

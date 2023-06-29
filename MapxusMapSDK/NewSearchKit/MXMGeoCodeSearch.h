@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
  geo search services
  */
 @interface MXMGeoCodeSearch : MXMSearchBase
+
 /// Handle to the object which processing result
 @property (nonatomic, weak, nullable) id<MXMGeoCodeSearchDelegate> delegate;
 
@@ -32,10 +33,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+
 /**
  Search delegate for search results
  */
 @protocol MXMGeoCodeSearchDelegate <NSObject>
+
 @optional
 /**
  Return reverse geocoding search results
@@ -43,7 +46,9 @@ NS_ASSUME_NONNULL_BEGIN
  @param result Search results
  @param error Error message
  */
-- (void)onGetReverseGeoCode:(MXMGeoCodeSearch *)searcher result:(nullable MXMReverseGeoCodeSearchResult *)result error:(nullable NSError *)error;
+- (void)onGetReverseGeoCode:(MXMGeoCodeSearch *)searcher
+                     result:(nullable MXMReverseGeoCodeSearchResult *)result
+                      error:(nullable NSError *)error;
 
 @end
 

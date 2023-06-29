@@ -41,12 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- Venue search results
+ Venue search results.
  */
 @interface MXMVenueSearchResponse : NSObject
-/// The total number of results
+/// The total number of results.
 @property (nonatomic, assign) NSInteger total;
-/// `MXMVenue` list
+/// `MXMVenue` list.
 @property (nonatomic, strong) NSArray<MXMVenue *> *venues;
 @end
 
@@ -213,10 +213,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// The id of building where the start point is located
 @property (nonatomic, strong, nullable) NSString *fromBuildingId;
 @property (nonatomic, strong, nullable) NSString *fromBuilding DEPRECATED_MSG_ATTRIBUTE("Please use `fromBuildingId`");
-/// The name of floor where the start point is located
-@property (nonatomic, strong, nullable) NSString *fromFloor DEPRECATED_MSG_ATTRIBUTE("Please use `fromFloorId`");
 /// The id of floor where the start point is located
 @property (nonatomic, strong, nullable) NSString *fromFloorId;
+@property (nonatomic, strong, nullable) NSString *fromFloor DEPRECATED_MSG_ATTRIBUTE("Please use `fromFloorId`");
 /// Starting longitude
 @property (nonatomic, assign) double fromLon;
 /// Starting latitude
@@ -224,10 +223,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// The id of building where the end point is located
 @property (nonatomic, strong, nullable) NSString *toBuildingId;
 @property (nonatomic, strong, nullable) NSString *toBuilding DEPRECATED_MSG_ATTRIBUTE("Please use `toBuildingId`");
-/// The name of floor where the end point is located
-@property (nonatomic, strong, nullable) NSString *toFloor DEPRECATED_MSG_ATTRIBUTE("Please use `toFloorId`");
 /// The id of floor where the end point is located
 @property (nonatomic, strong, nullable) NSString *toFloorId;
+@property (nonatomic, strong, nullable) NSString *toFloor DEPRECATED_MSG_ATTRIBUTE("Please use `toFloorId`");
 /// Ending longitude
 @property (nonatomic, assign) double toLon;
 /// Ending latitude

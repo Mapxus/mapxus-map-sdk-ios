@@ -16,31 +16,41 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MXMGeoBuilding : NSObject <NSCopying>
 
-/// building id
+/// A string that uniquely identifies the building in the mapxus system.
 @property (nonatomic, strong) NSString *identifier;
+
 /// Building type, indicating the classification of the building, e.g. cathedral, car_park, hospital, office, retail, etc.
 @property (nonatomic, strong) NSString *building;
-/// The id of venue where the building is located
+
+/// The id of venue where the building is located.
 @property (nonatomic, strong) NSString *venueId;
-/// Building name in default language
+
+/// Building name in default language.
 @property (nonatomic, strong, nullable) NSString *name;
-/// Building name in English
+
+/// Building name in English.
 @property (nonatomic, strong, nullable) NSString *name_en;
-/// Building name in Simplified Chinese
+
+/// Building name in Simplified Chinese.
 @property (nonatomic, strong, nullable) NSString *name_cn;
-/// Building name in Traditional Chinese
+
+/// Building name in Traditional Chinese.
 @property (nonatomic, strong, nullable) NSString *name_zh;
-/// Building name in Japanese
+
+/// Building name in Japanese.
 @property (nonatomic, strong, nullable) NSString *name_ja;
-/// Building name in Korean
+
+/// Building name in Korean.
 @property (nonatomic, strong, nullable) NSString *name_ko;
-/// All floors of the building
+
+/// All floors of the building.
 @property (nonatomic, strong) NSArray<MXMFloor *> *floors;
-/// The ground floor of the building
+
 @property (nonatomic, strong, nullable) NSString *groundFloor DEPRECATED_MSG_ATTRIBUTE("Will be removed");
-/// Map rendering types, e.g. multipolygon
+
 @property (nonatomic, strong, nullable) NSString *type DEPRECATED_MSG_ATTRIBUTE("Will be removed");
 
+/// The default floor id in this building, which can be used as the basis for selecting floor by default when building is selected.
 @property (nonatomic, strong, nullable) NSString *defaultDisplayedFloorId;
 
 @end

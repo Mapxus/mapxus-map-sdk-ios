@@ -14,49 +14,49 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMFloorSelectorBar : UIView
 
 /**
- Floor selector folded state.
+ Floor selector bar folded state.
  
  When the floor selector needs to be folded, set to YES, otherwise set to NO, the default value is NO.
  */
 @property (nonatomic, assign) BOOL isFolded;
 
 /**
- The font color that indicates the selected floor on the floor selector.
+ The font color that indicates the selected floor on the floor selector bar.
  
  Default color is 0xFFFFFF.
  */
 @property (nonatomic, strong) UIColor *selectFontColor UI_APPEARANCE_SELECTOR;
 
 /**
- The box color that indicates the selected floor on the floor selector.
+ The box color that indicates the selected floor on the floor selector bar.
  
  Default color is 0x074769.
  */
 @property (nonatomic, strong) UIColor *selectBoxColor UI_APPEARANCE_SELECTOR;
 
 /**
- The font color that indicates the unselected floor on the floor selector.
+ The font color that indicates the unselected floor on the floor selector bar.
  
  Default color is 0x8C8C8C.
  */
 @property (nonatomic, strong) UIColor *fontColor UI_APPEARANCE_SELECTOR;
 
 /**
- The box color that indicates the unselected floor on the floor selector.
+ The box color that indicates the unselected floor on the floor selector bar.
  
  Default color is 0xFFFFFF.
  */
 @property (nonatomic, strong) UIColor *boxColor UI_APPEARANCE_SELECTOR;
 
 /**
- Rounded corner radius of floor selector.
+ Rounded corner radius of floor selector bar.
  
  The default radius is 8.
  */
 @property (nonatomic, assign) CGFloat cornerRadius UI_APPEARANCE_SELECTOR;
 
 /**
- Maximum number of visible floors for floor selector.
+ Maximum number of visible floors for floor selector bar.
  
  The default number is 5.
  */

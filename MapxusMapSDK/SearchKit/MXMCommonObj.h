@@ -70,10 +70,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMIndoorPoint : MXMGeoPoint
 /// The id of building in which it is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// The name of floor on which it is located
-@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
+
 /// The id of floor on which it is located
 @property (nonatomic, strong, nullable) NSString *floorId;
+
+@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 
 /**
  MXMIndoorPoint factory method
@@ -118,7 +119,10 @@ NS_ASSUME_NONNULL_BEGIN
  @param max_lng Top right Longitude
  @return MXMBoundingBox object
  */
-+ (MXMBoundingBox *)boundingBoxWithMinLatitude:(double)min_lat minLongitude:(double)min_lng maxLatitude:(double)max_lat maxLongitude:(double)max_lng;
++ (MXMBoundingBox *)boundingBoxWithMinLatitude:(double)min_lat
+                                  minLongitude:(double)min_lng
+                                   maxLatitude:(double)max_lat
+                                  maxLongitude:(double)max_lng;
 @end
 
 
@@ -140,7 +144,11 @@ NS_ASSUME_NONNULL_BEGIN
  Floor level model, use this class to ensure that the value of level is obtained with the correct type
  */
 @interface MXMOrdinal : NSObject <NSCopying>
-/// Level values represent logical levels above or below ground level and are not intended to correspond to any numbering scheme in use by the building itself. The ground floor of a building is always represented by the value 0. Floors above the ground floor are represented by positive integers, so a value of 1 represents the floor above ground level, a value of 2 represents two floors above ground level, and so on. Floors below the ground floor are represented by corresponding negative integers, with a value of -1 representing the floor immediately below ground level and so on. It is erroneous to use the user’s level in a building as an estimate of altitude.
+/// Level values represent logical levels above or below ground level and are not intended to correspond to any numbering scheme in use by the building itself.
+/// The ground floor of a building is always represented by the value 0. Floors above the ground floor are represented by positive integers, so a value of 1
+/// represents the floor above ground level, a value of 2 represents two floors above ground level, and so on. Floors below the ground floor are represented by
+/// corresponding negative integers, with a value of -1 representing the floor immediately below ground level and so on. It is erroneous to use the user’s level in
+/// a building as an estimate of altitude.
 @property (nonatomic, assign) NSInteger level;
 @end
 
@@ -226,10 +234,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMGeoPoint *labelCenter;
 /// All floors information of the building
 @property (nonatomic, strong) NSArray<MXMFloorInfo *> *floors;
-/// The ground floor name of the building
-@property (nonatomic, strong, nullable) NSString *groundFloor DEPRECATED_MSG_ATTRIBUTE("Will be removed");
-
+/// The default floor id in this building, which can be used as the basis for selecting floor by default when building is selected.
 @property (nonatomic, strong, nullable) NSString *defaultDisplayedFloorId;
+@property (nonatomic, strong, nullable) NSString *groundFloor DEPRECATED_MSG_ATTRIBUTE("Will be removed");
 /// The contry where the building is located
 @property (nonatomic, strong, nullable) NSString *country;
 /// The region where the building is located
@@ -286,7 +293,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *country;
 /// The region where the venue is located
 @property (nonatomic, strong, nullable) NSString *region;
-
+/// The default building id in this venue, which can be used as the basis for selecting building by default when venue is selected.
 @property (nonatomic, strong, nullable) NSString *defaultDisplayedBuildingId;
 /// Whether the venue have visual map data
 @property (nonatomic, assign) BOOL hasVisualMap;
@@ -363,10 +370,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *venueId;
 /// The id of the building in which this instruction is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// The name of the floor in which this instruction is located
-@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 /// The id of the floor in which this instruction is located
 @property (nonatomic, strong, nullable) NSString *floorId;
+@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 /// The ordinal of the floor in which this instruction is located
 @property (nonatomic, strong, nullable) MXMOrdinal *ordinal;
 /// Name of the road being taken

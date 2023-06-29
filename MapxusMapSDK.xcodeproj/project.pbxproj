@@ -293,7 +293,7 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		893FDBD92A39692C006218D0 /* NewBar */ = {
+		893FDBD92A39692C006218D0 /* FloorBar */ = {
 			isa = PBXGroup;
 			children = (
 				89C9E1C92A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h */,
@@ -308,7 +308,7 @@
 				89C9E1BD2A39998500D93569 /* MXMFloorBarModel.h */,
 				89C9E1BE2A39998500D93569 /* MXMFloorBarModel.m */,
 			);
-			path = NewBar;
+			path = FloorBar;
 			sourceTree = "<group>";
 		};
 		89865F0029E9090700E984A1 = {
@@ -449,7 +449,7 @@
 				89C9E1C22A3AE20500D93569 /* MXMSDKBundle.m */,
 				89C9E1C52A3AE3FE00D93569 /* UIImage+MXMSdk.h */,
 				89C9E1C62A3AE3FE00D93569 /* UIImage+MXMSdk.m */,
-				893FDBD92A39692C006218D0 /* NewBar */,
+				893FDBD92A39692C006218D0 /* FloorBar */,
 				89865F6429E9262700E984A1 /* KxMenu */,
 			);
 			path = Controllers;
@@ -511,14 +511,14 @@
 				89865F7B29E9262700E984A1 /* MapxusMap+Private.h */,
 				89865F8529E9262700E984A1 /* MapxusMap.h */,
 				89865F7D29E9262700E984A1 /* MapxusMap.m */,
+				8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */,
+				8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */,
 				896BD7F929F2614500ED8D9F /* MXMAlertController.h */,
 				896BD7F729F2610300ED8D9F /* MXMAlertController.m */,
 				896BD85A2A0C7C0700ED8D9F /* MXMLogoView.h */,
 				896BD85B2A0C7C0700ED8D9F /* MXMLogoView.m */,
 				896BD85E2A0C866C00ED8D9F /* MXMLogoButton.h */,
 				896BD85F2A0C866C00ED8D9F /* MXMLogoButton.m */,
-				8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */,
-				8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */,
 			);
 			path = MapKit;
 			sourceTree = "<group>";
@@ -1023,7 +1023,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0.0;
+				MARKETING_VERSION = 6.1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";
@@ -1057,7 +1057,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 6.0.0;
+				MARKETING_VERSION = 6.1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
 				PRODUCT_BUNDLE_IDENTIFIER = "$(BUNDLE_ID)";

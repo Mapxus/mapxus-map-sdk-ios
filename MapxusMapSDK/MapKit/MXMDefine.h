@@ -92,11 +92,13 @@ typedef NS_ENUM(NSInteger, MXMZoomMode) {
  The floor switch mode.
  */
 typedef NS_ENUM(NSInteger, MXMFloorSwitchMode) {
-  
-  /// Switching floor will synchronize the floor ordinal for all buildings on the same venue.
+  /**
+   When user switch the floor of the selected building, the floor of the other buildings in the same venue will also switch to the same ordinal.
+   */
   MXMSwitchedByVenue,
-  
-  /// Only the current building’s floor will change.
+  /**
+   Only the floor of the selected building will change.
+   */
   MXMSwitchedByBuilding
 };
 

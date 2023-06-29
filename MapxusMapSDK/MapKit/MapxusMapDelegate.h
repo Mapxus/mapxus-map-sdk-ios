@@ -28,8 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tell the delegate that the user clicked on the map.
  
- If either the `- [MapxusMapDelegate map:didSingleTapOnPOI:atCoordinate:onFloor:inBuilding:]` or the
- `- [map:didSingleTapOnBlank:onFloor:inBuilding:]` method is implemented, this method will not be called back.
+ If either the `- [MapxusMapDelegate map:didSingleTapOnPOI:atCoordinate:atSite:]` or the
+ `- [MapxusMapDelegate map:didSingleTapOnBlank:atSite:]` method is implemented, this method will not be called back.
  
  @param map Responding `MapxusMap` object.
  @param coordinate The coordinates of where the user clicked.
@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Tell the delegate that the user long press on the map.
 
- If `- [MapxusMapDelegate map:didLongPressAtCoordinate:onFloor:inBuilding:]` method is implemented, this method will not be called back.
+ If `- [MapxusMapDelegate map:didLongPressAtCoordinate:atSite:]` method is implemented, this method will not be called back.
  
  @param map Responding `MapxusMap` object.
  @param coordinate Coordinates of the clicking position.
@@ -106,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
     inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didLongPressAtCoordinate:atSite:]`");
 
 /**
- Tell the delegate that the selected floor and building have been changed.
+ Tell the delegate that the selected floor , building and venue have been changed.
 
  @param map Responding `MapxusMap` object.
  @param floor The information of the selected floor. It can be nil when the selection is cleared.
@@ -123,7 +123,7 @@ NS_ASSUME_NONNULL_BEGIN
      atBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didChangeSelectedFloor:inSelectedBuilding:atSelectedVenue:]`");
 
 /**
- Enter/exit indoor scene callback, the same result may be called multiple times
+ Enter/exit indoor site callback, the same result may be called multiple times
  
  @param map Responding `MapxusMap` object.
  @param flag Enter/exit indoor site sign，YES:enter；NO:exit

@@ -10,38 +10,57 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ Venue information in tiles
+ */
 @interface MXMGeoVenue : NSObject <NSCopying>
 
+/// A string that uniquely identifies the venue in the mapxus system.
 @property (nonatomic, strong) NSString *identifier;
-/// Building type, indicating the classification of the building, e.g. cathedral, car_park, hospital, office, retail, etc.
+
+/// Venue type, indicating the classification of the venue, e.g. cathedral, car_park, hospital, office, retail, etc.
 @property (nonatomic, strong) NSString *venueType;
-/// Building name in default language
+
+/// Venue name in default language.
 @property (nonatomic, strong, nullable) NSString *name;
-/// Building name in English
+
+/// Venue name in English.
 @property (nonatomic, strong, nullable) NSString *name_en;
-/// Building name in Simplified Chinese
+
+/// Venue name in Simplified Chinese.
 @property (nonatomic, strong, nullable) NSString *name_cn;
-/// Building name in Traditional Chinese
+
+/// Venue name in Traditional Chinese.
 @property (nonatomic, strong, nullable) NSString *name_zh;
-/// Building name in Japanese
+
+/// Venue name in Japanese.
 @property (nonatomic, strong, nullable) NSString *name_ja;
-/// Building name in Korean
+
+/// Venue name in Korean.
 @property (nonatomic, strong, nullable) NSString *name_ko;
-/// Building address in default language
+
+/// Venue address in default language.
 @property (nonatomic, strong, nullable) MXMAddress *address;
-/// Building address in English
+
+/// Venue address in English.
 @property (nonatomic, strong, nullable) MXMAddress *address_en;
-/// Building address in Simplified Chinese
+
+/// Venue address in Simplified Chinese.
 @property (nonatomic, strong, nullable) MXMAddress *address_cn;
-/// Building address in Traditional Chinese
+
+/// Venue address in Traditional Chinese.
 @property (nonatomic, strong, nullable) MXMAddress *address_zh;
-/// Building address in Japanese
+
+/// Venue address in Japanese.
 @property (nonatomic, strong, nullable) MXMAddress *address_ja;
-/// Building address in Korean
+
+/// Venue address in Korean.
 @property (nonatomic, strong, nullable) MXMAddress *address_ko;
 
+/// List of all building ids attributed to this avenue.
 @property (nonatomic, strong) NSArray<NSString *> *buildingIds;
 
+/// The default building id in this venue, which can be used as the basis for selecting building by default when venue is selected.
 @property (nonatomic, strong, nullable) NSString *defaultDisplayedBuildingId;
 
 @end

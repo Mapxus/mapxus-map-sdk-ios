@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- Annotation for indoor use
+ For creating indoor annotations
  */
 @interface MXMPointAnnotation : MGLPointAnnotation
 

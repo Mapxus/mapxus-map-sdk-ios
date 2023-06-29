@@ -14,10 +14,13 @@ NS_ASSUME_NONNULL_BEGIN
  Reverse geo search parameters
  */
 @interface MXMReverseGeoCodeSearchOption : NSObject
+
 /// Latitude and longitude coordinates to be resolved (mandatory)
 @property (nonatomic, assign) CLLocationCoordinate2D location;
+
 /// Level values of floor, corresponding to floor.level in CLLocation
 @property (nonatomic, strong) NSNumber *ordinalFloor;
+
 @end
 
 NS_ASSUME_NONNULL_END
