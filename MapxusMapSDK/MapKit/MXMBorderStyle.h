@@ -77,9 +77,9 @@ NS_ASSUME_NONNULL_BEGIN
  Generate the style of the border that will be drawn for the selected building.
  
  The values of the style set are as follows:
- * `lineWidth`: 3
- * `lineOpacity`: 1
- * `lineColor`: #A5E3FF
+ `lineWidth`: 3
+ `lineOpacity`: 1
+ `lineColor`: #A5E3FF
  */
 + (MXMBorderStyle *)defaultSelectedBuildingBorderStyle;
 

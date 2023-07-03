@@ -34,9 +34,6 @@
 - (void)selectFloorIndex:(NSUInteger)index;
 - (void)localOnFloorIndex:(NSUInteger)index;
 
-/**
- 
- */
 @property (nonatomic, strong) UIColor *locationPointColor UI_APPEARANCE_SELECTOR;
 
 @end

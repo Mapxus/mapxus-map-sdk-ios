@@ -10,7 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
+/**
+ Visual tool for users to select floors
+ */
 @interface MXMFloorSelectorBar : UIView
 
 /**
