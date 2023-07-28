@@ -523,18 +523,34 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode {
   }
 }
 
-- (float)decideLocationViewAlphaWithCurrentBuilding:(MXMGeoBuilding *)curBuilding currentFloor:(NSString *)curFloor andLocalFloor:(nullable CLFloor *)floor
+// TODO: 使用floorId进行同楼层判断
+//                |-同建筑->实
+// |--找到对应楼层——|
+// |              |-不同建筑->虚
+// |
+// |
+// |                |-室内->虚
+// |--找不到对应楼层——|
+//                  |-室外->实
+- (float)decideLocationViewAlphaWithCurrentBuilding:(MXMGeoBuilding *)curBuilding
+                                       currentFloor:(NSString *)curFloor
+                                      andLocalFloor:(nullable CLFloor *)floor
+                               atPointLevelInfoList:(NSArray<MXMLevelModel *> *)levelInfoList
 {
   if (floor) {
-    MXMFloor *m = nil;
-    for (MXMFloor *f in curBuilding.floors) {
-      if ([f.code isEqualToString:curFloor]) {
-        m = f;
+    MXMLevelModel *m = nil;
+    for (MXMLevelModel *model in levelInfoList) {
+      if ([model.ordinal isEqualToNumber:@(floor.level)]) {
+        m = model;
         break;
       }
     }
-    if (m && m.ordinal && m.ordinal.level == floor.level) {
-      return 1.0f;
+    if (m) {
+      if (curFloor && curBuilding.identifier && [m.refBuildingId isEqualToString:curBuilding.identifier] && [m.name isEqualToString:curFloor]) {
+        return 1.0f;
+      } else {
+        return 0.5f;
+      }
     } else {
       return 0.5f;
     }

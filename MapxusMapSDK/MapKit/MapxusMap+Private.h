@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)automaticAnalyseOfIndoorData;
 - (void)idleAutomaticAnalyseOfIndoorData;
 // 刷新定位点透明度
-- (void)updageLocationView;
+- (void)updateLocationView;
 - (void)searchConfigurationInfo;
 - (void)walkAroundOutdoor;
 - (void)cleanMapSelected;

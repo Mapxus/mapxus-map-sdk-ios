@@ -553,7 +553,7 @@ didChangeIndoorSiteAccess:self.isIndoor
       } else if ([self.delegate respondsToSelector:@selector(mapView:didChangeFloor:atBuilding:)]) {
         [self.delegate mapView:self didChangeFloor:floor.code atBuilding:building];
       }
-      [self updageLocationView];
+      [self updateLocationView];
     }
   }
 }
@@ -778,17 +778,22 @@ didChangeIndoorSiteAccess:self.isIndoor
 #pragma mark - private
 
 // 定位标注的显示状态
-- (void)updageLocationView
+- (void)updateLocationView
 {
-  // 切换楼层时
+  // 不显示定位时，就不需要再执行判断
   if (!self.mapView.showsUserLocation) {
     return;
   }
+  CGPoint locationPoint = [self.mapView convertCoordinate:self.mapView.userLocation.location.coordinate
+                                            toPointToView:self.mapView];
+  NSArray<MXMLevelModel *> *floorFeatures = [self.dataQueryer findOutAssistantFloorFeaturesAtPoint:locationPoint];
+
   CLFloor *localFloor = self.mapView.userLocation.location.floor;
   UIView *locationView = [self.mapView viewForAnnotation:self.mapView.userLocation];
   locationView.alpha = [self.decider decideLocationViewAlphaWithCurrentBuilding:self.building
                                                                    currentFloor:self.floor
-                                                                  andLocalFloor:localFloor];
+                                                                  andLocalFloor:localFloor
+                                                           atPointLevelInfoList:floorFeatures];
 }
 
 - (NSArray<MXMPointAnnotation *> *)MXMAnnotations

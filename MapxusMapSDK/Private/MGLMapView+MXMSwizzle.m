@@ -335,7 +335,7 @@ static void *mapKey = &mapKey;
       }
     }
   } else {
-    [mapView.mxmMap updageLocationView];
+    [mapView.mxmMap updateLocationView];
     if (mapView.mxmMap.userLocationFloor != nil) {
       mapView.mxmMap.userLocationFloor = nil;
     }

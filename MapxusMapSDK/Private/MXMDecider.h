@@ -83,7 +83,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (float)decideLocationViewAlphaWithCurrentBuilding:(MXMGeoBuilding *)curBuilding
                                        currentFloor:(NSString *)curFloor
-                                      andLocalFloor:(nullable CLFloor *)floor;
+                                      andLocalFloor:(nullable CLFloor *)floor
+                               atPointLevelInfoList:(NSArray<MXMLevelModel *> *)levelInfoList;
 
 - (nullable MXMFloor *)buildingFloors:(NSArray *)floors whichHasSameOrdinal:(nullable MXMOrdinal *)ordinal;
 - (nullable MXMFloor *)buildingFloors:(NSArray *)floors whichHasSameId:(nullable NSString *)floorId;
