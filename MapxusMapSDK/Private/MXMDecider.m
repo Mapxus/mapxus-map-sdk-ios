@@ -524,38 +524,39 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode {
 }
 
 // TODO: 使用floorId进行同楼层判断
-//                |-同建筑->实
-// |--找到对应楼层——|
-// |              |-不同建筑->虚
+//                     |-同建筑楼层->实
+// |--定位点找到楼层瓦片——|
+// |                   |-不同建筑楼层->虚
 // |
 // |
-// |                |-室内->虚
-// |--找不到对应楼层——|
-//                  |-室外->实
+// |--定位点找不到楼层瓦片——|->实
 - (float)decideLocationViewAlphaWithCurrentBuilding:(MXMGeoBuilding *)curBuilding
                                        currentFloor:(NSString *)curFloor
                                       andLocalFloor:(nullable CLFloor *)floor
                                atPointLevelInfoList:(NSArray<MXMLevelModel *> *)levelInfoList
 {
+  if (levelInfoList.count < 1) {
+    return 1.0f;
+  }
+  
+  MXMLevelModel *m = nil;
   if (floor) {
-    MXMLevelModel *m = nil;
     for (MXMLevelModel *model in levelInfoList) {
       if ([model.ordinal isEqualToNumber:@(floor.level)]) {
         m = model;
         break;
       }
     }
-    if (m) {
-      if (curFloor && curBuilding.identifier && [m.refBuildingId isEqualToString:curBuilding.identifier] && [m.name isEqualToString:curFloor]) {
-        return 1.0f;
-      } else {
-        return 0.5f;
-      }
+  }
+  
+  if (m) {
+    if (curFloor && curBuilding.identifier && [m.refBuildingId isEqualToString:curBuilding.identifier] && [m.name isEqualToString:curFloor]) {
+      return 1.0f;
     } else {
       return 0.5f;
     }
   } else {
-    return 1.0f;
+    return 0.5f;
   }
 }
 
