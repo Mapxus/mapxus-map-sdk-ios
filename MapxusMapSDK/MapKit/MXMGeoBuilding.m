@@ -24,6 +24,7 @@
     copyedModel.name_ja = self.name_ja;
     copyedModel.name_ko = self.name_ko;
     copyedModel.floors = [[NSArray alloc] initWithArray:self.floors copyItems:YES];
+    copyedModel.bbox = self.bbox;
     copyedModel.groundFloor = self.groundFloor;
     copyedModel.defaultDisplayedFloorId = self.defaultDisplayedFloorId;
     copyedModel.type = self.type;

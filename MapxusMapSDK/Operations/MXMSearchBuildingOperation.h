@@ -1,5 +1,5 @@
 //
-//  MXMSearchBuildingOperation2.h
+//  MXMSearchBuildingOperation.h
 //  MapxusMapSDK
 //
 //  Created by Chenghao Guo on 2019/3/21.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MXMSearchBuildingOperation2 : NSObject
+@interface MXMSearchBuildingOperation : NSObject
 
 @property (nonatomic, copy) void (^complateBlock)( MXMBuilding * _Nullable building);
 

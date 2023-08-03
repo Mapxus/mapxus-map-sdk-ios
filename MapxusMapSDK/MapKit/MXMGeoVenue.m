@@ -27,6 +27,7 @@
   copyedModel.address_zh = self.address_zh;
   copyedModel.address_ja = self.address_ja;
   copyedModel.address_ko = self.address_ko;
+  copyedModel.bbox = self.bbox;
   copyedModel.buildingIds = [[NSArray alloc] initWithArray:self.buildingIds copyItems:YES];
   copyedModel.defaultDisplayedBuildingId = self.defaultDisplayedBuildingId;
   return copyedModel;

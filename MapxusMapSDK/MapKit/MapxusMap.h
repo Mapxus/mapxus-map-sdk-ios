@@ -11,10 +11,12 @@
 #import <MapxusMapSDK/MXMConfiguration.h>
 #import <MapxusMapSDK/MXMBorderStyle.h>
 #import <MapxusMapSDK/MXMDefine.h>
+#import <MapxusMapSDK/MXMCommonObj.h>
+#import <MapxusmapSDK/MXMGeoBuilding.h>
+#import <MapxusmapSDK/MXMGeoVenue.h>
+#import <MapxusmapSDK/MXMPointAnnotation.h>
 
 @class MGLMapView;
-@class MXMGeoBuilding;
-@class MXMPointAnnotation;
 @protocol MapxusMapDelegate;
 
 
@@ -77,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
  The default value of this property is an MXMBorderStyle that evaluates to `+ [MXMBorderStyle defaultSelectedBuildingBorderStyle]`. Set this
  property to `nil` to reset it to the default style.
  */
-@property (nonatomic, null_resettable) MXMBorderStyle *selectedBuildingBorderStyle;
+@property (nonatomic, strong, null_resettable) MXMBorderStyle *selectedBuildingBorderStyle;
 
 /// Whether the outdoor map is displayed.
 @property (nonatomic, assign) BOOL outdoorHidden;
@@ -98,25 +100,42 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) MXMFloorSwitchMode floorSwitchMode;
 
 /// Currently selected floor
-@property (nonatomic, copy, readonly, nullable) NSString *floor;
+@property (nonatomic, strong, readonly, nullable) MXMFloor *selectedFloor;
 
-/// Current selected buildings
-@property (nonatomic, copy, readonly, nullable) MXMGeoBuilding *building;
+@property (nonatomic, strong, readonly, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `selectedFloor`");
+
+/// Current selected building
+@property (nonatomic, strong, readonly, nullable) MXMGeoBuilding *selectedBuilding;
+
+@property (nonatomic, strong, readonly, nullable) MXMGeoBuilding *building DEPRECATED_MSG_ATTRIBUTE("Please use `selectedBuilding`");
+
+/// Current selected venue
+@property (nonatomic, strong, readonly, nullable) MXMGeoVenue *selectedVenue;
 
 /**
  The user's current floor, which is only trusted if `MGLMapView`'s `userTrackingMode` is not `MGLUserTrackingModeNone` value.
   nil when there is no indoor data
  */
-@property (nonatomic, copy, readonly, nullable) NSString *userLocationFloor;
+@property (nonatomic, strong, readonly, nullable) NSString *userLocationFloor;
 
 /**
  The user's current building, which is only trusted if `MGLMapView`'s `userTrackingMode` is not `MGLUserTrackingModeNone` value.
   nil when there is no indoor data
  */
-@property (nonatomic, copy, readonly, nullable) MXMGeoBuilding *userLocationBuilding;
+@property (nonatomic, strong, readonly, nullable) MXMGeoBuilding *userLocationBuilding;
+
+/**
+ The user's current venue, which is only trusted if `MGLMapView`'s `userTrackingMode` is not `MGLUserTrackingModeNone` value.
+  nil when there is no indoor data
+ */
+@property (nonatomic, strong, readonly, nullable) MXMGeoVenue *userLocationVenue;
 
 /// Returns all the measured buildings visible in the currently bound MGLMapView viewport
-@property (nonatomic, copy, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
+@property (nonatomic, strong, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
+
+/// Returns all the measured venues visible in the currently bound MGLMapView viewport
+@property (nonatomic, strong, readonly) NSDictionary<NSString *, MXMGeoVenue *> *venues;
+
 
 /**
  Setting the general map appearance.
@@ -146,7 +165,9 @@ NS_ASSUME_NONNULL_BEGIN
               the selection of buildings and floors; if some buildings are selected, it restores the previous selection of floors from the history saved after map
               initialization; if there is no history, it selects the floor with the ordinal closest to 0; if there are two such floors, it prefers the positive one.
  */
-- (void)selectFloor:(nullable NSString *)floor;
+- (void)selectFloorById:(nullable NSString *)floorId;
+
+- (void)selectFloor:(nullable NSString *)floor DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMap selectFloorById:]");
 
 /**
  Select the floor of the currently selected building.
@@ -157,9 +178,13 @@ NS_ASSUME_NONNULL_BEGIN
  @param zoomMode Zoom method
  @param insets Zoom to fit the margins, if zoomMode is `MXMZoomDisable` then the value passed in is invalid
  */
+- (void)selectFloorById:(nullable NSString *)floorId
+               zoomMode:(MXMZoomMode)zoomMode
+            edgePadding:(UIEdgeInsets)insets;
+
 - (void)selectFloor:(nullable NSString *)floor
            zoomMode:(MXMZoomMode)zoomMode
-        edgePadding:(UIEdgeInsets)insets;
+        edgePadding:(UIEdgeInsets)insets DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMap selectFloorById:zoomMode:edgePadding:]");
 
 /**
  Selecting a building. When you select a building, the floor will automatically switch to the one that was previously selected and saved in the history after the map
@@ -168,7 +193,9 @@ NS_ASSUME_NONNULL_BEGIN
  @param buildingId The ID of the building to be selected. If you pass in null, the currently selected building and floor will be cleared. If you pass in invalid values,
                    nothing will happen.
  */
-- (void)selectBuilding:(nullable NSString *)buildingId;
+- (void)selectBuildingById:(nullable NSString *)buildingId;
+
+- (void)selectBuilding:(nullable NSString *)buildingId DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMap selectBuildingById:]");
 
 /**
  Selecting a building. When you select a building, the floor will automatically switch to the one that was previously selected and saved in the history after the map
@@ -179,9 +206,22 @@ NS_ASSUME_NONNULL_BEGIN
  @param zoomMode Zoom method
  @param insets Zoom to fit the margins, if zoomMode is `MXMZoomDisable` then the value passed in is invalid
  */
+- (void)selectBuildingById:(nullable NSString *)buildingId
+                  zoomMode:(MXMZoomMode)zoomMode
+               edgePadding:(UIEdgeInsets)insets;
+
 - (void)selectBuilding:(nullable NSString *)buildingId
               zoomMode:(MXMZoomMode)zoomMode
-           edgePadding:(UIEdgeInsets)insets;
+           edgePadding:(UIEdgeInsets)insets DEPRECATED_MSG_ATTRIBUTE("Please use - [MapxusMap selectBuildingById:zoomMode:edgePadding:]");
+
+/**
+ 
+ */
+- (void)selectVenueById:(nullable NSString *)venueId;
+
+- (void)selectVenueById:(nullable NSString *)venueId
+               zoomMode:(MXMZoomMode)zoomMode
+            edgePadding:(UIEdgeInsets)insets;
 
 /**
  Select the building and the floor of that building and the map will automatically zoom in to that area with a margin of 0.
@@ -192,7 +232,7 @@ NS_ASSUME_NONNULL_BEGIN
               the selection of building and floor; if buildingId is valid, it restores the previous selection of floors from the history saved after map
               initialization; if there is no history, it selects the floor with the ordinal closest to 0; if there are two such floors, it prefers the positive one.
  */
-- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor;
+- (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor DEPRECATED_MSG_ATTRIBUTE("To be deprecated");
 
 /**
  Select the building and the floor of that building
@@ -208,7 +248,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)selectBuilding:(nullable NSString *)buildingId
                  floor:(nullable NSString *)floor
               zoomMode:(MXMZoomMode)zoomMode
-           edgePadding:(UIEdgeInsets)insets;
+           edgePadding:(UIEdgeInsets)insets DEPRECATED_MSG_ATTRIBUTE("To be deprecated");
 
 /// An array of indoor annotations that have been added to the current MapView
 @property (nonatomic, readonly) NSArray<MXMPointAnnotation *> *MXMAnnotations;

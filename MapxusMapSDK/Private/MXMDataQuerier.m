@@ -30,6 +30,12 @@
   return self;
 }
 
+- (NSDictionary *)findOutFloorInTheRect:(CGRect)rect {
+  NSSet *identifiers = [NSSet setWithObject:@"assistant-mapxus-level-fill"];
+  NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:identifiers predicate:nil];
+  return [self floorDeduplicationInFeatures:theFeatures];
+}
+
 
 // 查找给定区域的所有建筑
 - (NSDictionary *)findOutBuildingInTheRect:(CGRect)rect
@@ -81,6 +87,21 @@
   return [identifiersSet copy];
 }
 
+- (NSDictionary *)floorDeduplicationInFeatures:(NSArray<id <MGLFeature>> *)features
+{
+  // 建筑信息去重
+  NSMutableDictionary *resultBuildings = [NSMutableDictionary dictionary];
+  for (id <MGLFeature> feature in features) {
+    NSString *theId = [feature attributeForKey:@"id"];
+    if (theId) {
+      MXMLevelModel *model = [MXMLevelModel yy_modelWithJSON:feature.attributes];
+      resultBuildings[theId] = model;
+    }
+  }
+  
+  return [resultBuildings copy];
+}
+
 - (NSDictionary *)buildingDeduplicationInFeatures:(NSArray<id <MGLFeature>> *)features
 {
   // 建筑信息去重
@@ -89,8 +110,15 @@
     NSString *theId = [feature attributeForKey:@"id"];
     if (theId) {
       MXMGeoBuilding *b = [MXMGeoBuilding yy_modelWithJSON:feature.attributes];
-      MXMGeoVenue *venue = self.mapView.mxmMap.venues[b.venueId];
+      MXMGeoVenue *venue = self.mapView.mxmMap.decider.visibleVenues[b.venueId];
       b.building = venue.venueType; //building的类型放到了venue上，需要从venue里拿
+      if ([feature isKindOfClass:[MGLPolygonFeature class]]) {
+        MGLPolygonFeature *polygon = (MGLPolygonFeature *)feature;
+        b.bbox = [MXMBoundingBox boundingBoxWithMinLatitude:polygon.overlayBounds.sw.latitude
+                                               minLongitude:polygon.overlayBounds.sw.longitude
+                                                maxLatitude:polygon.overlayBounds.ne.latitude
+                                               maxLongitude:polygon.overlayBounds.ne.longitude];
+      }
       resultBuildings[theId] = b;
     }
   }
@@ -106,6 +134,13 @@
     NSString *theId = [feature attributeForKey:@"id"];
     if (theId) {
       MXMGeoVenue *venue = [MXMGeoVenue yy_modelWithJSON:feature.attributes];
+      if ([feature isKindOfClass:[MGLPolygonFeature class]]) {
+        MGLPolygonFeature *polygon = (MGLPolygonFeature *)feature;
+        venue.bbox = [MXMBoundingBox boundingBoxWithMinLatitude:polygon.overlayBounds.sw.latitude
+                                                   minLongitude:polygon.overlayBounds.sw.longitude
+                                                    maxLatitude:polygon.overlayBounds.ne.latitude
+                                                   maxLongitude:polygon.overlayBounds.ne.longitude];
+      }
       resultVenues[theId] = venue;
     }
   }

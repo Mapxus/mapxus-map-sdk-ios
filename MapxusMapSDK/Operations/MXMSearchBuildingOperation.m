@@ -1,20 +1,20 @@
 //
-//  MXMSearchBuildingOperation2.m
+//  MXMSearchBuildingOperation.m
 //  MapxusMapSDK
 //
 //  Created by Chenghao Guo on 2019/3/21.
 //  Copyright © 2019 MAPHIVE TECHNOLOGY LIMITED. All rights reserved.
 //
 
-#import "MXMSearchBuildingOperation2.h"
+#import "MXMSearchBuildingOperation.h"
 
-@interface MXMSearchBuildingOperation2 () <MXMSearchDelegate>
+@interface MXMSearchBuildingOperation () <MXMSearchDelegate>
 
 @property (nonatomic, strong) MXMSearchAPI *api;
 
 @end
 
-@implementation MXMSearchBuildingOperation2
+@implementation MXMSearchBuildingOperation
 
 - (void)searchWithBuildingId:(NSString *)buildingId
 {

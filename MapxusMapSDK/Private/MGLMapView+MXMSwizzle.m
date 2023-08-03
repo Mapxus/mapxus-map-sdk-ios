@@ -328,19 +328,25 @@ static void *mapKey = &mapKey;
                                                    atPointLevelInfoList:floorFeatures];
     if (info) {
       if (![info.floor.code isEqualToString:mapView.mxmMap.userLocationFloor]) {
-        mapView.mxmMap.userLocationFloor = info.floor.code;
+        [mapView.mxmMap updateUserLocationFloor:info.floor.code];
       }
       if (![info.building.identifier isEqualToString:mapView.mxmMap.userLocationBuilding.identifier]) {
-        mapView.mxmMap.userLocationBuilding = info.building;
+        [mapView.mxmMap updateUserLocationBuilding:info.building];
+      }
+      if (![info.venue.identifier isEqualToString:mapView.mxmMap.userLocationVenue.identifier]) {
+        [mapView.mxmMap updateUserLocationVenue:info.venue];
       }
     }
   } else {
     [mapView.mxmMap updateLocationView];
     if (mapView.mxmMap.userLocationFloor != nil) {
-      mapView.mxmMap.userLocationFloor = nil;
+      [mapView.mxmMap updateUserLocationFloor:nil];
     }
     if (mapView.mxmMap.userLocationBuilding != nil) {
-      mapView.mxmMap.userLocationBuilding = nil;
+      [mapView.mxmMap updateUserLocationBuilding:nil];
+    }
+    if (mapView.mxmMap.userLocationVenue != nil) {
+      [mapView.mxmMap updateUserLocationVenue:nil];
     }
   }
   [self hook_mapView:mapView didUpdateUserLocation:userLocation];

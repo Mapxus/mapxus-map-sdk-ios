@@ -8,22 +8,30 @@
 
 #import "MXMLevelModel.h"
 #import <YYModel/YYModel.h>
+#import "JXJsonFunctionDefine.h"
 
 @implementation MXMLevelModel
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
-    if (self.levelId && self.refBuildingId) {
-        return YES;
-    } else {
-        return NO;
-    }
+  NSNumber *ordinalNum = DecodeNumberFromDic(dic, @"ordinal");
+  if (ordinalNum) {
+    _ordinal = [[MXMOrdinal alloc] init];
+    _ordinal.level = [ordinalNum integerValue];
+  }
+
+  if (self.levelId && self.refBuildingId) {
+    return YES;
+  } else {
+    return NO;
+  }
 }
 
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"levelId": @[@"levelId", @"id"],
-             @"refBuildingId": @[@"refBuildingId", @"ref:building"],
-             @"name": @"name",
-             @"ordinal": @"ordinal"};
+  return @{
+    @"levelId": @[@"levelId", @"id"],
+    @"refBuildingId": @[@"refBuildingId", @"ref:building"],
+    @"name": @"name"
+  };
 }
 
 @end
