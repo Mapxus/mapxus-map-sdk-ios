@@ -5,8 +5,9 @@
 //  Created by chenghao guo on 2022/12/14.
 //
 
-#import "MXMGeoVenue.h"
+#import "MXMGeoVenue+Private.h"
 #import <YYModel/YYModel.h>
+#import "JXJsonFunctionDefine.h"
 
 @implementation MXMGeoVenue
 
@@ -49,6 +50,12 @@
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
   if ([dic[@"building_ids"] isKindOfClass:[NSString class]]) {
     _buildingIds = [dic[@"building_ids"] componentsSeparatedByString:@","];
+  }
+  
+  NSNumber *ordinalNum = DecodeNumberFromDic(dic, @"default_displayed_ordinal");
+  if (ordinalNum) {
+    _defaultDisplayedOrdinal = [[MXMOrdinal alloc] init];
+    _defaultDisplayedOrdinal.level = [ordinalNum integerValue];
   }
   
   // address_default

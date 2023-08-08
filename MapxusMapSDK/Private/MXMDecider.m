@@ -13,7 +13,7 @@
 #import <YYModel/YYModel.h>
 #import "NSString+Compare.h"
 #import "JXJsonFunctionDefine.h"
-
+#import "MXMGeoVenue+Private.h"
 
 
 @interface MXMDecider ()
@@ -576,6 +576,16 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode {
   if (historyFloorOrdinal && !selectedFloor && !ignore) {
     return nil;
   }
+  
+  if (!selectedFloor) {
+    MXMGeoVenue *venue = self.visibleVenues[building.venueId];
+    MXMOrdinal *defaultFloorOrdinal = venue.defaultDisplayedOrdinal;
+    selectedFloor = [self buildingFloors:building.floors whichHasSameOrdinal:defaultFloorOrdinal];
+    if (defaultFloorOrdinal && !selectedFloor) {
+      return nil;
+    }
+  }
+  
   if (!selectedFloor) {
     NSString *defaultFloorId = building.defaultDisplayedFloorId;
     selectedFloor = [self buildingFloors:building.floors whichHasSameId:defaultFloorId];

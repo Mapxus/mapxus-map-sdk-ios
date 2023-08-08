@@ -135,6 +135,7 @@
 		1D22435475B5222BB8270E9F /* Pods-MapxusMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.release.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 		890831012A80CBD9006DBD89 /* MXMSearchVenueOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSearchVenueOperation.h; sourceTree = "<group>"; };
 		890831022A80CBD9006DBD89 /* MXMSearchVenueOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSearchVenueOperation.m; sourceTree = "<group>"; };
+		890B25012A82329800954692 /* MXMGeoVenue+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MXMGeoVenue+Private.h"; sourceTree = "<group>"; };
 		8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMBorderStyle.h; sourceTree = "<group>"; };
 		8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMBorderStyle.m; sourceTree = "<group>"; };
 		896BD7F729F2610300ED8D9F /* MXMAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMAlertController.m; sourceTree = "<group>"; };
@@ -503,6 +504,7 @@
 				89B2EB7A2A284E1200A369E4 /* MXMSite.h */,
 				89B2EB7B2A284E1200A369E4 /* MXMSite.m */,
 				89865F4B29E9262700E984A1 /* MXMGeoVenue.h */,
+				890B25012A82329800954692 /* MXMGeoVenue+Private.h */,
 				89865F5129E9262700E984A1 /* MXMGeoVenue.m */,
 				89865F7829E9262700E984A1 /* MXMGeoBuilding.h */,
 				89865F8229E9262700E984A1 /* MXMGeoBuilding.m */,
