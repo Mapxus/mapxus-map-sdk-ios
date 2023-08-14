@@ -9,6 +9,7 @@
 #import "MXMDecider.h"
 #import "MXMSearchBuildingOperation.h"
 #import "MXMSearchVenueOperation.h"
+#import "MXMSearchFloorOperation.h"
 #import "MXMCommonObj.h"
 #import <YYModel/YYModel.h>
 #import "NSString+Compare.h"
@@ -20,6 +21,7 @@
 
 @property (nonatomic, strong) MXMSearchBuildingOperation *operation;
 @property (nonatomic, strong) MXMSearchVenueOperation *venueOperation;
+@property (nonatomic, strong) MXMSearchFloorOperation *floorOperation;
 
 @end
 
@@ -126,8 +128,21 @@
       }
       [self displayWihtFloor:floor building:building venue:venue shouldChangeTrackingMode:changeTrackingMode];
     } else {
-      // TODO: 网络请求building信息
-      
+      __weak typeof(self) weakSelf = self;
+      self.floorOperation.complateBlock = ^(MXMBuilding * _Nullable netBuilding) {
+        MXMFloor *netFloor = ((MXMFloorInfo *)netBuilding.floors.firstObject).floor;
+        if (netFloor && netBuilding) {
+          // 调用zoom map
+          if (zoomMode != MXMZoomDisable && weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(decideMapViewZoomTo:zoomMode:withEdgePadding:)]) {
+            [weakSelf.delegate decideMapViewZoomTo:netBuilding.bbox zoomMode:zoomMode withEdgePadding:insets];
+          }
+          // 显示建筑
+          // TODO: 如何获取venue？
+          MXMGeoBuilding *theEndBuilding = [weakSelf exchangeFrom:netBuilding];
+          [weakSelf displayWihtFloor:netFloor building:theEndBuilding venue:nil shouldChangeTrackingMode:changeTrackingMode];
+        }
+      };
+      [self.floorOperation searchWithFloorId:floorId];
     }
     return;
   }
@@ -734,5 +749,12 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode {
     _venueOperation = [[MXMSearchVenueOperation alloc] init];
   }
   return _venueOperation;
+}
+
+- (MXMSearchFloorOperation *)floorOperation {
+  if (!_floorOperation) {
+    _floorOperation = [[MXMSearchFloorOperation alloc] init];
+  }
+  return _floorOperation;
 }
 @end

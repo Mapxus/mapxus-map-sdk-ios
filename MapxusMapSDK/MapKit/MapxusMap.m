@@ -68,6 +68,10 @@
   return self;
 }
 
++ (BOOL)accessInstanceVariablesDirectly {
+  return NO;
+}
+
 - (void)searchConfigurationInfo
 {
   if (!_isFristLoad) {
@@ -86,7 +90,20 @@
   } else if (_configuration.floorId) {
     [self.decider specifyTheFloorId:_configuration.floorId zoomMode:MXMZoomDirect edgePadding:_configuration.zoomInsets shouldChangeTrackingMode:YES];
   } else if (_configuration.buildingId) {
-    [self.decider specifyTheBuildingId:_configuration.buildingId zoomMode:MXMZoomDirect edgePadding:_configuration.zoomInsets shouldChangeTrackingMode:YES];
+    if (_configuration.floor) {
+      // TODO: 删除
+      MXMGeoBuilding *building;
+      building = self.decider.visibleBuildings[_configuration.buildingId];
+      [self.decider specifyTheBuilding:_configuration.buildingId
+                             floorCode:_configuration.floor
+                               ordinal:nil
+                              zoomMode:MXMZoomDirect
+                           edgePadding:_configuration.zoomInsets
+              shouldChangeTrackingMode:YES
+                       withGeoBuilding:building];
+    } else {
+      [self.decider specifyTheBuildingId:_configuration.buildingId zoomMode:MXMZoomDirect edgePadding:_configuration.zoomInsets shouldChangeTrackingMode:YES];
+    }
   } else if (_configuration.venueId) {
     [self.decider specifyTheVenueId:_configuration.venueId zoomMode:MXMZoomDirect edgePadding:_configuration.zoomInsets shouldChangeTrackingMode:YES];
   }
@@ -454,7 +471,6 @@
     _floor = floor.code;
     _selectedFloor = floor;
     _selectedBuilding = building;
-    _selectedVenue = venue;
     // 绘制选中边框
     [_mapView.style outLineLevel:floor.floorId];
     // 数据中的楼层都是从小到大，需要颠倒顺序显示

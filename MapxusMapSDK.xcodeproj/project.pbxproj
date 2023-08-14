@@ -24,6 +24,8 @@
 		1C4A9D2057A7A29341284FA7 /* Pods_MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F5BA4C07AEC8BE19BCEE18 /* Pods_MapxusMapSDK.framework */; };
 		890831032A80CBD9006DBD89 /* MXMSearchVenueOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 890831012A80CBD9006DBD89 /* MXMSearchVenueOperation.h */; };
 		890831042A80CBD9006DBD89 /* MXMSearchVenueOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 890831022A80CBD9006DBD89 /* MXMSearchVenueOperation.m */; };
+		890B25042A89C3B100954692 /* MXMSearchFloorOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 890B25022A89C3B100954692 /* MXMSearchFloorOperation.h */; };
+		890B25052A89C3B100954692 /* MXMSearchFloorOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B25032A89C3B100954692 /* MXMSearchFloorOperation.m */; };
 		892933202A247AF8003C0DE6 /* MXMBorderStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		892933212A247AF8003C0DE6 /* MXMBorderStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */; };
 		896BD7F829F2610300ED8D9F /* MXMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BD7F729F2610300ED8D9F /* MXMAlertController.m */; };
@@ -136,6 +138,8 @@
 		890831012A80CBD9006DBD89 /* MXMSearchVenueOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSearchVenueOperation.h; sourceTree = "<group>"; };
 		890831022A80CBD9006DBD89 /* MXMSearchVenueOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSearchVenueOperation.m; sourceTree = "<group>"; };
 		890B25012A82329800954692 /* MXMGeoVenue+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MXMGeoVenue+Private.h"; sourceTree = "<group>"; };
+		890B25022A89C3B100954692 /* MXMSearchFloorOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSearchFloorOperation.h; sourceTree = "<group>"; };
+		890B25032A89C3B100954692 /* MXMSearchFloorOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSearchFloorOperation.m; sourceTree = "<group>"; };
 		8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMBorderStyle.h; sourceTree = "<group>"; };
 		8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMBorderStyle.m; sourceTree = "<group>"; };
 		896BD7F729F2610300ED8D9F /* MXMAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMAlertController.m; sourceTree = "<group>"; };
@@ -476,6 +480,8 @@
 				890831022A80CBD9006DBD89 /* MXMSearchVenueOperation.m */,
 				89865F6C29E9262700E984A1 /* MXMSearchBuildingOperation.h */,
 				89865F6A29E9262700E984A1 /* MXMSearchBuildingOperation.m */,
+				890B25022A89C3B100954692 /* MXMSearchFloorOperation.h */,
+				890B25032A89C3B100954692 /* MXMSearchFloorOperation.m */,
 				89865F6D29E9262700E984A1 /* MXMSearchPOIOperation.h */,
 				89865F6B29E9262700E984A1 /* MXMSearchPOIOperation.m */,
 			);
@@ -596,6 +602,7 @@
 				89865FA729E9262700E984A1 /* MGLStyleLayer+MXMFilter.h in Headers */,
 				890831032A80CBD9006DBD89 /* MXMSearchVenueOperation.h in Headers */,
 				89865F8829E9262700E984A1 /* MXMLoggerService.h in Headers */,
+				890B25042A89C3B100954692 /* MXMSearchFloorOperation.h in Headers */,
 				89865FA229E9262700E984A1 /* MGLMapView+MXMSwizzle.h in Headers */,
 				896BD8602A0C866C00ED8D9F /* MXMLogoButton.h in Headers */,
 				896BD85C2A0C7C0700ED8D9F /* MXMLogoView.h in Headers */,
@@ -837,6 +844,7 @@
 				89865F9129E9262700E984A1 /* MXMSearchAPI.m in Sources */,
 				890831042A80CBD9006DBD89 /* MXMSearchVenueOperation.m in Sources */,
 				89865FB829E9262700E984A1 /* MXMGeoCodeSearchResult.m in Sources */,
+				890B25052A89C3B100954692 /* MXMSearchFloorOperation.m in Sources */,
 				89C9E1B42A39966A00D93569 /* MXMFloorBarHeaderFooterView.m in Sources */,
 				89C9E1C82A3AE3FE00D93569 /* UIImage+MXMSdk.m in Sources */,
 				89C9E1B82A39968F00D93569 /* MXMFloorSelectorBar.m in Sources */,

@@ -109,9 +109,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, readonly, nullable) MXMGeoBuilding *building DEPRECATED_MSG_ATTRIBUTE("Please use `selectedBuilding`");
 
-/// Current selected venue
-@property (nonatomic, strong, readonly, nullable) MXMGeoVenue *selectedVenue;
-
 /**
  The user's current floor, which is only trusted if `MGLMapView`'s `userTrackingMode` is not `MGLUserTrackingModeNone` value.
   nil when there is no indoor data

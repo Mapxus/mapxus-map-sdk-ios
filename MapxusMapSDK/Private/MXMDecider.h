@@ -46,7 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) MXMFloor *selectedFloor;
 @property (nonatomic, strong, nullable) MXMGeoBuilding *selectedBuilding;
-@property (nonatomic, strong, nullable) MXMGeoVenue *selectedVenue;
 
 @property (nonatomic, strong) NSMutableArray<NSString *> *historicalBuildingIds; // 保存运行期间看过的大厦Id，防止同一地点两栋大厦间互相切换
 @property (nonatomic, strong) NSMutableDictionary<NSString *, MXMOrdinal *> *venueSelectFloorOrdinalDic; // 保存运行期间看过大厦最后选中的对应楼层
