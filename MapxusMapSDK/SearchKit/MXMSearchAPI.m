@@ -160,7 +160,7 @@ NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
 
 - (void)MXMOrientationPOISearch:(MXMOrientationPOISearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/pois/orientation"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v3/pois/orientation"];
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
     if ([dic objectForKey:@"center"]) {

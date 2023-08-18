@@ -41,14 +41,14 @@
     _mapView.logoView.hidden = YES;
     
     _isFristLoad = YES;
-
-    _floorIds = [NSSet set];
+    
+    _lastFloorIds = [NSSet set];
     _decider = [[MXMDecider alloc] initWithDelegate:self];
     _dataQueryer = [[MXMDataQuerier alloc] initWithMapView:mapView];
     _annHolder = [[MXMAnnotationsHolder alloc] initWithMapView:mapView];
     _cacheManager = [[MXMCacheManager alloc] init];
     _initializeQueue = [[NSOperationQueue alloc] init];
-
+    
     self.selectedBuildingBorderStyle = nil;
     self.gestureSwitchingBuilding = YES;
     self.autoChangeBuilding = YES;
@@ -112,8 +112,11 @@
 - (void)setIndoorControllerAlwaysHidden:(BOOL)indoorControllerAlwaysHidden
 {
   _indoorControllerAlwaysHidden = indoorControllerAlwaysHidden;
-  BOOL show = self.selectedBuilding.identifier ? YES : NO;
-  [self decideMapViewShowFloorBar:show inBuilding:self.selectedBuilding floor:self.selectedFloor];
+  BOOL show = self.selectedBuildingId ? YES : NO;
+  [self decideMapViewShowFloorBar:show
+                          atVenue:self.decider.selectedVenue
+                       inBuilding:self.decider.selectedBuilding
+                            floor:self.decider.selectedFloor];
 }
 
 - (void)setSelectorPosition:(MXMSelectorPosition)selectorPosition
@@ -247,13 +250,13 @@
 
 - (void)idleAutomaticAnalyseOfIndoorData
 {
-  self.decider.visibleFloors = [self.dataQueryer findOutFloorInTheRect:_mapView.bounds];
+  //  self.decider.visibleFloors = [self.dataQueryer findOutFloorInTheRect:_mapView.bounds];
   self.decider.visibleBuildings = [self.dataQueryer findOutBuildingInTheRect:_mapView.bounds];
   self.decider.visibleVenues = [self.dataQueryer findOutVenueInTheRect:_mapView.bounds];
   // 整屏可见建筑列表，无论是否需要自动选择建筑功能，buildings 都需要对外放出值
   _buildings = [self.decider.visibleBuildings mutableCopy];
   _venues = [self.decider.visibleVenues mutableCopy];
-
+  
   // 正在赶路，不用分析沿路建筑
   if (self.flying) {
     return;
@@ -265,15 +268,15 @@
   _innerbuildings = [self.dataQueryer findOutBuildingInTheRect:rect];
   
   if (!self.autoChangeBuilding) {
-    // 因为需要过滤其他建筑，所以必须调用一次
-//    [self.decider specifyTheFloorId:self.decider.selectedFloor.floorId zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero shouldChangeTrackingMode:NO];
-    [self.decider specifyTheBuilding:self.selectedBuilding.identifier
+    // TODO: 因为找不到选中建筑也需要重置一次，如果已选中floor在屏外，会导致无用的floorId search building接口调用，需要进行优化。使用新接口
+    //    [self.decider specifyTheFloorId:self.decider.selectedFloor.floorId zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero shouldChangeTrackingMode:NO];
+    [self.decider specifyTheBuilding:self.selectedBuildingId
                            floorCode:self.selectedFloor.code
                              ordinal:self.selectedFloor.ordinal
                             zoomMode:MXMZoomDisable
                          edgePadding:UIEdgeInsetsZero
             shouldChangeTrackingMode:NO
-                     withGeoBuilding:self.selectedBuilding];
+                     withGeoBuilding:self.building];
     return;
   }
   
@@ -378,13 +381,13 @@
           
           MXMGeoBuilding *pointBuilding = [self.decider.visibleBuildings[buildingId] copy];
           MXMGeoVenue *pointVenue = [self.decider.visibleVenues[pointBuilding.venueId] copy];
-
+          
           // 点击了POI
           MXMFloor *floorModel = [[MXMFloor alloc] init];
           floorModel.floorId = feature.levelId;
           floorModel.code = feature.name;
           floorModel.ordinal = feature.ordinal;
-
+          
           MXMSite *site = [[MXMSite alloc] init];
           site.floor = floorModel;
           site.building = pointBuilding;
@@ -416,6 +419,7 @@
 }
 
 - (void)decideMapViewShowFloorBar:(BOOL)show
+                          atVenue:(nullable MXMGeoVenue *)venue
                        inBuilding:(nullable MXMGeoBuilding *)building
                             floor:(nullable MXMFloor *)floor
 {
@@ -424,24 +428,29 @@
   self.buildingSelectButton.hidden = self.indoorControllerAlwaysHidden || !((self.decider.visibleBuildings.count>=2)&&(_mapView.zoomLevel>15.7));
   self.floorBar.hidden = self.indoorControllerAlwaysHidden || !_isIndoor;
   if (self.delegate) {
-    
-    if ([self.delegate respondsToSelector:@selector(map:didChangeIndoorSiteAccess:selectedFloor:selectedBuilding:selectedVenue:)]) {
-      MXMGeoVenue *venue;
-      if (building.venueId) {
-        venue = [self.decider.visibleVenues[building.venueId] copy];
-      }
+    if ([self.delegate respondsToSelector:@selector(map:didChangeSelectedFloorVisualizationStatus:withSelectedFloor:selectedBuildingId:selectedVenueId:)]) {
+      [self.delegate map:self
+        didChangeSelectedFloorVisualizationStatus:_isIndoor
+        withSelectedFloor:[floor copy]
+        selectedBuildingId:building.identifier
+        selectedVenueId:building.venueId];
+    } else if ([self.delegate respondsToSelector:@selector(map:didChangeIndoorSiteAccess:selectedFloor:selectedBuilding:selectedVenue:)]) {
       [self.delegate map:self
         didChangeIndoorSiteAccess:_isIndoor
-        selectedFloor:floor
-        selectedBuilding:building
-        selectedVenue:venue];
+        selectedFloor:[floor copy]
+        selectedBuilding:[building copy]
+        selectedVenue:[venue copy]];
     } else if ([self.delegate respondsToSelector:@selector(mapView:indoorMapWithIn:building:floor:)]) {
-      [self.delegate mapView:self indoorMapWithIn:_isIndoor building:building.identifier floor:floor.code];
+      [self.delegate mapView:self
+        indoorMapWithIn:_isIndoor
+        building:building.identifier
+        floor:floor.code];
     }
   }
 }
 
 - (void)decideMapViewShouldChangeBuilding:(nullable MXMGeoBuilding *)building
+                                  atVenue:(nullable MXMGeoVenue *)venue
                                     floor:(nullable MXMFloor *)floor
                  shouldChangeTrackingMode:(BOOL)changeTrackingMode
 {
@@ -459,43 +468,41 @@
 
 - (void)decideMapViewChangeBuilding:(nullable MXMGeoBuilding *)building
                               floor:(nullable MXMFloor *)floor
+                            atVenue:(nullable MXMGeoVenue *)venue
                      shouldCallBack:(BOOL)shouldCallBack
-{
-  MXMGeoVenue *venue;
-  if (building.venueId) {
-    venue = [self.decider.visibleVenues[building.venueId] copy];
-  }
-  
+{  
   if (shouldCallBack) {
-    _building = building;
     _floor = floor.code;
+    _building = building;
     _selectedFloor = floor;
-    _selectedBuilding = building;
+    _selectedBuildingId = building.identifier;
+    _selectedVenueId = venue.identifier;
     // 绘制选中边框
     [_mapView.style outLineLevel:floor.floorId];
+  }
     // 数据中的楼层都是从小到大，需要颠倒顺序显示
-    if (building && floor) {
-      NSArray *reversalFloors = [[building.floors reverseObjectEnumerator] allObjects];
-      if (![self.floorBar.refBuildingId isEqualToString:building.identifier]) {
-        NSMutableArray *list = [NSMutableArray array];
-        for (MXMFloor *iFloor in reversalFloors) {
-          MXMFloorBarModel *model = [[MXMFloorBarModel alloc] init];
-          model.floor = iFloor;
-          if (iFloor.ordinal.level == floor.ordinal.level) {
-            model.selected = YES;
-          }
-          [list addObject:model];
-        }
-        [self.floorBar refershList:list refBuildingId:building.identifier];
-      }
-      int i = 0;
+  MXMGeoBuilding *geoBuilding = building.identifier ? self.decider.visibleBuildings[building.identifier] : nil;
+  if (geoBuilding && floor) {
+    NSArray *reversalFloors = [[geoBuilding.floors reverseObjectEnumerator] allObjects];
+    if (![self.floorBar.refBuildingId isEqualToString:geoBuilding.identifier]) {
+      NSMutableArray *list = [NSMutableArray array];
       for (MXMFloor *iFloor in reversalFloors) {
-        if ([floor.floorId isEqualToString:iFloor.floorId]) {
-          [self.floorBar selectFloorIndex:i];
-          break;
+        MXMFloorBarModel *model = [[MXMFloorBarModel alloc] init];
+        model.floor = iFloor;
+        if (iFloor.ordinal.level == floor.ordinal.level) {
+          model.selected = YES;
         }
-        i++;
+        [list addObject:model];
       }
+      [self.floorBar refershList:list refBuildingId:geoBuilding.identifier];
+    }
+    int i = 0;
+    for (MXMFloor *iFloor in reversalFloors) {
+      if ([floor.floorId isEqualToString:iFloor.floorId]) {
+        [self.floorBar selectFloorIndex:i];
+        break;
+      }
+      i++;
     }
   }
   
@@ -510,23 +517,25 @@
   }
   
   NSSet *levelIdSet = [NSSet setWithArray:levelIds];
-  if (levelIdSet.count == 0 || ![levelIdSet isSubsetOfSet:_floorIds] || self.decider.isMapReload) {
+  if (levelIdSet.count == 0 || ![levelIdSet isSubsetOfSet:_lastFloorIds] || self.decider.isMapReload) {
     [_mapView.style filerLevelIds:levelIds];
   }
   //  [_mapView.style setLevelIdsTransparent:sameVenueLevelIds];
   
-  _floorIds = levelIdSet;
+  _lastFloorIds = levelIdSet;
   self.decider.isMapReload = NO;
   // 回调
   if (shouldCallBack) {
     if (self.delegate) {
-      if ([self.delegate respondsToSelector:@selector(map:
-                                                      didChangeSelectedFloor:
-                                                      inSelectedBuilding:
-                                                      atSelectedVenue:)]) {
-        [self.delegate map:self didChangeSelectedFloor:floor inSelectedBuilding:building atSelectedVenue:venue];
+      if ([self.delegate respondsToSelector:@selector(map:didChangeSelectedFloor:inSelectedBuildingId:atSelectedVenueId:)]) {
+        [self.delegate map:self didChangeSelectedFloor:[floor copy] inSelectedBuildingId:building.identifier atSelectedVenueId:building.venueId];
+      } else if ([self.delegate respondsToSelector:@selector(map:
+                                                             didChangeSelectedFloor:
+                                                             inSelectedBuilding:
+                                                             atSelectedVenue:)]) {
+        [self.delegate map:self didChangeSelectedFloor:[floor copy] inSelectedBuilding:[building copy] atSelectedVenue:[venue copy]];
       } else if ([self.delegate respondsToSelector:@selector(mapView:didChangeFloor:atBuilding:)]) {
-        [self.delegate mapView:self didChangeFloor:floor.code atBuilding:building];
+        [self.delegate mapView:self didChangeFloor:floor.code atBuilding:[building copy]];
       }
       [self updateLocationView];
     }
@@ -642,14 +651,13 @@
     item.alignment = alig;
     [arr addObject:item];
   }
-  [KxMenu setDefaultItemIdentifier:self.selectedBuilding.identifier];
+  [KxMenu setDefaultItemIdentifier:self.selectedBuildingId];
   [KxMenu showMenuInView:sender.superview fromRect:sender.frame menuItems:arr];
 }
 
 - (void)chooseItem:(KxMenuItem *)sender
 {
-  MXMGeoBuilding *b = [self.buildings objectForKey:sender.identifier];
-  [self selectBuildingById:b.identifier zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero];
+  [self selectBuildingById:sender.identifier zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero];
 }
 
 - (void)floorSelectorBarDidSelectFloor:(MXMFloor *)floor
@@ -780,9 +788,9 @@
     return;
   }
   CGPoint locationPoint = [_mapView convertCoordinate:_mapView.userLocation.location.coordinate
-                                            toPointToView:_mapView];
+                                        toPointToView:_mapView];
   NSArray<MXMLevelModel *> *floorFeatures = [self.dataQueryer findOutAssistantFloorFeaturesAtPoint:locationPoint];
-
+  
   CLFloor *localFloor = _mapView.userLocation.location.floor;
   UIView *locationView = [_mapView viewForAnnotation:_mapView.userLocation];
   locationView.alpha = [self.decider decideLocationViewAlphaWithCurrentFloorId:self.selectedFloor.floorId
@@ -809,7 +817,7 @@
 
 - (void)filterMXMAnnotation
 {
-  [self.annHolder filterMXMAnnotationsWithBuilding:self.selectedBuilding.identifier
+  [self.annHolder filterMXMAnnotationsWithBuilding:self.selectedBuildingId
                                              floor:self.selectedFloor.code
                                            floorId:self.selectedFloor.floorId
                                        indoorState:_isIndoor];
@@ -920,6 +928,18 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
   NSLayoutConstraint *t = [self _constraintWithIndientifer:@"openStreetBottom" InView:_mapView];
   t.constant = -_openStreetSourceBottomMargin;
   [_mapView layoutIfNeeded];
+}
+
+- (void)updateUserLocationFloor:(NSString *)floor {
+  _userLocationFloor = floor;
+}
+
+- (void)updateUserLocationBuilding:(MXMGeoBuilding *)building {
+  _userLocationBuilding = building;
+}
+
+- (void)updateUserLocationVenue:(MXMGeoVenue *)venue {
+  _userLocationVenue = venue;
 }
 
 - (UIButton *)buildingSelectButton

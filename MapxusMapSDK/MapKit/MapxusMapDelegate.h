@@ -105,42 +105,53 @@ NS_ASSUME_NONNULL_BEGIN
     onFloor:(nullable NSString *)floorName
     inBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didLongPressAtCoordinate:atSite:]`");
 
-/**
- Tell the delegate that the selected floor , building and venue have been changed.
+/// Tell the delegate that the selected floor , building and venue have been changed.
+/// - Parameters:
+///   - map: Responding `MapxusMap` object.
+///   - floor: The information of the selected floor. It can be nil when the selection is cleared.
+///   - buildingId: The ID of the building where the currently selected floor is located. You can look up the tile information in the `buildings` dictionary or
+///                 retrieve the details through the building search interface. If `selectedFloor` is nil, the property will also be set to nil.
+///   - venueId: The ID of the venue where the currently selected floor is located. You can look up the tile information in the `venues` dictionary or
+///              retrieve the details through the venue search interface. If `selectedFloor` is nil, the property will also be set to nil.
+- (void)map:(MapxusMap *)map
+    didChangeSelectedFloor:(nullable MXMFloor *)floor
+    inSelectedBuildingId:(nullable NSString *)buildingId
+    atSelectedVenueId:(nullable NSString *)venueId;
 
- @param map Responding `MapxusMap` object.
- @param floor The information of the selected floor. It can be nil when the selection is cleared.
- @param building The information of the selected building.  It can be nil when the selection is cleared.
- @param venue The information of the selected venue.  It can be nil when the selection is cleared.
- */
 - (void)map:(MapxusMap *)map
     didChangeSelectedFloor:(nullable MXMFloor *)floor
     inSelectedBuilding:(nullable MXMGeoBuilding *)building
-    atSelectedVenue:(nullable MXMGeoVenue *)venue;
+    atSelectedVenue:(nullable MXMGeoVenue *)venue DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didChangeSelectedFloor:inSelectedBuildingId:atSelectedVenueId:]`");
 
 - (void)mapView:(MapxusMap *)mapView
- didChangeFloor:(nullable NSString *)floorName
-     atBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didChangeSelectedFloor:inSelectedBuilding:atSelectedVenue:]`");
+    didChangeFloor:(nullable NSString *)floorName
+    atBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didChangeSelectedFloor:inSelectedBuildingId:atSelectedVenueId:]`");
 
-/**
- Enter/exit indoor site callback, the same result may be called multiple times
- 
- @param map Responding `MapxusMap` object.
- @param flag Enter/exit indoor site sign，YES:enter；NO:exit
- @param floor The information of the selected floor. It can be nil when the selection is cleared.
- @param building The information of the selected building.  It can be nil when the selection is cleared.
- @param venue The information of the selected venue.  It can be nil when the selection is cleared.
- */
+/// Called when the visual state of the selected floor changes, the same result may be called multiple times
+/// - Parameters:
+///   - map: Responding `MapxusMap` object.
+///   - isVisible: Flag for whether a selected floor is visible.
+///   - floor: The information of the selected floor. It can be nil when the selection is cleared.
+///   - buildingId: The ID of the building where the currently selected floor is located. You can look up the tile information in the `buildings` dictionary or
+///                 retrieve the details through the building search interface. If `selectedFloor` is nil, the property will also be set to nil.
+///   - venueId: The ID of the venue where the currently selected floor is located. You can look up the tile information in the `venues` dictionary or
+///              retrieve the details through the venue search interface. If `selectedFloor` is nil, the property will also be set to nil.
+- (void)map:(MapxusMap *)map
+    didChangeSelectedFloorVisualizationStatus:(BOOL)isVisible
+    withSelectedFloor:(nullable MXMFloor *)floor
+    selectedBuildingId:(nullable NSString *)buildingId
+    selectedVenueId:(nullable NSString *)venueId;
+
 - (void)map:(MapxusMap *)map
     didChangeIndoorSiteAccess:(BOOL)flag
     selectedFloor:(nullable MXMFloor *)floor
     selectedBuilding:(nullable MXMGeoBuilding *)building
-    selectedVenue:(nullable MXMGeoVenue *)venue;
+    selectedVenue:(nullable MXMGeoVenue *)venue DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didChangeSelectedFloorVisualizationStatus:withSelectedFloor:selectedBuildingId:selectedVenueId:]`");
 
 - (void)mapView:(MapxusMap *)mapView
-indoorMapWithIn:(BOOL)flag
-       building:(nullable NSString *)buildingId
-          floor:(nullable NSString *)floor DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didChangeIndoorSiteAccess:selectedFloor:selectedBuilding:selectedVenue:]`");
+    indoorMapWithIn:(BOOL)flag
+    building:(nullable NSString *)buildingId
+    floor:(nullable NSString *)floor DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didChangeSelectedFloorVisualizationStatus:withSelectedFloor:selectedBuildingId:selectedVenueId:]`");
 
 @end
 

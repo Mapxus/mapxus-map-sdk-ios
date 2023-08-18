@@ -32,12 +32,14 @@ NS_ASSUME_NONNULL_BEGIN
   NSDictionary<NSString *, MXMGeoVenue *> *_venues;
   NSDictionary<NSString *, MXMGeoBuilding *> *_buildings;
   NSDictionary<NSString *, MXMGeoBuilding *> *_innerbuildings;
-  NSSet *_floorIds;
+  NSSet *_lastFloorIds;
   
   MGLMapView *_mapView;
   MXMLogoButton *_MXMLogo;
   UIButton *_openStreetSourceBtn;
+  // TODO: 修复弹出UI
   UIButton *_buildingSelectButton;
+  // TODO: 添加floorBar协议，以方便用户替换floorBar
   MXMFloorSelectorBar *_floorBar;
 }
 
@@ -50,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL regionBecomeIdle; //
 @property (nonatomic, assign) BOOL flying; // 是否在飞行切换 camera ，YES 时忽略自动过滤建筑
 
+// TODO: 修改为MXMFloor
 - (void)updateUserLocationFloor:(nullable NSString *)floor;
 - (void)updateUserLocationBuilding:(nullable MXMGeoBuilding *)building;
 - (void)updateUserLocationVenue:(nullable MXMGeoVenue *)venue;

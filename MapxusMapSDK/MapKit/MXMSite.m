@@ -6,7 +6,13 @@
 //
 
 #import "MXMSite.h"
+#import <YYModel/YYModel.h>
 
 @implementation MXMSite
+
+- (NSString *)description
+{
+  return [self yy_modelDescription];
+}
 
 @end
