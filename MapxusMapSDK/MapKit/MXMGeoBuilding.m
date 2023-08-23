@@ -15,7 +15,7 @@
 {
     MXMGeoBuilding * copyedModel = [[self.class allocWithZone:zone] init];
     copyedModel.identifier = self.identifier;
-    copyedModel.building = self.building;
+    copyedModel.category = self.category;
     copyedModel.venueId = self.venueId;
     copyedModel.name = self.name;
     copyedModel.name_en = self.name_en;
@@ -24,6 +24,7 @@
     copyedModel.name_ja = self.name_ja;
     copyedModel.name_ko = self.name_ko;
     copyedModel.floors = [[NSArray alloc] initWithArray:self.floors copyItems:YES];
+    copyedModel.bbox = [self.bbox copy];
     copyedModel.groundFloor = self.groundFloor;
     copyedModel.defaultDisplayedFloorId = self.defaultDisplayedFloorId;
     copyedModel.type = self.type;
@@ -38,6 +39,7 @@
              @"name_ja" : @[@"name_ja", @"name:ja"],
              @"name_ko" : @[@"name_ko", @"name:ko"],
              @"identifier" : @[@"identifier", @"id"],
+             @"category" : @[@"category", @"building"],
              @"venueId" : @[@"venueId", @"ref:venue"],
              @"defaultDisplayedFloorId": @[@"defaultDisplayedFloorId", @"default_displayed_floor"]
              };
@@ -104,11 +106,19 @@
     return _identifier;
 }
 
+- (NSString *)category {
+  if (!_category) {
+    _category = @"";
+  }
+  return _category;
+}
+
 - (NSString *)building {
-    if (!_building) {
-        _building = @"";
-    }
-    return _building;
+    return self.category;
+}
+
+- (void)setBuilding:(NSString *)building {
+  self.category = building;
 }
 
 - (NSString *)venueId {

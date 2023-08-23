@@ -8,18 +8,14 @@
 
 #import "MapxusMap.h"
 #import "MXMFloorSelectorBar+Private.h"
-#import "KxMenu.h"
-#import "MapxusMapSDK.h"
+#import "MXMLogoButton.h"
 
-#import "MXMSearchPOIOperation.h"
+#import "MXMSearchAPI.h"
 
 #import "MXMDecider.h"
 #import "MXMDataQuerier.h"
 #import "MXMAnnotationsHolder.h"
 #import "MXMCacheManager.h"
-#import "MXMGeoBuilding.h"
-#import "MXMGeoVenue.h"
-#import "MXMLogoButton.h"
 
 @import Mapbox;
 
@@ -27,44 +23,45 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface MapxusMap () <MXMFloorSelectorBarDelegate, UIGestureRecognizerDelegate, MXMSearchDelegate, MXMDeciderDelegate> {
-    BOOL _isFristLoad;
-    NSOperationQueue *_initializeQueue;
-    MXMConfiguration *_configuration;
+  BOOL _isFristLoad;
+  BOOL _isIndoor;
+  
+  NSOperationQueue *_initializeQueue;
+  MXMConfiguration *_configuration;
+  
+  NSDictionary<NSString *, MXMGeoVenue *> *_venues;
+  NSDictionary<NSString *, MXMGeoBuilding *> *_buildings;
+  NSDictionary<NSString *, MXMGeoBuilding *> *_innerbuildings;
+  NSSet *_lastFloorIds;
+  
+  MGLMapView *_mapView;
+  MXMLogoButton *_MXMLogo;
+  UIButton *_openStreetSourceBtn;
+  // TODO: 修复弹出UI
+  UIButton *_buildingSelectButton;
+  // TODO: 添加floorBar协议，以方便用户替换floorBar
+  MXMFloorSelectorBar *_floorBar;
 }
 
-@property (nonatomic, strong) MXMDecider *decider;
-@property (nonatomic, strong) MXMDataQuerier *dataQueryer;
-@property (nonatomic, strong) MXMAnnotationsHolder *annHolder;
-@property (nonatomic, strong) MXMCacheManager *cacheManager;
 
-@property (nonatomic, strong) MGLMapView *mapView;
-@property (nonatomic, strong, readwrite) UIButton *buildingSelectButton;
-@property (nonatomic, strong, readwrite) MXMFloorSelectorBar *floorBar;
-@property (nonatomic, strong) MXMLogoButton *MXMLogo;
-@property (nonatomic, strong) UIButton *openStreetSourceBtn;
+@property (nonatomic, strong, readonly) MXMDecider *decider;
+@property (nonatomic, strong, readonly) MXMDataQuerier *dataQueryer;
+@property (nonatomic, strong, readonly) MXMAnnotationsHolder *annHolder;
+@property (nonatomic, strong, readonly) MXMCacheManager *cacheManager;
 
-@property (nonatomic, assign) BOOL isIndoor;
 @property (nonatomic, assign) BOOL regionBecomeIdle; //
 @property (nonatomic, assign) BOOL flying; // 是否在飞行切换 camera ，YES 时忽略自动过滤建筑
 
-@property (nonatomic, copy, readwrite, nullable) MXMFloor *selectedFloor;
-
-@property (nonatomic, copy, readwrite, nullable) NSString *floor;
-@property (nonatomic, copy, readwrite, nullable) MXMOrdinal *ordinal;
-@property (nonatomic, copy, readwrite, nullable) MXMGeoBuilding *building;
-@property (nonatomic, copy, readwrite, nullable) MXMGeoVenue *venue;
-@property (nonatomic, copy, readwrite, nullable) NSString *userLocationFloor;
-@property (nonatomic, copy, readwrite, nullable) MXMGeoBuilding *userLocationBuilding;
-@property (nonatomic, copy, readwrite) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
-@property (nonatomic, copy, readwrite, nullable) NSDictionary<NSString *, MXMGeoBuilding *> *innerbuildings;
-@property (nonatomic, copy, readwrite) NSDictionary<NSString *, MXMGeoVenue *> *venues;
-@property (nonatomic, copy, readwrite) NSSet *floorIds;
+// TODO: 修改为MXMFloor
+- (void)updateUserLocationFloor:(nullable NSString *)floor;
+- (void)updateUserLocationBuilding:(nullable MXMGeoBuilding *)building;
+- (void)updateUserLocationVenue:(nullable MXMGeoVenue *)venue;
 
 // 移动地图时自动选择建筑
 - (void)automaticAnalyseOfIndoorData;
 - (void)idleAutomaticAnalyseOfIndoorData;
 // 刷新定位点透明度
-- (void)updageLocationView;
+- (void)updateLocationView;
 - (void)searchConfigurationInfo;
 - (void)walkAroundOutdoor;
 - (void)cleanMapSelected;

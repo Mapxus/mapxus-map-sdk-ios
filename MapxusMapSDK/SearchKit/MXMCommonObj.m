@@ -118,6 +118,15 @@
 //
 @implementation MXMBoundingBox
 
+- (id)copyWithZone:(NSZone *)zone {
+  MXMBoundingBox *copyedModel = [[self.class allocWithZone:zone] init];
+  copyedModel.min_latitude = self.min_latitude;
+  copyedModel.min_longitude = self.min_longitude;
+  copyedModel.max_latitude = self.max_latitude;
+  copyedModel.max_longitude = self.max_longitude;
+  return  copyedModel;
+}
+
 + (MXMBoundingBox *)boundingBoxWithMinLatitude:(double)min_lat minLongitude:(double)min_lng maxLatitude:(double)max_lat maxLongitude:(double)max_lng
 {
     MXMBoundingBox *box = [[MXMBoundingBox alloc] init];
@@ -147,6 +156,13 @@
 
 //
 @implementation MXMAddress
+
+- (id)copyWithZone:(NSZone *)zone {
+  MXMAddress *copyedModel = [[self.class allocWithZone:zone] init];
+  copyedModel.housenumber = self.housenumber;
+  copyedModel.street = self.street;
+  return  copyedModel;
+}
 
 - (NSString *)description
 {

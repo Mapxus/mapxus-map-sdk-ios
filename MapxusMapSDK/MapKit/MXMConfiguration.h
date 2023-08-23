@@ -25,13 +25,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// Initialize the custom map style, when this parameter is set to a non-null value, the `defaultStyle` is ignored, nil is default.
 @property (nonatomic, copy, nullable) NSString *defaultStyleName;
 
+/// Specify the location of the venue to be displayed at the start of the map, which cannot be set at the same time as the poiId.
+@property (nonatomic, copy, nullable) NSString *venueId;
 
 /// Specify the location of the building to be displayed at the start of the map, which cannot be set at the same time as the poiId.
 @property (nonatomic, copy, nullable) NSString *buildingId;
 
 /// Specify the location of the building and floor to be displayed at the start of the map, if floor is not set, the ground floor of the building is displayed by default,
 /// cannot be set at the same time as poiId.
-@property (nonatomic, copy, nullable) NSString *floor;
+@property (nonatomic, copy, nullable) NSString *floorId;
+@property (nonatomic, copy, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 
 /// Adaptive margins when initializing the map via buildingId, default value is UIEdgeInsetsZero.
 @property (nonatomic, assign) UIEdgeInsets zoomInsets;

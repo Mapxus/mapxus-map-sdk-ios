@@ -20,7 +20,7 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     dic[@"lat"] = @(reverseGeoCodeOption.location.latitude);
     dic[@"lon"] = @(reverseGeoCodeOption.location.longitude);
-    dic[@"ordinalFloor"] = reverseGeoCodeOption.ordinalFloor;
+    dic[@"ordinalFloor"] = reverseGeoCodeOption.floorOrdinal ? : reverseGeoCodeOption.ordinalFloor;
 
     NSURLSessionTask *task = [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onGetReverseGeoCode:result:error:)]) {

@@ -10,16 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- Venue information in tiles
- */
+/// Venue information in tiles
 @interface MXMGeoVenue : NSObject <NSCopying>
 
 /// A string that uniquely identifies the venue in the mapxus system.
 @property (nonatomic, strong) NSString *identifier;
 
-/// Venue type, indicating the classification of the venue, e.g. cathedral, car_park, hospital, office, retail, etc.
-@property (nonatomic, strong) NSString *venueType;
+/// Venue category, indicating the classification of the venue, e.g. cathedral, car_park, hospital, office, retail, etc.
+@property (nonatomic, strong) NSString *category;
+
+@property (nonatomic, strong) NSString *venueType DEPRECATED_MSG_ATTRIBUTE("Please use `category`");
 
 /// Venue name in default language.
 @property (nonatomic, strong, nullable) NSString *name;
@@ -57,10 +57,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// Venue address in Korean.
 @property (nonatomic, strong, nullable) MXMAddress *address_ko;
 
-/// List of all building ids attributed to this avenue.
+/// External rectangular area where the venue is located
+@property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
+
+/// List of all building ids attributed to this venue.
 @property (nonatomic, strong) NSArray<NSString *> *buildingIds;
 
-/// The default building id in this venue, which can be used as the basis for selecting building by default when venue is selected.
+/// The building id in this venue, which can be used as the basis for selecting building by default when venue is selected.
 @property (nonatomic, strong, nullable) NSString *defaultDisplayedBuildingId;
 
 @end

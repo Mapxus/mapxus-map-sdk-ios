@@ -102,7 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Rectangular area formed by the intersection of the lines of latitude and longitude of two points
  */
-@interface MXMBoundingBox : NSObject
+@interface MXMBoundingBox : NSObject <NSCopying>
 /// Lower left latitude
 @property (nonatomic, assign) double min_latitude;
 /// Lower left Longitude
@@ -131,7 +131,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Building address
  */
-@interface MXMAddress : NSObject
+@interface MXMAddress : NSObject <NSCopying>
 /// House number
 @property (nonatomic, strong, nullable) NSString *housenumber;
 /// Street name

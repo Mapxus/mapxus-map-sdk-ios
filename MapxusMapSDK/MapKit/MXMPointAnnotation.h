@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 
 /// The id of the building where the annotation is located
-@property (nonatomic, strong, nullable) NSString *buildingId;
+@property (nonatomic, strong, nullable) NSString *buildingId DEPRECATED_MSG_ATTRIBUTE("Will be removed");
 
 @end
 

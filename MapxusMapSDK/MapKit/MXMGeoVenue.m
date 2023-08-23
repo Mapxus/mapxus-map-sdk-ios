@@ -5,8 +5,9 @@
 //  Created by chenghao guo on 2022/12/14.
 //
 
-#import "MXMGeoVenue.h"
+#import "MXMGeoVenue+Private.h"
 #import <YYModel/YYModel.h>
+#import "JXJsonFunctionDefine.h"
 
 @implementation MXMGeoVenue
 
@@ -14,28 +15,30 @@
 {
   MXMGeoVenue * copyedModel = [[self.class allocWithZone:zone] init];
   copyedModel.identifier = self.identifier;
-  copyedModel.venueType = self.venueType;
+  copyedModel.category = self.category;
   copyedModel.name = self.name;
   copyedModel.name_en = self.name_en;
   copyedModel.name_cn = self.name_cn;
   copyedModel.name_zh = self.name_zh;
   copyedModel.name_ja = self.name_ja;
   copyedModel.name_ko = self.name_ko;
-  copyedModel.address = self.address;
-  copyedModel.address_en = self.address_en;
-  copyedModel.address_cn = self.address_cn;
-  copyedModel.address_zh = self.address_zh;
-  copyedModel.address_ja = self.address_ja;
-  copyedModel.address_ko = self.address_ko;
-  copyedModel.buildingIds = [[NSArray alloc] initWithArray:self.buildingIds copyItems:YES];
+  copyedModel.address = [self.address copy];
+  copyedModel.address_en = [self.address_en copy];
+  copyedModel.address_cn = [self.address_cn copy];
+  copyedModel.address_zh = [self.address_zh copy];
+  copyedModel.address_ja = [self.address_ja copy];
+  copyedModel.address_ko = [self.address_ko copy];
+  copyedModel.bbox = [self.bbox copy];
+  copyedModel.buildingIds = self.buildingIds;
   copyedModel.defaultDisplayedBuildingId = self.defaultDisplayedBuildingId;
+  copyedModel.defaultDisplayedOrdinal = [self.defaultDisplayedOrdinal copy];
   return copyedModel;
 }
 
 + (NSDictionary *)modelCustomPropertyMapper {
   return @{
     @"identifier": @[@"identifier", @"id"],
-    @"venueType": @[@"venueType", @"venue"],
+    @"category": @[@"category", @"venue"],
     @"name_cn": @[@"name_cn", @"name:zh-Hans"],
     @"name_en": @[@"name_en", @"name:en"],
     @"name_zh": @[@"name_zh", @"name:zh-Hant"],
@@ -48,6 +51,12 @@
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
   if ([dic[@"building_ids"] isKindOfClass:[NSString class]]) {
     _buildingIds = [dic[@"building_ids"] componentsSeparatedByString:@","];
+  }
+  
+  NSNumber *ordinalNum = DecodeNumberFromDic(dic, @"default_displayed_ordinal");
+  if (ordinalNum) {
+    _defaultDisplayedOrdinal = [[MXMOrdinal alloc] init];
+    _defaultDisplayedOrdinal.level = [ordinalNum integerValue];
   }
   
   // address_default
@@ -151,11 +160,19 @@
   return _identifier;
 }
 
-- (NSString *)venueType {
-  if (!_venueType) {
-    _venueType = @"";
+- (NSString *)category {
+  if (!_category) {
+    _category = @"";
   }
-  return _venueType;
+  return _category;
+}
+
+- (NSString *)venueType {
+  return self.category;
+}
+
+- (void)setVenueType:(NSString *)venueType {
+  self.category = venueType;
 }
 
 - (NSArray<NSString *> *)buildingIds {

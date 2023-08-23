@@ -8,8 +8,10 @@
 
 ############## 变量初始化 ##############
 
-# azure的分享名
-SHARE_NAME='com-mapxus-iossdk'
+# nexus的域名
+REPOSITORY_URL='https://nexus3.mapxus.com'
+# nexus的库名
+REPOSITORY_NAME='ios-sdk'
 # 分发根的上级目录，手动使用本工具打包时，可以不传-d参数，使用本默认值
 DISTRIBUTION_PARENT_PATH="${PWD}/.."
 # 分发根目录
@@ -17,7 +19,7 @@ DISTRIBUTION_ROOT_PATH="/mapxus-map-sdk-ios"
 # 压缩文件名
 ZIP_FILE='mapxus-map-sdk-ios.zip'
 # 密码文件
-ENV_FILE='azure.env'
+ENV_FILE='nexus.env'
 # cocoapods配置文件
 POSDSPEC_FILE='MapxusMapSDK.podspec'
 
@@ -53,24 +55,34 @@ if [[ -z $COM ]]; then
     echo "COM=mapxus"
     
 elif [[ $COM == "-landsd" ]]; then
+    # nexus的域名
+    REPOSITORY_URL='https://nexus3.mapxus.com'
+    # nexus的库名
+    REPOSITORY_NAME='ios-landsd-sdk'
+    #
     DISTRIBUTION_PARENT_PATH="${DISTRIBUTION_PARENT_PATH}/sdk-landsd"
     # 分发根目录
     DISTRIBUTION_ROOT_PATH="/mapxus-map-sdk-ios-landsd"
     # 压缩文件名
     ZIP_FILE='mapxus-map-sdk-ios-landsd.zip'
     # 密码文件
-    ENV_FILE='azure-landsd.env'
+    ENV_FILE='nexus.env'
     # cocoapods配置文件
     POSDSPEC_FILE='MapxusMapSDK-landsd.podspec'
   
 elif [[ $COM == "-kawasaki" ]]; then
+    # nexus的域名
+    REPOSITORY_URL='https://nexus3.mapxus.co.jp'
+    # nexus的库名
+    REPOSITORY_NAME='ios-sdk'
+    #
     DISTRIBUTION_PARENT_PATH="${DISTRIBUTION_PARENT_PATH}/sdk-jp"
     # 分发根目录
     DISTRIBUTION_ROOT_PATH="/mapxus-map-sdk-ios-jp"
     # 压缩文件名
     ZIP_FILE='mapxus-map-sdk-ios-jp.zip'
     # 密码文件
-    ENV_FILE='azure-jp.env'
+    ENV_FILE='nexus-jp.env'
     # cocoapods配置文件
     POSDSPEC_FILE='MapxusMapSDK-jp.podspec'
     
@@ -79,7 +91,7 @@ fi
 
 ############## 压缩 ##############
 
-### 读取key和name
+### 读取account和password
 export $(xargs < "BuildConfig/${ENV_FILE}")
 
 WORK_DIR="${DISTRIBUTION_PARENT_PATH}${DISTRIBUTION_ROOT_PATH}"
@@ -95,26 +107,17 @@ fi
 zip -r ${ZIP_FILE} * -x '*.podspec' '*/.*'
 
 
-############## 上传azure ##############
+############## 上传到nexus ##############
 
 ### 获取tag
 VERSION=$(git describe --abbrev=0 --tags)
 
-### create version directory
-az storage directory create \
---share-name ${SHARE_NAME} \
---account-key ${accountKey} \
---account-name ${accountName} \
---name ${VERSION}
-
-### upload file
-az storage file upload \
---share-name ${SHARE_NAME} \
---account-key ${accountKey} \
---account-name ${accountName} \
---path "${VERSION}/${ZIP_FILE}" \
---source ${ZIP_FILE}
-
+### 上传到nexus
+curl -v -u $account:$password -X POST \
+"$REPOSITORY_URL/service/rest/v1/components?repository=$REPOSITORY_NAME" \
+-F "raw.directory=${VERSION}" \
+-F "raw.asset1=@${ZIP_FILE}" \
+-F "raw.asset1.filename=${ZIP_FILE}"
 
 ############## 上传Cocoapods ##############
 

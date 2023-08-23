@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithMapView:(MGLMapView *)mapView;
 
 // 区域内查找建筑
+- (NSDictionary *)findOutFloorInTheRect:(CGRect)rect;
+
 - (NSDictionary *)findOutBuildingInTheRect:(CGRect)rect;
 
 - (NSDictionary *)findOutVenueInTheRect:(CGRect)rect;

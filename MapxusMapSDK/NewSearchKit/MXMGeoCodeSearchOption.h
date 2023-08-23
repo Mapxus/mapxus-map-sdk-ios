@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CLLocationCoordinate2D location;
 
 /// Level values of floor, corresponding to floor.level in CLLocation
+@property (nonatomic, strong) NSNumber *floorOrdinal;
+
 @property (nonatomic, strong) NSNumber *ordinalFloor;
 
 @end

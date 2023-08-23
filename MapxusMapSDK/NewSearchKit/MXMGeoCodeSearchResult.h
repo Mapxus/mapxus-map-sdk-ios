@@ -16,11 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MXMReverseGeoCodeSearchResult : NSObject
 
+/// The information of the floor where you are located
+@property (nonatomic, strong) MXMFloor *floor;
+
 /// Query for information about the building in which the location is located, returning only the buildingId and name information
 @property (nonatomic, strong) MXMBuilding *building;
 
-/// The information of the floor where you are located
-@property (nonatomic, strong) MXMFloor *floor;
+/// The information of the venue where you are located
+@property (nonatomic, strong) MXMVenue *venue;
 
 @end
 

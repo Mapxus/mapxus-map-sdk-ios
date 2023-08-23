@@ -133,11 +133,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MXMPOISearchRequest : NSObject
 /// Keyword. Currently only single keyword queries are supported
-@property (nonatomic, strong, nullable) NSString *keywords;
+@property (nonatomic, copy, nullable) NSString *keywords;
+/// The id of floor which you want to search in
+@property (nonatomic, copy, nullable) NSString *floorId;
 /// The id of building which you want to search in
-@property (nonatomic, strong, nullable) NSString *buildingId;
+@property (nonatomic, copy, nullable) NSString *buildingId;
 /// The name of floor which you want to search on
-@property (nonatomic, strong, nullable) NSString *floor;
+@property (nonatomic, copy, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 /// Enter latitude and longitude to form a rectangular search range. The maximum rectangular search area cannot exceed  400 km².
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
 /// The centre of circular area search
@@ -182,10 +184,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger angle;
 /// Distance search type (default: Point). Point: finds POI points contained in a circle with center and distance as radius; polygon: finds POI information for rooms intersected by a circle with center and distance as radius
 @property (nonatomic, strong, nullable) NSString *distanceSearchType;
+/// The id of floor which you want to search in
+@property (nonatomic, copy, nullable) NSString *floorId;
 /// The id of building which you want to search in
 @property (nonatomic, strong, nullable) NSString *buildingId;
 /// The name of floor which you want to search on
-@property (nonatomic, strong, nullable) NSString *floor;
+@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 /// The centre of circular area search
 @property (nonatomic, strong, nullable) MXMGeoPoint *center;
 /// This parameter is used in the POI orientation search and represents the radius distance in meters. The maximum radius distance cannot exceed 100m.

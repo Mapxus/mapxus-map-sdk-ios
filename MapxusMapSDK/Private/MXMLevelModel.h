@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MXMCommonObj.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *levelId;
 @property (nonatomic, strong) NSString *refBuildingId;
 @property (nonatomic, strong, nullable) NSString *name;
-@property (nonatomic, strong, nullable) NSNumber *ordinal;
+@property (nonatomic, strong, nullable) MXMOrdinal *ordinal;
 
 @end
 
