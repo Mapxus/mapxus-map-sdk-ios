@@ -163,6 +163,11 @@ typedef NS_ENUM(NSInteger, MXMRouteSign) {
      Upstairs
      */
     MXMUpstairs = 100,
+  
+    MXMBus = 104,
+    MXMBusWaiting = 105,
+    MXMBusStation = 106,
+    MXMBusEndTrip = 107,
     /**
      Leave the building
      */
