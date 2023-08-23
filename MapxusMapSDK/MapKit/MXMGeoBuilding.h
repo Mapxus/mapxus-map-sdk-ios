@@ -11,16 +11,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- Building information in tiles
- */
+/// Building information in tiles
 @interface MXMGeoBuilding : NSObject <NSCopying>
 
 /// A string that uniquely identifies the building in the mapxus system.
 @property (nonatomic, strong) NSString *identifier;
 
-/// Building type, indicating the classification of the building, e.g. cathedral, car_park, hospital, office, retail, etc.
-@property (nonatomic, strong) NSString *building;
+/// Building category, indicating the classification of the building, e.g. cathedral, car_park, hospital, office, retail, etc.
+@property (nonatomic, strong) NSString *category;
+
+@property (nonatomic, strong) NSString *building DEPRECATED_MSG_ATTRIBUTE("Please use `category`");
 
 /// The id of venue where the building is located.
 @property (nonatomic, strong) NSString *venueId;

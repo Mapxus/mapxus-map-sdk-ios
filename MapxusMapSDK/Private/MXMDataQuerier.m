@@ -111,7 +111,7 @@
     if (theId) {
       MXMGeoBuilding *b = [MXMGeoBuilding yy_modelWithJSON:feature.attributes];
       MXMGeoVenue *venue = self.mapView.mxmMap.decider.visibleVenues[b.venueId];
-      b.building = venue.venueType; //building的类型放到了venue上，需要从venue里拿
+      b.category = venue.category; //building的类型放到了venue上，需要从venue里拿
       if ([feature isKindOfClass:[MGLPolygonFeature class]]) {
         MGLPolygonFeature *polygon = (MGLPolygonFeature *)feature;
         b.bbox = [MXMBoundingBox boundingBoxWithMinLatitude:polygon.overlayBounds.sw.latitude

@@ -735,7 +735,7 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
   MXMGeoBuilding *geoBuilding = [[MXMGeoBuilding alloc] init];
   geoBuilding.identifier = netBuilding.buildingId;
   geoBuilding.venueId = netBuilding.venueId;
-  geoBuilding.building = netBuilding.type;
+  geoBuilding.category = netBuilding.type;
   geoBuilding.name = netBuilding.name_default;
   geoBuilding.name_cn = netBuilding.name_cn;
   geoBuilding.name_en = netBuilding.name_en;
@@ -753,7 +753,7 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
   if (netVenue == nil) { return nil; }
   MXMGeoVenue *geoVenue = [[MXMGeoVenue alloc] init];
   geoVenue.identifier = netVenue.venueId;
-  geoVenue.venueType = netVenue.type;
+  geoVenue.category = netVenue.type;
   geoVenue.name = netVenue.name_default;
   geoVenue.name_cn = netVenue.name_cn;
   geoVenue.name_en = netVenue.name_en;
@@ -776,7 +776,7 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
   if (netBuilding == nil) { return nil; }
   MXMGeoVenue *geoVenue = [[MXMGeoVenue alloc] init];
   geoVenue.identifier = netBuilding.venueId;
-  geoVenue.venueType = netBuilding.type;
+  geoVenue.category = netBuilding.type;
   geoVenue.name = netBuilding.venueName_default;
   geoVenue.name_cn = netBuilding.venueName_cn;
   geoVenue.name_en = netBuilding.venueName_en;
