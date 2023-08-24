@@ -103,8 +103,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMPOICategorySearchRequest : NSObject
 /// Specify search building id
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// Specify search floor name
-@property (nonatomic, strong, nullable) NSString *floor;
+/// Specify search floor id
+@property (nonatomic, strong, nullable) NSString *floorId;
+@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 @end
 
 

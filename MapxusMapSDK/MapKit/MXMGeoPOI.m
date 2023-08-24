@@ -30,7 +30,7 @@
     copyedModel.accessibilityDetail_zh = self.accessibilityDetail_zh;
     copyedModel.accessibilityDetail_ja = self.accessibilityDetail_ja;
     copyedModel.accessibilityDetail_ko = self.accessibilityDetail_ko;
-    copyedModel.category = [self.category copy];
+    copyedModel.category = self.category;
 
     return copyedModel;
 }
