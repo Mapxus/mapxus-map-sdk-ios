@@ -99,19 +99,22 @@ NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
 
 - (void)MXMPOICategorySearch:(MXMPOICategorySearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/categories/pois"];
-    NSDictionary *dic = [request yy_modelToJSONObject];
-    
-    [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(onPOICategorySearchDone:response:)]) {
-            MXMPOICategorySearchResponse *response = [MXMPOICategorySearchResponse yy_modelWithJSON:content];
-            [self.delegate onPOICategorySearchDone:request response:response];
-        }
-    } failure:^(NSError *error) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
-            [self.delegate MXMSearchRequest:request didFailWithError:error];
-        }
-    }];
+  NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v2/categories/pois"];
+  if (!request.floorId && request.floor) {
+    url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v1/categories/pois"];
+  }
+  NSDictionary *dic = [request yy_modelToJSONObject];
+  
+  [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onPOICategorySearchDone:response:)]) {
+      MXMPOICategorySearchResponse *response = [MXMPOICategorySearchResponse yy_modelWithJSON:content];
+      [self.delegate onPOICategorySearchDone:request response:response];
+    }
+  } failure:^(NSError *error) {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
+      [self.delegate MXMSearchRequest:request didFailWithError:error];
+    }
+  }];
 }
 
 
