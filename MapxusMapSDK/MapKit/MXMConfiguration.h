@@ -25,20 +25,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// Initialize the custom map style, when this parameter is set to a non-null value, the `defaultStyle` is ignored, nil is default.
 @property (nonatomic, copy, nullable) NSString *defaultStyleName;
 
-/// Specify the location of the venue to be displayed at the start of the map, which cannot be set at the same time as the poiId.
-@property (nonatomic, copy, nullable) NSString *venueId;
-
-/// Specify the location of the building to be displayed at the start of the map, which cannot be set at the same time as the poiId.
-@property (nonatomic, copy, nullable) NSString *buildingId;
-
 /// Specify the location of the building and floor to be displayed at the start of the map, if floor is not set, the ground floor of the building is displayed by default,
 /// cannot be set at the same time as poiId.
 @property (nonatomic, copy, nullable) NSString *floorId;
 @property (nonatomic, copy, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 
+/// Specify the location of the building to be displayed at the start of the map, which cannot be set at the same time as the poiId.
+@property (nonatomic, copy, nullable) NSString *buildingId;
+
+/// Specify the location of the venue to be displayed at the start of the map, which cannot be set at the same time as the poiId.
+@property (nonatomic, copy, nullable) NSString *venueId;
+
 /// Adaptive margins when initializing the map via buildingId, default value is UIEdgeInsetsZero.
 @property (nonatomic, assign) UIEdgeInsets zoomInsets;
-
 
 /// Initialize the map with poiId, so that the map starts to display the location centre set to poi latitude and longitude, and switch to the corresponding building and
 /// floor, with buildingId and floor can not be set at the same time, if set poiId, then setting buildingId is invalid.

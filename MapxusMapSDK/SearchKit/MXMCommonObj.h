@@ -226,8 +226,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMAddress *address_ja;
 /// Building address in Korean
 @property (nonatomic, strong, nullable) MXMAddress *address_ko;
-/// Building type, indicating the classification of the building, e.g. residential, commercial, retail, industrial, transportation, etc.
-@property (nonatomic, strong, nullable) NSString *type;
+/// Building category, indicating the classification of the building, e.g. residential, commercial, retail, industrial, transportation, etc.
+@property (nonatomic, strong, nullable) NSString *category;
+@property (nonatomic, strong, nullable) NSString *type DEPRECATED_MSG_ATTRIBUTE("Please use `category`");
 /// External rectangular area where the building is located
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
 /// The Longitude and Latitude of the building name label
@@ -282,7 +283,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// Venue address in Korean
 @property (nonatomic, strong, nullable) MXMAddress *address_ko;
 /// Venue type, indicating the classification of the venue, e.g. residential, commercial, retail, industrial, transportation, etc.
-@property (nonatomic, strong, nullable) NSString *type;
+@property (nonatomic, strong, nullable) NSString *category;
+@property (nonatomic, strong, nullable) NSString *type DEPRECATED_MSG_ATTRIBUTE("Please use `category`");
 /// External rectangular area where the venue is located
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
 /// The Longitude and Latitude of the venue name label
