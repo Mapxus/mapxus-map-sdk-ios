@@ -260,7 +260,7 @@
 @end
 
 
-//
+
 @implementation MXMBuilding
 
 + (NSDictionary *)modelCustomPropertyMapper {
@@ -284,6 +284,7 @@
              @"address_ko" : @[@"address_ko", @"address.ko"],
              @"buildingId" : @[@"buildingId", @"id"],
              @"defaultDisplayedFloorId" : @[@"defaultDisplayedFloorId", @"defaultFloor"],
+             @"category" : @[@"category", @"type"],
              @"hasVisualMap" : @[@"hasVisualMap", @"visualMap"],
              @"hasSignalMap" : @[@"hasSignalMap", @"signalMap"],
              };
@@ -319,6 +320,14 @@
   return _venueId;
 }
 
+- (NSString *)type {
+  return self.category;
+}
+
+- (void)setType:(NSString *)type {
+  self.category = type;
+}
+
 @end
 
 
@@ -341,6 +350,7 @@
       @"address_ja" : @[@"address_ja", @"address.ja"],
       @"address_ko" : @[@"address_ko", @"address.ko"],
       @"defaultDisplayedBuildingId" : @[@"defaultDisplayedBuildingId", @"defaultBuilding"],
+      @"category" : @[@"category", @"type"],
       @"hasVisualMap" : @[@"hasVisualMap", @"visualMap"],
       @"hasSignalMap" : @[@"hasSignalMap", @"signalMap"],
     };
@@ -353,7 +363,7 @@
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
   for (MXMBuilding *building in self.buildings) {
     building.venueId = self.venueId;
-    building.type = self.type;
+    building.category = self.category;
     building.venueName_default = self.name_default;
     building.venueName_cn = self.name_cn;
     building.venueName_zh = self.name_zh;
@@ -389,6 +399,14 @@
     _venueId = @"";
   }
   return _venueId;
+}
+
+- (NSString *)type {
+  return self.category;
+}
+
+- (void)setType:(NSString *)type {
+  self.category = type;
 }
 
 @end
