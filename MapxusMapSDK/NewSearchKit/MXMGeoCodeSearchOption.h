@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Level values of floor, corresponding to floor.level in CLLocation
 @property (nonatomic, strong) NSNumber *floorOrdinal;
 
-@property (nonatomic, strong) NSNumber *ordinalFloor;
+@property (nonatomic, strong) NSNumber *ordinalFloor DEPRECATED_MSG_ATTRIBUTE("Please use `floorOrdinal`");
 
 @end
 

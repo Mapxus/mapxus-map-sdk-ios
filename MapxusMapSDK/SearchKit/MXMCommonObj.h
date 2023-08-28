@@ -68,10 +68,10 @@ NS_ASSUME_NONNULL_BEGIN
  Indoor point
  */
 @interface MXMIndoorPoint : MXMGeoPoint
-/// The id of building in which it is located
+/// The ID of building in which it is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
 
-/// The id of floor on which it is located
+/// The ID of floor on which it is located
 @property (nonatomic, strong, nullable) NSString *floorId;
 
 @property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
@@ -80,8 +80,8 @@ NS_ASSUME_NONNULL_BEGIN
  MXMIndoorPoint factory method
  @param lat Latitude (vertical)
  @param lng Longitude (horizontal)
- @param buildingId The id of building in which it is located
- @param floorId The id of floor on which it is located
+ @param buildingId The ID of building where it is located
+ @param floorId The ID of the floor where it is located
  @return MXMIndoorPoint object
  */
 + (MXMIndoorPoint *)locationWithLatitude:(double)lat
@@ -158,7 +158,7 @@ NS_ASSUME_NONNULL_BEGIN
  Floor detail
  */
 @interface MXMFloor : NSObject <NSCopying>
-/// Floor id
+/// Floor ID
 @property (nonatomic, strong) NSString *floorId;
 /// Floor name
 @property (nonatomic, strong) NSString *code;
@@ -188,7 +188,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMBuilding : NSObject
 /// A string that uniquely identifies the building in the mapxus system.
 @property (nonatomic, strong) NSString *buildingId;
-/// The id of venue where the building is located
+/// The ID of venue where the building is located
 @property (nonatomic, strong) NSString *venueId;
 /// The default name of venue where the building is located
 @property (nonatomic, strong, nullable) NSString *venueName_default;
@@ -231,11 +231,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *type DEPRECATED_MSG_ATTRIBUTE("Please use `category`");
 /// External rectangular area where the building is located
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
-/// The Longitude and Latitude of the building name label
+/// The longitude and latitude of the building name label
 @property (nonatomic, strong, nullable) MXMGeoPoint *labelCenter;
 /// All floors information of the building
 @property (nonatomic, strong) NSArray<MXMFloorInfo *> *floors;
-/// The default floor id in this building, which can be used as the basis for selecting floor by default when building is selected.
+/// The default floor ID in this building, which can be used as the basis for selecting floor by default when building is selected.
 @property (nonatomic, strong, nullable) NSString *defaultDisplayedFloorId;
 @property (nonatomic, strong, nullable) NSString *groundFloor DEPRECATED_MSG_ATTRIBUTE("Will be removed");
 /// The contry where the building is located
@@ -282,12 +282,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMAddress *address_ja;
 /// Venue address in Korean
 @property (nonatomic, strong, nullable) MXMAddress *address_ko;
-/// Venue type, indicating the classification of the venue, e.g. residential, commercial, retail, industrial, transportation, etc.
+/// Venue category, indicating the classification of the building, e.g. residential, commercial, retail, industrial, transportation, etc.
 @property (nonatomic, strong, nullable) NSString *category;
 @property (nonatomic, strong, nullable) NSString *type DEPRECATED_MSG_ATTRIBUTE("Please use `category`");
 /// External rectangular area where the venue is located
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
-/// The Longitude and Latitude of the venue name label
+/// The longitude and latitude of the venue name label
 @property (nonatomic, strong, nullable) MXMGeoPoint *labelCenter;
 /// All buildings information of the venue
 @property (nonatomic, strong) NSArray<MXMBuilding *> *buildings;
@@ -311,9 +311,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMPOI : NSObject
 /// A string that uniquely identifies the POI in the mapxus system.
 @property (nonatomic, strong) NSString *poiId;
-/// The id of building where the POI is located
+/// The ID of building where the POI is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// The id of venue where the POI is located
+/// The ID of venue where the POI is located
 @property (nonatomic, strong, nullable) NSString *venueId;
 /// The floor detail where the POI is located
 @property (nonatomic, strong, nullable) MXMFloor *floor;
@@ -349,11 +349,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_ja;
 /// Accessibility Information in Korean
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_ko;
-/// Opening hours
+/// Opening hours, use openstreetmap opening_hours format
 @property (nonatomic, strong, nullable) NSString *openingHours;
-/// The phone number of the shop
+/// The phone number of the POI
 @property (nonatomic, strong, nullable) NSString *phone;
-/// The website of the shop
+/// The website of the POI
 @property (nonatomic, strong, nullable) NSString *website;
 /// Distance from the request centre, only valid for the centre search
 @property (nonatomic, assign) double distance;
@@ -368,11 +368,11 @@ NS_ASSUME_NONNULL_BEGIN
  Key instruction for the route
  */
 @interface MXMInstruction : NSObject
-/// The id of the venue in which this instruction is located
+/// The ID of the venue in which this instruction is located
 @property (nonatomic, strong, nullable) NSString *venueId;
-/// The id of the building in which this instruction is located
+/// The ID of the building in which this instruction is located
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// The id of the floor in which this instruction is located
+/// The ID of the floor in which this instruction is located
 @property (nonatomic, strong, nullable) NSString *floorId;
 @property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 /// The ordinal of the floor in which this instruction is located

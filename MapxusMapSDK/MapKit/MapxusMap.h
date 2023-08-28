@@ -29,27 +29,27 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)new NS_UNAVAILABLE;
 
 /// MapxusMap initialisation function.
-/// @param mapView Bind MGLMapView and introduce MapBox as a map rendering tool
+/// @param mapView Bind MGLMapView as a map rendering tool.
 - (instancetype)initWithMapView:(MGLMapView *)mapView;
 
 /// MapxusMap initialisation function.
-/// @param mapView Bind MGLMapView and introduce MapBox as a map rendering tool
-/// @param configuration Initialization parameters, see `MXMConfiguration` for details
+/// @param mapView Bind MGLMapView as a map rendering tool.
+/// @param configuration Initialization parameters, see `MXMConfiguration` for details.
 - (instancetype)initWithMapView:(MGLMapView *)mapView configuration:(nullable MXMConfiguration *)configuration;
 
 /// Event callback agent for MapxusMap.
 @property (nonatomic, weak, nullable) id<MapxusMapDelegate> delegate;
 
-/// Building selection button, appears when multiple buildings appear in the rectangular area in the centre of the screen.
+/// Building selection button. When tile data with multiple buildings is retrieved in the mapview's viewport, it will be displayed.
 @property (nonatomic, strong, readonly) UIButton *buildingSelectButton;
 
-/// Floor selector bar.
+/// Floor selector bar. When tile data with selected floor is retrieved in the mapview's viewport, it will be displayed.
 @property (nonatomic, strong, readonly) MXMFloorSelectorBar *floorBar;
 
-/// Always hide map controls, default is NO.
+/// Keep the map controls, which include the `buildingSelectButton` and `floorBar`, consistently hidden, default is NO.
 @property (nonatomic, assign) BOOL indoorControllerAlwaysHidden;
 
-/// Set the position of the map control, default is `MXMSelectorPositionCenterLeft`.
+/// Set the position of the map controls, which include the `buildingSelectButton` and `floorBar`, default is `MXMSelectorPositionCenterLeft`.
 @property (nonatomic, assign) MXMSelectorPosition selectorPosition;
 
 /// Set the margin of the Mapxus logo from the bottom of the mapView, you can only pass 0 or a positive number, passing a negative number will reset it to 0
@@ -63,12 +63,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// in the bottom corners of the map.   The default is NO.
 @property (nonatomic, assign) BOOL collapseCopyright;
 
-/**
- The style of the border that will be drawn for the selected building.
- 
- The default value of this property is an MXMBorderStyle that evaluates to `+ [MXMBorderStyle defaultSelectedBuildingBorderStyle]`. Set this
- property to `nil` to reset it to the default style.
- */
+/// The style of the border that will be drawn for the selected building.
+/// @discussion The default value of this property is an MXMBorderStyle that evaluates
+/// to `+ [MXMBorderStyle defaultSelectedBuildingBorderStyle]`. Set this
+/// property to `nil` to reset it to the default style.
 @property (nonatomic, strong, null_resettable) MXMBorderStyle *selectedBuildingBorderStyle;
 
 /// Whether the outdoor map is displayed.
@@ -81,12 +79,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// default is YES.
 @property (nonatomic, assign) BOOL autoChangeBuilding;
 
-/**
- Set the floor switch mode.
- 
- If attribution has been set to MXMSwitchingByVenue, switching floor will synchronize the floor ordinal for all buildings on the same venue; If the attribution has
- been set to MXMSwitchingByBuilding, only the current building’s floor will change. The default is MXMSwitchingByVenue.
- */
+/// Set the floor switch mode.
+/// @discussion If attribution has been set to `MXMSwitchingByVenue`, switching floor will synchronize the floor ordinal for all buildings on the same venue;
+/// If the attribution has been set to `MXMSwitchingByBuilding`, only the current building’s floor will change. The default is `MXMSwitchingByVenue`.
 @property (nonatomic, assign) MXMFloorSwitchMode floorSwitchMode;
 
 /// Detailed information about the currently selected floor. If the object is nil, it means no floor is selected.
@@ -116,10 +111,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// not `MGLUserTrackingModeNone` value. nil when there is no indoor data
 @property (nonatomic, strong, readonly, nullable) MXMGeoVenue *userLocationVenue;
 
-/// Returns all the measured buildings visible in the currently bound MGLMapView viewport
+/// A compilation of all buildings, derived from the tile data of the current mapview viewport.
 @property (nonatomic, strong, readonly) NSDictionary<NSString *, MXMGeoBuilding *> *buildings;
 
-/// Returns all the measured venues visible in the currently bound MGLMapView viewport
+///  A compilation of all venues, derived from the tile data of the current mapview viewport.
 @property (nonatomic, strong, readonly) NSDictionary<NSString *, MXMGeoVenue *> *venues;
 
 
@@ -224,34 +219,14 @@ NS_ASSUME_NONNULL_BEGIN
                zoomMode:(MXMZoomMode)zoomMode
             edgePadding:(UIEdgeInsets)insets;
 
-/**
- Select the building and the floor of that building and the map will automatically zoom in to that area with a margin of 0.
- 
- @param buildingId The ID of the building to be selected. If you pass in null, the currently selected building and floor will be cleared. If you pass in invalid values,
-                   nothing will happen.
- @param floor The floor name of your choice. When the value passed in is null or invalid, the program does the following: if buildingId is null, it clears
-              the selection of building and floor; if buildingId is valid, it restores the previous selection of floors from the history saved after map
-              initialization; if there is no history, it selects the floor with the ordinal closest to 0; if there are two such floors, it prefers the positive one.
- */
 - (void)selectBuilding:(nullable NSString *)buildingId floor:(nullable NSString *)floor DEPRECATED_MSG_ATTRIBUTE("To be deprecated");
 
-/**
- Select the building and the floor of that building
- 
- @param buildingId The ID of the building to be selected. If you pass in null, the currently selected building and floor will be cleared. If you pass in invalid values,
-                   nothing will happen.
- @param floor The floor name of your choice. When the value passed in is null or invalid, the program does the following: if buildingId is null, it clears
-              the selection of building and floor; if buildingId is valid, it restores the previous selection of floors from the history saved after map
-              initialization; if there is no history, it selects the floor with the ordinal closest to 0; if there are two such floors, it prefers the positive one.
- @param zoomMode Zoom method
- @param insets Zoom to fit the margins, if zoomMode is `MXMZoomDisable` then the value passed in is invalid
- */
 - (void)selectBuilding:(nullable NSString *)buildingId
                  floor:(nullable NSString *)floor
               zoomMode:(MXMZoomMode)zoomMode
            edgePadding:(UIEdgeInsets)insets DEPRECATED_MSG_ATTRIBUTE("To be deprecated");
 
-/// An array of indoor annotations that have been added to the current MapView
+/// An array of indoor annotations that have been added to the current mapview
 @property (nonatomic, readonly) NSArray<MXMPointAnnotation *> *MXMAnnotations;
 
 /**

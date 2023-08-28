@@ -98,14 +98,15 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  POI category search parameters
  
- Search for all POI categories in a given building and floor, floor can be left out, otherwise the whole building will be searched
+ If a floorId is provided, the buildingId will be disregarded, and all categories associated with that floor will be queried. Conversely, if a buildingId is provided, all
+ categories within that building will be queried.
  */
 @interface MXMPOICategorySearchRequest : NSObject
-/// Specify search building id
-@property (nonatomic, strong, nullable) NSString *buildingId;
-/// Specify search floor id
+/// Specify search floor ID
 @property (nonatomic, strong, nullable) NSString *floorId;
 @property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
+/// Specify search building ID
+@property (nonatomic, strong, nullable) NSString *buildingId;
 @end
 
 
@@ -126,21 +127,21 @@ NS_ASSUME_NONNULL_BEGIN
  POI search parameters
  
  There are five search modes.
- 1. specify the keyword search within the building and floor, with the parameter combinations keywords(optional), buildingId, floor(optional), offset, page, category(optional).
- 2. Specify the keyword search in the square area with the combination keywords(optional), bbox, offset, page, category(optional).
- 3. Specify a keyword search within a circular region, sorted by two-dimensional spatial distance, with the parameter combinations keywords(optional), center, meterDistance(or distance), offset, page, category(optional).
- 4. specify a keyword search within a circular area, sorted by route distance, with the parameter combinations keywords(optional), center, ordinal, buildingId, sort, meterDistance(or distance), offset, page, category(optional).
- 5. specifying a buildingId search with the parameters POIIds.
+ 1. specify the keyword search within the floor, with the parameter combinations keywords(optional), floorId, offset, page, category(optional).
+ 2. specify the keyword search within the building, with the parameter combinations keywords(optional), buildingId, offset, page, category(optional).
+ 3. Specify the keyword search in the square area with the combination keywords(optional), bbox, offset, page, category(optional).
+ 4. Specify a keyword search within a circular region, sorted by two-dimensional spatial distance, with the parameter combinations keywords(optional), center, meterDistance(or distance), offset, page, category(optional).
+ 5. specify a keyword search within a circular area, sorted by route distance, with the parameter combinations keywords(optional), center, ordinal, buildingId, sort, meterDistance(or distance), offset, page, category(optional).
+ 6. specifying a buildingId search with the parameters POIIds.
  */
 @interface MXMPOISearchRequest : NSObject
 /// Keyword. Currently only single keyword queries are supported
 @property (nonatomic, copy, nullable) NSString *keywords;
-/// The id of floor which you want to search in
+/// The ID of floor which you want to search in
 @property (nonatomic, copy, nullable) NSString *floorId;
-/// The id of building which you want to search in
-@property (nonatomic, copy, nullable) NSString *buildingId;
-/// The name of floor which you want to search on
 @property (nonatomic, copy, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
+/// The ID of building which you want to search in
+@property (nonatomic, copy, nullable) NSString *buildingId;
 /// Enter latitude and longitude to form a rectangular search range. The maximum rectangular search area cannot exceed  400 km².
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
 /// The centre of circular area search
@@ -185,12 +186,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger angle;
 /// Distance search type (default: Point). Point: finds POI points contained in a circle with center and distance as radius; polygon: finds POI information for rooms intersected by a circle with center and distance as radius
 @property (nonatomic, strong, nullable) NSString *distanceSearchType;
-/// The id of floor which you want to search in
+/// The ID of floor which you want to search in, if it is not nil, the buildingId will be disregarded.
 @property (nonatomic, copy, nullable) NSString *floorId;
-/// The id of building which you want to search in
-@property (nonatomic, strong, nullable) NSString *buildingId;
-/// The name of floor which you want to search on
 @property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
+/// The ID of building which you want to search in
+@property (nonatomic, strong, nullable) NSString *buildingId;
 /// The centre of circular area search
 @property (nonatomic, strong, nullable) MXMGeoPoint *center;
 /// This parameter is used in the POI orientation search and represents the radius distance in meters. The maximum radius distance cannot exceed 100m.

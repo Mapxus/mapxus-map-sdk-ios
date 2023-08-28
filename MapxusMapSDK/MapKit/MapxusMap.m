@@ -641,8 +641,8 @@
       break;
   }
   
-  NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.buildings.count];
-  for (MXMGeoBuilding *b in [self.buildings allValues]) {
+  NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.decider.visibleBuildings.count];
+  for (MXMGeoBuilding *b in [self.decider.visibleBuildings allValues]) {
     KxMenuItem *item = [KxMenuItem menuItem:b.name
                                  identifier:b.identifier
                                       image:nil
@@ -651,7 +651,7 @@
     item.alignment = alig;
     [arr addObject:item];
   }
-  [KxMenu setDefaultItemIdentifier:self.selectedBuildingId];
+  [KxMenu setDefaultItemIdentifier:self.decider.selectedBuildingId];
   [KxMenu showMenuInView:sender.superview fromRect:sender.frame menuItems:arr];
 }
 

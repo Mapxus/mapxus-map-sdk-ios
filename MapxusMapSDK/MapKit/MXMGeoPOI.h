@@ -12,9 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- POI information in tiles
- */
+/// POI information in tiles
 @interface MXMGeoPOI : NSObject <NSCopying>
 
 /// A string that uniquely identifies the POI in the mapxus system.

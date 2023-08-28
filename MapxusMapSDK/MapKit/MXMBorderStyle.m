@@ -6,6 +6,7 @@
 //
 
 #import "MXMBorderStyle.h"
+#import "JXJsonFunctionDefine.h"
 
 @implementation MXMBorderStyle
 
@@ -33,7 +34,7 @@
 + (MXMBorderStyle *)defaultSelectedBuildingBorderStyle {
   MXMBorderStyle *style = [[MXMBorderStyle alloc] init];
   style.lineWidth = [NSExpression expressionForConstantValue:@(3)];
-  style.lineColor = [NSExpression expressionForConstantValue:[UIColor colorWithRed:165/255.0 green:227/255.0 blue:255/255.0 alpha:1]];
+  style.lineColor = [NSExpression expressionForConstantValue:MXMRGBHex(0xA5E3FF)];
   style.lineOpacity = [NSExpression expressionForConstantValue:@(1)];
   return style;
 }

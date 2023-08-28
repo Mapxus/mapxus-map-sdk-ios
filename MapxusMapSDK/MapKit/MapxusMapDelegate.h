@@ -18,9 +18,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- MapxusMap的delegate
- */
+/// The `MapxusMapDelegate` protocol defines a set of optional methods that you
+/// can use to receive indoor-map-related update messages.
 @protocol MapxusMapDelegate <NSObject>
 
 @optional
@@ -110,9 +109,9 @@ NS_ASSUME_NONNULL_BEGIN
 ///   - map: Responding `MapxusMap` object.
 ///   - floor: The information of the selected floor. It can be nil when the selection is cleared.
 ///   - buildingId: The ID of the building where the currently selected floor is located. You can look up the tile information in the `buildings` dictionary or
-///                 retrieve the details through the building search interface. If `selectedFloor` is nil, the property will also be set to nil.
+///                 retrieve the details through the building search interface. If `floor` is nil, the property will also be set to nil.
 ///   - venueId: The ID of the venue where the currently selected floor is located. You can look up the tile information in the `venues` dictionary or
-///              retrieve the details through the venue search interface. If `selectedFloor` is nil, the property will also be set to nil.
+///              retrieve the details through the venue search interface. If `floor` is nil, the property will also be set to nil.
 - (void)map:(MapxusMap *)map
     didChangeSelectedFloor:(nullable MXMFloor *)floor
     inSelectedBuildingId:(nullable NSString *)buildingId
@@ -127,15 +126,15 @@ NS_ASSUME_NONNULL_BEGIN
     didChangeFloor:(nullable NSString *)floorName
     atBuilding:(nullable MXMGeoBuilding *)building DEPRECATED_MSG_ATTRIBUTE("Please use `- [MapxusMapDelegate map:didChangeSelectedFloor:inSelectedBuildingId:atSelectedVenueId:]`");
 
-/// Called when the visual state of the selected floor changes, the same result may be called multiple times
+/// Called when the visual state of the selected floor changes, the same result may be called multiple times.
 /// - Parameters:
 ///   - map: Responding `MapxusMap` object.
 ///   - isVisible: Flag for whether a selected floor is visible.
 ///   - floor: The information of the selected floor. It can be nil when the selection is cleared.
 ///   - buildingId: The ID of the building where the currently selected floor is located. You can look up the tile information in the `buildings` dictionary or
-///                 retrieve the details through the building search interface. If `selectedFloor` is nil, the property will also be set to nil.
+///                 retrieve the details through the building search interface. If `floor` is nil, the property will also be set to nil.
 ///   - venueId: The ID of the venue where the currently selected floor is located. You can look up the tile information in the `venues` dictionary or
-///              retrieve the details through the venue search interface. If `selectedFloor` is nil, the property will also be set to nil.
+///              retrieve the details through the venue search interface. If `floor` is nil, the property will also be set to nil.
 - (void)map:(MapxusMap *)map
     didChangeSelectedFloorVisualizationStatus:(BOOL)isVisible
     withSelectedFloor:(nullable MXMFloor *)floor

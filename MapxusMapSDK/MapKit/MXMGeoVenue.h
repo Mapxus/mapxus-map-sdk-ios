@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A string that uniquely identifies the venue in the mapxus system.
 @property (nonatomic, strong) NSString *identifier;
 
-/// Venue category, indicating the classification of the venue, e.g. cathedral, car_park, hospital, office, retail, etc.
+/// Venue category, indicating the classification of the building, e.g. residential, commercial, retail, industrial, transportation, etc.
 @property (nonatomic, strong) NSString *category;
 
 @property (nonatomic, strong) NSString *venueType DEPRECATED_MSG_ATTRIBUTE("Please use `category`");

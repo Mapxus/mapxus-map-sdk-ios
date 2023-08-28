@@ -15,11 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MXMPointAnnotation : MGLPointAnnotation
 
-/// The id of the floor where the annotation is located
+/// The floorId indicates the location of the annotation. The marker will only be displayed when the floorId matches the currently selected floor.
+/// If it is set to nil, it signifies that the annotation is outdoors and will be displayed at all times.
 @property (nonatomic, strong, nullable) NSString *floorId;
+
 @property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 
-/// The id of the building where the annotation is located
 @property (nonatomic, strong, nullable) NSString *buildingId DEPRECATED_MSG_ATTRIBUTE("Will be removed");
 
 @end
