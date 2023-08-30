@@ -613,7 +613,7 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
     MXMGeoVenue *venue = self.visibleVenues[building.venueId];
     MXMOrdinal *defaultFloorOrdinal = venue.defaultDisplayedOrdinal;
     selectedFloor = [self buildingFloors:building.floors whichHasSameOrdinal:defaultFloorOrdinal];
-    if (defaultFloorOrdinal && !selectedFloor) {
+    if (defaultFloorOrdinal && !selectedFloor && !ignore) {
       return nil;
     }
   }
