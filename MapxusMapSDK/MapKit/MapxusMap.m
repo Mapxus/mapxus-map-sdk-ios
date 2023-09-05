@@ -412,6 +412,7 @@
 
 #pragma mark - MXMDeciderDelegate
 - (void)cleanMapSelected {
+  self.decider.isMapReload = YES;
   [self.decider specifyTheFloorId:self.decider.selectedFloor.floorId
                          zoomMode:MXMZoomDisable
                       edgePadding:UIEdgeInsetsZero
@@ -454,7 +455,6 @@
                                     floor:(nullable MXMFloor *)floor
                  shouldChangeTrackingMode:(BOOL)changeTrackingMode
 {
-  [_mapView.style updateBuildingFillOpacityWithIndoorState:_isIndoor refVenue:building.venueId];
   if (changeTrackingMode && (_mapView.userTrackingMode != MGLUserTrackingModeNone)) {
     // 设为定位非追踪模式
     [_mapView setUserTrackingMode:MGLUserTrackingModeNone];
@@ -470,7 +470,7 @@
                               floor:(nullable MXMFloor *)floor
                             atVenue:(nullable MXMGeoVenue *)venue
                      shouldCallBack:(BOOL)shouldCallBack
-{  
+{
   if (shouldCallBack) {
     _floor = floor.code;
     _building = building;
@@ -521,8 +521,33 @@
     [_mapView.style filerLevelIds:levelIds];
   }
   //  [_mapView.style setLevelIdsTransparent:sameVenueLevelIds];
-  
+  // 保存上一次的结果
   _lastFloorIds = levelIdSet;
+  
+  // 添加遮罩层
+  if (self.maskNonSelectedSite) {
+    NSSet *buildingIdSet = [NSSet set];
+
+    if (self.floorSwitchMode == MXMSwitchedByVenue) {
+      buildingIdSet = [self syncModelToGetShowBuildingIdsWithSelectedBuilding:building];
+    } else {
+      if (building.identifier) {
+        buildingIdSet = [NSSet setWithObject: building.identifier];
+      }
+    }
+    if (buildingIdSet.count == 0 || ![buildingIdSet isSubsetOfSet:_lastBuildingIds] || self.decider.isMapReload) {
+      [_mapView.style updateSelectedBuildingFillOpacityWithIds:[buildingIdSet allObjects]
+                                                         notIn:(self.floorSwitchMode == MXMSwitchedByVenue)];
+    }
+    // 保存上一次的结果
+    _lastBuildingIds = buildingIdSet;
+  } else {
+    // 在不显示覆盖层时，只有重新加载室内地图时才重置style filter，提高点性能
+    if (self.decider.isMapReload) {
+      [_mapView.style unMaskBuildingFill];
+    }
+  }
+
   self.decider.isMapReload = NO;
   // 回调
   if (shouldCallBack) {
@@ -542,11 +567,36 @@
   }
 }
 
+- (NSSet *)syncModelToGetShowBuildingIdsWithSelectedBuilding:(nullable MXMGeoBuilding *)building {
+  NSMutableSet *buildingIds = [NSMutableSet set];
+  // 通过venue设置必不覆盖不buildingId，提高效率且优化移动地图显示的体验
+//  if (building) {
+//    MXMGeoVenue *refVenue = self.decider.visibleVenues[building.venueId];
+//    [buildingIds addObjectsFromArray:refVenue.buildingIds];
+//  }
+  for (MXMGeoBuilding *buildingItem in self.decider.visibleBuildings.allValues) {
+    if (!building || ![buildingItem.venueId isEqualToString:building.venueId]) {
+      MXMOrdinal *historyOrdinal = self.decider.venueSelectFloorOrdinalDic[buildingItem.venueId];
+      BOOL shouldShow = NO;
+      for (MXMFloor *floorItem in buildingItem.floors) {
+        if (historyOrdinal && historyOrdinal.level == floorItem.ordinal.level) {
+          shouldShow = YES;
+          break;
+        }
+      }
+      if (shouldShow) {
+        [buildingIds addObject:buildingItem.identifier];
+      }
+    }
+  }
+  return [buildingIds copy];
+}
+
 - (NSArray *)syncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor
                                         building:(nullable MXMGeoBuilding *)building {
   NSMutableArray *levelIds = [NSMutableArray array];
   
-  for (MXMGeoBuilding *buildingItem in self.buildings.allValues) {
+  for (MXMGeoBuilding *buildingItem in self.decider.visibleBuildings.allValues) {
     if ([buildingItem.venueId isEqualToString:building.venueId]) {
       // 已选中venue的建筑
       MXMFloor *theFloor = [self.decider buildingFloors:buildingItem.floors whichHasSameOrdinal:floor.ordinal];
@@ -556,12 +606,16 @@
       
     } else {
       // 未选中venue的建筑
+      // 无历史时要可以让其造历史
       MXMFloor *theFloor = [self.decider electDefaultFloorWithVenueHistory:self.decider.venueSelectFloorOrdinalDic
                                                                 inBuilding:buildingItem
                                                              ignoreHistory:NO];
       if (theFloor) {
         self.decider.venueSelectFloorOrdinalDic[buildingItem.venueId] = theFloor.ordinal;
-        [levelIds addObject:theFloor.floorId];
+        // 如果需要覆盖，不再添加未选中venue的floor
+        if (!self.maskNonSelectedSite) {
+          [levelIds addObject:theFloor.floorId];
+        }
       }
       
     }
@@ -573,7 +627,7 @@
                                          building:(nullable MXMGeoBuilding *)building {
   NSMutableArray *levelIds = [NSMutableArray array];
   
-  for (MXMGeoBuilding *buildingItem in self.buildings.allValues) {
+  for (MXMGeoBuilding *buildingItem in self.decider.visibleBuildings.allValues) {
     if ([buildingItem.identifier isEqualToString:building.identifier]) {
       // 已选中的建筑
       if (floor.floorId) {
@@ -582,6 +636,10 @@
       
     } else {
       // 未选中的建筑
+      // 如果需要覆盖，不再添加未选中building的floor
+      if (self.maskNonSelectedSite) {
+        continue;
+      }
       MXMFloor *theFloor = [self.decider electDefaultFloorWithBuildingHistory:self.decider.buildingSelectFloorIdDic
                                                                    inBuilding:buildingItem];
       if (theFloor) {
@@ -998,6 +1056,16 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 - (void)setFloorSwitchMode:(MXMFloorSwitchMode)floorSwitchMode {
   _floorSwitchMode = floorSwitchMode;
   self.decider.floorSwitchMode = floorSwitchMode;
+  _lastFloorIds = nil;
+  _lastBuildingIds = nil;
+  [self cleanMapSelected];
+}
+
+- (void)setMaskNonSelectedSite:(BOOL)maskNonSelectedSite {
+  _maskNonSelectedSite = maskNonSelectedSite;
+  self.decider.maskNonSelectedSite = maskNonSelectedSite;
+  _lastFloorIds = nil;
+  _lastBuildingIds = nil;
   [self cleanMapSelected];
 }
 

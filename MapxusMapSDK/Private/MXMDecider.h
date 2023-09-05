@@ -46,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL isMapReload;
 @property (nonatomic, assign) MXMFloorSwitchMode floorSwitchMode;
+@property (nonatomic, assign) BOOL maskNonSelectedSite;
 
 @property (nonatomic, strong, nullable) MXMFloor *selectedFloor;
 @property (nonatomic, strong, nullable) NSString *selectedBuildingId;

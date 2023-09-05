@@ -84,6 +84,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// If the attribution has been set to `MXMSwitchingByBuilding`, only the current building’s floor will change. The default is `MXMSwitchingByVenue`.
 @property (nonatomic, assign) MXMFloorSwitchMode floorSwitchMode;
 
+@property (nonatomic, assign) BOOL maskNonSelectedSite;
+
 /// Detailed information about the currently selected floor. If the object is nil, it means no floor is selected.
 @property (nonatomic, strong, readonly, nullable) MXMFloor *selectedFloor;
 
