@@ -57,8 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// Venue address in Korean.
 @property (nonatomic, strong, nullable) MXMAddress *address_ko;
 
-/// External rectangular area where the venue is located
-@property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
+@property (nonatomic, strong, nullable) MXMBoundingBox *bbox DEPRECATED_MSG_ATTRIBUTE("Will be removed");
 
 /// List of all building ids attributed to this venue.
 @property (nonatomic, strong) NSArray<NSString *> *buildingIds;

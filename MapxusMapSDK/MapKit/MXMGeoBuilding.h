@@ -46,8 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// All floors of the building.
 @property (nonatomic, strong) NSArray<MXMFloor *> *floors;
 
-/// External rectangular area where the building is located
-@property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
+@property (nonatomic, strong, nullable) MXMBoundingBox *bbox DEPRECATED_MSG_ATTRIBUTE("Will be removed");
 
 @property (nonatomic, strong, nullable) NSString *groundFloor DEPRECATED_MSG_ATTRIBUTE("Will be removed");
 

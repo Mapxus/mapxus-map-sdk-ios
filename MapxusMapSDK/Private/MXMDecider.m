@@ -142,12 +142,8 @@
         break;
       }
     }
-    if (floor) {
+    if (floor && (zoomMode == MXMZoomDisable)) {
       MXMGeoVenue *venue = self.visibleVenues[building.venueId];
-      
-      if (zoomMode != MXMZoomDisable && self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewZoomTo:zoomMode:withEdgePadding:)]) {
-        [self.delegate decideMapViewZoomTo:building.bbox zoomMode:zoomMode withEdgePadding:insets];
-      }
       [self displayWihtFloor:floor building:building venue:venue shouldChangeTrackingMode:changeTrackingMode];
     } else {
       __weak typeof(self) weakSelf = self;
@@ -179,12 +175,8 @@
     shouldChangeTrackingMode:(BOOL)changeTrackingMode {
   if (buildingId) {
     MXMGeoBuilding *building = self.visibleBuildings[buildingId];
-    if (building) {
+    if (building && (zoomMode == MXMZoomDisable)) {
       MXMGeoVenue *venue = self.visibleVenues[building.venueId];
-      
-      if (zoomMode != MXMZoomDisable && self.delegate && [self.delegate respondsToSelector:@selector(decideMapViewZoomTo:zoomMode:withEdgePadding:)]) {
-        [self.delegate decideMapViewZoomTo:building.bbox zoomMode:zoomMode withEdgePadding:insets];
-      }
       [self displayWihtFloor:nil building:building venue:venue shouldChangeTrackingMode:changeTrackingMode];
     } else {
       __weak typeof(self) weakSelf = self;
