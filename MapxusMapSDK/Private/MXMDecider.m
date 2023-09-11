@@ -75,9 +75,16 @@
 - (void)decideAtPointWithBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
                     andFloorFeatures:(NSArray<MXMLevelModel *> *)floors
 {
-  MXMSite *info = [self electIndoorSiteWithCurrentBuilding:self.selectedBuilding
-                                               inBuildings:buildings
-                                             floorFeatures:floors];
+  MXMSite *info;
+  if (self.maskNonSelectedSite) {
+    info = [self maskModeSlectIndoorSiteWithCurrentBuilding:self.selectedBuilding
+                                                inBuildings:buildings
+                                              floorFeatures:floors];
+  } else {
+    info = [self electIndoorSiteWithCurrentBuilding:self.selectedBuilding
+                                        inBuildings:buildings
+                                      floorFeatures:floors];
+  }
   if (info == nil) { return; }
   [self specifyTheFloorId:info.floor.floorId
                  zoomMode:MXMZoomDisable
@@ -505,6 +512,54 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
   return info;
 }
 
+// 在点击位置上筛选应该选中的楼层与建筑
+- (nullable MXMSite *)maskModeSlectIndoorSiteWithCurrentBuilding:(nullable MXMGeoBuilding *)building
+                                                     inBuildings:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
+                                                   floorFeatures:(NSArray<MXMLevelModel *> *)floors
+{
+  // 点击了不显示覆盖层的地方，按原来的逻辑跑
+  if (floors.count && (self.floorSwitchMode == MXMSwitchedByVenue)) {
+    MXMSite *info = [self electIndoorSiteWithCurrentBuilding:self.selectedBuilding
+                                                 inBuildings:buildings
+                                               floorFeatures:floors];
+    return info;
+  }
+  
+  // 点击了显示覆盖层的地方
+  // 查找该点上的其他建筑信息
+  MXMGeoBuilding *selectedBuilding;
+  MXMFloor *selectedFloor;
+  if (self.floorSwitchMode == MXMSwitchedByVenue) {
+    for (MXMGeoBuilding *buildingItem in [buildings allValues]) {
+      selectedFloor = [self electDefaultFloorWithVenueHistory:self.venueSelectFloorOrdinalDic
+                                                 inBuilding:buildingItem
+                                              ignoreHistory:NO];
+      if (selectedFloor) {
+        selectedBuilding = buildingItem;
+        break;
+      }
+    }
+  } else {
+    for (MXMGeoBuilding *buildingItem in [buildings allValues]) {
+      selectedFloor = [self electDefaultFloorWithBuildingHistory:self.buildingSelectFloorIdDic
+                                                    inBuilding:buildingItem];
+      if (selectedFloor) {
+        selectedBuilding = buildingItem;
+        break;
+      }
+    }
+  }
+  
+  MXMSite *info;
+  if (selectedBuilding && selectedFloor) {
+    info = [[MXMSite alloc] init];
+    info.building = selectedBuilding;
+    info.floor = selectedFloor;
+  }
+  return info;
+}
+
+// 在点击位置上筛选应该选中的楼层与建筑
 - (nullable MXMSite *)electIndoorSiteWithCurrentBuilding:(nullable MXMGeoBuilding *)building
                                              inBuildings:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
                                            floorFeatures:(NSArray<MXMLevelModel *> *)floors

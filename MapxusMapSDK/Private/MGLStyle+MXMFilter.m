@@ -43,7 +43,26 @@
     }
 }
 
-- (void)updateBuildingFillOpacityWithIndoorState:(BOOL)isIndoor refVenue:(nullable NSString *)venueId {
+- (void)updateSelectedBuildingFillOpacityWithIds:(NSArray<NSString *> *)buildingIds notIn:(BOOL)notIn {
+  MGLStyleLayer *layer = [self layerWithIdentifier:@"mapxus-building-line"];
+  if ([layer isKindOfClass:[MGLFillStyleLayer class]]) {
+    MGLFillStyleLayer *buildingFill = (MGLFillStyleLayer *)layer;
+    if (notIn) {
+      buildingFill.fillOpacity = [NSExpression mgl_expressionForConditional:[NSPredicate predicateWithFormat:@"id IN %@", buildingIds]
+                                                             trueExpression:[NSExpression expressionForConstantValue:@(1)]
+                                                           falseExpresssion:[NSExpression expressionForConstantValue:@(0)]];
+    } else {
+      buildingFill.fillOpacity = [NSExpression mgl_expressionForConditional:[NSPredicate predicateWithFormat:@"id IN %@", buildingIds]
+                                                             trueExpression:[NSExpression expressionForConstantValue:@(0)]
+                                                           falseExpresssion:[NSExpression expressionForConstantValue:@(1)]];
+    }
+  }
+  
+  MGLStyleLayer *line_layer = [self layerWithIdentifier:@"mapxus-building-line-color"];
+  line_layer.visible = NO;
+}
+
+- (void)unMaskBuildingFill {
   MGLStyleLayer *layer = [self layerWithIdentifier:@"mapxus-building-line"];
   if ([layer isKindOfClass:[MGLFillStyleLayer class]]) {
     MGLFillStyleLayer *buildingFill = (MGLFillStyleLayer *)layer;

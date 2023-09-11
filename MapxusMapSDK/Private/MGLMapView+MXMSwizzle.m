@@ -102,7 +102,6 @@ static void *mapKey = &mapKey;
     }
 
     // 加载后全部室内结构隐藏或者重新过滤更换style之前的选择
-    mapView.mxmMap.decider.isMapReload = YES;
     [mapView.mxmMap cleanMapSelected];
     // 结束异步operation
     [mapView.mxmMap searchConfigurationInfo];
