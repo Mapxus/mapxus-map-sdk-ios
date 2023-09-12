@@ -107,6 +107,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 /// Specify search building ID
 @property (nonatomic, strong, nullable) NSString *buildingId;
+/// Specify search venue ID
+@property (nonatomic, strong, nullable) NSString *venueId;
 @end
 
 
@@ -142,6 +144,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 /// The ID of building which you want to search in
 @property (nonatomic, copy, nullable) NSString *buildingId;
+/// The ID of venue which you want to search in
+@property (nonatomic, copy, nullable) NSString *venueId;
 /// Enter latitude and longitude to form a rectangular search range. The maximum rectangular search area cannot exceed  400 km².
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
 /// The centre of circular area search
