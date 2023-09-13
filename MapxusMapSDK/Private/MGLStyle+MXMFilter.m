@@ -71,15 +71,6 @@
   
   MGLStyleLayer *line_layer = [self layerWithIdentifier:@"mapxus-building-line-color"];
   line_layer.visible = NO;
-  
-  MGLStyleLayer *rearLayer = [self layerWithIdentifier:@"mapxus-building-line-mxmrear"];
-  if ([rearLayer isKindOfClass:[MGLFillStyleLayer class]]) {
-    MGLFillStyleLayer *buildingFill = (MGLFillStyleLayer *)rearLayer;
-    buildingFill.fillOpacity = [NSExpression expressionForConstantValue:@(0)];
-  }
-  
-  MGLStyleLayer *rear_line_layer = [self layerWithIdentifier:@"mapxus-building-line-color-mxmrear"];
-  rear_line_layer.visible = NO;
 }
 
 // 地图图层数据过滤，保证buildingId和floor不能为空
