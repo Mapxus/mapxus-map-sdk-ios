@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
   NSDictionary<NSString *, MXMGeoBuilding *> *_buildings;
   NSDictionary<NSString *, MXMGeoBuilding *> *_innerbuildings;
   NSSet *_lastFloorIds;
+  NSSet *_lastRearFloorIds;
   NSSet *_lastBuildingIds;
   
   MGLMapView *_mapView;

@@ -55,6 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// The default floor id in this building, which can be used as the basis for selecting floor by default when building is selected.
 @property (nonatomic, strong, nullable) NSString *defaultDisplayedFloorId;
 
+@property (nonatomic, strong) NSArray<NSString *> *overlapBuildingIds;
+
 @end
 
 NS_ASSUME_NONNULL_END

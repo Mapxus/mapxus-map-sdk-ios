@@ -21,9 +21,14 @@
 #import "MapxusMapDelegate.h"
 #import "KxMenu.h"
 #import "MXMSearchPOIOperation.h"
+//#import "MXMSDKBundle.h"
 
 @implementation MapxusMap
 
+//- (void)setMapxusTestStyle {
+//  NSURL *style = [NSURL fileURLWithPath:[[MXMSDKBundle getMXMSdkBundle] pathForResource:@"mapxus_style" ofType:@"json"]];
+//  _mapView.styleURL = style;
+//}
 
 
 - (instancetype)initWithMapView:(MGLMapView *)mapView
@@ -480,7 +485,7 @@
     // 绘制选中边框
     [_mapView.style outLineLevel:floor.floorId];
   }
-    // 数据中的楼层都是从小到大，需要颠倒顺序显示
+  // 每过滤一次都要刷新一次floorBar，因为从网络请求的楼层可能不全。数据中的楼层都是从小到大，需要颠倒顺序显示
   MXMGeoBuilding *geoBuilding = building.identifier ? self.decider.visibleBuildings[building.identifier] : nil;
   if (geoBuilding && floor) {
     NSArray *reversalFloors = [[geoBuilding.floors reverseObjectEnumerator] allObjects];
@@ -508,26 +513,36 @@
   
   // 配置过滤条件
   NSArray *levelIds = [NSArray array];
+  NSArray *rearLevelIds = [NSArray array];
   //  NSMutableArray *sameVenueLevelIds = [NSMutableArray array];
   
   if (self.floorSwitchMode == MXMSwitchedByVenue) {
-    levelIds = [self syncModelToGetShowFloorIdsWithFloor:floor building:building];
+    NSDictionary *dic = [self syncModelToGetShowFloorIdsWithFloor:floor building:building];
+    levelIds = dic[@"front"];
+    rearLevelIds = dic[@"rear"];
   } else {
     levelIds = [self asyncModelToGetShowFloorIdsWithFloor:floor building:building];
   }
-  
+  // 过滤前景
   NSSet *levelIdSet = [NSSet setWithArray:levelIds];
   if (levelIdSet.count == 0 || ![levelIdSet isSubsetOfSet:_lastFloorIds] || self.decider.isMapReload) {
     [_mapView.style filerLevelIds:levelIds];
   }
+  // 过滤后景
+  NSSet *rearLevelIdSet = [NSSet setWithArray:rearLevelIds];
+  if (rearLevelIdSet.count == 0 || ![rearLevelIdSet isSubsetOfSet:_lastRearFloorIds] || self.decider.isMapReload) {
+    [_mapView.style filerRearLevelIds:rearLevelIds];
+  }
+  
   //  [_mapView.style setLevelIdsTransparent:sameVenueLevelIds];
   // 保存上一次的结果
   _lastFloorIds = levelIdSet;
+  _lastRearFloorIds = rearLevelIdSet;
   
-  // 添加遮罩层
+  // 添加building遮罩层
   if (self.maskNonSelectedSite) {
     NSSet *buildingIdSet = [NSSet set];
-
+    
     if (self.floorSwitchMode == MXMSwitchedByVenue) {
       buildingIdSet = [self syncModelToGetShowBuildingIdsWithSelectedBuilding:building];
     } else {
@@ -551,6 +566,7 @@
   self.decider.isMapReload = NO;
   // 回调
   if (shouldCallBack) {
+    [self updateLocationView];
     if (self.delegate) {
       if ([self.delegate respondsToSelector:@selector(map:didChangeSelectedFloor:inSelectedBuildingId:atSelectedVenueId:)]) {
         [self.delegate map:self didChangeSelectedFloor:[floor copy] inSelectedBuildingId:building.identifier atSelectedVenueId:building.venueId];
@@ -562,7 +578,6 @@
       } else if ([self.delegate respondsToSelector:@selector(mapView:didChangeFloor:atBuilding:)]) {
         [self.delegate mapView:self didChangeFloor:floor.code atBuilding:[building copy]];
       }
-      [self updateLocationView];
     }
   }
 }
@@ -592,16 +607,46 @@
   return [buildingIds copy];
 }
 
-- (NSArray *)syncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor
-                                        building:(nullable MXMGeoBuilding *)building {
+- (NSDictionary *)syncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor
+                                             building:(nullable MXMGeoBuilding *)building {
+  // 选中的建筑必设为前景
+  if (building.identifier) {
+    self.decider.fontRearDic[building.identifier] = @(YES);
+    for (NSString *otherBuilding in building.overlapBuildingIds) {
+      self.decider.fontRearDic[otherBuilding] = @(NO);
+    }
+  }
+  // 分组查找前后景levelId
   NSMutableArray *levelIds = [NSMutableArray array];
+  NSMutableArray *rearLevelIds = [NSMutableArray array];
   
   for (MXMGeoBuilding *buildingItem in self.decider.visibleBuildings.allValues) {
     if ([buildingItem.venueId isEqualToString:building.venueId]) {
       // 已选中venue的建筑
       MXMFloor *theFloor = [self.decider buildingFloors:buildingItem.floors whichHasSameOrdinal:floor.ordinal];
       if (theFloor) {
-        [levelIds addObject:theFloor.floorId];
+        
+        NSNumber *isFont = self.decider.fontRearDic[buildingItem.identifier];
+        BOOL selfFont = isFont ? [isFont boolValue] : NO;
+        if (selfFont) {
+          [levelIds addObject:theFloor.floorId];
+        } else {
+          BOOL otherFont = NO;
+          for (NSString *buildingId in buildingItem.overlapBuildingIds) {
+            NSNumber *isFont = self.decider.fontRearDic[buildingId];
+            otherFont = isFont ? [isFont boolValue] : NO;
+            if (otherFont) {
+              break;
+            }
+          }
+          if (otherFont) {
+            [rearLevelIds addObject:theFloor.floorId];
+          } else {
+            self.decider.fontRearDic[buildingItem.identifier] = @(YES);
+            [levelIds addObject:theFloor.floorId];
+          }
+        }
+        
       }
       
     } else {
@@ -614,13 +659,31 @@
         self.decider.venueSelectFloorOrdinalDic[buildingItem.venueId] = theFloor.ordinal;
         // 如果需要覆盖，不再添加未选中venue的floor
         if (!self.maskNonSelectedSite) {
-          [levelIds addObject:theFloor.floorId];
+          NSNumber *isFont = self.decider.fontRearDic[buildingItem.identifier];
+          BOOL selfFont = isFont ? [isFont boolValue] : NO;
+          if (selfFont) {
+            [levelIds addObject:theFloor.floorId];
+          } else {
+            BOOL otherFont = NO;
+            for (NSString *buildingId in buildingItem.overlapBuildingIds) {
+              NSNumber *isFont = self.decider.fontRearDic[buildingId];
+              otherFont = isFont ? [isFont boolValue] : NO;
+              if (otherFont) {
+                break;
+              }
+            }
+            if (otherFont) {
+              [rearLevelIds addObject:theFloor.floorId];
+            } else {
+              self.decider.fontRearDic[buildingItem.identifier] = @(YES);
+              [levelIds addObject:theFloor.floorId];
+            }
+          }
         }
       }
-      
     }
   }
-  return levelIds;
+  return @{@"rear": rearLevelIds, @"front": levelIds};
 }
 
 - (NSArray *)asyncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor

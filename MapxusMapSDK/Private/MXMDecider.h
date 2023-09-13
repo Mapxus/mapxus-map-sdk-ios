@@ -66,6 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, MXMGeoBuilding *> *visibleBuildings;
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, MXMGeoVenue *> *visibleVenues;
 
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *fontRearDic;
+
 @property (nonatomic, weak) id<MXMDeciderDelegate> delegate;
 
 - (instancetype)initWithDelegate:(id<MXMDeciderDelegate>)delegate;

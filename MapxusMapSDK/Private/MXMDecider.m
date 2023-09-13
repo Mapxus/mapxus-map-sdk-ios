@@ -870,6 +870,13 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
   return _historicalBuildingIds;
 }
 
+- (NSMutableDictionary<NSString *,NSNumber *> *)fontRearDic {
+  if (!_fontRearDic) {
+    _fontRearDic = [NSMutableDictionary dictionary];
+  }
+  return _fontRearDic;
+}
+
 - (MXMSearchBuildingOperation *)operation
 {
   if (!_operation) {
