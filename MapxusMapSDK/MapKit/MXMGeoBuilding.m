@@ -95,6 +95,11 @@
     }
     
     _floors = [all copy];
+  
+    if ([dic[@"overlap"] isKindOfClass:[NSString class]]) {
+      _overlapBuildingIds = [dic[@"overlap"] componentsSeparatedByString:@","];
+    }
+
     return YES;
 }
 
@@ -133,6 +138,13 @@
         _floors = @[];
     }
     return _floors;
+}
+
+- (NSArray<NSString *> *)overlapBuildingIds {
+  if (!_overlapBuildingIds) {
+    _overlapBuildingIds = @[];
+  }
+  return _overlapBuildingIds;
 }
 
 - (NSString *)description

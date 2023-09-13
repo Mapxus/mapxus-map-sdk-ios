@@ -71,6 +71,15 @@
   
   MGLStyleLayer *line_layer = [self layerWithIdentifier:@"mapxus-building-line-color"];
   line_layer.visible = NO;
+  
+  MGLStyleLayer *rearLayer = [self layerWithIdentifier:@"mapxus-building-line-mxmrear"];
+  if ([rearLayer isKindOfClass:[MGLFillStyleLayer class]]) {
+    MGLFillStyleLayer *buildingFill = (MGLFillStyleLayer *)rearLayer;
+    buildingFill.fillOpacity = [NSExpression expressionForConstantValue:@(0)];
+  }
+  
+  MGLStyleLayer *rear_line_layer = [self layerWithIdentifier:@"mapxus-building-line-color-mxmrear"];
+  rear_line_layer.visible = NO;
 }
 
 // 地图图层数据过滤，保证buildingId和floor不能为空
@@ -83,7 +92,7 @@
         }
         MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
         NSString *ident = vk.identifier;
-        if (![ident hasPrefix:@"mapxus"] || [ident hasPrefix:@"mapxus-building"] || [vk.sourceLayerIdentifier hasPrefix:@"mapxus_venue"]) {
+        if (![ident hasPrefix:@"mapxus"] || [ident hasPrefix:@"mapxus-building"] || [vk.sourceLayerIdentifier hasPrefix:@"mapxus_venue"] || [ident hasSuffix:@"-mxmrear"]) {
             continue;
         }
         NSString *levelKey = @"ref:level";
@@ -117,6 +126,51 @@
         vk.predicate = reSetPredicate;
     }
 }
+
+- (void)filerRearLevelIds:(NSArray *)levelIds {
+    NSArray *arr = self.layers;
+    for (MGLStyleLayer *k in arr) {
+        // 过滤不需要处理的layer
+        if (![k isKindOfClass:[MGLVectorStyleLayer class]]) {
+            continue;
+        }
+        MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
+        NSString *ident = vk.identifier;
+        if (![ident hasPrefix:@"mapxus"] || [ident hasPrefix:@"mapxus-building"] || [vk.sourceLayerIdentifier hasPrefix:@"mapxus_venue"] || ![ident hasSuffix:@"-mxmrear"]) {
+            continue;
+        }
+        NSString *levelKey = @"ref:level";
+        if ([vk.sourceLayerIdentifier hasPrefix:@"mapxus_level"]) {
+            levelKey = @"id";
+        }
+        
+        NSPredicate *pp = [NSPredicate predicateWithFormat:@"%K IN %@", levelKey, levelIds];
+        // 处理剩下需要添加filter的layer
+        id originalPredicate = vk.predicate;
+        NSMutableArray *mu = [NSMutableArray arrayWithCapacity:0];
+        if ([originalPredicate isKindOfClass:[NSCompoundPredicate class]]) {
+            NSArray *sub = ((NSCompoundPredicate *)originalPredicate).subpredicates;
+            for (NSCompoundPredicate *s in sub) {
+                NSString *str = s.predicateFormat;
+                if (![str containsString:[NSString stringWithFormat:@"%@ IN", levelKey]]) {
+                    [mu addObject:s];
+                }
+            }
+        } else {
+            if (originalPredicate) {
+                [mu addObject:originalPredicate];
+            }
+        }
+//        NSPredicate *f = [NSPredicate predicateWithFormat:@"%K == %@", levelKey, levelId];
+        [mu addObject:pp];
+//        NSPredicate *b = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:building", buildingId];
+//        [mu addObject:b];
+        NSCompoundPredicate *reSetPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:mu];
+        // 重置过滤
+        vk.predicate = reSetPredicate;
+    }
+}
+
 
 //- (void)setLevelIdsTransparent:(NSArray *)levelIds {
 //  NSArray *arr = self.layers;

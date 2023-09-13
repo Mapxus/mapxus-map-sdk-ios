@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)unMaskBuildingFill;
 
 - (void)filerLevelIds:(NSArray *)levelIds;
+- (void)filerRearLevelIds:(NSArray *)levelIds;
 
 //- (void)setLevelIdsTransparent:(NSArray *)levelIds;
 

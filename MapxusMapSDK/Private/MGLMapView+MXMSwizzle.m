@@ -80,38 +80,41 @@ static void *mapKey = &mapKey;
 }
 - (void)hook_mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style
 {
-    // 添加透明level层，解决定位错误问题
-    MGLSource *indoorSource = [style sourceWithIdentifier:@"indoor-planet"];
-    if (indoorSource) {
-        MGLFillStyleLayer *assistantLevelFill = [[MGLFillStyleLayer alloc] initWithIdentifier:@"assistant-mapxus-level-fill" source:indoorSource];
-        assistantLevelFill.sourceLayerIdentifier = @"mapxus_level";
-        assistantLevelFill.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
-        assistantLevelFill.fillOpacity = [NSExpression expressionForConstantValue:@(0)];
-        [style addLayer:assistantLevelFill];
-            
-      MGLLineStyleLayer *assistantLevelLine = [[MGLLineStyleLayer alloc] initWithIdentifier:@"assistant-mapxus-level-outline" source:indoorSource];
-      assistantLevelLine.sourceLayerIdentifier = @"mapxus_level";
-      assistantLevelLine.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
-      for (MGLStyleLayer *layer in style.layers) {
-        if ([layer.identifier hasPrefix:@"mapxus-poi"]) {
-          [style insertLayer:assistantLevelLine belowLayer:layer];
-          [style outLineLevelBorderStyle:mapView.mxmMap.selectedBuildingBorderStyle];
-          break;
-        }
+  // 添加透明level层，解决定位错误问题
+  MGLSource *indoorSource = [style sourceWithIdentifier:@"indoor-planet"];
+  if (indoorSource) {
+    // 添加透明的楼层查找辅助层
+    MGLFillStyleLayer *assistantLevelFill = [[MGLFillStyleLayer alloc] initWithIdentifier:@"assistant-mapxus-level-fill" source:indoorSource];
+    assistantLevelFill.sourceLayerIdentifier = @"mapxus_level";
+    assistantLevelFill.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
+    assistantLevelFill.fillOpacity = [NSExpression expressionForConstantValue:@(0)];
+    [style addLayer:assistantLevelFill];
+    // 插入高亮外框层
+    MGLLineStyleLayer *assistantLevelLine = [[MGLLineStyleLayer alloc] initWithIdentifier:@"assistant-mapxus-level-outline" source:indoorSource];
+    assistantLevelLine.sourceLayerIdentifier = @"mapxus_level";
+    assistantLevelLine.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
+    for (MGLStyleLayer *layer in style.layers) {
+      if ([layer.identifier hasPrefix:@"mapxus-poi"]) {
+        [style insertLayer:assistantLevelLine belowLayer:layer];
+        [style outLineLevelBorderStyle:mapView.mxmMap.selectedBuildingBorderStyle];
+        break;
       }
     }
-
-    // 加载后全部室内结构隐藏或者重新过滤更换style之前的选择
-    [mapView.mxmMap cleanMapSelected];
-    // 结束异步operation
-    [mapView.mxmMap searchConfigurationInfo];
-    // 加载完style后重新设置outdoor
-    [mapView.mxmMap walkAroundOutdoor];
-    // 修改地图语言
-    NSArray *languages = [NSLocale preferredLanguages];
-    NSString *currentLanguage = [languages objectAtIndex:0];
-    [style MXMlocalizeLabelsIntoLocale:currentLanguage];
-    [self hook_mapView:mapView didFinishLoadingStyle:style];
+    
+    // TODO: 添加后景layer组
+  }
+  
+  // 加载后全部室内结构隐藏或者重新过滤更换style之前的选择
+  [mapView.mxmMap cleanMapSelected];
+  // 结束异步operation
+  [mapView.mxmMap searchConfigurationInfo];
+  // 加载完style后重新设置outdoor
+  [mapView.mxmMap walkAroundOutdoor];
+  // 修改地图语言
+  NSArray *languages = [NSLocale preferredLanguages];
+  NSString *currentLanguage = [languages objectAtIndex:0];
+  [style MXMlocalizeLabelsIntoLocale:currentLanguage];
+  [self hook_mapView:mapView didFinishLoadingStyle:style];
 }
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style
 {
