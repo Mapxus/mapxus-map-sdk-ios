@@ -521,8 +521,11 @@
     levelIds = dic[@"front"];
     rearLevelIds = dic[@"rear"];
   } else {
-    levelIds = [self asyncModelToGetShowFloorIdsWithFloor:floor building:building];
+    NSDictionary *dic = [self asyncModelToGetShowFloorIdsWithFloor:floor building:building];
+    levelIds = dic[@"front"];
+    rearLevelIds = dic[@"rear"];
   }
+  // TODO: 计算后景中需要去除的POI
   // 过滤前景
   NSSet *levelIdSet = [NSSet setWithArray:levelIds];
   if (levelIdSet.count == 0 || ![levelIdSet isSubsetOfSet:_lastFloorIds] || self.decider.isMapReload) {
@@ -610,6 +613,7 @@
 - (NSDictionary *)syncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor
                                              building:(nullable MXMGeoBuilding *)building {
   // 选中的建筑必设为前景
+  // TODO: 如果building是网络获取的信息，没有overlapBuildingIds，会发生什么
   if (building.identifier) {
     self.decider.fontRearDic[building.identifier] = @(YES);
     for (NSString *otherBuilding in building.overlapBuildingIds) {
@@ -686,33 +690,65 @@
   return @{@"rear": rearLevelIds, @"front": levelIds};
 }
 
-- (NSArray *)asyncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor
-                                         building:(nullable MXMGeoBuilding *)building {
-  NSMutableArray *levelIds = [NSMutableArray array];
-  
-  for (MXMGeoBuilding *buildingItem in self.decider.visibleBuildings.allValues) {
-    if ([buildingItem.identifier isEqualToString:building.identifier]) {
-      // 已选中的建筑
-      if (floor.floorId) {
-        [levelIds addObject:floor.floorId];
-      }
-      
-    } else {
-      // 未选中的建筑
-      // 如果需要覆盖，不再添加未选中building的floor
-      if (self.maskNonSelectedSite) {
-        continue;
-      }
-      MXMFloor *theFloor = [self.decider electDefaultFloorWithBuildingHistory:self.decider.buildingSelectFloorIdDic
-                                                                   inBuilding:buildingItem];
-      if (theFloor) {
-        self.decider.buildingSelectFloorIdDic[buildingItem.identifier] = theFloor.floorId;
-        [levelIds addObject:theFloor.floorId];
-      }
-      
+- (NSDictionary *)asyncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor
+                                              building:(nullable MXMGeoBuilding *)building {
+  // 选中的建筑必设为前景
+  // TODO: 如果building是网络获取的信息，没有overlapBuildingIds，会发生什么
+  if (building.identifier) {
+    self.decider.fontRearDic[building.identifier] = @(YES);
+    for (NSString *otherBuilding in building.overlapBuildingIds) {
+      self.decider.fontRearDic[otherBuilding] = @(NO);
     }
   }
-  return levelIds;
+  
+  NSMutableArray *levelIds = [NSMutableArray array];
+  NSMutableArray *rearLevelIds = [NSMutableArray array];
+  
+  // 已选中的floor必定加入levelIds中，不放在循环中是为了加快已选中floor的显示，因为这样即使选中building不在可视范围内，依然会加入到显示队列中
+  // 已选中的建筑
+  if (floor.floorId) {
+    [levelIds addObject:floor.floorId];
+  }
+  
+  // 如果需要覆盖，不再添加未选中building的floor
+  if (self.maskNonSelectedSite) {
+    return @{@"rear": rearLevelIds, @"front": levelIds};
+  }
+
+  // 未选中的建筑
+  for (MXMGeoBuilding *buildingItem in self.decider.visibleBuildings.allValues) {
+    if ([buildingItem.identifier isEqualToString:building.identifier]) {
+      continue;
+    }
+    MXMFloor *theFloor = [self.decider electDefaultFloorWithBuildingHistory:self.decider.buildingSelectFloorIdDic
+                                                                 inBuilding:buildingItem];
+    if (theFloor) {
+      self.decider.buildingSelectFloorIdDic[buildingItem.identifier] = theFloor.floorId;
+      
+      NSNumber *isFont = self.decider.fontRearDic[buildingItem.identifier];
+      BOOL selfFont = isFont ? [isFont boolValue] : NO;
+      if (selfFont) {
+        [levelIds addObject:theFloor.floorId];
+      } else {
+        BOOL otherFont = NO;
+        for (NSString *buildingId in buildingItem.overlapBuildingIds) {
+          NSNumber *isFont = self.decider.fontRearDic[buildingId];
+          otherFont = isFont ? [isFont boolValue] : NO;
+          if (otherFont) {
+            break;
+          }
+        }
+        if (otherFont) {
+          [rearLevelIds addObject:theFloor.floorId];
+        } else {
+          self.decider.fontRearDic[buildingItem.identifier] = @(YES);
+          [levelIds addObject:theFloor.floorId];
+        }
+      }
+    }
+    
+  }
+  return @{@"rear": rearLevelIds, @"front": levelIds};
 }
 
 - (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox zoomMode:(MXMZoomMode)zoomMode withEdgePadding:(UIEdgeInsets)insets
