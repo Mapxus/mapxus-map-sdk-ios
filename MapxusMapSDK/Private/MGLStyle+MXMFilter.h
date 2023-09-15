@@ -20,12 +20,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)filerLevelIds:(NSArray *)levelIds;
 - (void)filerRearLevelIds:(NSArray *)levelIds;
+- (void)filerPoisOnLevelIds:(NSArray *)levelIds exceptPoiIds:(NSArray *)poiIds;
 
 //- (void)setLevelIdsTransparent:(NSArray *)levelIds;
 
 - (void)outLineLevelBorderStyle:(MXMBorderStyle *)borderStyle;
 
 - (void)outLineLevel:(NSString *)levelId;
+
+- (MGLFillStyleLayer *)copyFillLayerWith:(MGLFillStyleLayer *)orig source:(MGLSource *)source;
+- (MGLLineStyleLayer *)copyLineLayerWith:(MGLLineStyleLayer *)orig source:(MGLSource *)source;
+- (MGLSymbolStyleLayer *)copySymbolLayerWith:(MGLSymbolStyleLayer *)orig source:(MGLSource *)source;
 
 @end
 

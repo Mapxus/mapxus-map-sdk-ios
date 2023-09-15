@@ -149,6 +149,24 @@
 }
 
 
+- (NSDictionary *)findOutPOIOnLevelIds:(NSArray *)levelIds
+{
+  MGLSource *source = [self.mapView.style sourceWithIdentifier:@"indoor-planet"];
+  if (!source || ![source isKindOfClass:[MGLVectorTileSource class]]) {
+    return @{};
+  }
+  MGLVectorTileSource *vSource = (MGLVectorTileSource *)source;
+  
+  NSPredicate *p1 = [NSPredicate predicateWithFormat:@"%K IN %@", @"ref:level", levelIds];
+  NSPredicate *p2 = [NSPredicate predicateWithFormat:@"type == Point"];
+  NSCompoundPredicate *pp = [NSCompoundPredicate andPredicateWithSubpredicates:@[p2, p1]];
+  
+  NSArray<id <MGLFeature>> *theFeatures = [vSource featuresInSourceLayersWithIdentifiers:[NSSet setWithObject:@"mapxus_place"]
+                                                                               predicate:pp];
+  NSDictionary *pois = [self poiDeduplicationInFeatures:theFeatures];
+  return pois;
+}
+
 
 - (NSDictionary *)findOutPOIAtPoint:(CGPoint)point
 {

@@ -56,6 +56,11 @@
     if ([dic[@"place"] isKindOfClass:[NSString class]]) {
         _category = [dic[@"place"] componentsSeparatedByString:@","];
     }
+  
+  if ([dic[@"overlap"] isKindOfClass:[NSString class]]) {
+    _overlapFloorIds = [dic[@"overlap"] componentsSeparatedByString:@","];
+  }
+
     return YES;
 }
 
