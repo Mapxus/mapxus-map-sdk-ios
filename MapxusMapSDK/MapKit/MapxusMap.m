@@ -526,6 +526,8 @@
     rearLevelIds = dic[@"rear"];
   }
   // TODO: 计算后景中需要去除的POI
+  NSArray *list = [self findCoverPoiWithLevelIds:[NSSet setWithArray:levelIds] rearLevelIds:[NSSet setWithArray:rearLevelIds]];
+
   // 过滤前景
   NSSet *levelIdSet = [NSSet setWithArray:levelIds];
   if (levelIdSet.count == 0 || ![levelIdSet isSubsetOfSet:_lastFloorIds] || self.decider.isMapReload) {
@@ -536,7 +538,12 @@
   if (rearLevelIdSet.count == 0 || ![rearLevelIdSet isSubsetOfSet:_lastRearFloorIds] || self.decider.isMapReload) {
     [_mapView.style filerRearLevelIds:rearLevelIds];
   }
-  
+  // 过滤poi
+  NSMutableArray *allFloorIds = [NSMutableArray array];
+  [allFloorIds addObjectsFromArray:levelIds];
+  [allFloorIds addObjectsFromArray:rearLevelIds];
+  [_mapView.style filerPoisOnLevelIds:allFloorIds exceptPoiIds:list];
+
   //  [_mapView.style setLevelIdsTransparent:sameVenueLevelIds];
   // 保存上一次的结果
   _lastFloorIds = levelIdSet;
@@ -583,6 +590,18 @@
       }
     }
   }
+}
+
+- (NSArray *)findCoverPoiWithLevelIds:(NSSet *)levelIds rearLevelIds:(NSSet *)rearLevelIds {
+  NSMutableArray *coverPois = [NSMutableArray array];
+  NSDictionary *pois = [self.dataQueryer findOutPOIOnLevelIds:[rearLevelIds allObjects]];
+  for (MXMGeoPOI *p in pois.allValues) {
+    NSSet *poiOverSet = [NSSet setWithArray:p.overlapFloorIds];
+    if ([poiOverSet intersectsSet:levelIds]) {
+      [coverPois addObject:p.identifier];
+    }
+  }
+  return [coverPois copy];
 }
 
 - (NSSet *)syncModelToGetShowBuildingIdsWithSelectedBuilding:(nullable MXMGeoBuilding *)building {

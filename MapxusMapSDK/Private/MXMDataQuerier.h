@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 // 点上查找POI
 - (NSDictionary *)findOutPOIAtPoint:(CGPoint)point;
 
+- (NSDictionary *)findOutPOIOnLevelIds:(NSArray *)levelIds;
+
 // 查询点击的楼层
 - (NSArray<MXMLevelModel *> *)findOutFloorFeaturesAtPoint:(CGPoint)point;
 
