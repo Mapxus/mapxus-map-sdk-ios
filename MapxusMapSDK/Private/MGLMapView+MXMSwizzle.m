@@ -89,21 +89,10 @@ static void *mapKey = &mapKey;
     assistantLevelFill.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
     assistantLevelFill.fillOpacity = [NSExpression expressionForConstantValue:@(0)];
     [style addLayer:assistantLevelFill];
-    // 插入高亮外框层
-    MGLLineStyleLayer *assistantLevelLine = [[MGLLineStyleLayer alloc] initWithIdentifier:@"assistant-mapxus-level-outline" source:indoorSource];
-    assistantLevelLine.sourceLayerIdentifier = @"mapxus_level";
-    assistantLevelLine.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
-    for (MGLStyleLayer *layer in style.layers) {
-      if ([layer.identifier hasPrefix:@"mapxus-poi"]) {
-        [style insertLayer:assistantLevelLine belowLayer:layer];
-        [style outLineLevelBorderStyle:mapView.mxmMap.selectedBuildingBorderStyle];
-        break;
-      }
-    }
     
     // 添加后景layer组
     NSString *bottomBaseLineString = @"mapxus-building-line-color";
-    NSString *topBaseLineString = @"assistant-mapxus-level-outline";
+    NSString *topBaseLineString = @"mapxus-building-name";
 
     __block NSUInteger bottomIndex = 0;
     __block NSInteger topIndex = 0;
@@ -130,7 +119,17 @@ static void *mapKey = &mapKey;
         [style insertLayer:newLayer belowLayer:bottomNextLayer];
       }
     }
-    // 添加后景layer组
+    // --添加后景layer组
+
+    // 插入高亮外框层
+    MGLLineStyleLayer *assistantLevelLine = [[MGLLineStyleLayer alloc] initWithIdentifier:@"assistant-mapxus-level-outline" source:indoorSource];
+    assistantLevelLine.sourceLayerIdentifier = @"mapxus_level";
+    assistantLevelLine.predicate = [NSPredicate predicateWithFormat:@"$geometryType = 'Polygon'"];
+    
+    MGLStyleLayer *topLayer = [style layerWithIdentifier:topBaseLineString];
+    [style insertLayer:assistantLevelLine belowLayer:topLayer];
+    [style outLineLevelBorderStyle:mapView.mxmMap.selectedBuildingBorderStyle];
+    // --插入高亮外框层
 
   }
   

@@ -301,8 +301,8 @@
   layer.fillOpacityTransition = orig.fillOpacityTransition;
   layer.fillOutlineColor = orig.fillOutlineColor;
   layer.fillOutlineColorTransition = orig.fillOutlineColorTransition;
-  layer.fillPattern = orig.fillPattern;
-  layer.fillPatternTransition = orig.fillPatternTransition;
+//  layer.fillPattern = orig.fillPattern; // TODO: 一copy就显示不出来
+//  layer.fillPatternTransition = orig.fillPatternTransition; // TODO: 一copy就显示不出来
   layer.fillTranslation = orig.fillTranslation;
   layer.fillTranslationTransition = orig.fillTranslationTransition;
   layer.fillTranslationAnchor = orig.fillTranslationAnchor;
@@ -334,8 +334,8 @@
   layer.lineOffsetTransition = orig.lineOffsetTransition;
   layer.lineOpacity = orig.lineOpacity;
   layer.lineOpacityTransition = orig.lineOpacityTransition;
-  layer.linePattern = orig.linePattern;
-  layer.linePatternTransition = orig.linePatternTransition;
+//  layer.linePattern = orig.linePattern; // TODO: 一copy就显示不出来
+//  layer.linePatternTransition = orig.linePatternTransition; // TODO: 一copy就显示不出来
   layer.lineTranslation = orig.lineTranslation;
   layer.lineTranslationTransition = orig.lineTranslationTransition;
   layer.lineTranslationAnchor = orig.lineTranslationAnchor;
