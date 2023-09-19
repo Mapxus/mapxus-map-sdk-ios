@@ -10,13 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- Venue information in tiles
- */
 @interface MXMGeoVenue ()
 
-/// A string that uniquely identifies the venue in the mapxus system.
-@property (nonatomic, strong) MXMOrdinal *defaultDisplayedOrdinal;
+@property (nonatomic, strong, nullable) MXMOrdinal *defaultDisplayedOrdinal;
 
 @end
 

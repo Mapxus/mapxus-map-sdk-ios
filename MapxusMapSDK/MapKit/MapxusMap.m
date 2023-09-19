@@ -9,6 +9,8 @@
 #import <YYModel/YYModel.h>
 #import "MXMConstants.h"
 #import "MapxusMap+Private.h"
+#import "MXMGeoBuilding+Private.h"
+#import "MXMGeoPOI+Private.h"
 #import "MXMMapServices+Private.h"
 #import "MGLMapView+MXMSwizzle.h"
 #import "MXMPointAnnotation+Private.h"
@@ -294,11 +296,23 @@
   // 转换坐标
   CGPoint point = [sender locationInView:_mapView];
   CLLocationCoordinate2D coor = [_mapView convertPoint:point toCoordinateFromView:_mapView];
+  
+  // 获取点击位置的楼层信息
+  NSArray<MXMLevelModel *> *floorFeatures = nil;
+  
+  BOOL hasSiteRetureMethods = self.delegate && (
+                                                [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)] ||
+                                                [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)] ||
+                                                [self.delegate respondsToSelector:@selector(map:didSingleTapOnPOI:atCoordinate:atSite:)] ||
+                                                [self.delegate respondsToSelector:@selector(map:didSingleTapOnBlank:atSite:)]
+                                                );
+  if (self.gestureSwitchingBuilding || hasSiteRetureMethods) {
+    floorFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+  }
+  
   /////////////////////////////////////////////////////
   if (self.gestureSwitchingBuilding) {
     // 切换建筑
-    /// 点上找到的level信息
-    NSArray<MXMLevelModel *> *floorFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
     /// 点上找到的building信息
     NSDictionary *pointBuildings = [self.dataQueryer findOutBuildingAtPoint:point];
     /// 通过相关逻辑判断建筑的切换结果
@@ -307,60 +321,60 @@
   }
   // 查找点击楼层
   /////////////////////////////////////////////////////
-  if (
-      self.delegate &&
-      (
-       [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)] ||
-       [self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)] ||
-       [self.delegate respondsToSelector:@selector(map:didSingleTapOnPOI:atCoordinate:atSite:)] ||
-       [self.delegate respondsToSelector:@selector(map:didSingleTapOnBlank:atSite:)]
-       )
-      ) {
-        NSArray<MXMLevelModel *> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
-        MXMLevelModel *feature = theFeatures.firstObject;
-        
-        NSString *buildingId = feature.refBuildingId;
-        
-        MXMGeoBuilding *pointBuilding = [self.decider.visibleBuildings[buildingId] copy];
-        MXMGeoVenue *pointVenue = [self.decider.visibleVenues[pointBuilding.venueId] copy];
-        
-        MXMFloor *floorModel = [[MXMFloor alloc] init];
-        floorModel.floorId = feature.levelId;
-        floorModel.code = feature.name;
-        floorModel.ordinal = feature.ordinal;
-        
-        MXMSite *site = [[MXMSite alloc] init];
-        site.floor = floorModel;
-        site.building = pointBuilding;
-        site.venue = pointVenue;
-        
-        NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point];
-        NSArray *poiList = [poiDic allValues];
-        MXMGeoPOI *poi = [poiList.firstObject copy];
-        poi.floor = floorModel;
-        if (poi) {
-          if ([self.delegate respondsToSelector:@selector(map:didSingleTapOnPOI:atCoordinate:atSite:)]) {
-            [self.delegate map:self didSingleTapOnPOI:poi atCoordinate:coor atSite:site];
-          } else if ([self.delegate respondsToSelector:@selector(mapView:
-                                                                 didSingleTappedOnPOI:
-                                                                 atCoordinate:
-                                                                 onFloor:
-                                                                 inBuilding:)]) {
-            [self.delegate mapView:self didSingleTappedOnPOI:poi atCoordinate:coor onFloor:floorModel.code inBuilding:pointBuilding];
-          }
-        } else {
-          if ([self.delegate respondsToSelector:@selector(map:didSingleTapOnBlank:atSite:)]) {
-            [self.delegate map:self didSingleTapOnBlank:coor atSite:site];
-          } else if ([self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)]) {
-            [self.delegate mapView:self didSingleTappedOnMapBlank:coor onFloor:floorModel.code inBuilding:pointBuilding];
-          }
+  if (hasSiteRetureMethods) {
+    MXMLevelModel *firstFloor = floorFeatures.firstObject;
+    MXMFloor *refFloor = nil;
+    if (firstFloor) {
+      refFloor = [[MXMFloor alloc] init];
+      refFloor.floorId = firstFloor.levelId;
+      refFloor.code = firstFloor.name;
+      refFloor.ordinal = firstFloor.ordinal;
+    }
+    
+    NSString *refBuildingId = firstFloor.refBuildingId;
+    MXMGeoBuilding *refBuilding = [self.decider.visibleBuildings[refBuildingId] copy];
+    MXMGeoVenue *refVenue = [self.decider.visibleVenues[refBuilding.venueId] copy];
+    
+    MXMSite *site = [[MXMSite alloc] init];
+    site.floor = refFloor;
+    site.building = refBuilding;
+    site.venue = refVenue;
+    
+    NSDictionary *poiDic = [self.dataQueryer findOutPOIAtPoint:point];
+    NSArray *poiList = [poiDic allValues];
+    MXMGeoPOI *poi = [poiList.firstObject copy];
+    if (poi) {
+      // 确保拿到正确的关联site
+      refBuilding = [self.decider.visibleBuildings[poi.buildingId] copy];
+      refVenue = [self.decider.visibleVenues[refBuilding.venueId] copy];
+      for (MXMFloor *floorItem in refBuilding.floors) {
+        if ([poi.floor.floorId isEqualToString:floorItem.floorId]) {
+          refFloor = [floorItem copy];
+          poi.floor = refFloor;
+          break;
         }
-        
-      } else if (self.delegate && [self.delegate respondsToSelector:@selector(map:didSingleTapAtCoordinate:)]) {
-        [self.delegate map:self didSingleTapAtCoordinate:coor];
-      } else if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:)]) {
-        [self.delegate mapView:self didSingleTappedAtCoordinate:coor];
       }
+      site.venue = refVenue;
+      site.building = refBuilding;
+      site.floor = refFloor;
+      if ([self.delegate respondsToSelector:@selector(map:didSingleTapOnPOI:atCoordinate:atSite:)]) {
+        [self.delegate map:self didSingleTapOnPOI:poi atCoordinate:coor atSite:site];
+      } else if ([self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnPOI:atCoordinate:onFloor:inBuilding:)]) {
+        [self.delegate mapView:self didSingleTappedOnPOI:poi atCoordinate:coor onFloor:refFloor.code inBuilding:refBuilding];
+      }
+    } else {
+      if ([self.delegate respondsToSelector:@selector(map:didSingleTapOnBlank:atSite:)]) {
+        [self.delegate map:self didSingleTapOnBlank:coor atSite:site];
+      } else if ([self.delegate respondsToSelector:@selector(mapView:didSingleTappedOnMapBlank:onFloor:inBuilding:)]) {
+        [self.delegate mapView:self didSingleTappedOnMapBlank:coor onFloor:refFloor.code inBuilding:refBuilding];
+      }
+    }
+    
+  } else if (self.delegate && [self.delegate respondsToSelector:@selector(map:didSingleTapAtCoordinate:)]) {
+    [self.delegate map:self didSingleTapAtCoordinate:coor];
+  } else if (self.delegate && [self.delegate respondsToSelector:@selector(mapView:didSingleTappedAtCoordinate:)]) {
+    [self.delegate mapView:self didSingleTappedAtCoordinate:coor];
+  }
 }
 
 // 长按手势响应
@@ -372,44 +386,42 @@
     CLLocationCoordinate2D coor = [_mapView convertPoint:point toCoordinateFromView:_mapView];
     // 查找长按楼层
     /////////////////////////////////////////////////////
-    if (
-        self.delegate &&
-        (
-         [self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)] ||
-         [self.delegate respondsToSelector:@selector(map:didLongPressAtCoordinate:atSite:)]
-         )
-        ) {
-          NSArray<MXMLevelModel *> *theFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
-          MXMLevelModel *feature = theFeatures.firstObject;
-          
-          NSString *buildingId = feature.refBuildingId;
-          
-          MXMGeoBuilding *pointBuilding = [self.decider.visibleBuildings[buildingId] copy];
-          MXMGeoVenue *pointVenue = [self.decider.visibleVenues[pointBuilding.venueId] copy];
-          
-          // 点击了POI
-          MXMFloor *floorModel = [[MXMFloor alloc] init];
-          floorModel.floorId = feature.levelId;
-          floorModel.code = feature.name;
-          floorModel.ordinal = feature.ordinal;
-          
-          MXMSite *site = [[MXMSite alloc] init];
-          site.floor = floorModel;
-          site.building = pointBuilding;
-          site.venue = pointVenue;
-          
-          if ([self.delegate respondsToSelector:@selector(map:didLongPressAtCoordinate:atSite:)]) {
-            [self.delegate map:self didLongPressAtCoordinate:coor atSite:site];
-          } else if ([self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)]) {
-            [self.delegate mapView:self didLongPressedAtCoordinate:coor onFloor:floorModel.code inBuilding:pointBuilding];
-          }
-        } else if (self.delegate) {
-          if ([self.delegate respondsToSelector:@selector(map:didLongPressAtCoordinate:)]) {
-            [self.delegate map:self didLongPressAtCoordinate:coor];
-          } else if ([self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:)]) {
-            [self.delegate mapView:self didLongPressedAtCoordinate:coor];
-          }
+    if (self.delegate) {
+      
+      if ([self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)] ||
+          [self.delegate respondsToSelector:@selector(map:didLongPressAtCoordinate:atSite:)]) {
+        
+        NSArray<MXMLevelModel *> *floorFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+        MXMLevelModel *firstFloor = floorFeatures.firstObject;
+        MXMFloor *refFloor = nil;
+        if (firstFloor) {
+          refFloor = [[MXMFloor alloc] init];
+          refFloor.floorId = firstFloor.levelId;
+          refFloor.code = firstFloor.name;
+          refFloor.ordinal = firstFloor.ordinal;
         }
+
+        NSString *refBuildingId = firstFloor.refBuildingId;
+        MXMGeoBuilding *refBuilding = [self.decider.visibleBuildings[refBuildingId] copy];
+        MXMGeoVenue *refVenue = [self.decider.visibleVenues[refBuilding.venueId] copy];
+        
+        MXMSite *site = [[MXMSite alloc] init];
+        site.floor = refFloor;
+        site.building = refBuilding;
+        site.venue = refVenue;
+        
+        if ([self.delegate respondsToSelector:@selector(map:didLongPressAtCoordinate:atSite:)]) {
+          [self.delegate map:self didLongPressAtCoordinate:coor atSite:site];
+        } else if ([self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)]) {
+          [self.delegate mapView:self didLongPressedAtCoordinate:coor onFloor:refFloor.code inBuilding:refBuilding];
+        }
+        
+      } else if ([self.delegate respondsToSelector:@selector(map:didLongPressAtCoordinate:)]) {
+        [self.delegate map:self didLongPressAtCoordinate:coor];
+      } else if ([self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:)]) {
+        [self.delegate mapView:self didLongPressedAtCoordinate:coor];
+      }
+    }
     /////////////////////////////////////////////////////
   }
 }

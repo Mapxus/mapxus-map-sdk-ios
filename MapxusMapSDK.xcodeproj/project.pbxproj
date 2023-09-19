@@ -119,6 +119,9 @@
 		89C9E1C72A3AE3FE00D93569 /* UIImage+MXMSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C9E1C52A3AE3FE00D93569 /* UIImage+MXMSdk.h */; };
 		89C9E1C82A3AE3FE00D93569 /* UIImage+MXMSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C9E1C62A3AE3FE00D93569 /* UIImage+MXMSdk.m */; };
 		89C9E1CA2A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C9E1C92A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h */; };
+		89E0C11A2AB9795E00FE52CC /* MXMGeoBuilding+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 89E0C1192AB9795E00FE52CC /* MXMGeoBuilding+Private.h */; };
+		89E0C11B2AB97A5700FE52CC /* MXMGeoVenue+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 890B25012A82329800954692 /* MXMGeoVenue+Private.h */; };
+		89E0C11D2AB97C1600FE52CC /* MXMGeoPOI+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 89E0C11C2AB97C1600FE52CC /* MXMGeoPOI+Private.h */; };
 		8B47EDA58BF706ACF7E0B2A7 /* Pods_MapxusMapSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F3A1DB5EB6BB5F6C6A7566 /* Pods_MapxusMapSDKTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -253,6 +256,8 @@
 		89C9E1C52A3AE3FE00D93569 /* UIImage+MXMSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+MXMSdk.h"; sourceTree = "<group>"; };
 		89C9E1C62A3AE3FE00D93569 /* UIImage+MXMSdk.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MXMSdk.m"; sourceTree = "<group>"; };
 		89C9E1C92A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MXMFloorSelectorBar+Private.h"; sourceTree = "<group>"; };
+		89E0C1192AB9795E00FE52CC /* MXMGeoBuilding+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MXMGeoBuilding+Private.h"; sourceTree = "<group>"; };
+		89E0C11C2AB97C1600FE52CC /* MXMGeoPOI+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MXMGeoPOI+Private.h"; sourceTree = "<group>"; };
 		94F3B6382301B7E3738DF8C9 /* Pods-MapxusMapSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDK.debug.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDK/Pods-MapxusMapSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		C11F268EFF8379E21C30B08A /* Pods-MapxusMapSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.debug.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E3F5BA4C07AEC8BE19BCEE18 /* Pods_MapxusMapSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapxusMapSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -513,8 +518,10 @@
 				890B25012A82329800954692 /* MXMGeoVenue+Private.h */,
 				89865F5129E9262700E984A1 /* MXMGeoVenue.m */,
 				89865F7829E9262700E984A1 /* MXMGeoBuilding.h */,
+				89E0C1192AB9795E00FE52CC /* MXMGeoBuilding+Private.h */,
 				89865F8229E9262700E984A1 /* MXMGeoBuilding.m */,
 				89865F7929E9262700E984A1 /* MXMGeoPOI.h */,
+				89E0C11C2AB97C1600FE52CC /* MXMGeoPOI+Private.h */,
 				89865F7F29E9262700E984A1 /* MXMGeoPOI.m */,
 				89865F8029E9262700E984A1 /* MXMPointAnnotation+Private.h */,
 				89865F8429E9262700E984A1 /* MXMPointAnnotation.h */,
@@ -597,8 +604,11 @@
 				89865F8629E9262700E984A1 /* MXMHttpManager.h in Headers */,
 				89865FC229E9262700E984A1 /* MapxusMap+Private.h in Headers */,
 				89C9E1B32A39966A00D93569 /* MXMFloorBarHeaderFooterView.h in Headers */,
+				89E0C11D2AB97C1600FE52CC /* MXMGeoPOI+Private.h in Headers */,
 				89865FA629E9262700E984A1 /* MXMAnnotationsHolder.h in Headers */,
+				89E0C11A2AB9795E00FE52CC /* MXMGeoBuilding+Private.h in Headers */,
 				89865FB629E9262700E984A1 /* MXMSearchPOIOperation.h in Headers */,
+				89E0C11B2AB97A5700FE52CC /* MXMGeoVenue+Private.h in Headers */,
 				89865FA729E9262700E984A1 /* MGLStyleLayer+MXMFilter.h in Headers */,
 				890831032A80CBD9006DBD89 /* MXMSearchVenueOperation.h in Headers */,
 				89865F8829E9262700E984A1 /* MXMLoggerService.h in Headers */,
