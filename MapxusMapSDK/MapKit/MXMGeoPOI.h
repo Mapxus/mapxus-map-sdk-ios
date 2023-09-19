@@ -66,8 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// List of categories to which POI belongs.
 @property (nonatomic, strong) NSArray<NSString *> *category;
 
-@property (nonatomic, strong) NSArray<NSString *> *overlapFloorIds;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -215,8 +215,10 @@
 
 - (NSArray<MXMLevelModel *> *)findOutFloorFeaturesAtPoint:(CGPoint)point
 {
-  NSSet *identifiers = [NSSet setWithObjects:@"mapxus-level-fill", @"mapxus-level-fill-mxmrear", nil];
-  NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiers predicate:nil];
+  NSArray<id <MGLFeature>> *theForeFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:[NSSet setWithObject:@"mapxus-level-fill"] predicate:nil];
+  NSArray<id <MGLFeature>> *theRearFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:[NSSet setWithObject:@"mapxus-level-fill-mxmrear"] predicate:nil];
+  NSMutableArray<id <MGLFeature>> *theFeatures = [NSMutableArray arrayWithArray:theForeFeatures];
+  [theFeatures addObjectsFromArray:theRearFeatures];
   NSMutableArray *list = [NSMutableArray array];
   for (id <MGLFeature> feature in theFeatures) {
     MXMLevelModel *model = [MXMLevelModel yy_modelWithJSON:feature.attributes];
