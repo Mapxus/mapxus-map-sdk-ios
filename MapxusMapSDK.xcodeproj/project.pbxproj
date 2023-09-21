@@ -26,6 +26,8 @@
 		890831042A80CBD9006DBD89 /* MXMSearchVenueOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 890831022A80CBD9006DBD89 /* MXMSearchVenueOperation.m */; };
 		890B25042A89C3B100954692 /* MXMSearchFloorOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 890B25022A89C3B100954692 /* MXMSearchFloorOperation.h */; };
 		890B25052A89C3B100954692 /* MXMSearchFloorOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B25032A89C3B100954692 /* MXMSearchFloorOperation.m */; };
+		891BDBFA2ABC26A90053767E /* MXMFilterModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 891BDBF82ABC26A90053767E /* MXMFilterModel.h */; };
+		891BDBFB2ABC26A90053767E /* MXMFilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 891BDBF92ABC26A90053767E /* MXMFilterModel.m */; };
 		892933202A247AF8003C0DE6 /* MXMBorderStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		892933212A247AF8003C0DE6 /* MXMBorderStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */; };
 		896BD7F829F2610300ED8D9F /* MXMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BD7F729F2610300ED8D9F /* MXMAlertController.m */; };
@@ -143,6 +145,8 @@
 		890B25012A82329800954692 /* MXMGeoVenue+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MXMGeoVenue+Private.h"; sourceTree = "<group>"; };
 		890B25022A89C3B100954692 /* MXMSearchFloorOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSearchFloorOperation.h; sourceTree = "<group>"; };
 		890B25032A89C3B100954692 /* MXMSearchFloorOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSearchFloorOperation.m; sourceTree = "<group>"; };
+		891BDBF82ABC26A90053767E /* MXMFilterModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMFilterModel.h; sourceTree = "<group>"; };
+		891BDBF92ABC26A90053767E /* MXMFilterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMFilterModel.m; sourceTree = "<group>"; };
 		8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMBorderStyle.h; sourceTree = "<group>"; };
 		8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMBorderStyle.m; sourceTree = "<group>"; };
 		896BD7F729F2610300ED8D9F /* MXMAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMAlertController.m; sourceTree = "<group>"; };
@@ -452,6 +456,8 @@
 				89865F4A29E9262700E984A1 /* MXMDecider.m */,
 				89865F5429E9262700E984A1 /* MXMLevelModel.h */,
 				89865F4829E9262700E984A1 /* MXMLevelModel.m */,
+				891BDBF82ABC26A90053767E /* MXMFilterModel.h */,
+				891BDBF92ABC26A90053767E /* MXMFilterModel.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -600,6 +606,7 @@
 				89865FA329E9262700E984A1 /* MXMCacheManager.h in Headers */,
 				89865F9D29E9262700E984A1 /* MGLStyle+MXMFilter.h in Headers */,
 				89865F8B29E9262700E984A1 /* MXMConstants.h in Headers */,
+				891BDBFA2ABC26A90053767E /* MXMFilterModel.h in Headers */,
 				89865F1929E9090700E984A1 /* MapxusMapSDK.h in Headers */,
 				89865F8629E9262700E984A1 /* MXMHttpManager.h in Headers */,
 				89865FC229E9262700E984A1 /* MapxusMap+Private.h in Headers */,
@@ -869,6 +876,7 @@
 				89C9E1BC2A3996BE00D93569 /* MXMFloorBarCell.m in Sources */,
 				89865F8E29E9262700E984A1 /* MXMCommonObj.m in Sources */,
 				89865FB429E9262700E984A1 /* MXMSearchPOIOperation.m in Sources */,
+				891BDBFB2ABC26A90053767E /* MXMFilterModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
