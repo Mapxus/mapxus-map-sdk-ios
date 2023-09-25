@@ -113,20 +113,24 @@ static CGFloat headerFooterHeight = 35.0;
   if (self.dataList.count <= self.maxVisibleFloors) {
     return;
   }
-  if (index >= 0 && index < self.dataList.count) {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-  }
+//  if (index >= 0 && index < self.dataList.count) {
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//      NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+//      [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+//    });
+//  }
   
   // 在不可视范围才跳转
-//  if (index >= 0 && index < self.dataList.count) {
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-//    CGRect cellRect = [self.tableView rectForRowAtIndexPath:indexPath];
-//    if ((self.tableView.contentOffset.y > cellRect.origin.y - headerFooterHeight)
-//        || self.tableView.contentOffset.y + self.tableView.frame.size.height - cellRect.size.height - headerFooterHeight * 2 < cellRect.origin.y) {
-//      [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-//    }
-//  }
+  if (index >= 0 && index < self.dataList.count) {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    CGRect cellRect = [self.tableView rectForRowAtIndexPath:indexPath];
+    if ((self.tableView.contentOffset.y > cellRect.origin.y - headerFooterHeight)
+        || self.tableView.contentOffset.y + self.tableView.frame.size.height - cellRect.size.height - headerFooterHeight * 2 < cellRect.origin.y) {
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+      });
+    }
+  }
 }
 
 - (CGFloat)getTableViewHeight {

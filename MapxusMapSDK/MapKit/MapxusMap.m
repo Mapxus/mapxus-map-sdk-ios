@@ -430,20 +430,21 @@ didChangeIndoorSiteAccess:_isIndoor
       for (MXMFloor *iFloor in reversalFloors) {
         MXMFloorBarModel *model = [[MXMFloorBarModel alloc] init];
         model.floor = iFloor;
-        if (iFloor.ordinal.level == filter.selectedFloor.ordinal.level) {
+        if ([filter.selectedFloor.floorId isEqualToString:iFloor.floorId]) {
           model.selected = YES;
         }
         [list addObject:model];
       }
       [self.floorBar refershList:list refBuildingId:geoBuilding.identifier];
-    }
-    int i = 0;
-    for (MXMFloor *iFloor in reversalFloors) {
-      if ([filter.selectedFloor.floorId isEqualToString:iFloor.floorId]) {
-        [self.floorBar selectFloorIndex:i];
-        break;
+    } else {
+      int i = 0;
+      for (MXMFloor *iFloor in reversalFloors) {
+        if ([filter.selectedFloor.floorId isEqualToString:iFloor.floorId]) {
+          [self.floorBar selectFloorIndex:i];
+          break;
+        }
+        i++;
       }
-      i++;
     }
   }
   
