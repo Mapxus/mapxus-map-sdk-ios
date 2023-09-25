@@ -91,7 +91,7 @@ static void *mapKey = &mapKey;
     [style addLayer:assistantLevelFill];
     
     // 添加后景layer组
-    NSString *bottomBaseLineString = @"mapxus-building-line-color";
+    NSString *bottomBaseLineString = @"mapxus-level-fill";
     NSString *topBaseLineString = @"mapxus-building-name";
 
     __block NSUInteger bottomIndex = 0;
@@ -103,8 +103,8 @@ static void *mapKey = &mapKey;
         topIndex = idx;
       }
     }];
-    MGLStyleLayer *bottomNextLayer = [style.layers objectAtIndex:bottomIndex+1];
-    NSRange range = NSMakeRange(bottomIndex+1, topIndex-bottomIndex-1);
+    MGLStyleLayer *bottomNextLayer = [style.layers objectAtIndex:bottomIndex];
+    NSRange range = NSMakeRange(bottomIndex, topIndex-bottomIndex);
     NSArray *copyOrigList = [style.layers subarrayWithRange:range];
     for (MGLStyleLayer *layer in copyOrigList) {
       MGLStyleLayer *newLayer = nil;

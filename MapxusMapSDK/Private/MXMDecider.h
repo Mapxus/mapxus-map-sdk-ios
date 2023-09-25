@@ -11,6 +11,10 @@
 #import "MXMDefine.h"
 #import "MXMLevelModel.h"
 #import "MXMSite.h"
+#import "MXMFilterModel.h"
+#import "MXMGeoVenue+Private.h"
+#import "MXMGeoBuilding+Private.h"
+#import "MXMGeoPOI+Private.h"
 
 @class MXMBoundingBox;
 
@@ -23,26 +27,30 @@ NS_ASSUME_NONNULL_BEGIN
                        inBuilding:(nullable MXMGeoBuilding *)building
                             floor:(nullable MXMFloor *)floor;
 // 将要选中
+// TODO: 删除venue和building参数
 - (void)decideMapViewShouldChangeBuilding:(nullable MXMGeoBuilding *)building
                                   atVenue:(nullable MXMGeoVenue *)venue
                                     floor:(nullable MXMFloor *)floor
                  shouldChangeTrackingMode:(BOOL)changeTrackingMode;
 // 选中
-- (void)decideMapViewChangeBuilding:(nullable MXMGeoBuilding *)building
-                              floor:(nullable MXMFloor *)floor
-                            atVenue:(nullable MXMGeoVenue *)venue
-                     shouldCallBack:(BOOL)shouldCallBack;
+- (void)decideMapViewChangeWithFilterModel:(nullable MXMFilterModel *)filter;
+
+- (NSArray<MXMGeoPOI *> *)poisOnRearFloorIds:(NSArray<NSString *> *)floorIds;
+
 // 操作缩放
 - (void)decideMapViewZoomTo:(MXMBoundingBox *)bbox
                    zoomMode:(MXMZoomMode)zoomMode
             withEdgePadding:(UIEdgeInsets)insets;
 
-
 @end
 
 
 
-@interface MXMDecider : NSObject
+@interface MXMDecider : NSObject {
+  NSSet *_lastForeFloorIds;
+  NSSet *_lastRearFloorIds;
+  NSSet *_lastBuildingIds;
+}
 
 @property (nonatomic, assign) BOOL isMapReload;
 @property (nonatomic, assign) MXMFloorSwitchMode floorSwitchMode;
@@ -66,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, MXMGeoBuilding *> *visibleBuildings;
 @property (nonatomic, strong, nullable) NSDictionary<NSString *, MXMGeoVenue *> *visibleVenues;
 
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *fontRearDic;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSNumber *> *foreRearDic; // YES表示在前景显示
 
 @property (nonatomic, weak) id<MXMDeciderDelegate> delegate;
 
@@ -83,6 +91,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable MXMSite *)decideWithUserLocationLevel:(NSInteger)level
                                atPointBuildingDic:(NSDictionary<NSString *, MXMGeoBuilding *> *)buildings
                              atPointLevelInfoList:(NSArray<MXMLevelModel *> *)levelInfoList;
+
+- (void)cleanHistory;
 
 - (void)specifyTheFloorId:(nullable NSString *)floorId
                  zoomMode:(MXMZoomMode)zoomMode
