@@ -98,8 +98,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  POI category search parameters
  
- If a floorId is provided, the buildingId will be disregarded, and all categories associated with that floor will be queried. Conversely, if a buildingId is provided, all
- categories within that building will be queried.
+ All categories within the specified site will be queried. The first non-null value will be requested, following the order of `floorId`, `buildingId`, and `venueId`.
  */
 @interface MXMPOICategorySearchRequest : NSObject
 /// Specify search floor ID
@@ -128,13 +127,18 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  POI search parameters
  
- There are five search modes.
- 1. specify the keyword search within the floor, with the parameter combinations keywords(optional), floorId, offset, page, category(optional).
- 2. specify the keyword search within the building, with the parameter combinations keywords(optional), buildingId, offset, page, category(optional).
- 3. Specify the keyword search in the square area with the combination keywords(optional), bbox, offset, page, category(optional).
- 4. Specify a keyword search within a circular region, sorted by two-dimensional spatial distance, with the parameter combinations keywords(optional), center, meterDistance(or distance), offset, page, category(optional).
- 5. specify a keyword search within a circular area, sorted by route distance, with the parameter combinations keywords(optional), center, ordinal, buildingId, sort, meterDistance(or distance), offset, page, category(optional).
- 6. specifying a buildingId search with the parameters POIIds.
+ There are seven search modes.
+ 1. Specify the keyword search within the floor, with the parameter combinations keywords(optional), floorId, offset, page, category(optional).
+ 2. Specify the keyword search within the building, with the parameter combinations keywords(optional), buildingId, offset, page, category(optional).
+ 3. Specify the keyword search within the venue, with the parameter combinations keywords(optional), venueId, offset, page, category(optional).
+ 4. Specify the keyword search in the square area with the combination keywords(optional), bbox, offset, page, category(optional).
+ 5. Specify the keyword search within a circular region, sorted by two-dimensional spatial distance, with the parameter combinations keywords(optional), center,
+ meterDistance, offset, page, category(optional), floorId(optional), buildingId(optional), venueId(optional), where floorId, buildingId, venueId are mutually exclusive,
+ according to the order of floorId->buildingId->venueId, take the first value that is not nil.
+ 6. Specify the keyword search within a circular area, sorted by route distance, with the parameter combinations keywords(optional), center, ordinal, sort, 
+ meterDistance, offset, page, category(optional), floorId(optional), buildingId(optional), venueId(optional), where floorId, buildingId, venueId are mutually exclusive,
+ according to the order of floorId->buildingId->venueId, take the first value that is not nil.
+ 7. Specify the POIId search with the parameters POIIds.
  */
 @interface MXMPOISearchRequest : NSObject
 /// Keyword. Currently only single keyword queries are supported
@@ -146,7 +150,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *buildingId;
 /// The ID of venue which you want to search in
 @property (nonatomic, copy, nullable) NSString *venueId;
-/// Enter latitude and longitude to form a rectangular search range. The maximum rectangular search area cannot exceed  400 km².
+/// Enter latitude and longitude form a rectangular search range. The maximum rectangular search area cannot exceed  400 km².
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
 /// The centre of circular area search
 @property (nonatomic, strong, nullable) MXMGeoPoint *center;

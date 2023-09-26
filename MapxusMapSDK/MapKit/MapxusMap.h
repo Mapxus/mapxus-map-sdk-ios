@@ -84,6 +84,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// If the attribution has been set to `MXMSwitchingByBuilding`, only the current building’s floor will change. The default is `MXMSwitchingByVenue`.
 @property (nonatomic, assign) MXMFloorSwitchMode floorSwitchMode;
 
+/// Configuring the mask state for an unselected site.
+/// @discussion If the `floorSwitchMode` is set to `MXMSwitchingByVenue`, buildings located on a different venue from the selected building will be masked.
+/// However, if the `floorSwitchMode` is set to `MXMSwitchingByBuilding`, all buildings that are not selected will be masked.
+/// The default value is `NO`.
 @property (nonatomic, assign) BOOL maskNonSelectedSite;
 
 /// Detailed information about the currently selected floor. If the object is nil, it means no floor is selected.
