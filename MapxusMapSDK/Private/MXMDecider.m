@@ -429,8 +429,8 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
   
   // 配置过滤条件
   //  NSMutableArray *sameVenueLevelIds = [NSMutableArray array];
-  NSArray *foreFloorIds;
-  NSArray *rearFloorIds;
+  NSSet *foreFloorIds;
+  NSSet *rearFloorIds;
   if (self.floorSwitchMode == MXMSwitchedByVenue) {
     NSDictionary *dic = [self syncModelToGetShowFloorIdsWithFloor:floor building:building];
     foreFloorIds = dic[@"fore"];
@@ -442,28 +442,34 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
   }
   
   // 过滤前景
-  NSSet *levelIdSet = [NSSet setWithArray:foreFloorIds];
-  if (levelIdSet.count == 0 || ![levelIdSet isSubsetOfSet:_lastForeFloorIds] || self.isMapReload) {
-    filter.foreFloorIds = foreFloorIds;
+  if ((foreFloorIds.count == 0 && _lastForeFloorIds.count != 0) || ![foreFloorIds isSubsetOfSet:_lastForeFloorIds] || self.isMapReload) {
+    filter.foreFloorIds = [foreFloorIds allObjects];
   }
   // 过滤后景
-  NSSet *rearLevelIdSet = [NSSet setWithArray:rearFloorIds];
-  if (rearLevelIdSet.count == 0 || ![rearLevelIdSet isSubsetOfSet:_lastRearFloorIds] || self.isMapReload) {
-    filter.rearFloorIds = rearFloorIds;
+  if ((rearFloorIds.count == 0 && _lastRearFloorIds.count != 0) || ![rearFloorIds isSubsetOfSet:_lastRearFloorIds] || self.isMapReload) {
+    filter.rearFloorIds = [rearFloorIds allObjects];
   }
   
-  NSMutableArray *allFloorIds = [NSMutableArray array];
-  [allFloorIds addObjectsFromArray:foreFloorIds];
-  [allFloorIds addObjectsFromArray:rearFloorIds];
-  filter.allFloorIds = allFloorIds;
+  NSMutableSet *allFloorIds = [NSMutableSet set];
+  [allFloorIds unionSet:foreFloorIds];
+  [allFloorIds unionSet:rearFloorIds];
   // 计算后景中需要去除的POI
-  filter.exceptPoiIds = [self findCoverPoiWithLevelIds:[NSSet setWithArray:foreFloorIds] rearLevelIds:[NSSet setWithArray:rearFloorIds]];
+  NSSet *exceptPoiIds = [self findCoverPoiWithLevelIds:foreFloorIds rearLevelIds:rearFloorIds];
   
+  BOOL allFloorSetChange = (allFloorIds.count == 0 && _lastAllFloorIds.count != 0) || ![allFloorIds isSubsetOfSet:_lastAllFloorIds];
+  BOOL exceptPoiSetChange = (exceptPoiIds.count == 0 && _lastExceptPoiIds.count != 0) || ![exceptPoiIds isSubsetOfSet:_lastExceptPoiIds];
+  
+  if (allFloorSetChange || exceptPoiSetChange || self.isMapReload) {
+    filter.allFloorIds = [allFloorIds allObjects];
+    filter.exceptPoiIds = [exceptPoiIds allObjects];
+  }
   
   //  [_mapView.style setLevelIdsTransparent:sameVenueLevelIds];
   // 保存上一次的结果
-  _lastForeFloorIds = levelIdSet;
-  _lastRearFloorIds = rearLevelIdSet;
+  _lastForeFloorIds = foreFloorIds;
+  _lastRearFloorIds = rearFloorIds;
+  _lastAllFloorIds = allFloorIds;
+  _lastExceptPoiIds = exceptPoiIds;
   
   // 添加building遮罩层
   if (self.maskNonSelectedSite) {
@@ -844,8 +850,8 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
 }
 
 #pragma mark - 筛选其他无选中建筑
-- (NSArray *)findCoverPoiWithLevelIds:(NSSet *)levelIds rearLevelIds:(NSSet *)rearLevelIds {
-  NSMutableArray *coverPois = [NSMutableArray array];
+- (NSSet *)findCoverPoiWithLevelIds:(NSSet *)levelIds rearLevelIds:(NSSet *)rearLevelIds {
+  NSMutableSet *coverPois = [NSMutableSet set];
   NSArray *pois = [self.delegate poisOnRearFloorIds:[rearLevelIds allObjects]];
   for (MXMGeoPOI *p in pois) {
     NSSet *poiOverSet = [NSSet setWithArray:p.overlapFloorIds];
@@ -892,8 +898,8 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
     }
   }
   // 分组查找前后景levelId
-  NSMutableArray *levelIds = [NSMutableArray array];
-  NSMutableArray *rearLevelIds = [NSMutableArray array];
+  NSMutableSet *foreLevelIds = [NSMutableSet set];
+  NSMutableSet *rearLevelIds = [NSMutableSet set];
   
   for (MXMGeoBuilding *buildingItem in self.visibleBuildings.allValues) {
     if ([buildingItem.venueId isEqualToString:building.venueId]) {
@@ -904,7 +910,7 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
         NSNumber *isFont = self.foreRearDic[buildingItem.identifier];
         BOOL selfFont = isFont ? [isFont boolValue] : NO;
         if (selfFont) {
-          [levelIds addObject:theFloor.floorId];
+          [foreLevelIds addObject:theFloor.floorId];
         } else {
           BOOL otherFont = NO;
           for (NSString *buildingId in buildingItem.overlapBuildingIds) {
@@ -918,7 +924,7 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
             [rearLevelIds addObject:theFloor.floorId];
           } else {
             self.foreRearDic[buildingItem.identifier] = @(YES);
-            [levelIds addObject:theFloor.floorId];
+            [foreLevelIds addObject:theFloor.floorId];
           }
         }
         
@@ -937,7 +943,7 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
           NSNumber *isFont = self.foreRearDic[buildingItem.identifier];
           BOOL selfFont = isFont ? [isFont boolValue] : NO;
           if (selfFont) {
-            [levelIds addObject:theFloor.floorId];
+            [foreLevelIds addObject:theFloor.floorId];
           } else {
             BOOL otherFont = NO;
             for (NSString *buildingId in buildingItem.overlapBuildingIds) {
@@ -951,14 +957,14 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
               [rearLevelIds addObject:theFloor.floorId];
             } else {
               self.foreRearDic[buildingItem.identifier] = @(YES);
-              [levelIds addObject:theFloor.floorId];
+              [foreLevelIds addObject:theFloor.floorId];
             }
           }
         }
       }
     }
   }
-  return @{@"rear": rearLevelIds, @"fore": levelIds};
+  return @{@"rear": [rearLevelIds copy], @"fore": [foreLevelIds copy]};
 }
 
 - (NSDictionary *)asyncModelToGetShowFloorIdsWithFloor:(nullable MXMFloor *)floor
@@ -972,18 +978,18 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
     }
   }
   
-  NSMutableArray *levelIds = [NSMutableArray array];
-  NSMutableArray *rearLevelIds = [NSMutableArray array];
-  
+  NSMutableSet *foreLevelIds = [NSMutableSet set];
+  NSMutableSet *rearLevelIds = [NSMutableSet set];
+
   // 已选中的floor必定加入levelIds中，不放在循环中是为了加快已选中floor的显示，因为这样即使选中building不在可视范围内，依然会加入到显示队列中
   // 已选中的建筑
   if (floor.floorId) {
-    [levelIds addObject:floor.floorId];
+    [foreLevelIds addObject:floor.floorId];
   }
   
   // 如果需要覆盖，不再添加未选中building的floor
   if (self.maskNonSelectedSite) {
-    return @{@"rear": rearLevelIds, @"fore": levelIds};
+    return @{@"rear": [rearLevelIds copy], @"fore": [foreLevelIds copy]};
   }
   
   // 未选中的建筑
@@ -999,7 +1005,7 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
       NSNumber *isFont = self.foreRearDic[buildingItem.identifier];
       BOOL selfFont = isFont ? [isFont boolValue] : NO;
       if (selfFont) {
-        [levelIds addObject:theFloor.floorId];
+        [foreLevelIds addObject:theFloor.floorId];
       } else {
         BOOL otherFont = NO;
         for (NSString *buildingId in buildingItem.overlapBuildingIds) {
@@ -1013,13 +1019,13 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
           [rearLevelIds addObject:theFloor.floorId];
         } else {
           self.foreRearDic[buildingItem.identifier] = @(YES);
-          [levelIds addObject:theFloor.floorId];
+          [foreLevelIds addObject:theFloor.floorId];
         }
       }
     }
     
   }
-  return @{@"rear": rearLevelIds, @"fore": levelIds};
+  return @{@"rear": [rearLevelIds copy], @"fore": [foreLevelIds copy]};
 }
 // 筛选其他无选中建筑
 

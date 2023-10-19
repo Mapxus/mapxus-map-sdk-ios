@@ -106,6 +106,8 @@
 		89865FF229E9345B00E984A1 /* Mapbox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89865FF129E9345B00E984A1 /* Mapbox.xcframework */; };
 		89B2EB7C2A284E1200A369E4 /* MXMSite.h in Headers */ = {isa = PBXBuildFile; fileRef = 89B2EB7A2A284E1200A369E4 /* MXMSite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89B2EB7D2A284E1200A369E4 /* MXMSite.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B2EB7B2A284E1200A369E4 /* MXMSite.m */; };
+		89C29CA42AE10F9200A3E841 /* NSObject+MXMThrottle.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C29CA22AE10F9200A3E841 /* NSObject+MXMThrottle.h */; };
+		89C29CA52AE10F9200A3E841 /* NSObject+MXMThrottle.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C29CA32AE10F9200A3E841 /* NSObject+MXMThrottle.m */; };
 		89C9E1AF2A39963800D93569 /* MXMFloorFoldButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C9E1AD2A39963800D93569 /* MXMFloorFoldButton.h */; };
 		89C9E1B02A39963800D93569 /* MXMFloorFoldButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C9E1AE2A39963800D93569 /* MXMFloorFoldButton.m */; };
 		89C9E1B32A39966A00D93569 /* MXMFloorBarHeaderFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C9E1B12A39966A00D93569 /* MXMFloorBarHeaderFooterView.h */; };
@@ -245,6 +247,8 @@
 		89865FF129E9345B00E984A1 /* Mapbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Mapbox.xcframework; path = Pods/MapxusRenderSDK/Mapbox.xcframework; sourceTree = "<group>"; };
 		89B2EB7A2A284E1200A369E4 /* MXMSite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSite.h; sourceTree = "<group>"; };
 		89B2EB7B2A284E1200A369E4 /* MXMSite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSite.m; sourceTree = "<group>"; };
+		89C29CA22AE10F9200A3E841 /* NSObject+MXMThrottle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+MXMThrottle.h"; sourceTree = "<group>"; };
+		89C29CA32AE10F9200A3E841 /* NSObject+MXMThrottle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MXMThrottle.m"; sourceTree = "<group>"; };
 		89C9E1AD2A39963800D93569 /* MXMFloorFoldButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMFloorFoldButton.h; sourceTree = "<group>"; };
 		89C9E1AE2A39963800D93569 /* MXMFloorFoldButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMFloorFoldButton.m; sourceTree = "<group>"; };
 		89C9E1B12A39966A00D93569 /* MXMFloorBarHeaderFooterView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMFloorBarHeaderFooterView.h; sourceTree = "<group>"; };
@@ -458,6 +462,8 @@
 				89865F4829E9262700E984A1 /* MXMLevelModel.m */,
 				891BDBF82ABC26A90053767E /* MXMFilterModel.h */,
 				891BDBF92ABC26A90053767E /* MXMFilterModel.m */,
+				89C29CA22AE10F9200A3E841 /* NSObject+MXMThrottle.h */,
+				89C29CA32AE10F9200A3E841 /* NSObject+MXMThrottle.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -621,6 +627,7 @@
 				89865F8829E9262700E984A1 /* MXMLoggerService.h in Headers */,
 				890B25042A89C3B100954692 /* MXMSearchFloorOperation.h in Headers */,
 				89865FA229E9262700E984A1 /* MGLMapView+MXMSwizzle.h in Headers */,
+				89C29CA42AE10F9200A3E841 /* NSObject+MXMThrottle.h in Headers */,
 				896BD8602A0C866C00ED8D9F /* MXMLogoButton.h in Headers */,
 				896BD85C2A0C7C0700ED8D9F /* MXMLogoView.h in Headers */,
 			);
@@ -842,6 +849,7 @@
 				89865F9529E9262700E984A1 /* MXMLevelModel.m in Sources */,
 				89865FC429E9262700E984A1 /* MapxusMap.m in Sources */,
 				89865FC629E9262700E984A1 /* MXMGeoPOI.m in Sources */,
+				89C29CA52AE10F9200A3E841 /* NSObject+MXMThrottle.m in Sources */,
 				89C9E1B02A39963800D93569 /* MXMFloorFoldButton.m in Sources */,
 				89865F9729E9262700E984A1 /* MXMDecider.m in Sources */,
 				89865F9429E9262700E984A1 /* MGLMapView+MXMSwizzle.m in Sources */,

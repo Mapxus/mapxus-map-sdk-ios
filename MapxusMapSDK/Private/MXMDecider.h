@@ -49,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMDecider : NSObject {
   NSSet *_lastForeFloorIds;
   NSSet *_lastRearFloorIds;
+  NSSet *_lastAllFloorIds;
+  NSSet *_lastExceptPoiIds;
   NSSet *_lastBuildingIds;
 }
 

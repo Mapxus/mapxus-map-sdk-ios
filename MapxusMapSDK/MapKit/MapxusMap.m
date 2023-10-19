@@ -21,6 +21,7 @@
 #import "MapxusMapDelegate.h"
 #import "KxMenu.h"
 #import "MXMSearchPOIOperation.h"
+#import "NSObject+MXMThrottle.h"
 
 @implementation MapxusMap
 
@@ -183,6 +184,10 @@
 
 - (void)automaticAnalyseOfIndoorData
 {
+  [self mxm_performSelector:@selector(_automaticAnalyseOfIndoorData) withThrottle:1];
+}
+
+- (void)_automaticAnalyseOfIndoorData {
   _regionBecomeIdle = NO;
   [self idleAutomaticAnalyseOfIndoorData];
 }
@@ -457,7 +462,9 @@ didChangeIndoorSiteAccess:_isIndoor
     [_mapView.style filerRearLevelIds:filter.rearFloorIds];
   }
   // 过滤poi
-  [_mapView.style filerPoisOnLevelIds:filter.allFloorIds exceptPoiIds:filter.exceptPoiIds];
+  if (filter.allFloorIds && filter.exceptPoiIds) {
+    [_mapView.style filerPoisOnLevelIds:filter.allFloorIds exceptPoiIds:filter.exceptPoiIds];
+  }
   
   // 添加building遮罩层
   if (self.maskNonSelectedSite) {
