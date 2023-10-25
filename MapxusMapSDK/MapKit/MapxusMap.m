@@ -9,7 +9,6 @@
 #import <YYModel/YYModel.h>
 #import "MXMConstants.h"
 #import "MapxusMap+Private.h"
-#import "MXMMapServices+Private.h"
 #import "MGLMapView+MXMSwizzle.h"
 #import "MXMPointAnnotation+Private.h"
 #import "MGLStyle+MXMFilter.h"
@@ -907,27 +906,25 @@ didChangeIndoorSiteAccess:_isIndoor
 
 - (void)setMapSytle:(MXMStyle)style
 {
-  [[MXMMapServices sharedServices] getTokenComplete:^(NSString *token) {
-    switch (style) {
-      case MXMStyleCOMMON:
-        [self setMapStyleWithName:@"common_mims2_v1"];
-        break;
-      case MXMStyleCHRISTMAS:
-        [self setMapStyleWithName:@"christmas_mims2_v1"];
-        break;
-      case MXMStyleHALLOWMAS:
-        [self setMapStyleWithName:@"halloween_mims2_v1"];
-        break;
-      case MXMStyleMAPPYBEE:
-        [self setMapStyleWithName:@"mappybee_mims2_v2"];
-        break;
-      case MXMStyleMAPXUS:
-        [self setMapStyleWithName:@"mapxus_mims2_v4"];
-        break;
-      default:
-        break;
-    }
-  }];
+  switch (style) {
+    case MXMStyleCOMMON:
+      [self setMapStyleWithName:@"common_mims2_v1"];
+      break;
+    case MXMStyleCHRISTMAS:
+      [self setMapStyleWithName:@"christmas_mims2_v1"];
+      break;
+    case MXMStyleHALLOWMAS:
+      [self setMapStyleWithName:@"halloween_mims2_v1"];
+      break;
+    case MXMStyleMAPPYBEE:
+      [self setMapStyleWithName:@"mappybee_mims2_v2"];
+      break;
+    case MXMStyleMAPXUS:
+      [self setMapStyleWithName:@"mapxus_mims2_v4"];
+      break;
+    default:
+      break;
+  }
 }
 
 - (void)setMapStyleWithName:(NSString *)styleName {
