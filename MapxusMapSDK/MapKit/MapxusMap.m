@@ -184,7 +184,11 @@
 
 - (void)automaticAnalyseOfIndoorData
 {
-  [self mxm_performSelector:@selector(_automaticAnalyseOfIndoorData) withThrottle:1];
+  if (_mapView.userTrackingMode != MGLUserTrackingModeFollowWithHeading) {
+    [self _automaticAnalyseOfIndoorData];
+  } else {
+    [self mxm_performSelector:@selector(_automaticAnalyseOfIndoorData) withThrottle:0.5];
+  }
 }
 
 - (void)_automaticAnalyseOfIndoorData {
