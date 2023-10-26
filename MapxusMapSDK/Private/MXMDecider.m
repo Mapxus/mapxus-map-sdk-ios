@@ -295,6 +295,8 @@
 - (void)cleanHistory {
   _lastForeFloorIds = nil;
   _lastRearFloorIds = nil;
+  _lastAllFloorIds = nil;
+  _lastExceptPoiIds = nil;
   _lastBuildingIds = nil;
 }
 
@@ -442,24 +444,33 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
   }
   
   // 过滤前景
-  if ((foreFloorIds.count == 0 && _lastForeFloorIds.count != 0) || ![foreFloorIds isSubsetOfSet:_lastForeFloorIds] || self.isMapReload) {
-    filter.foreFloorIds = [foreFloorIds allObjects];
-  }
+  if (
+      _lastForeFloorIds == nil ||
+      (foreFloorIds.count == 0 && _lastForeFloorIds.count != 0) ||
+      ![foreFloorIds isSubsetOfSet:_lastForeFloorIds] ||
+      self.isMapReload
+      ) {
+        filter.foreFloorIds = [foreFloorIds allObjects];
+      }
   // 过滤后景
-  if ((rearFloorIds.count == 0 && _lastRearFloorIds.count != 0) || ![rearFloorIds isSubsetOfSet:_lastRearFloorIds] || self.isMapReload) {
-    filter.rearFloorIds = [rearFloorIds allObjects];
-  }
+  if (
+      _lastRearFloorIds == nil ||
+      ![rearFloorIds isEqualToSet:_lastRearFloorIds] ||
+      self.isMapReload
+      ) {
+        filter.rearFloorIds = [rearFloorIds allObjects];
+      }
   
   NSMutableSet *allFloorIds = [NSMutableSet set];
   [allFloorIds unionSet:foreFloorIds];
   [allFloorIds unionSet:rearFloorIds];
   // 计算后景中需要去除的POI
   NSSet *exceptPoiIds = [self findCoverPoiWithLevelIds:foreFloorIds rearLevelIds:rearFloorIds];
+  // 添加_lastxxx == nil是为了防止[- isSubsetOfSet:]传入nil
+  BOOL allFloorSetChange = _lastAllFloorIds == nil || (allFloorIds.count == 0 && _lastAllFloorIds.count != 0) || ![allFloorIds isSubsetOfSet:_lastAllFloorIds];
+  BOOL exceptPoiSetChange = _lastExceptPoiIds == nil || ![exceptPoiIds isEqualToSet:_lastExceptPoiIds];
   
-  BOOL allFloorSetChange = (allFloorIds.count == 0 && _lastAllFloorIds.count != 0) || ![allFloorIds isSubsetOfSet:_lastAllFloorIds];
-  BOOL exceptPoiSetChange = (exceptPoiIds.count == 0 && _lastExceptPoiIds.count != 0) || ![exceptPoiIds isSubsetOfSet:_lastExceptPoiIds];
-  
-  if (allFloorSetChange || exceptPoiSetChange || self.isMapReload) {
+  if (self.isMapReload || allFloorSetChange || exceptPoiSetChange) {
     filter.allFloorIds = [allFloorIds allObjects];
     filter.exceptPoiIds = [exceptPoiIds allObjects];
   }
