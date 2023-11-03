@@ -30,6 +30,9 @@
 		891BDBFB2ABC26A90053767E /* MXMFilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 891BDBF92ABC26A90053767E /* MXMFilterModel.m */; };
 		892933202A247AF8003C0DE6 /* MXMBorderStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		892933212A247AF8003C0DE6 /* MXMBorderStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */; };
+		8952F96A2AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 8952F9682AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.h */; };
+		8952F96B2AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8952F9692AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.m */; };
+		8952F96D2AE7C8BC00D3DBA6 /* MXMURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 8952F96C2AE7C8BC00D3DBA6 /* MXMURLProtocol.h */; };
 		896BD7F829F2610300ED8D9F /* MXMAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BD7F729F2610300ED8D9F /* MXMAlertController.m */; };
 		896BD85C2A0C7C0700ED8D9F /* MXMLogoView.h in Headers */ = {isa = PBXBuildFile; fileRef = 896BD85A2A0C7C0700ED8D9F /* MXMLogoView.h */; };
 		896BD85D2A0C7C0700ED8D9F /* MXMLogoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 896BD85B2A0C7C0700ED8D9F /* MXMLogoView.m */; };
@@ -47,7 +50,6 @@
 		89865F8729E9262700E984A1 /* JXJsonFunctionDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F3329E9262700E984A1 /* JXJsonFunctionDefine.h */; };
 		89865F8829E9262700E984A1 /* MXMLoggerService.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F3429E9262700E984A1 /* MXMLoggerService.h */; };
 		89865F8929E9262700E984A1 /* NSString+Compare.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F3529E9262700E984A1 /* NSString+Compare.h */; };
-		89865F8A29E9262700E984A1 /* MXMMapServices+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F3629E9262700E984A1 /* MXMMapServices+Private.h */; };
 		89865F8B29E9262700E984A1 /* MXMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F3729E9262700E984A1 /* MXMConstants.h */; };
 		89865F8C29E9262700E984A1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89865F3929E9262700E984A1 /* Localizable.strings */; };
 		89865F8D29E9262700E984A1 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89865F3E29E9262700E984A1 /* images.xcassets */; };
@@ -151,6 +153,9 @@
 		891BDBF92ABC26A90053767E /* MXMFilterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMFilterModel.m; sourceTree = "<group>"; };
 		8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMBorderStyle.h; sourceTree = "<group>"; };
 		8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMBorderStyle.m; sourceTree = "<group>"; };
+		8952F9682AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGLNetworkConfiguration+MXMSwizzle.h"; sourceTree = "<group>"; };
+		8952F9692AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MGLNetworkConfiguration+MXMSwizzle.m"; sourceTree = "<group>"; };
+		8952F96C2AE7C8BC00D3DBA6 /* MXMURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMURLProtocol.h; sourceTree = "<group>"; };
 		896BD7F729F2610300ED8D9F /* MXMAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMAlertController.m; sourceTree = "<group>"; };
 		896BD7F929F2614500ED8D9F /* MXMAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMAlertController.h; sourceTree = "<group>"; };
 		896BD8582A0BA21000ED8D9F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -173,7 +178,6 @@
 		89865F3329E9262700E984A1 /* JXJsonFunctionDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXJsonFunctionDefine.h; sourceTree = "<group>"; };
 		89865F3429E9262700E984A1 /* MXMLoggerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMLoggerService.h; sourceTree = "<group>"; };
 		89865F3529E9262700E984A1 /* NSString+Compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Compare.h"; sourceTree = "<group>"; };
-		89865F3629E9262700E984A1 /* MXMMapServices+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MXMMapServices+Private.h"; sourceTree = "<group>"; };
 		89865F3729E9262700E984A1 /* MXMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMConstants.h; sourceTree = "<group>"; };
 		89865F3A29E9262700E984A1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		89865F3B29E9262700E984A1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -409,11 +413,11 @@
 		89865F3129E9262700E984A1 /* FoundationKit */ = {
 			isa = PBXGroup;
 			children = (
+				8952F96C2AE7C8BC00D3DBA6 /* MXMURLProtocol.h */,
 				89865F3229E9262700E984A1 /* MXMHttpManager.h */,
 				89865F3329E9262700E984A1 /* JXJsonFunctionDefine.h */,
 				89865F3429E9262700E984A1 /* MXMLoggerService.h */,
 				89865F3529E9262700E984A1 /* NSString+Compare.h */,
-				89865F3629E9262700E984A1 /* MXMMapServices+Private.h */,
 				89865F3729E9262700E984A1 /* MXMConstants.h */,
 			);
 			path = FoundationKit;
@@ -446,6 +450,8 @@
 			children = (
 				89865F5529E9262700E984A1 /* MGLMapView+MXMSwizzle.h */,
 				89865F4729E9262700E984A1 /* MGLMapView+MXMSwizzle.m */,
+				8952F9682AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.h */,
+				8952F9692AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.m */,
 				89865F5629E9262700E984A1 /* MXMCacheManager.h */,
 				89865F4C29E9262700E984A1 /* MXMCacheManager.m */,
 				89865F4D29E9262700E984A1 /* MXMDataQuerier.h */,
@@ -596,15 +602,16 @@
 				89865F9229E9262700E984A1 /* MXMCommonObj.h in Headers */,
 				89C9E1C32A3AE20500D93569 /* MXMSDKBundle.h in Headers */,
 				89865F8F29E9262700E984A1 /* MXMSearchAPI.h in Headers */,
+				8952F96A2AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.h in Headers */,
 				89B2EB7C2A284E1200A369E4 /* MXMSite.h in Headers */,
 				89865F9829E9262700E984A1 /* MXMGeoVenue.h in Headers */,
 				892933202A247AF8003C0DE6 /* MXMBorderStyle.h in Headers */,
-				89865F8A29E9262700E984A1 /* MXMMapServices+Private.h in Headers */,
 				89865FB529E9262700E984A1 /* MXMSearchBuildingOperation.h in Headers */,
 				89865FC729E9262700E984A1 /* MXMPointAnnotation+Private.h in Headers */,
 				89C9E1AF2A39963800D93569 /* MXMFloorFoldButton.h in Headers */,
 				89865F8729E9262700E984A1 /* JXJsonFunctionDefine.h in Headers */,
 				89C9E1C72A3AE3FE00D93569 /* UIImage+MXMSdk.h in Headers */,
+				8952F96D2AE7C8BC00D3DBA6 /* MXMURLProtocol.h in Headers */,
 				89865F9A29E9262700E984A1 /* MXMDataQuerier.h in Headers */,
 				89865FB029E9262700E984A1 /* KxMenu.h in Headers */,
 				89865F8929E9262700E984A1 /* NSString+Compare.h in Headers */,
@@ -883,6 +890,7 @@
 				89865FC929E9262700E984A1 /* MXMGeoBuilding.m in Sources */,
 				89C9E1BC2A3996BE00D93569 /* MXMFloorBarCell.m in Sources */,
 				89865F8E29E9262700E984A1 /* MXMCommonObj.m in Sources */,
+				8952F96B2AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.m in Sources */,
 				89865FB429E9262700E984A1 /* MXMSearchPOIOperation.m in Sources */,
 				891BDBFB2ABC26A90053767E /* MXMFilterModel.m in Sources */,
 			);
