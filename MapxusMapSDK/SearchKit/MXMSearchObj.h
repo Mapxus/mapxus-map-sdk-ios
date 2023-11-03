@@ -199,6 +199,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 /// The ID of building which you want to search in
 @property (nonatomic, strong, nullable) NSString *buildingId;
+
+@property (nonatomic, strong, nullable) NSNumber *floorOrdinal;
 /// The centre of circular area search
 @property (nonatomic, strong, nullable) MXMGeoPoint *center;
 /// This parameter is used in the POI orientation search and represents the radius distance in meters. The maximum radius distance cannot exceed 100m.

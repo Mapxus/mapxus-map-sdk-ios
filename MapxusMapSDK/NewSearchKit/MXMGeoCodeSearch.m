@@ -26,6 +26,12 @@
         if (self.delegate && [self.delegate respondsToSelector:@selector(onGetReverseGeoCode:result:error:)]) {
             MXMReverseGeoCodeSearchResult *result = [MXMReverseGeoCodeSearchResult yy_modelWithJSON:content];
             if (result.building && result.floor) {
+                NSNumber *level = dic[@"ordinalFloor"];
+                if (level) {
+                  MXMOrdinal *ordinal = [[MXMOrdinal alloc] init];
+                  ordinal.level = level.integerValue;
+                  result.floor.ordinal = ordinal;
+                }
                 [self.delegate onGetReverseGeoCode:self result:result error:nil];
             } else {
                 NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSKeyValueValidationError userInfo:@{NSLocalizedDescriptionKey:@"Result is null."}];

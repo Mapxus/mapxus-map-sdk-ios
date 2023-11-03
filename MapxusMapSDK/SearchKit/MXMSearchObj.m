@@ -124,6 +124,13 @@
 
 
 @implementation MXMOrientationPOISearchRequest
+
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{
+            @"floorOrdinal" : @[@"ordinal"],
+             };
+}
+
 @end
 
 @implementation MXMOrientationPOISearchResponse
