@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CGBase.h>
 #import <MapxusMapSDK/MXMDefine.h>
+#import <CoreLocation/CLLocation.h>
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -123,6 +124,13 @@ NS_ASSUME_NONNULL_BEGIN
                                   minLongitude:(double)min_lng
                                    maxLatitude:(double)max_lat
                                   maxLongitude:(double)max_lng;
+
+
++ (nullable MXMBoundingBox *)boundingBoxWithPoints:(NSArray<MXMGeoPoint *> *)points;
+
+- (BOOL)contains:(CLLocationCoordinate2D)coordinate ignoreBoundary:(BOOL)ignoreBoundary;
+
+
 @end
 
 

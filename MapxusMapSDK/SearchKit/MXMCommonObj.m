@@ -137,6 +137,42 @@
     return box;
 }
 
++ (nullable MXMBoundingBox *)boundingBoxWithPoints:(NSArray<MXMGeoPoint *> *)points {
+  if (points.count == 0) {
+    return nil;
+  }
+  
+  MXMGeoPoint *firstPoint = points.firstObject;
+  
+  MXMBoundingBox *bbox = [[MXMBoundingBox alloc] init];
+  bbox.min_latitude = firstPoint.latitude;
+  bbox.max_latitude = firstPoint.latitude;
+  bbox.min_longitude = firstPoint.longitude;
+  bbox.max_longitude = firstPoint.longitude;
+  
+  for (MXMGeoPoint *point in points) {
+    bbox.min_latitude = MIN(point.latitude, bbox.min_latitude);
+    bbox.max_latitude = MAX(point.latitude, bbox.max_latitude);
+    bbox.min_longitude = MIN(point.longitude, bbox.min_longitude);
+    bbox.max_longitude = MAX(point.longitude, bbox.max_longitude);
+  }
+  return bbox;
+}
+
+- (BOOL)contains:(CLLocationCoordinate2D)coordinate ignoreBoundary:(BOOL)ignoreBoundary {
+  if (ignoreBoundary) {
+    return self.min_latitude < coordinate.latitude
+    && self.max_latitude > coordinate.latitude
+    && self.min_longitude < coordinate.longitude
+    && self.max_longitude > coordinate.longitude;
+  } else {
+    return self.min_latitude <= coordinate.latitude
+    && self.max_latitude >= coordinate.latitude
+    && self.min_longitude <= coordinate.longitude
+    && self.max_longitude >= coordinate.longitude;
+  }
+}
+
 
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"min_latitude" : @[@"min_latitude", @"minLat"],

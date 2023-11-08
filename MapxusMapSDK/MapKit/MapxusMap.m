@@ -248,7 +248,7 @@
                                                 [self.delegate respondsToSelector:@selector(map:didSingleTapOnBlank:atSite:)]
                                                 );
   if (self.gestureSwitchingBuilding || hasSiteRetureMethods) {
-    floorFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+    floorFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point pointCoordinate:coor];
   }
   
   /////////////////////////////////////////////////////
@@ -314,7 +314,7 @@
       if ([self.delegate respondsToSelector:@selector(mapView:didLongPressedAtCoordinate:onFloor:inBuilding:)] ||
           [self.delegate respondsToSelector:@selector(map:didLongPressAtCoordinate:atSite:)]) {
         
-        NSArray<MXMLevelModel *> *floorFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point];
+        NSArray<MXMLevelModel *> *floorFeatures = [self.dataQueryer findOutFloorFeaturesAtPoint:point pointCoordinate:coor];
         MXMLevelModel *firstFloor = floorFeatures.firstObject;
         MXMSite *site = [self createSiteUsingLevelModel:firstFloor];
         
@@ -696,9 +696,10 @@ didChangeIndoorSiteAccess:_isIndoor
   if (!_mapView.showsUserLocation) {
     return;
   }
-  CGPoint locationPoint = [_mapView convertCoordinate:_mapView.userLocation.location.coordinate
+  CLLocationCoordinate2D coordinate = _mapView.userLocation.location.coordinate;
+  CGPoint locationPoint = [_mapView convertCoordinate:coordinate
                                         toPointToView:_mapView];
-  NSArray<MXMLevelModel *> *floorFeatures = [self.dataQueryer findOutAssistantFloorFeaturesAtPoint:locationPoint];
+  NSArray<MXMLevelModel *> *floorFeatures = [self.dataQueryer findOutAssistantFloorFeaturesAtPoint:locationPoint pointCoordinate:coordinate];
   
   CLFloor *localFloor = _mapView.userLocation.location.floor;
   UIView *locationView = [_mapView viewForAnnotation:_mapView.userLocation];
