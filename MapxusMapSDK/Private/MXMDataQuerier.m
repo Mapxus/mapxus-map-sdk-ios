@@ -12,6 +12,7 @@
 #import "JXJsonFunctionDefine.h"
 #import "MGLMapView+MXMSwizzle.h"
 #import "MapxusMap+Private.h"
+#import "MGLPolygon+MXMFuction.h"
 
 @interface MXMDataQuerier ()
 
@@ -214,33 +215,70 @@
 }
 
 - (NSArray<MXMLevelModel *> *)findOutFloorFeaturesAtPoint:(CGPoint)point
+                                          pointCoordinate:(CLLocationCoordinate2D)coordinate
 {
-  NSArray<id <MGLFeature>> *theForeFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:[NSSet setWithObject:@"mapxus-level-fill"] predicate:nil];
-  NSArray<id <MGLFeature>> *theRearFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:[NSSet setWithObject:@"mapxus-level-fill-mxmrear"] predicate:nil];
-  NSMutableArray<id <MGLFeature>> *theFeatures = [NSMutableArray arrayWithArray:theForeFeatures];
-  [theFeatures addObjectsFromArray:theRearFeatures];
-  NSMutableArray *list = [NSMutableArray array];
-  for (id <MGLFeature> feature in theFeatures) {
-    MXMLevelModel *model = [MXMLevelModel yy_modelWithJSON:feature.attributes];
-    if (model) {
-      [list addObject:model];
-    }
+  NSSet *layerIds = [NSSet setWithObjects:@"mapxus-level-fill", @"mapxus-level-fill-mxmrear", nil];
+  NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:layerIds predicate:nil];
+  if (theFeatures.count > 1) {
+    theFeatures = [self removePolygonByPointingAtHole:coordinate inPolygons:theFeatures];
   }
-  return list;
+  NSDictionary *dic = [self floorDeduplicationInFeatures:theFeatures];
+  return [dic allValues];
 }
 
 - (NSArray<MXMLevelModel *> *)findOutAssistantFloorFeaturesAtPoint:(CGPoint)point
+                                                   pointCoordinate:(CLLocationCoordinate2D)coordinate
 {
   NSSet *identifiers = [NSSet setWithObject:@"assistant-mapxus-level-fill"];
   NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:identifiers predicate:nil];
+  if (theFeatures.count > 1) {
+    theFeatures = [self removePolygonByPointingAtHole:coordinate inPolygons:theFeatures];
+  }
+  NSDictionary *dic = [self floorDeduplicationInFeatures:theFeatures];
+  return [dic allValues];
+}
+
+- (NSArray<id <MGLFeature>> *)removePolygonByPointingAtHole:(CLLocationCoordinate2D)point inPolygons:(NSArray<id <MGLFeature>> *)polygons {
   NSMutableArray *list = [NSMutableArray array];
-  for (id <MGLFeature> feature in theFeatures) {
-    MXMLevelModel *model = [MXMLevelModel yy_modelWithJSON:feature.attributes];
-    if (model) {
-      [list addObject:model];
+  
+  for (id <MGLFeature> feature in polygons) {
+    
+    if ([feature isKindOfClass:[MGLPolygon class]]) {
+      MGLPolygon *polygon = (MGLPolygon *)feature;
+      if ([self polygon:polygon containsPoint:point]) {
+        [list addObject:feature];
+      }
+    }
+    
+    else if ([feature isKindOfClass:[MGLMultiPolygon class]]) {
+      MGLMultiPolygon *multiPolygon = (MGLMultiPolygon *)feature;
+      BOOL inMultiPolygon = NO;
+      for (MGLPolygon *polygon in multiPolygon.polygons) {
+        if ([self polygon:polygon containsPoint:point]) {
+          inMultiPolygon = YES;
+          break;
+        }
+      }
+      if (inMultiPolygon) {
+        [list addObject:feature];
+      }
+    }
+    
+  }
+  return [list copy];
+}
+
+- (BOOL)polygon:(MGLPolygon *)polygon containsPoint:(CLLocationCoordinate2D)point {
+  BOOL inOuter = [polygon contains:point ignoreBoundary:NO];
+  BOOL inInner = NO;
+  for (MGLPolygon *p in polygon.interiorPolygons) {
+    if ([p contains:point ignoreBoundary:YES]) {
+      inInner = YES;
+      break;
     }
   }
-  return list;
+  return inOuter && !inInner;
 }
+
 
 @end

@@ -36,10 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary *)findOutPOIOnLevelIds:(NSArray *)levelIds;
 
 // 查询点击的楼层
-- (NSArray<MXMLevelModel *> *)findOutFloorFeaturesAtPoint:(CGPoint)point;
+- (NSArray<MXMLevelModel *> *)findOutFloorFeaturesAtPoint:(CGPoint)point                                           
+                                          pointCoordinate:(CLLocationCoordinate2D)coordinate;
 
 // 查询点上的所有level辅助信息
-- (NSArray<MXMLevelModel *> *)findOutAssistantFloorFeaturesAtPoint:(CGPoint)point;
+- (NSArray<MXMLevelModel *> *)findOutAssistantFloorFeaturesAtPoint:(CGPoint)point
+                                                   pointCoordinate:(CLLocationCoordinate2D)coordinate;
 
 @end
 

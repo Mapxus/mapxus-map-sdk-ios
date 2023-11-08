@@ -351,8 +351,10 @@ static void *mapKey = &mapKey;
 - (void)hook_mapView:(MGLMapView *)mapView didUpdateUserLocation:(MGLUserLocation *)userLocation
 {
   if ((mapView.userTrackingMode != MGLUserTrackingModeNone) && userLocation.location.floor) { // 跟随模式且有楼层数据
-    CGPoint locationPoint = [mapView convertCoordinate:userLocation.location.coordinate toPointToView:mapView];
-    NSArray<MXMLevelModel *> *floorFeatures = [mapView.mxmMap.dataQueryer findOutAssistantFloorFeaturesAtPoint:locationPoint];
+    CLLocationCoordinate2D coordinate = userLocation.location.coordinate;
+    CGPoint locationPoint = [mapView convertCoordinate:coordinate toPointToView:mapView];
+    NSArray<MXMLevelModel *> *floorFeatures = [mapView.mxmMap.dataQueryer findOutAssistantFloorFeaturesAtPoint:locationPoint
+                                                                                               pointCoordinate:coordinate];
     NSDictionary *buildingDic = [mapView.mxmMap.dataQueryer findOutBuildingAtPoint:locationPoint];
     MXMSite *info = [mapView.mxmMap.decider decideWithUserLocationLevel:userLocation.location.floor.level
                                                      atPointBuildingDic:buildingDic
