@@ -64,6 +64,7 @@ static CGFloat headerFooterHeight = 35.0;
   for (MXMFloorBarModel *model in models) {
     if (model.selected) {
       NSUInteger index = [models indexOfObject:model];
+      self.selectedRow = index;
       [self moveCellToVisibleArea:index];
       break;
     }
