@@ -74,7 +74,8 @@ static CGFloat headerFooterHeight = 35.0;
     // 系统版本低于13.0
     // 防止在iOS12.5.7系统中，更新列表后的cell错位
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-      if (self.dataList.count <= self.maxVisibleFloors) {
+      if (self.dataList.count > 0 &&
+          self.dataList.count <= self.maxVisibleFloors) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
       }
@@ -113,21 +114,22 @@ static CGFloat headerFooterHeight = 35.0;
   if (self.dataList.count <= self.maxVisibleFloors) {
     return;
   }
-//  if (index >= 0 && index < self.dataList.count) {
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//      NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-//      [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
-//    });
-//  }
   
-  // 在不可视范围才跳转
+  // 防止越界
   if (index >= 0 && index < self.dataList.count) {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     CGRect cellRect = [self.tableView rectForRowAtIndexPath:indexPath];
-    if ((self.tableView.contentOffset.y > cellRect.origin.y - headerFooterHeight)
-        || self.tableView.contentOffset.y + self.tableView.frame.size.height - cellRect.size.height - headerFooterHeight * 2 < cellRect.origin.y) {
+    if (CGRectIsEmpty(cellRect)) {
+      return;
+    }
+    
+    // 在不可视范围才跳转
+    if ((self.tableView.contentOffset.y > cellRect.origin.y - headerFooterHeight) ||
+        (self.tableView.contentOffset.y + self.tableView.frame.size.height - cellRect.size.height - headerFooterHeight * 2 < cellRect.origin.y)) {
       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        if (indexPath.row < [self.tableView numberOfRowsInSection:indexPath.section]) {
+          [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        }
       });
     }
   }
