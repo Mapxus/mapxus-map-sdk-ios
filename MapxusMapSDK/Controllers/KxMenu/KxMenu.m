@@ -364,7 +364,8 @@ typedef NS_ENUM(NSUInteger, KxMenuViewArrowDirection) {
 {
     _menuItems = menuItems;
     
-    _contentView = [self mkContentViewMaxHeight:CGRectGetHeight(view.frame)];
+    CGFloat maxWidth = CGRectGetWidth(view.frame) - 60;
+    _contentView = [self mkContentViewMaxWidth:maxWidth maxHeight:CGRectGetHeight(view.frame)/2];
     [self addSubview:_contentView];
     
     [self setupFrameInView:view fromRect:rect];
@@ -435,7 +436,7 @@ typedef NS_ENUM(NSUInteger, KxMenuViewArrowDirection) {
     [menuItem performAction];
 }
 
-- (UIView *) mkContentViewMaxHeight:(CGFloat)maxHeight
+- (UIView *) mkContentViewMaxWidth:(CGFloat)maxWidth maxHeight:(CGFloat)maxHeight
 {
     for (UIView *v in self.subviews) {
         [v removeFromSuperview];
@@ -469,12 +470,17 @@ typedef NS_ENUM(NSUInteger, KxMenuViewArrowDirection) {
     
     for (KxMenuItem *menuItem in _menuItems) {
 
-        const CGSize titleSize = [menuItem.title sizeWithAttributes:@{NSFontAttributeName:titleFont}];
+      const CGRect titleSize = [menuItem.title boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                                            options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                                         attributes:@{NSFontAttributeName:titleFont}
+                                                            context:nil];
         const CGSize imageSize = menuItem.image.size;
 
-        const CGFloat itemHeight = MAX(titleSize.height, imageSize.height) + kMarginY * 2;
-        const CGFloat itemWidth = ((!menuItem.enabled && !menuItem.image) ? titleSize.width : maxImageWidth + titleSize.width) + kMarginX * 4;
+        const CGFloat itemHeight = MAX(titleSize.size.height, imageSize.height) + kMarginY * 2;
+      // 因不使用图片，去除图片边距
+        const CGFloat itemWidth = ceil(((!menuItem.enabled && !menuItem.image) ? titleSize.size.width : maxImageWidth + titleSize.size.width) + kMarginX * 2);
         
+        menuItem.itemHeight = MAX(itemHeight, kMinMenuItemHeight);
         if (itemHeight > maxItemHeight)
             maxItemHeight = itemHeight;
         
@@ -499,10 +505,12 @@ typedef NS_ENUM(NSUInteger, KxMenuViewArrowDirection) {
     NSUInteger itemNum = 0;
         
     for (KxMenuItem *menuItem in _menuItems) {
-                
-        const CGRect itemFrame = (CGRect){0, itemY, maxItemWidth, maxItemHeight};
+        double height = menuItem.itemHeight;
+        const CGRect itemFrame = (CGRect){0, itemY, maxItemWidth, height};
         
         UIButton *itemView = [UIButton buttonWithType:UIButtonTypeCustom];
+        itemView.titleLabel.numberOfLines = 0;
+        itemView.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
         itemView.tag = itemNum;
         itemView.frame = itemFrame;
         itemView.enabled = menuItem.enabled;
@@ -519,10 +527,10 @@ typedef NS_ENUM(NSUInteger, KxMenuViewArrowDirection) {
         itemView.titleLabel.font = titleFont;
         if (menuItem.alignment == NSTextAlignmentLeft) {
             itemView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            itemView.contentEdgeInsets = UIEdgeInsetsMake(0, 18, 0, -18);
+            itemView.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
         } else {
             itemView.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
-            itemView.contentEdgeInsets = UIEdgeInsetsMake(0, -18, 0, 18);
+            itemView.contentEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
         }
         [itemView setTitle:menuItem.title forState:UIControlStateNormal];
         [itemView setTitleColor:(menuItem.foreColor ? menuItem.foreColor : [UIColor lightGrayColor]) forState:UIControlStateNormal];
@@ -544,7 +552,7 @@ typedef NS_ENUM(NSUInteger, KxMenuViewArrowDirection) {
             [itemView addSubview:imageView];
         }
         
-        itemY += maxItemHeight;
+        itemY += height;
         ++itemNum;
     }    
     

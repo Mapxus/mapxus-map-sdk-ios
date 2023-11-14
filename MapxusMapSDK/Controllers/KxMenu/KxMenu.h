@@ -44,6 +44,7 @@
 @property (readwrite, nonatomic) SEL action;
 @property (readwrite, nonatomic, strong) UIColor *foreColor;
 @property (readwrite, nonatomic) NSTextAlignment alignment;
+@property (readwrite, nonatomic, assign) double itemHeight;
 
 + (instancetype) menuItem:(NSString *)title
                identifier:(NSString *)identifier
