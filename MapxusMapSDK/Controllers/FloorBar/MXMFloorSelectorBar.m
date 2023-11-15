@@ -392,6 +392,10 @@ static CGFloat headerFooterHeight = 35.0;
     [_tableView registerClass:[MXMFloorBarHeaderFooterView class]
 forHeaderFooterViewReuseIdentifier:[MXMFloorBarHeaderFooterView headerFooterIdentifier]];
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    if (@available(iOS 11.0, *)) {
+      _tableView.insetsContentViewsToSafeArea = NO;
+      _tableView.insetsLayoutMarginsFromSafeArea = NO;
+    }
   }
   return _tableView;
 }
