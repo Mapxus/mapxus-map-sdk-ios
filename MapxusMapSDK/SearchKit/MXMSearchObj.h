@@ -187,7 +187,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- Given the map deflection angle, search for nearby POI points and derive the orientation of the POI points with respect to the direction of the phone
+ This interface is provided to allow developers to conveniently query POIs near a location and their orientation relative to the user. The parameters angle,
+ distanceSearchType, center, and distance are required. One of the following must also be provided: floorId, buildingId, or floorOrdinal.
+ * If floorId is provided, POIs will only be searched for on the specified floor.
+ * If buildingId is provided, POIs will be searched for in all floors of the specified building.
+ * If floorOrdinal is provided, the venue will be determined using center and floorOrdinal, and POIs will be searched for in all buildings of the venue on floors with the same floorOrdinal.
+ Please note that distance refers to the two-dimensional straight-line distance on the map during the search process.
  */
 @interface MXMOrientationPOISearchRequest : NSObject
 /// Clockwise angle from true north of the map to where the phone is pointing, takes values in the range [0,359]
@@ -197,11 +202,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// The ID of floor which you want to search in, if it is not nil, the buildingId will be disregarded.
 @property (nonatomic, copy, nullable) NSString *floorId;
 @property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
-/// The ID of building which you want to search in
+/// The ID of building which you want to search in.
 @property (nonatomic, strong, nullable) NSString *buildingId;
-
+/// Search for the actual building height of the location, take the level value of the CLFloor.
 @property (nonatomic, strong, nullable) NSNumber *floorOrdinal;
-/// The centre of circular area search
+/// The centre of circular area search, just use latitude and longitude.
 @property (nonatomic, strong, nullable) MXMGeoPoint *center;
 /// This parameter is used in the POI orientation search and represents the radius distance in meters. The maximum radius distance cannot exceed 100m.
 @property (nonatomic, assign) NSUInteger distance;
