@@ -191,7 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
  distanceSearchType, center, and distance are required. One of the following must also be provided: floorId, buildingId, or floorOrdinal.
  * If floorId is provided, POIs will only be searched for on the specified floor.
  * If buildingId is provided, POIs will be searched for in all floors of the specified building.
- * If floorOrdinal is provided, the venue will be determined using center and floorOrdinal, and POIs will be searched for in all buildings of the venue on floors with the same floorOrdinal.
+ * If floorOrdinal is provided, the venue will be determined using center and floorOrdinal, and POIs will be searched for in all buildings of the venue on floors with the same ordinal.
  Please note that distance refers to the two-dimensional straight-line distance on the map during the search process.
  */
 @interface MXMOrientationPOISearchRequest : NSObject
