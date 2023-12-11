@@ -108,6 +108,7 @@
 		89865FCB29E9262700E984A1 /* MXMPointAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F8429E9262700E984A1 /* MXMPointAnnotation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89865FCC29E9262700E984A1 /* MapxusMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F8529E9262700E984A1 /* MapxusMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89865FF229E9345B00E984A1 /* Mapbox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89865FF129E9345B00E984A1 /* Mapbox.xcframework */; };
+		898E9BF72B2056FC00345D0C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 898E9BF62B2056FC00345D0C /* PrivacyInfo.xcprivacy */; };
 		89B2EB7C2A284E1200A369E4 /* MXMSite.h in Headers */ = {isa = PBXBuildFile; fileRef = 89B2EB7A2A284E1200A369E4 /* MXMSite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89B2EB7D2A284E1200A369E4 /* MXMSite.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B2EB7B2A284E1200A369E4 /* MXMSite.m */; };
 		89C29CA42AE10F9200A3E841 /* NSObject+MXMThrottle.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C29CA22AE10F9200A3E841 /* NSObject+MXMThrottle.h */; };
@@ -253,6 +254,7 @@
 		89865FDB29E9273F00E984A1 /* AutoBuild.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = AutoBuild.sh; sourceTree = "<group>"; };
 		89865FDC29E9273F00E984A1 /* IOS-Universal-Framework_aggregate.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "IOS-Universal-Framework_aggregate.sh"; sourceTree = "<group>"; };
 		89865FF129E9345B00E984A1 /* Mapbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Mapbox.xcframework; path = Pods/MapxusRenderSDK/Mapbox.xcframework; sourceTree = "<group>"; };
+		898E9BF62B2056FC00345D0C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		89B2EB7A2A284E1200A369E4 /* MXMSite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSite.h; sourceTree = "<group>"; };
 		89B2EB7B2A284E1200A369E4 /* MXMSite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSite.m; sourceTree = "<group>"; };
 		89C29CA22AE10F9200A3E841 /* NSObject+MXMThrottle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+MXMThrottle.h"; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 			children = (
 				89865F3929E9262700E984A1 /* Localizable.strings */,
 				89865F3E29E9262700E984A1 /* images.xcassets */,
+				898E9BF62B2056FC00345D0C /* PrivacyInfo.xcprivacy */,
 			);
 			path = MapxusBundle;
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				898E9BF72B2056FC00345D0C /* PrivacyInfo.xcprivacy in Resources */,
 				89865F8C29E9262700E984A1 /* Localizable.strings in Resources */,
 				89865F8D29E9262700E984A1 /* images.xcassets in Resources */,
 			);
