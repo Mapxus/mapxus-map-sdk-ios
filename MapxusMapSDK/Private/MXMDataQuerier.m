@@ -217,13 +217,24 @@
 - (NSArray<MXMLevelModel *> *)findOutFloorFeaturesAtPoint:(CGPoint)point
                                           pointCoordinate:(CLLocationCoordinate2D)coordinate
 {
-  NSSet *layerIds = [NSSet setWithObjects:@"mapxus-level-fill", @"mapxus-level-fill-mxmrear", nil];
-  NSArray<id <MGLFeature>> *theFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:layerIds predicate:nil];
+  // 分开两个获取队列是为了让点击重叠楼层时先获取上层的对象
+  NSArray<id <MGLFeature>> *theForeFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:[NSSet setWithObject:@"mapxus-level-fill"] predicate:nil];
+  NSArray<id <MGLFeature>> *theRearFeatures = [self.mapView visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:[NSSet setWithObject:@"mapxus-level-fill-mxmrear"] predicate:nil];
+  NSMutableArray<id <MGLFeature>> *mutFeatures = [NSMutableArray arrayWithArray:theForeFeatures];
+  [mutFeatures addObjectsFromArray:theRearFeatures];
+  NSArray *theFeatures = [mutFeatures copy];
   if (theFeatures.count > 1) {
     theFeatures = [self removePolygonByPointingAtHole:coordinate inPolygons:theFeatures];
   }
-  NSDictionary *dic = [self floorDeduplicationInFeatures:theFeatures];
-  return [dic allValues];
+  // 为了让点击重叠楼层时先获取上层的对象，不能使用字典去重
+  NSMutableArray *list = [NSMutableArray array];
+  for (id <MGLFeature> feature in theFeatures) {
+    MXMLevelModel *model = [MXMLevelModel yy_modelWithJSON:feature.attributes];
+    if (model) {
+      [list addObject:model];
+    }
+  }
+  return [list copy];
 }
 
 - (NSArray<MXMLevelModel *> *)findOutAssistantFloorFeaturesAtPoint:(CGPoint)point
