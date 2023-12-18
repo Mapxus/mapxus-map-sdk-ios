@@ -1,6 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 platform :ios, '9.0'
 
+source 'https://github.com/Mapxus/mapxusSpecs.git'
 source 'https://nexus3.mapxus.com/repository/cocoapods-proxy/'
 
 use_frameworks!

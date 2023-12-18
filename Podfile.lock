@@ -1,20 +1,20 @@
 PODS:
-  - AFNetworking/NSURLSession (4.0.1):
+  - AFNetworking/NSURLSession (4.0.2):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (4.0.1)
-  - AFNetworking/Security (4.0.1)
-  - AFNetworking/Serialization (4.0.1)
-  - MapxusBaseSDK (6.4.0):
-    - AFNetworking/NSURLSession (~> 4.0)
-    - AFNetworking/Reachability (~> 4.0)
-    - AFNetworking/Security (~> 4.0)
-    - AFNetworking/Serialization (~> 4.0)
-    - YYModel (~> 1.0.4)
+  - AFNetworking/Reachability (4.0.2)
+  - AFNetworking/Security (4.0.2)
+  - AFNetworking/Serialization (4.0.2)
+  - MapxusBaseSDK (6.5.0):
+    - AFNetworking/NSURLSession (~> 4.0.2)
+    - AFNetworking/Reachability (~> 4.0.2)
+    - AFNetworking/Security (~> 4.0.2)
+    - AFNetworking/Serialization (~> 4.0.2)
+    - YYModel (~> 1.0.5)
   - MapxusRenderSDK (5.13.0)
   - OCMock (3.9.1)
-  - YYModel (1.0.4)
+  - YYModel (1.0.5)
 
 DEPENDENCIES:
   - MapxusBaseSDK (from `../mapxus-base-sdk-ios`)
@@ -22,23 +22,24 @@ DEPENDENCIES:
   - OCMock
 
 SPEC REPOS:
-  https://nexus3.mapxus.com/repository/cocoapods-proxy/:
+  https://github.com/Mapxus/mapxusSpecs.git:
     - AFNetworking
     - MapxusRenderSDK
-    - OCMock
     - YYModel
+  https://nexus3.mapxus.com/repository/cocoapods-proxy/:
+    - OCMock
 
 EXTERNAL SOURCES:
   MapxusBaseSDK:
     :path: "../mapxus-base-sdk-ios"
 
 SPEC CHECKSUMS:
-  AFNetworking: e27fa2d9d7b9bd6cc4279ee0be09d063d5d9eef6
-  MapxusBaseSDK: 94a150abae39fed3fed10541cebde69dab133e3e
-  MapxusRenderSDK: 84e25a67b7b5fa4ed5c550fe0641ec3bdf291328
+  AFNetworking: 24bbe15bca5f5c108a34a2608c8efd9d548ee884
+  MapxusBaseSDK: f7fecd4295b0b229f1dc0ed3526ea447e70dd744
+  MapxusRenderSDK: 9afa40a07888b84ffe8ccb03b53958fb9e670def
   OCMock: 4628711eed9bee458e888367149f521b68f56f35
-  YYModel: 47e490c065087c7c7ca264de8f2b418b28e77371
+  YYModel: 035c452ebe1aca91282aa570739c55f3d5e1b16e
 
-PODFILE CHECKSUM: 135e68a234b3ae7fe44b088de5c2b92121c91974
+PODFILE CHECKSUM: 693bcb85a86f81e60e98de578ddb231d91867e16
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.14.3
