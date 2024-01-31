@@ -12,6 +12,9 @@
 #import "MXMConstants.h"
 #import "JXJsonFunctionDefine.h"
 
+// 根据[SDK-854] 【iOS】SDK增加對歷史定位ordinal進行缓存，修改请求导航路线方法和路线吸附方法，定义全局变量作为室外定位时的默认与历史楼层记录
+NSInteger historyFloor = 0;
+
 @implementation MXMGeoCodeSearch
 
 - (NSInteger)reverseGeoCode:(MXMReverseGeoCodeSearchOption *)reverseGeoCodeOption
@@ -21,6 +24,10 @@
     dic[@"lat"] = @(reverseGeoCodeOption.location.latitude);
     dic[@"lon"] = @(reverseGeoCodeOption.location.longitude);
     dic[@"ordinalFloor"] = reverseGeoCodeOption.floorOrdinal ? : reverseGeoCodeOption.ordinalFloor;
+    // 根据[SDK-854] 【iOS】SDK增加對歷史定位ordinal進行缓存，修改请求导航路线方法和路线吸附方法，当用户没有传入ordinal时，把历史或默认值填入以增强解析体验
+    if (dic[@"ordinalFloor"] == nil) {
+      dic[@"ordinalFloor"] = @(historyFloor);
+    }
 
     NSURLSessionTask *task = [MXMHttpManager MXMGET:url parameters:dic success:^(NSDictionary *content) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(onGetReverseGeoCode:result:error:)]) {
