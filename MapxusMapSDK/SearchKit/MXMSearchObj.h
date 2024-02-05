@@ -197,7 +197,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMOrientationPOISearchRequest : NSObject
 /// Clockwise angle from true north of the map to where the phone is pointing, takes values in the range [0,359]
 @property (nonatomic, assign) NSUInteger angle;
-/// Distance search type (default: Point). Point: finds POI points contained in a circle with center and distance as radius; polygon: finds POI information for rooms intersected by a circle with center and distance as radius
+/// Distance search type (default: Point). Point: finds POI points contained in a circle with center and distance as radius;
+/// Polygon: finds POI information for rooms intersected by a circle with center and distance as radius;
+/// Gate: Locate POIs whose entrances are situated within the specified search radius.
 @property (nonatomic, strong, nullable) NSString *distanceSearchType;
 /// The ID of floor which you want to search in, if it is not nil, the buildingId will be disregarded.
 @property (nonatomic, copy, nullable) NSString *floorId;
