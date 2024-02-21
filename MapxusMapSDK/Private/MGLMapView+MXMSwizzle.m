@@ -130,8 +130,23 @@ static void *mapKey = &mapKey;
     [style insertLayer:assistantLevelLine belowLayer:topLayer];
     [style outLineLevelBorderStyle:mapView.mxmMap.selectedBuildingBorderStyle];
     // --插入高亮外框层
-
   }
+  
+  // 创建原始过滤条件列表
+  NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+  for (MGLStyleLayer *k in style.layers) {
+    // 过滤不需要处理的layer
+    if (![k isKindOfClass:[MGLVectorStyleLayer class]]) {
+      continue;
+    }
+    NSString *ident = k.identifier;
+    if (![ident hasPrefix:@"mapxus"]) {
+      continue;
+    }
+    MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
+    dic[ident] = vk.predicate;
+  }
+  style.originalPredicateDic = dic;
   
   // 加载后全部室内结构隐藏或者重新过滤更换style之前的选择
   [mapView.mxmMap cleanMapSelected];

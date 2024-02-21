@@ -6,9 +6,18 @@
 //  Copyright © 2018年 MAPHIVE TECHNOLOGY LIMITED. All rights reserved.
 //
 
+#import <objc/runtime.h>
 #import "MGLStyle+MXMFilter.h"
 
 @implementation MGLStyle (MXMFilter)
+
+- (NSDictionary *)originalPredicateDic {
+  return objc_getAssociatedObject(self, @selector(originalPredicateDic));
+}
+
+- (void)setOriginalPredicateDic:(NSDictionary *)originalPredicateDic {
+  objc_setAssociatedObject(self, @selector(originalPredicateDic), originalPredicateDic, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
 
 - (void)MXMlocalizeLabelsIntoLocale:(nullable NSString *)localeLanguage {
   NSArray *arr = self.layers;
@@ -73,7 +82,7 @@
   line_layer.visible = NO;
 }
 
-// 地图图层数据过滤，保证buildingId和floor不能为空
+// 前景过滤
 - (void)filerLevelIds:(NSArray *)levelIds {
   NSArray *arr = self.layers;
   for (MGLStyleLayer *k in arr) {
@@ -81,43 +90,37 @@
     if (![k isKindOfClass:[MGLVectorStyleLayer class]]) {
       continue;
     }
-    MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
-    NSString *ident = vk.identifier;
-    if (![ident hasPrefix:@"mapxus"] || [ident hasPrefix:@"mapxus-building"] || [vk.sourceLayerIdentifier hasPrefix:@"mapxus_venue"] || [ident hasSuffix:@"-mxmrear"] || [ident hasPrefix:@"mapxus-poi"]) {
+    NSString *ident = k.identifier;
+    if (![ident hasPrefix:@"mapxus"] ||
+        [ident hasPrefix:@"mapxus-building"] ||
+        [ident hasPrefix:@"mapxus-venue"] ||
+        [ident hasSuffix:@"-mxmrear"] ||
+        [ident hasPrefix:@"mapxus-poi"]) {
       continue;
     }
+    
     NSString *levelKey = @"ref:level";
+    MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
     if ([vk.sourceLayerIdentifier hasPrefix:@"mapxus_level"]) {
       levelKey = @"id";
     }
     
-    NSPredicate *pp = [NSPredicate predicateWithFormat:@"%K IN %@", levelKey, levelIds];
-    // 处理剩下需要添加filter的layer
-    id originalPredicate = vk.predicate;
     NSMutableArray *mu = [NSMutableArray arrayWithCapacity:0];
-    if ([originalPredicate isKindOfClass:[NSCompoundPredicate class]]) {
-      NSArray *sub = ((NSCompoundPredicate *)originalPredicate).subpredicates;
-      for (NSCompoundPredicate *s in sub) {
-        NSString *str = s.predicateFormat;
-        if (![str containsString:[NSString stringWithFormat:@"%@ IN", levelKey]]) {
-          [mu addObject:s];
-        }
-      }
-    } else {
-      if (originalPredicate) {
-        [mu addObject:originalPredicate];
-      }
+    id originalPredicate = self.originalPredicateDic[ident];
+    if (originalPredicate) {
+      [mu addObject:originalPredicate];
     }
-    //        NSPredicate *f = [NSPredicate predicateWithFormat:@"%K == %@", levelKey, levelId];
+    //    if (levelIds.count) { 不能加，因为levelIds.count == 0，清空也是正常的条件
+    NSPredicate *pp = [NSPredicate predicateWithFormat:@"%K IN %@", levelKey, levelIds];
     [mu addObject:pp];
-    //        NSPredicate *b = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:building", buildingId];
-    //        [mu addObject:b];
+    // mu为1，返回第一个谓词，mu为0，返回一个NO的谓词
     NSCompoundPredicate *reSetPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:mu];
     // 重置过滤
     vk.predicate = reSetPredicate;
   }
 }
 
+// 后景过滤
 - (void)filerRearLevelIds:(NSArray *)levelIds {
   NSArray *arr = self.layers;
   for (MGLStyleLayer *k in arr) {
@@ -125,43 +128,35 @@
     if (![k isKindOfClass:[MGLVectorStyleLayer class]]) {
       continue;
     }
-    MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
-    NSString *ident = vk.identifier;
-    if (![ident hasPrefix:@"mapxus"] || [ident hasPrefix:@"mapxus-building"] || [vk.sourceLayerIdentifier hasPrefix:@"mapxus_venue"] || ![ident hasSuffix:@"-mxmrear"] || [ident hasPrefix:@"mapxus-poi"]) {
+    NSString *ident = k.identifier;
+    if (![ident hasPrefix:@"mapxus"] || 
+        [ident hasPrefix:@"mapxus-building"] ||
+        [ident hasPrefix:@"mapxus-venue"] ||
+        ![ident hasSuffix:@"-mxmrear"] || 
+        [ident hasPrefix:@"mapxus-poi"]) {
       continue;
     }
+    
     NSString *levelKey = @"ref:level";
+    MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
     if ([vk.sourceLayerIdentifier hasPrefix:@"mapxus_level"]) {
       levelKey = @"id";
     }
     
-    NSPredicate *pp = [NSPredicate predicateWithFormat:@"%K IN %@", levelKey, levelIds];
-    // 处理剩下需要添加filter的layer
-    id originalPredicate = vk.predicate;
     NSMutableArray *mu = [NSMutableArray arrayWithCapacity:0];
-    if ([originalPredicate isKindOfClass:[NSCompoundPredicate class]]) {
-      NSArray *sub = ((NSCompoundPredicate *)originalPredicate).subpredicates;
-      for (NSCompoundPredicate *s in sub) {
-        NSString *str = s.predicateFormat;
-        if (![str containsString:[NSString stringWithFormat:@"%@ IN", levelKey]]) {
-          [mu addObject:s];
-        }
-      }
-    } else {
-      if (originalPredicate) {
-        [mu addObject:originalPredicate];
-      }
+    id originalPredicate = self.originalPredicateDic[ident];
+    if (originalPredicate) {
+      [mu addObject:originalPredicate];
     }
-    //        NSPredicate *f = [NSPredicate predicateWithFormat:@"%K == %@", levelKey, levelId];
+    NSPredicate *pp = [NSPredicate predicateWithFormat:@"%K IN %@", levelKey, levelIds];
     [mu addObject:pp];
-    //        NSPredicate *b = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:building", buildingId];
-    //        [mu addObject:b];
     NSCompoundPredicate *reSetPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:mu];
     // 重置过滤
     vk.predicate = reSetPredicate;
   }
 }
 
+// POI过滤
 - (void)filerPoisOnLevelIds:(NSArray *)levelIds exceptPoiIds:(NSArray *)poiIds {
   NSArray *arr = self.layers;
   for (MGLStyleLayer *k in arr) {
@@ -169,38 +164,26 @@
     if (![k isKindOfClass:[MGLVectorStyleLayer class]]) {
       continue;
     }
-    MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
-    NSString *ident = vk.identifier;
-    if (![ident hasPrefix:@"mapxus"] || [ident hasPrefix:@"mapxus-building"] || [vk.sourceLayerIdentifier hasPrefix:@"mapxus_venue"] || ![ident hasPrefix:@"mapxus-poi"]) {
+    NSString *ident = k.identifier;
+    if (![ident hasPrefix:@"mapxus-poi"]) {
       continue;
     }
-    NSString *levelKey = @"ref:level";
     
-    NSPredicate *pp = [NSPredicate predicateWithFormat:@"%K IN %@", levelKey, levelIds];
-    // 处理剩下需要添加filter的layer
-    id originalPredicate = vk.predicate;
+    NSString *levelKey = @"ref:level";
+    MGLVectorStyleLayer *vk = (MGLVectorStyleLayer *)k;
+
     NSMutableArray *mu = [NSMutableArray arrayWithCapacity:0];
-    if ([originalPredicate isKindOfClass:[NSCompoundPredicate class]]) {
-      NSArray *sub = ((NSCompoundPredicate *)originalPredicate).subpredicates;
-      for (NSCompoundPredicate *s in sub) {
-        NSString *str = s.predicateFormat;
-        if (![str containsString:[NSString stringWithFormat:@"%@ IN", levelKey]] &&
-            ![str containsString:@"osm:ref IN"]) {
-          [mu addObject:s];
-        }
-      }
-    } else {
-      if (originalPredicate) {
-        [mu addObject:originalPredicate];
-      }
+    id originalPredicate = self.originalPredicateDic[ident];
+    if (originalPredicate) {
+      [mu addObject:originalPredicate];
     }
-    //        NSPredicate *f = [NSPredicate predicateWithFormat:@"%K == %@", levelKey, levelId];
+    NSPredicate *pp = [NSPredicate predicateWithFormat:@"%K IN %@", levelKey, levelIds];
     [mu addObject:pp];
-    NSPredicate *po = [NSPredicate predicateWithFormat:@"%K IN %@", @"osm:ref", poiIds];
-    NSCompoundPredicate *npo = [NSCompoundPredicate notPredicateWithSubpredicate:po];
-    [mu addObject:npo];
-    //        NSPredicate *b = [NSPredicate predicateWithFormat:@"%K == %@", @"ref:building", buildingId];
-    //        [mu addObject:b];
+    if (poiIds.count) {
+      NSPredicate *po = [NSPredicate predicateWithFormat:@"%K IN %@", @"osm:ref", poiIds];
+      NSCompoundPredicate *npo = [NSCompoundPredicate notPredicateWithSubpredicate:po];
+      [mu addObject:npo];
+    }
     NSCompoundPredicate *reSetPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:mu];
     // 重置过滤
     vk.predicate = reSetPredicate;
@@ -231,19 +214,19 @@
 //      ck.circleOpacity = [NSExpression mgl_expressionForConditional:pp
 //                                                     trueExpression:[NSExpression expressionForConstantValue:@(1)]
 //                                                   falseExpresssion:[NSExpression expressionForConstantValue:@(0.4)]];
-//      
+//
 //    } else if ([k isKindOfClass:[MGLFillStyleLayer class]]) {
 //      MGLFillStyleLayer *ck = (MGLFillStyleLayer *)k;
 //      ck.fillOpacity = [NSExpression mgl_expressionForConditional:pp
 //                                                   trueExpression:[NSExpression expressionForConstantValue:@(1)]
 //                                                 falseExpresssion:[NSExpression expressionForConstantValue:@(0.4)]];
-//      
+//
 //    } else if ([k isKindOfClass:[MGLLineStyleLayer class]]) {
 //      MGLLineStyleLayer *ck = (MGLLineStyleLayer *)k;
 //      ck.lineOpacity = [NSExpression mgl_expressionForConditional:pp
 //                                                   trueExpression:[NSExpression expressionForConstantValue:@(1)]
 //                                                 falseExpresssion:[NSExpression expressionForConstantValue:@(0.4)]];
-//      
+//
 //    } else if ([k isKindOfClass:[MGLSymbolStyleLayer class]]) {
 //      MGLSymbolStyleLayer *ck = (MGLSymbolStyleLayer *)k;
 //      ck.iconOpacity = [NSExpression mgl_expressionForConditional:pp
@@ -252,13 +235,13 @@
 //      ck.textOpacity = [NSExpression mgl_expressionForConditional:pp
 //                                                   trueExpression:[NSExpression expressionForConstantValue:@(1)]
 //                                                 falseExpresssion:[NSExpression expressionForConstantValue:@(0.4)]];
-//      
+//
 //    } else if ([k isKindOfClass:[MGLHeatmapStyleLayer class]]) {
 //      MGLHeatmapStyleLayer *ck = (MGLHeatmapStyleLayer *)k;
 //      ck.heatmapOpacity = [NSExpression mgl_expressionForConditional:pp
 //                                                      trueExpression:[NSExpression expressionForConstantValue:@(1)]
 //                                                    falseExpresssion:[NSExpression expressionForConstantValue:@(0.4)]];
-//      
+//
 //    }
 ////    else if ([k isKindOfClass:[MGLFillExtrusionStyleLayer class]]) {
 ////      MGLFillExtrusionStyleLayer *ck = (MGLFillExtrusionStyleLayer *)k;
@@ -301,8 +284,8 @@
   layer.fillOpacityTransition = orig.fillOpacityTransition;
   layer.fillOutlineColor = orig.fillOutlineColor;
   layer.fillOutlineColorTransition = orig.fillOutlineColorTransition;
-//  layer.fillPattern = orig.fillPattern; // TODO: 一copy就显示不出来
-//  layer.fillPatternTransition = orig.fillPatternTransition; // TODO: 一copy就显示不出来
+  //  layer.fillPattern = orig.fillPattern; // TODO: 一copy就显示不出来
+  //  layer.fillPatternTransition = orig.fillPatternTransition; // TODO: 一copy就显示不出来
   layer.fillTranslation = orig.fillTranslation;
   layer.fillTranslationTransition = orig.fillTranslationTransition;
   layer.fillTranslationAnchor = orig.fillTranslationAnchor;
@@ -334,8 +317,8 @@
   layer.lineOffsetTransition = orig.lineOffsetTransition;
   layer.lineOpacity = orig.lineOpacity;
   layer.lineOpacityTransition = orig.lineOpacityTransition;
-//  layer.linePattern = orig.linePattern; // TODO: 一copy就显示不出来
-//  layer.linePatternTransition = orig.linePatternTransition; // TODO: 一copy就显示不出来
+  //  layer.linePattern = orig.linePattern; // TODO: 一copy就显示不出来
+  //  layer.linePatternTransition = orig.linePatternTransition; // TODO: 一copy就显示不出来
   layer.lineTranslation = orig.lineTranslation;
   layer.lineTranslationTransition = orig.lineTranslationTransition;
   layer.lineTranslationAnchor = orig.lineTranslationAnchor;

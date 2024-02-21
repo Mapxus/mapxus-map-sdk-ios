@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MGLStyle (MXMFilter)
 
+@property (nonatomic, copy) NSDictionary *originalPredicateDic;
+
 - (void)MXMlocalizeLabelsIntoLocale:(nullable NSString *)localeLanguage;
 
 - (void)updateSelectedBuildingFillOpacityWithIds:(NSArray<NSString *> *)buildingIds notIn:(BOOL)notIn;
