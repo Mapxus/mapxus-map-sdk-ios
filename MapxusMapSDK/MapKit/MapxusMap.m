@@ -208,12 +208,7 @@
   if (self.flying) {
     return;
   }
-  
-  CGSize mapSize = _mapView.bounds.size;
-  CGRect rect = CGRectMake(mapSize.width/4, mapSize.height/4, mapSize.width/2, mapSize.height/2);
-  // 自动选择使用列表，如果不需要自动选择建筑功能，innerbuildings 就不需要有值，
-  _innerbuildings = [self.dataQueryer findOutBuildingInTheRect:rect];
-  
+    
   if (!self.autoChangeBuilding) {
     // TODO: 因为找不到选中建筑也需要重置一次，如果已选中floor在屏外，会导致无用的floorId search building接口调用，需要进行优化。使用新接口
     //    [self.decider specifyTheFloorId:self.decider.selectedFloor.floorId zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero shouldChangeTrackingMode:NO];
@@ -227,6 +222,10 @@
     return;
   }
   
+  CGSize mapSize = _mapView.bounds.size;
+  CGRect rect = CGRectMake(mapSize.width/4, mapSize.height/4, mapSize.width/2, mapSize.height/2);
+  // 自动选择使用列表，如果不需要自动选择建筑功能，innerbuildings 就不需要有值，
+  _innerbuildings = [self.dataQueryer findOutBuildingInTheRect:rect];
   [self.decider decideInRectWithBuildingDic:_innerbuildings];
 }
 
