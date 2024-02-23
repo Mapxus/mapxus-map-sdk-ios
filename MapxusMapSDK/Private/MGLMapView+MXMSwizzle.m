@@ -12,19 +12,26 @@
 #import "MapxusMap+Private.h"
 #import "MGLStyle+MXMFilter.h"
 
-static void *mapKey = &mapKey;
-
 @implementation MGLMapView (MXMSwizzle)
 
 - (void)setMxmMap:(MapxusMap *)mxmMap
 {
-    objc_setAssociatedObject(self, &mapKey, mxmMap, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(mxmMap), mxmMap, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (MapxusMap *)mxmMap
 {
-    return objc_getAssociatedObject(self, &mapKey);
+    return objc_getAssociatedObject(self, @selector(mxmMap));
 }
+
+- (CLLocation *)lastLocation {
+  return objc_getAssociatedObject(self, @selector(lastLocation));
+}
+
+- (void)setLastLocation:(CLLocation *)lastLocation {
+  objc_setAssociatedObject(self, @selector(lastLocation), lastLocation, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
 
 + (void)load
 {
@@ -365,38 +372,47 @@ static void *mapKey = &mapKey;
 }
 - (void)hook_mapView:(MGLMapView *)mapView didUpdateUserLocation:(MGLUserLocation *)userLocation
 {
-  if ((mapView.userTrackingMode != MGLUserTrackingModeNone) && userLocation.location.floor) { // 跟随模式且有楼层数据
-    CLLocationCoordinate2D coordinate = userLocation.location.coordinate;
-    CGPoint locationPoint = [mapView convertCoordinate:coordinate toPointToView:mapView];
-    NSArray<MXMLevelModel *> *floorFeatures = [mapView.mxmMap.dataQueryer findOutAssistantFloorFeaturesAtPoint:locationPoint
-                                                                                               pointCoordinate:coordinate];
-    NSDictionary *buildingDic = [mapView.mxmMap.dataQueryer findOutBuildingAtPoint:locationPoint];
-    MXMSite *info = [mapView.mxmMap.decider decideWithUserLocationLevel:userLocation.location.floor.level
-                                                     atPointBuildingDic:buildingDic
-                                                   atPointLevelInfoList:floorFeatures];
-    if (info) {
-      if (![info.floor.code isEqualToString:mapView.mxmMap.userLocationFloor]) {
-        [mapView.mxmMap updateUserLocationFloor:info.floor.code];
+  // 当curLocation不为nil，lastLocation为nil时，执行函数function；当curLocation不为nil，lastLocation也不为nil时，根据两个点间的距离大于0时执行函数function。
+  // 忽略了只有ordinal改变的情况，因为这种场景较少概率发生，发生也会较快修复，只有在模拟时会出现。
+  if (userLocation.location != nil &&
+      ((mapView.lastLocation == nil) ||
+       ([userLocation.location distanceFromLocation:mapView.lastLocation] != 0))) {
+    
+    if ((mapView.userTrackingMode != MGLUserTrackingModeNone) && userLocation.location.floor) { // 跟随模式且有楼层数据
+      CLLocationCoordinate2D coordinate = userLocation.location.coordinate;
+      CGPoint locationPoint = [mapView convertCoordinate:coordinate toPointToView:mapView];
+      NSArray<MXMLevelModel *> *floorFeatures = [mapView.mxmMap.dataQueryer findOutAssistantFloorFeaturesAtPoint:locationPoint
+                                                                                                 pointCoordinate:coordinate];
+      NSDictionary *buildingDic = [mapView.mxmMap.dataQueryer findOutBuildingAtPoint:locationPoint];
+      MXMSite *info = [mapView.mxmMap.decider decideWithUserLocationLevel:userLocation.location.floor.level
+                                                       atPointBuildingDic:buildingDic
+                                                     atPointLevelInfoList:floorFeatures];
+      if (info) {
+        if (![info.floor.code isEqualToString:mapView.mxmMap.userLocationFloor]) {
+          [mapView.mxmMap updateUserLocationFloor:info.floor.code];
+        }
+        if (![info.building.identifier isEqualToString:mapView.mxmMap.userLocationBuilding.identifier]) {
+          [mapView.mxmMap updateUserLocationBuilding:info.building];
+        }
+        if (![info.venue.identifier isEqualToString:mapView.mxmMap.userLocationVenue.identifier]) {
+          [mapView.mxmMap updateUserLocationVenue:info.venue];
+        }
       }
-      if (![info.building.identifier isEqualToString:mapView.mxmMap.userLocationBuilding.identifier]) {
-        [mapView.mxmMap updateUserLocationBuilding:info.building];
+    } else {
+      [mapView.mxmMap updateLocationView];
+      if (mapView.mxmMap.userLocationFloor != nil) {
+        [mapView.mxmMap updateUserLocationFloor:nil];
       }
-      if (![info.venue.identifier isEqualToString:mapView.mxmMap.userLocationVenue.identifier]) {
-        [mapView.mxmMap updateUserLocationVenue:info.venue];
+      if (mapView.mxmMap.userLocationBuilding != nil) {
+        [mapView.mxmMap updateUserLocationBuilding:nil];
+      }
+      if (mapView.mxmMap.userLocationVenue != nil) {
+        [mapView.mxmMap updateUserLocationVenue:nil];
       }
     }
-  } else {
-    [mapView.mxmMap updateLocationView];
-    if (mapView.mxmMap.userLocationFloor != nil) {
-      [mapView.mxmMap updateUserLocationFloor:nil];
-    }
-    if (mapView.mxmMap.userLocationBuilding != nil) {
-      [mapView.mxmMap updateUserLocationBuilding:nil];
-    }
-    if (mapView.mxmMap.userLocationVenue != nil) {
-      [mapView.mxmMap updateUserLocationVenue:nil];
-    }
+    
   }
+  mapView.lastLocation = userLocation.location;
   [self hook_mapView:mapView didUpdateUserLocation:userLocation];
 }
 - (void)mapView:(MGLMapView *)mapView didUpdateUserLocation:(MGLUserLocation *)userLocation

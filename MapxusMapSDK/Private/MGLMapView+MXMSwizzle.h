@@ -13,5 +13,6 @@
 @interface MGLMapView (MXMSwizzle) <MGLMapViewDelegate>
 
 @property (nonatomic, weak) MapxusMap *mxmMap;
+@property (nonatomic, copy) CLLocation *lastLocation;
 
 @end
