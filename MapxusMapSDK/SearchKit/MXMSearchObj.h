@@ -252,7 +252,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) double toLon;
 /// Ending latitude
 @property (nonatomic, assign) double toLat;
-/// Navigation method. Optional values are foot, wheelchair, escalator. foot by default
+/// Navigation method. Optional values are foot, wheelchair, escalator, emergency. foot by default
 @property (nonatomic, strong, nullable) NSString *vehicle;
 /// Returns the result language. Possible values are en, zh-Hans, zh-Hant, ja, ko. en by default
 @property (nonatomic, strong, nullable) NSString *locale;
