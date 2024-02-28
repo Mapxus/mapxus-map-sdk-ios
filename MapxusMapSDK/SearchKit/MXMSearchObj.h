@@ -162,6 +162,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSUInteger page;
 /// Category to be filtered
 @property (nonatomic, strong, nullable) NSString *category;
+/// A list of POI categories to be excluded. Note that this parameter is mutually exclusive with each other with the parameter `category`.
+@property (nonatomic, strong, nullable) NSArray<NSString *> *excludeCategories;
 /// Sort by: AbsoluteDistance: Sort by 2D distance [default]; ActualDistance: Sort by route distance
 @property (nonatomic, strong, nullable) NSString *sort;
 /// Search for the actual building height of the location, take the level value of the CLFloor and pass in the value when the sort value is ActualDistance
