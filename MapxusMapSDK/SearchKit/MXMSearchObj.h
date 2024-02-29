@@ -164,7 +164,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *category;
 /// A list of POI categories to be excluded. Note that this parameter is mutually exclusive with each other with the parameter `category`.
 @property (nonatomic, strong, nullable) NSArray<NSString *> *excludeCategories;
-/// Sort by: AbsoluteDistance: Sort by 2D distance [default]; ActualDistance: Sort by route distance
+/// Alignment of search results, AbsoluteDistance is the default value:
+/// AbsoluteDistance: Sort by 2D distance;
+/// ActualDistance: Sort by route distance;
+/// DefaultName: Sort by defaultName of the POI in ascending order.
 @property (nonatomic, strong, nullable) NSString *sort;
 /// Search for the actual building height of the location, take the level value of the CLFloor and pass in the value when the sort value is ActualDistance
 @property (nonatomic, assign) NSInteger ordinal;
