@@ -99,6 +99,12 @@
              };
 }
 
+- (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
+    if (!_excludeCategories) return NO;
+    dic[@"excludeCategories"] = [_excludeCategories componentsJoinedByString:@","];
+    return YES;
+}
+
 @end
 
 @implementation MXMPOISearchResponse
