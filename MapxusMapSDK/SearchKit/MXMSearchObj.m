@@ -100,9 +100,10 @@
 }
 
 - (BOOL)modelCustomTransformToDictionary:(NSMutableDictionary *)dic {
-    if (!_excludeCategories) return NO;
+  if (_excludeCategories) {
     dic[@"excludeCategories"] = [_excludeCategories componentsJoinedByString:@","];
-    return YES;
+  }
+  return YES;
 }
 
 @end

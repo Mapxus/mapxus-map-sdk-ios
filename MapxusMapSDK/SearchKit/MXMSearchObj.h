@@ -128,16 +128,43 @@ NS_ASSUME_NONNULL_BEGIN
  POI search parameters
  
  There are seven search modes.
- 1. Specify the keyword search within the floor, with the parameter combinations keywords(optional), floorId, offset, page, category(optional).
- 2. Specify the keyword search within the building, with the parameter combinations keywords(optional), buildingId, offset, page, category(optional).
- 3. Specify the keyword search within the venue, with the parameter combinations keywords(optional), venueId, offset, page, category(optional).
- 4. Specify the keyword search in the square area with the combination keywords(optional), bbox, offset, page, category(optional).
- 5. Specify the keyword search within a circular region, sorted by two-dimensional spatial distance, with the parameter combinations keywords(optional), center,
- meterDistance, offset, page, category(optional), floorId(optional), buildingId(optional), venueId(optional), where floorId, buildingId, venueId are mutually exclusive,
- according to the order of floorId->buildingId->venueId, take the first value that is not nil.
- 6. Specify the keyword search within a circular area, sorted by route distance, with the parameter combinations keywords(optional), center, ordinal, sort, 
- meterDistance, offset, page, category(optional), floorId(optional), buildingId(optional), venueId(optional), where floorId, buildingId, venueId are mutually exclusive,
- according to the order of floorId->buildingId->venueId, take the first value that is not nil.
+ 
+ 1. Specify the keyword search within the floor using a combination of parameters. These parameters include `keywords` (optional), `floorId`, `offset`, 
+ `page`, `sort` (optional, only `DefaultName` can be used), `category` (optional), and `excludeCategories` (optional). Please note that `category`
+ and `excludeCategories` are mutually exclusive. If both are provided, the system will prioritize `category` over `excludeCategories` and take the first
+ non-nil value.
+ 
+ 2. Specify the keyword search within the building using a combination of parameters. These parameters include `keywords` (optional), `buildingId`, 
+ `offset`, `page`, `sort` (optional, only `DefaultName` can be used), `category` (optional), and `excludeCategories` (optional). Please note that
+ `category` and `excludeCategories` are mutually exclusive. If both are provided, the system will prioritize `category` over `excludeCategories` and
+ take the first non-nil value.
+ 
+ 3. Specify the keyword search within the venue using a combination of parameters. These parameters include `keywords` (optional), `venueId`, `offset`, 
+ `page`, `sort` (optional, only `DefaultName` can be used), `category` (optional), and `excludeCategories` (optional). Please note that `category`
+ and `excludeCategories` are mutually exclusive. If both are provided, the system will prioritize `category` over `excludeCategories` and take the first
+ non-nil value.
+ 
+ 4. Specify the keyword search within the square area using a combination of parameters. These parameters include `keywords` (optional), `bbox`, `offset`, 
+ `page`, `sort` (optional, only `DefaultName` can be used), `floorId` (optional), `buildingId` (optional), `venueId` (optional), `category` (optional),
+ and `excludeCategories` (optional). Please note that `floorId`, `buildingId`, and `venueId` are mutually exclusive. If all three are provided, the
+ system will prioritize them in the order of `floorId` -> `buildingId` -> `venueId` and take the first non-nil value. Similarly, `category` and
+ `excludeCategories` are mutually exclusive. If both are provided, the system will prioritize `category` over `excludeCategories` and take the first
+ non-nil value.
+ 
+ 5. Specify the keyword search within a circular area, sorted by two-dimensional spatial distance. This search uses a combination of parameters including 
+ `keywords` (optional), `center`, `meterDistance`, `sort` (use `AbsoluteDistance`), `offset`, `page`, `floorId` (optional),
+ `buildingId` (optional), `venueId` (optional), `category` (optional), and `excludeCategories` (optional). Please note that `floorId`, `buildingId`, 
+ and `venueId` are mutually exclusive. If all three are provided, the system will prioritize them in the order of `floorId` -> `buildingId` -> `venueId` and
+ take the first non-nil value. Similarly, `category` and `excludeCategories` are mutually exclusive. If both are provided, the system will prioritize `category`
+ over `excludeCategories` and take the first non-nil value.
+ 
+ 6. Specify the keyword search within a circular area, sorted by route distance. This search uses a combination of parameters: `keywords` (optional), `center`, 
+ `ordinal`, `sort` (use `ActualDistance`), `meterDistance`, `offset`, `page`, `floorId` (optional), `buildingId` (optional), 
+ `venueId` (optional),`category` (optional), and `excludeCategories` (optional). Please note that `floorId`, `buildingId`, and `venueId` are
+ mutually exclusive. If all three are provided, the system will prioritize them in the order of `floorId` -> `buildingId` -> `venueId` and take the first non-nil
+ value. Similarly, `category` and `excludeCategories` are mutually exclusive. If both are provided, the system will prioritize `category` over
+ `excludeCategories` and take the first non-nil value.
+ 
  7. Specify the POIId search with the parameters POIIds.
  */
 @interface MXMPOISearchRequest : NSObject
