@@ -169,6 +169,17 @@
 
 
 @implementation MXMRouteSearchRequest
+
+- (void)setFromBuilding:(NSString *)fromBuilding {
+  _fromBuilding = fromBuilding;
+  _fromBuildingId = fromBuilding;
+}
+
+- (void)setToBuilding:(NSString *)toBuilding {
+  _toBuilding = toBuilding;
+  _toBuildingId = toBuilding;
+}
+
 @end
 
 @implementation MXMRouteSearchResponse

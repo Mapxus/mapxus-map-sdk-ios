@@ -66,6 +66,7 @@ static CGFloat headerFooterHeight = 35.0;
       NSUInteger index = [models indexOfObject:model];
       self.selectedRow = index;
       [self moveCellToVisibleArea:index];
+      [self.floorFoldButton setFloorBarModel:model];
       break;
     }
   }

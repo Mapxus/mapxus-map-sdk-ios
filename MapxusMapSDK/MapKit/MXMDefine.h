@@ -152,6 +152,10 @@ typedef NS_ENUM(NSInteger, MXMRouteSign) {
    */
   MXMFinish = 4,
   /**
+   Arrival at the waypoint
+   */
+  MXMReachedVia = 5,
+  /**
    Walk on the right
    */
   MXMKeepRight = 7,

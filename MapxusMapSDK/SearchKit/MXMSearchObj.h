@@ -261,35 +261,38 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- Route search parameters
+ Route search feature supports multi-point navigation, accepting a minimum of 2 points and a maximum of 5 points.
+ For indoor points, they should be constructed using latitude, longitude, floorId, and buildingId. For outdoor points, they should be constructed using latitude and longitude.
  */
 @interface MXMRouteSearchRequest : NSObject
 /// The id of building where the start point is located
-@property (nonatomic, strong, nullable) NSString *fromBuildingId;
+@property (nonatomic, strong, nullable) NSString *fromBuildingId DEPRECATED_MSG_ATTRIBUTE("`fromBuildingId` is deprecated");
 @property (nonatomic, strong, nullable) NSString *fromBuilding DEPRECATED_MSG_ATTRIBUTE("Please use `fromBuildingId`");
 /// The id of floor where the start point is located
-@property (nonatomic, strong, nullable) NSString *fromFloorId;
+@property (nonatomic, strong, nullable) NSString *fromFloorId DEPRECATED_MSG_ATTRIBUTE("`fromFloorId` is deprecated");
 @property (nonatomic, strong, nullable) NSString *fromFloor DEPRECATED_MSG_ATTRIBUTE("Please use `fromFloorId`");
 /// Starting longitude
-@property (nonatomic, assign) double fromLon;
+@property (nonatomic, assign) double fromLon DEPRECATED_MSG_ATTRIBUTE("`fromLon` is deprecated");
 /// Starting latitude
-@property (nonatomic, assign) double fromLat;
+@property (nonatomic, assign) double fromLat DEPRECATED_MSG_ATTRIBUTE("`fromLat` is deprecated");
 /// The id of building where the end point is located
-@property (nonatomic, strong, nullable) NSString *toBuildingId;
+@property (nonatomic, strong, nullable) NSString *toBuildingId DEPRECATED_MSG_ATTRIBUTE("`toBuildingId` is deprecated");
 @property (nonatomic, strong, nullable) NSString *toBuilding DEPRECATED_MSG_ATTRIBUTE("Please use `toBuildingId`");
 /// The id of floor where the end point is located
-@property (nonatomic, strong, nullable) NSString *toFloorId;
+@property (nonatomic, strong, nullable) NSString *toFloorId DEPRECATED_MSG_ATTRIBUTE("`toFloorId` is deprecated");
 @property (nonatomic, strong, nullable) NSString *toFloor DEPRECATED_MSG_ATTRIBUTE("Please use `toFloorId`");
 /// Ending longitude
-@property (nonatomic, assign) double toLon;
+@property (nonatomic, assign) double toLon DEPRECATED_MSG_ATTRIBUTE("`toLon` is deprecated");
 /// Ending latitude
-@property (nonatomic, assign) double toLat;
+@property (nonatomic, assign) double toLat DEPRECATED_MSG_ATTRIBUTE("`toLat` is deprecated");
+/// Accepting a minimum of 2 points and a maximum of 5 points. MXMIndoorPoint instances are created using only latitude, longitude, buildingId and floorId.
+@property (nonatomic, copy, nullable) NSArray<MXMIndoorPoint *> *points;
 /// Navigation method. Optional values are foot, wheelchair, escalator, emergency. foot by default
 @property (nonatomic, strong, nullable) NSString *vehicle;
 /// Returns the result language. Possible values are en, zh-Hans, zh-Hant, ja, ko. en by default
 @property (nonatomic, strong, nullable) NSString *locale;
 /// The end point is set in front of the door. Set to YES to terminate only at the POI shop door
-@property (nonatomic, assign) BOOL toDoor;
+@property (nonatomic, assign) BOOL toDoor DEPRECATED_MSG_ATTRIBUTE("`toDoor` is deprecated");
 @end
 
 
