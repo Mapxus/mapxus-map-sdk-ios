@@ -139,6 +139,8 @@ NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
             } else {
                 [dic setObject:[NSString stringWithFormat:@"%f,%f", request.center.longitude, request.center.latitude] forKey:@"center"];
             }
+        } else {
+          [dic removeObjectForKey:@"distance"];
         }
         [dic removeObjectForKey:@"ordinal"];
         // keywords为空时，不传该参数，返回所有结果
