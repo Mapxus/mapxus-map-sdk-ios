@@ -158,6 +158,7 @@
 		891BDBF92ABC26A90053767E /* MXMFilterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMFilterModel.m; sourceTree = "<group>"; };
 		8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMBorderStyle.h; sourceTree = "<group>"; };
 		8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMBorderStyle.m; sourceTree = "<group>"; };
+		89446B542BB69DED005B0D17 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		8952F9682AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGLNetworkConfiguration+MXMSwizzle.h"; sourceTree = "<group>"; };
 		8952F9692AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MGLNetworkConfiguration+MXMSwizzle.m"; sourceTree = "<group>"; };
 		8952F96C2AE7C8BC00D3DBA6 /* MXMURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMURLProtocol.h; sourceTree = "<group>"; };
@@ -346,6 +347,7 @@
 		89865F0029E9090700E984A1 = {
 			isa = PBXGroup;
 			children = (
+				89446B542BB69DED005B0D17 /* CHANGELOG.md */,
 				89865FCE29E9273F00E984A1 /* Gemfile */,
 				89865FCD29E9273F00E984A1 /* README.md */,
 				89865FD029E9273F00E984A1 /* BuildConfig */,
