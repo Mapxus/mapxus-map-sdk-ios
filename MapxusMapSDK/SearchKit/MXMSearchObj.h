@@ -207,7 +207,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// AbsoluteDistance: Sort by 2D distance;
 /// ActualDistance: Sort by route distance;
 @property (nonatomic, strong, nullable) NSString *sort;
+/// Sorting mode of returned results:
 /// DefaultName: Sort by defaultName of the POI in ascending order.
+///
+/// Note that this parameter is mutually exclusive with each other with the parameter `keywords`
 @property (nonatomic, strong, nullable) NSString *orderBy;
 /// The list of POI ids to query, the maximum ID number of buildings can not exceed 10. Mutually exclusive with the above parameters
 @property (nonatomic, strong, nullable) NSArray<NSString *> *POIIds;
@@ -272,8 +275,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /**
- Route search feature supports multi-point navigation, accepting a minimum of 2 points and a maximum of 5 points.
- For indoor points, they should be constructed using latitude, longitude, floorId, and buildingId. For outdoor points, they should be constructed using latitude and longitude.
+ The route search functionality accommodates multi-point navigation, accepting anywhere from 2 to 5 points. 
+ Indoor points should be defined using latitude, longitude, floorId, and buildingId. Conversely, outdoor points should be specified using only latitude and longitude.
  */
 @interface MXMRouteSearchRequest : NSObject
 /// The id of building where the start point is located
