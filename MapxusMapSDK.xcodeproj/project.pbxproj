@@ -51,7 +51,6 @@
 		89865F8629E9262700E984A1 /* MXMHttpManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F3229E9262700E984A1 /* MXMHttpManager.h */; };
 		89865F8729E9262700E984A1 /* JXJsonFunctionDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F3329E9262700E984A1 /* JXJsonFunctionDefine.h */; };
 		89865F8829E9262700E984A1 /* MXMLoggerService.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F3429E9262700E984A1 /* MXMLoggerService.h */; };
-		89865F8929E9262700E984A1 /* NSString+Compare.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F3529E9262700E984A1 /* NSString+Compare.h */; };
 		89865F8B29E9262700E984A1 /* MXMConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F3729E9262700E984A1 /* MXMConstants.h */; };
 		89865F8C29E9262700E984A1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89865F3929E9262700E984A1 /* Localizable.strings */; };
 		89865F8D29E9262700E984A1 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89865F3E29E9262700E984A1 /* images.xcassets */; };
@@ -109,6 +108,7 @@
 		89865FCC29E9262700E984A1 /* MapxusMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 89865F8529E9262700E984A1 /* MapxusMap.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89865FF229E9345B00E984A1 /* Mapbox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89865FF129E9345B00E984A1 /* Mapbox.xcframework */; };
 		898E9BF72B2056FC00345D0C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 898E9BF62B2056FC00345D0C /* PrivacyInfo.xcprivacy */; };
+		89AAF5952BDB837F00CB6B33 /* NSString+MXMUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 89AAF5942BDB837F00CB6B33 /* NSString+MXMUtils.h */; };
 		89B2EB7C2A284E1200A369E4 /* MXMSite.h in Headers */ = {isa = PBXBuildFile; fileRef = 89B2EB7A2A284E1200A369E4 /* MXMSite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89B2EB7D2A284E1200A369E4 /* MXMSite.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B2EB7B2A284E1200A369E4 /* MXMSite.m */; };
 		89C29CA42AE10F9200A3E841 /* NSObject+MXMThrottle.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C29CA22AE10F9200A3E841 /* NSObject+MXMThrottle.h */; };
@@ -183,7 +183,6 @@
 		89865F3229E9262700E984A1 /* MXMHttpManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMHttpManager.h; sourceTree = "<group>"; };
 		89865F3329E9262700E984A1 /* JXJsonFunctionDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JXJsonFunctionDefine.h; sourceTree = "<group>"; };
 		89865F3429E9262700E984A1 /* MXMLoggerService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMLoggerService.h; sourceTree = "<group>"; };
-		89865F3529E9262700E984A1 /* NSString+Compare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Compare.h"; sourceTree = "<group>"; };
 		89865F3729E9262700E984A1 /* MXMConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMConstants.h; sourceTree = "<group>"; };
 		89865F3A29E9262700E984A1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		89865F3B29E9262700E984A1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -256,6 +255,7 @@
 		89865FDC29E9273F00E984A1 /* IOS-Universal-Framework_aggregate.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "IOS-Universal-Framework_aggregate.sh"; sourceTree = "<group>"; };
 		89865FF129E9345B00E984A1 /* Mapbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Mapbox.xcframework; path = Pods/MapxusRenderSDK/Mapbox.xcframework; sourceTree = "<group>"; };
 		898E9BF62B2056FC00345D0C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		89AAF5942BDB837F00CB6B33 /* NSString+MXMUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MXMUtils.h"; sourceTree = "<group>"; };
 		89B2EB7A2A284E1200A369E4 /* MXMSite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSite.h; sourceTree = "<group>"; };
 		89B2EB7B2A284E1200A369E4 /* MXMSite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSite.m; sourceTree = "<group>"; };
 		89C29CA22AE10F9200A3E841 /* NSObject+MXMThrottle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+MXMThrottle.h"; sourceTree = "<group>"; };
@@ -425,7 +425,7 @@
 				89865F3229E9262700E984A1 /* MXMHttpManager.h */,
 				89865F3329E9262700E984A1 /* JXJsonFunctionDefine.h */,
 				89865F3429E9262700E984A1 /* MXMLoggerService.h */,
-				89865F3529E9262700E984A1 /* NSString+Compare.h */,
+				89AAF5942BDB837F00CB6B33 /* NSString+MXMUtils.h */,
 				89865F3729E9262700E984A1 /* MXMConstants.h */,
 			);
 			path = FoundationKit;
@@ -608,6 +608,7 @@
 				89865FBC29E9262700E984A1 /* MXMGeoCodeSearchResult.h in Headers */,
 				89865FC829E9262700E984A1 /* MapxusMapDelegate.h in Headers */,
 				89865FB929E9262700E984A1 /* MXMGeoCodeSearchOption.h in Headers */,
+				89AAF5952BDB837F00CB6B33 /* NSString+MXMUtils.h in Headers */,
 				89C9E1B72A39968F00D93569 /* MXMFloorSelectorBar.h in Headers */,
 				89C9E1CA2A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h in Headers */,
 				89865F9229E9262700E984A1 /* MXMCommonObj.h in Headers */,
@@ -626,7 +627,6 @@
 				8906E9D12AFA39130062418E /* MGLPolygon+MXMFuction.h in Headers */,
 				89865F9A29E9262700E984A1 /* MXMDataQuerier.h in Headers */,
 				89865FB029E9262700E984A1 /* KxMenu.h in Headers */,
-				89865F8929E9262700E984A1 /* NSString+Compare.h in Headers */,
 				89865F9F29E9262700E984A1 /* MXMDecider.h in Headers */,
 				89865FA329E9262700E984A1 /* MXMCacheManager.h in Headers */,
 				89865F9D29E9262700E984A1 /* MGLStyle+MXMFilter.h in Headers */,

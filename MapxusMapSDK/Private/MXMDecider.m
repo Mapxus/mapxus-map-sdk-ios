@@ -12,7 +12,6 @@
 #import "MXMSearchFloorOperation.h"
 #import "MXMCommonObj.h"
 #import <YYModel/YYModel.h>
-#import "NSString+Compare.h"
 #import "JXJsonFunctionDefine.h"
 
 

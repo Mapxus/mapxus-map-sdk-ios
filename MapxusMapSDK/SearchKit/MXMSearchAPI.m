@@ -11,7 +11,7 @@
 #import <YYModel/YYModel.h>
 #import "MXMConstants.h"
 #import "JXJsonFunctionDefine.h"
-#import "NSString+Compare.h"
+#import "NSString+MXMUtils.h"
 
 NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
 
@@ -34,7 +34,7 @@ NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
             [dic setObject:[NSString stringWithFormat:@"%f,%f", request.center.longitude, request.center.latitude] forKey:@"center"];
         }
         // keywords为空时，不传该参数，返回所有结果
-        if ([NSString isEmpty:[dic objectForKey:@"keywords"]]) {
+        if (![NSString mxmIsValid:[dic objectForKey:@"keywords"]]) {
             [dic removeObjectForKey:@"keywords"];
         }
     }
@@ -74,7 +74,7 @@ NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
             [dic setObject:[NSString stringWithFormat:@"%f,%f", request.center.longitude, request.center.latitude] forKey:@"center"];
         }
         // keywords为空时，不传该参数，返回所有结果
-        if ([NSString isEmpty:[dic objectForKey:@"keywords"]]) {
+        if (![NSString mxmIsValid:[dic objectForKey:@"keywords"]]) {
             [dic removeObjectForKey:@"keywords"];
         }
         dic[@"region"] = @(0);
@@ -144,7 +144,7 @@ NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
         }
         [dic removeObjectForKey:@"ordinal"];
         // keywords为空时，不传该参数，返回所有结果
-        if ([NSString isEmpty:[dic objectForKey:@"keywords"]]) {
+        if (![NSString mxmIsValid:[dic objectForKey:@"keywords"]]) {
             [dic removeObjectForKey:@"keywords"];
         }
     }
