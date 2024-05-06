@@ -126,7 +126,7 @@ NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
     NSMutableDictionary *dic = nil;
     if (request.POIIds.count) {
         NSString *ids = [request.POIIds componentsJoinedByString:@","];
-        url = [NSString stringWithFormat:@"%@%@%@", MXMAPIHOSTURL, @"/bms/api/v3/pois/", ids];
+        url = [NSString stringWithFormat:@"%@%@%@", MXMAPIHOSTURL, @"/bms/api/v4/pois/", ids];
     } else {
         dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
         if ([dic objectForKey:@"bbox"]) {

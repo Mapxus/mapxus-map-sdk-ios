@@ -345,13 +345,26 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMGeoPoint *location;
 /// List of categories to which POI belongs
 @property (nonatomic, strong) NSArray<NSString *> *category;
-/// Description of POI
-@property (nonatomic, strong, nullable) NSString *introduction;
-/// The Email of POI
-@property (nonatomic, strong, nullable) NSString *email;
-
+/// The description of the POI
+@property (nonatomic, strong, nullable) NSString *introduction DEPRECATED_MSG_ATTRIBUTE("Please use `descriptionMap.Default` instead.");
+/// The description of the POI.
+///
+/// @discussion
+/// This is an `MXMultilingualObject` that stores a multilingual mapping of `NSString` type.
+/// This mapping allows us to retrieve the corresponding string value based on different language environments.
+/// This attribute will only have a value returned when using the POI ID for precision searches.
+@property (nonatomic, strong) MXMultilingualObject<NSString *> *descriptionMap;
+/// The name of the POI.
+///
+/// @discussion
+/// This is an `MXMultilingualObject` that stores a multilingual mapping of `NSString` type.
+/// This mapping allows us to retrieve the corresponding string value based on different language environments.
 @property (nonatomic, strong) MXMultilingualObject<NSString *> *nameMap;
-
+/// The accessibility detail of the POI.
+///
+/// @discussion
+/// This is an `MXMultilingualObject` that stores a multilingual mapping of `NSString` type.
+/// This mapping allows us to retrieve the corresponding string value based on different language environments.
 @property (nonatomic, strong) MXMultilingualObject<NSString *> *accessibilityDetailMap;
 /// POI name in default language
 @property (nonatomic, strong, nullable) NSString *name_default DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.Default` instead.");
@@ -381,6 +394,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *openingHours;
 /// The phone number of the POI
 @property (nonatomic, strong, nullable) NSString *phone;
+/// The Email of POI
+@property (nonatomic, strong, nullable) NSString *email;
 /// The website of the POI
 @property (nonatomic, strong, nullable) NSString *website;
 /// Distance from the request centre, only valid for the centre search

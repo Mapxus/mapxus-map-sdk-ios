@@ -792,11 +792,24 @@
 + (NSDictionary *)modelCustomPropertyMapper {
   return @{
     @"poiId" : @[@"poiId", @"id"],
-    @"introduction" : @[@"introduction", @"description"],
   };
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+  
+  NSDictionary *descriptionDic = DecodeDicFromDic(dic, @"description");
+  if (descriptionDic) {
+    self.descriptionMap.Default = DecodeStringFromDic(descriptionDic, @"default");
+    self.descriptionMap.en = DecodeStringFromDic(descriptionDic, @"en");
+    self.descriptionMap.zh_Hans = DecodeStringFromDic(descriptionDic, @"zh-Hans");
+    self.descriptionMap.zh_Hant = DecodeStringFromDic(descriptionDic, @"zh-Hant");
+    self.descriptionMap.ja = DecodeStringFromDic(descriptionDic, @"ja");
+    self.descriptionMap.ko = DecodeStringFromDic(descriptionDic, @"ko");
+    
+    self.introduction = self.descriptionMap.Default;
+  } else {
+    self.introduction = DecodeStringFromDic(dic, @"description");
+  }
   
   NSDictionary *nameDic = DecodeDicFromDic(dic, @"name");
   self.nameMap.Default = DecodeStringFromDic(nameDic, @"default");
@@ -826,6 +839,13 @@
   }
   
   return YES;
+}
+
+- (MXMultilingualObject<NSString *> *)descriptionMap {
+  if (!_descriptionMap) {
+    _descriptionMap = [[MXMultilingualObject alloc] init];
+  }
+  return _descriptionMap;
 }
 
 - (NSString *)name_default {
