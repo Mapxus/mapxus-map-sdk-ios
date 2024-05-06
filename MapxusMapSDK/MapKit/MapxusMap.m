@@ -933,7 +933,7 @@ didChangeIndoorSiteAccess:_isIndoor
       [self setMapStyleWithName:@"mappybee_mims2_v2"];
       break;
     case MXMStyleMAPXUS:
-      [self setMapStyleWithName:@"mapxus_mims2_v4"];
+      [self setMapStyleWithName:@"mapxus_mims2_v5"];
       break;
     default:
       break;
