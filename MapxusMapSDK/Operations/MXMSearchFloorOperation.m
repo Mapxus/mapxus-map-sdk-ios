@@ -16,7 +16,7 @@
 
 - (void)searchWithFloorId:(NSString *)floorId
 {
-  NSString *url = [NSString stringWithFormat:@"%@%@%@", MXMAPIHOSTURL,@"/bms/api/v3/buildings/floors/", floorId];
+  NSString *url = [NSString stringWithFormat:@"%@%@%@", MXMAPIHOSTURL,@"/bms/api/v4/buildings/floors/", floorId];
   
   [MXMHttpManager MXMGET:url parameters:nil success:^(NSDictionary *content) {
     if (self.complateBlock) {

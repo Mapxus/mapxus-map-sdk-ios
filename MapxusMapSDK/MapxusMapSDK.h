@@ -31,6 +31,7 @@ FOUNDATION_EXPORT const unsigned char MapxusMapSDKVersionString[];
 #import <MapxusMapSDK/MXMSearchObj.h>
 #import <MapxusMapSDK/MXMCommonObj.h>
 #import <MapxusMapSDK/MXMSearchAPI.h>
+#import <MapxusMapSDK/MXMultilingualObject.h>
 
 #import <MapxusMapSDK/MXMSearchBase.h>
 #import <MapxusMapSDK/MXMGeoCodeSearch.h>

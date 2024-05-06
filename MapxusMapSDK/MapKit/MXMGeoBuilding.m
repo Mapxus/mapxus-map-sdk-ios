@@ -8,6 +8,7 @@
 
 #import "MXMGeoBuilding+Private.h"
 #import <YYModel/YYModel.h>
+#import "JXJsonFunctionDefine.h"
 
 @implementation MXMGeoBuilding
 
@@ -17,12 +18,7 @@
   copyedModel.identifier = self.identifier;
   copyedModel.category = self.category;
   copyedModel.venueId = self.venueId;
-  copyedModel.name = self.name;
-  copyedModel.name_en = self.name_en;
-  copyedModel.name_cn = self.name_cn;
-  copyedModel.name_zh = self.name_zh;
-  copyedModel.name_ja = self.name_ja;
-  copyedModel.name_ko = self.name_ko;
+  copyedModel.nameMap = [self.nameMap copy];
   copyedModel.floors = [[NSArray alloc] initWithArray:self.floors copyItems:YES];
   copyedModel.bbox = [self.bbox copy];
   copyedModel.groundFloor = self.groundFloor;
@@ -32,20 +28,28 @@
   return copyedModel;
 }
 
++ (NSArray *)modelPropertyBlacklist {
+  return @[@"overlapBuildingIds"];
+}
+
 + (NSDictionary *)modelCustomPropertyMapper {
-  return @{@"name_cn" : @[@"name_cn", @"name:zh-Hans"],
-           @"name_en" : @[@"name_en", @"name:en"],
-           @"name_zh" : @[@"name_zh", @"name:zh-Hant"],
-           @"name_ja" : @[@"name_ja", @"name:ja"],
-           @"name_ko" : @[@"name_ko", @"name:ko"],
-           @"identifier" : @[@"identifier", @"id"],
-           @"category" : @[@"category", @"building"],
-           @"venueId" : @[@"venueId", @"ref:venue"],
-           @"defaultDisplayedFloorId": @[@"defaultDisplayedFloorId", @"default_displayed_floor"]
+  return @{
+    @"identifier" : @[@"identifier", @"id"],
+    @"category" : @[@"category", @"building"],
+    @"venueId" : @[@"venueId", @"ref:venue"],
+    @"defaultDisplayedFloorId": @[@"defaultDisplayedFloorId", @"default_displayed_floor"]
   };
 }
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+  
+  self.nameMap.Default = DecodeStringFromDic(dic, @"name");
+  self.nameMap.en = DecodeStringFromDic(dic, @"name:en");
+  self.nameMap.zh_Hans = DecodeStringFromDic(dic, @"name:zh-Hans");
+  self.nameMap.zh_Hant = DecodeStringFromDic(dic, @"name:zh-Hant");
+  self.nameMap.ja = DecodeStringFromDic(dic, @"name:ja");
+  self.nameMap.ko = DecodeStringFromDic(dic, @"name:ko");
+  
   NSArray *floorIds = nil;
   if ([dic[@"level_ids"] isKindOfClass:[NSString class]]) {
     floorIds = [dic[@"level_ids"] componentsSeparatedByString:@","];
@@ -124,6 +128,61 @@
 
 - (void)setBuilding:(NSString *)building {
   self.category = building;
+}
+
+- (NSString *)name {
+  return self.nameMap.Default;
+}
+
+- (void)setName:(NSString *)name {
+  self.nameMap.Default = name;
+}
+
+- (NSString *)name_en {
+  return self.nameMap.en;
+}
+
+- (void)setName_en:(NSString *)name_en {
+  self.nameMap.en = name_en;
+}
+
+- (NSString *)name_cn {
+  return self.nameMap.zh_Hans;
+}
+
+- (void)setName_cn:(NSString *)name_cn {
+  self.nameMap.zh_Hans = name_cn;
+}
+
+- (NSString *)name_zh {
+  return self.nameMap.zh_Hant;
+}
+
+- (void)setName_zh:(NSString *)name_zh {
+  self.nameMap.zh_Hant = name_zh;
+}
+
+- (NSString *)name_ja {
+  return self.nameMap.ja;
+}
+
+- (void)setName_ja:(NSString *)name_ja {
+  self.nameMap.ja = name_ja;
+}
+
+- (NSString *)name_ko {
+  return self.nameMap.ko;
+}
+
+- (void)setName_ko:(NSString *)name_ko {
+  self.nameMap.ko = name_ko;
+}
+
+- (MXMultilingualObject<NSString *> *)nameMap {
+  if (!_nameMap) {
+    _nameMap = [[MXMultilingualObject alloc] init];
+  }
+  return _nameMap;
 }
 
 - (NSString *)venueId {

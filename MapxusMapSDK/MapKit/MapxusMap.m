@@ -197,9 +197,11 @@
 
 - (void)idleAutomaticAnalyseOfIndoorData
 {
-  //  self.decider.visibleFloors = [self.dataQueryer findOutFloorInTheRect:_mapView.bounds];
-  self.decider.visibleBuildings = [self.dataQueryer findOutBuildingInTheRect:_mapView.bounds];
+  // visibleBuildings 在创建对象时需要用到 visibleVenues 的数据，所以需要先生成 venue 数据
   self.decider.visibleVenues = [self.dataQueryer findOutVenueInTheRect:_mapView.bounds];
+  self.decider.visibleBuildings = [self.dataQueryer findOutBuildingInTheRect:_mapView.bounds];
+  //  self.decider.visibleFloors = [self.dataQueryer findOutFloorInTheRect:_mapView.bounds];
+  
   // 整屏可见建筑列表，无论是否需要自动选择建筑功能，buildings 都需要对外放出值
   _buildings = [self.decider.visibleBuildings mutableCopy];
   _venues = [self.decider.visibleVenues mutableCopy];

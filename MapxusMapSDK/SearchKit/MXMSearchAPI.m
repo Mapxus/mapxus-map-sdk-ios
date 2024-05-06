@@ -19,7 +19,7 @@ NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
 
 - (void)MXMVenueSearch:(MXMVenueSearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v3/venues"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v4/venues"];
 
     NSMutableDictionary *dic = nil;
     if (request.venueIds.count) {
@@ -59,7 +59,7 @@ NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
 // 查找建筑
 - (void)MXMBuildingSearch:(MXMBuildingSearchRequest *)request
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v3/buildings"];
+    NSString *url = [NSString stringWithFormat:@"%@%@", MXMAPIHOSTURL, @"/bms/api/v4/buildings"];
 
     NSMutableDictionary *dic = nil;
     if (request.buildingIds.count) {

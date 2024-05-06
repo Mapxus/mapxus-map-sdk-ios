@@ -103,7 +103,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMPOICategorySearchRequest : NSObject
 /// Specify search floor ID
 @property (nonatomic, strong, nullable) NSString *floorId;
-@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
+@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId` instead.");
 /// Specify search building ID
 @property (nonatomic, strong, nullable) NSString *buildingId;
 /// Specify search venue ID
@@ -182,7 +182,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *keywords;
 /// The ID of floor which you want to search in
 @property (nonatomic, copy, nullable) NSString *floorId;
-@property (nonatomic, copy, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
+@property (nonatomic, copy, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId` instead.");
 /// The ID of building which you want to search in
 @property (nonatomic, copy, nullable) NSString *buildingId;
 /// The ID of venue which you want to search in
@@ -249,7 +249,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *distanceSearchType;
 /// The ID of floor which you want to search in, if it is not nil, the buildingId will be disregarded.
 @property (nonatomic, copy, nullable) NSString *floorId;
-@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
+@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId` instead.");
 /// The ID of building which you want to search in.
 @property (nonatomic, strong, nullable) NSString *buildingId;
 /// Search for the actual building height of the location, take the level value of the CLFloor.

@@ -10,6 +10,7 @@
 #import <CoreGraphics/CGBase.h>
 #import <MapxusMapSDK/MXMDefine.h>
 #import <CoreLocation/CLLocation.h>
+#import <MapxusMapSDK/MXMultilingualObject.h>
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -24,12 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *categoryId;
 /// Description of the category
 @property (nonatomic, strong, nullable) NSString *categoryDescription;
+
+@property (nonatomic, strong) MXMultilingualObject<NSString *> *titleMap;
 /// English name for category
-@property (nonatomic, strong, nullable) NSString *title_en;
+@property (nonatomic, strong, nullable) NSString *title_en DEPRECATED_MSG_ATTRIBUTE("Please use `titleMap.en` instead.");
 /// Simplified Chinese name for category
-@property (nonatomic, strong, nullable) NSString *title_cn;
+@property (nonatomic, strong, nullable) NSString *title_cn DEPRECATED_MSG_ATTRIBUTE("Please use `titleMap.zh_Hans` instead.");
 /// Traditional Chinese for category
-@property (nonatomic, strong, nullable) NSString *title_zh;
+@property (nonatomic, strong, nullable) NSString *title_zh DEPRECATED_MSG_ATTRIBUTE("Please use `titleMap.zh_Hant` instead.");
 @end
 
 
@@ -75,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// The ID of floor on which it is located
 @property (nonatomic, strong, nullable) NSString *floorId;
 
-@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
+@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId` instead.");
 
 /**
  MXMIndoorPoint factory method
@@ -93,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (MXMIndoorPoint *)locationWithLatitude:(double)lat
                                longitude:(double)lng
                                 building:(nullable NSString *)buildingId
-                                   floor:(nullable NSString *)floor DEPRECATED_MSG_ATTRIBUTE("Please use `+ [MXMIndoorPoint locationWithLatitude:longitude:buildingId:floorId:]`");
+                                   floor:(nullable NSString *)floor DEPRECATED_MSG_ATTRIBUTE("Please use `+ [MXMIndoorPoint locationWithLatitude:longitude:buildingId:floorId:]` instead.");
 
 @end
 
@@ -198,45 +201,54 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *buildingId;
 /// The ID of venue where the building is located
 @property (nonatomic, strong) NSString *venueId;
+
+@property (nonatomic, strong) MXMultilingualObject<NSString *> *nameMap;
+/// The building name without venueName
+@property (nonatomic, strong) MXMultilingualObject<NSString *> *buildingNameMap;
+
+@property (nonatomic, strong) MXMultilingualObject<NSString *> *venueNameMap;
+
+@property (nonatomic, strong) MXMultilingualObject<MXMAddress *> *addressMap;
+
 /// The default name of venue where the building is located
-@property (nonatomic, strong, nullable) NSString *venueName_default;
+@property (nonatomic, strong, nullable) NSString *venueName_default DEPRECATED_MSG_ATTRIBUTE("Please use `venueNameMap.Default` instead.");
 /// The English name of venue where the building is located
-@property (nonatomic, strong, nullable) NSString *venueName_en;
+@property (nonatomic, strong, nullable) NSString *venueName_en DEPRECATED_MSG_ATTRIBUTE("Please use `venueNameMap.en` instead.");
 /// The Simplified Chinese name of venue where the building is located
-@property (nonatomic, strong, nullable) NSString *venueName_cn;
+@property (nonatomic, strong, nullable) NSString *venueName_cn DEPRECATED_MSG_ATTRIBUTE("Please use `venueNameMap.zh_Hans` instead.");
 /// The Traditional Chinese name of venue where the building is located
-@property (nonatomic, strong, nullable) NSString *venueName_zh;
+@property (nonatomic, strong, nullable) NSString *venueName_zh DEPRECATED_MSG_ATTRIBUTE("Please use `venueNameMap.zh_Hant` instead.");
 /// The Japanese name of venue where the building is located
-@property (nonatomic, strong, nullable) NSString *venueName_ja;
-/// The Korean name of venue where the building is located
-@property (nonatomic, strong, nullable) NSString *venueName_ko;
-/// Building name in default language
-@property (nonatomic, strong, nullable) NSString *name_default;
-/// Building name in English
-@property (nonatomic, strong, nullable) NSString *name_en;
-/// Building name in Simplified Chinese
-@property (nonatomic, strong, nullable) NSString *name_cn;
-/// Building name in Traditional Chinese
-@property (nonatomic, strong, nullable) NSString *name_zh;
-/// Building name in Japanese
-@property (nonatomic, strong, nullable) NSString *name_ja;
-/// Building name in Korean
-@property (nonatomic, strong, nullable) NSString *name_ko;
+@property (nonatomic, strong, nullable) NSString *venueName_ja DEPRECATED_MSG_ATTRIBUTE("Please use `venueNameMap.ja` instead.");
+/// This property is The Korean name of venue where the building is located
+@property (nonatomic, strong, nullable) NSString *venueName_ko DEPRECATED_MSG_ATTRIBUTE("Please use `venueNameMap.ko` instead.");
+/// Building's name combined with the name of the venue in default language
+@property (nonatomic, strong, nullable) NSString *name_default DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.Default` instead.");
+/// The name with building name and venue name in English
+@property (nonatomic, strong, nullable) NSString *name_en DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.en` instead.");
+/// Building name with venue name in Simplified Chinese
+@property (nonatomic, strong, nullable) NSString *name_cn DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.zh_Hans` instead.");
+/// Building name with venue name in Traditional Chinese
+@property (nonatomic, strong, nullable) NSString *name_zh DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.zh_Hant` instead.");
+/// Building name with venue name in Japanese
+@property (nonatomic, strong, nullable) NSString *name_ja DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.ja` instead.");
+/// Building name with venue name in Korean
+@property (nonatomic, strong, nullable) NSString *name_ko DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.ko` instead.");
 /// Building address in default language
-@property (nonatomic, strong, nullable) MXMAddress *address_default;
+@property (nonatomic, strong, nullable) MXMAddress *address_default DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.Default` instead.");
 /// Building address in English
-@property (nonatomic, strong, nullable) MXMAddress *address_en;
+@property (nonatomic, strong, nullable) MXMAddress *address_en DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.en` instead.");
 /// Building address in Simplified Chinese
-@property (nonatomic, strong, nullable) MXMAddress *address_cn;
+@property (nonatomic, strong, nullable) MXMAddress *address_cn DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.zh_Hans` instead.");
 /// Building address in Traditional Chinese
-@property (nonatomic, strong, nullable) MXMAddress *address_zh;
+@property (nonatomic, strong, nullable) MXMAddress *address_zh DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.zh_Hant` instead.");
 /// Building address in Japanese
-@property (nonatomic, strong, nullable) MXMAddress *address_ja;
+@property (nonatomic, strong, nullable) MXMAddress *address_ja DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.ja` instead.");
 /// Building address in Korean
-@property (nonatomic, strong, nullable) MXMAddress *address_ko;
+@property (nonatomic, strong, nullable) MXMAddress *address_ko DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.ko` instead.");
 /// Building category, indicating the classification of the building, e.g. residential, commercial, retail, industrial, transportation, etc.
 @property (nonatomic, strong, nullable) NSString *category;
-@property (nonatomic, strong, nullable) NSString *type DEPRECATED_MSG_ATTRIBUTE("Please use `category`");
+@property (nonatomic, strong, nullable) NSString *type DEPRECATED_MSG_ATTRIBUTE("Please use `category` instead.");
 /// External rectangular area where the building is located
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
 /// The longitude and latitude of the building name label
@@ -266,33 +278,37 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MXMVenue : NSObject
 /// A string that uniquely identifies the venue in the mapxus system.
 @property (nonatomic, strong) NSString *venueId;
+
+@property (nonatomic, strong) MXMultilingualObject<NSString *> *nameMap;
+
+@property (nonatomic, strong) MXMultilingualObject<MXMAddress *> *addressMap;
 /// Venue name in default language
-@property (nonatomic, strong, nullable) NSString *name_default;
+@property (nonatomic, strong, nullable) NSString *name_default DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.Default` instead.");
 /// Venue name in English
-@property (nonatomic, strong, nullable) NSString *name_en;
+@property (nonatomic, strong, nullable) NSString *name_en DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.en` instead.");
 /// Venue name in Simplified Chinese
-@property (nonatomic, strong, nullable) NSString *name_cn;
+@property (nonatomic, strong, nullable) NSString *name_cn DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.zh_Hans` instead.");
 /// Venue name in Traditional Chinese
-@property (nonatomic, strong, nullable) NSString *name_zh;
+@property (nonatomic, strong, nullable) NSString *name_zh DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.zh_Hant` instead.");
 /// Venue name in Japanese
-@property (nonatomic, strong, nullable) NSString *name_ja;
+@property (nonatomic, strong, nullable) NSString *name_ja DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.ja` instead.");
 /// Venue name in Korean
-@property (nonatomic, strong, nullable) NSString *name_ko;
+@property (nonatomic, strong, nullable) NSString *name_ko DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.ko` instead.");
 /// Venue address in default language
-@property (nonatomic, strong, nullable) MXMAddress *address_default;
+@property (nonatomic, strong, nullable) MXMAddress *address_default DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.Default` instead.");
 /// Venue address in English
-@property (nonatomic, strong, nullable) MXMAddress *address_en;
+@property (nonatomic, strong, nullable) MXMAddress *address_en DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.en` instead.");
 /// Venue address in Simplified Chinese
-@property (nonatomic, strong, nullable) MXMAddress *address_cn;
+@property (nonatomic, strong, nullable) MXMAddress *address_cn DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.zh_Hans` instead.");
 /// Venue address in Traditional Chinese
-@property (nonatomic, strong, nullable) MXMAddress *address_zh;
+@property (nonatomic, strong, nullable) MXMAddress *address_zh DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.zh_Hant` instead.");
 /// Venue address in Japanese
-@property (nonatomic, strong, nullable) MXMAddress *address_ja;
+@property (nonatomic, strong, nullable) MXMAddress *address_ja DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.ja` instead.");
 /// Venue address in Korean
-@property (nonatomic, strong, nullable) MXMAddress *address_ko;
+@property (nonatomic, strong, nullable) MXMAddress *address_ko DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.ko` instead.");
 /// Venue category, indicating the classification of the building, e.g. residential, commercial, retail, industrial, transportation, etc.
 @property (nonatomic, strong, nullable) NSString *category;
-@property (nonatomic, strong, nullable) NSString *type DEPRECATED_MSG_ATTRIBUTE("Please use `category`");
+@property (nonatomic, strong, nullable) NSString *type DEPRECATED_MSG_ATTRIBUTE("Please use `category` instead.");
 /// External rectangular area where the venue is located
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
 /// The longitude and latitude of the venue name label
@@ -333,30 +349,34 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *introduction;
 /// The Email of POI
 @property (nonatomic, strong, nullable) NSString *email;
+
+@property (nonatomic, strong) MXMultilingualObject<NSString *> *nameMap;
+
+@property (nonatomic, strong) MXMultilingualObject<NSString *> *accessibilityDetailMap;
 /// POI name in default language
-@property (nonatomic, strong, nullable) NSString *name_default;
+@property (nonatomic, strong, nullable) NSString *name_default DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.Default` instead.");
 /// POI name in English
-@property (nonatomic, strong, nullable) NSString *name_en;
+@property (nonatomic, strong, nullable) NSString *name_en DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.en` instead.");
 /// POI name in Simplified Chinese
-@property (nonatomic, strong, nullable) NSString *name_cn;
+@property (nonatomic, strong, nullable) NSString *name_cn DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.zh_Hans` instead.");
 /// POI name in Traditional Chinese
-@property (nonatomic, strong, nullable) NSString *name_zh;
+@property (nonatomic, strong, nullable) NSString *name_zh DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.zh_Hant` instead.");
 /// POI name in Japanese
-@property (nonatomic, strong, nullable) NSString *name_ja;
+@property (nonatomic, strong, nullable) NSString *name_ja DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.ja` instead.");
 /// POI name in Korean
-@property (nonatomic, strong, nullable) NSString *name_ko;
+@property (nonatomic, strong, nullable) NSString *name_ko DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.ko` instead.");
 /// Accessibility Information in default language
-@property (nonatomic, strong, nullable) NSString *accessibilityDetail;
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail DEPRECATED_MSG_ATTRIBUTE("Please use `accessibilityDetailMap.Default` instead.");
 /// Accessibility Information in English
-@property (nonatomic, strong, nullable) NSString *accessibilityDetail_en;
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_en DEPRECATED_MSG_ATTRIBUTE("Please use `accessibilityDetailMap.en` instead.");
 /// Accessibility Information in Simplified Chinese
-@property (nonatomic, strong, nullable) NSString *accessibilityDetail_cn;
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_cn DEPRECATED_MSG_ATTRIBUTE("Please use `accessibilityDetailMap.zh_Hans` instead.");
 /// Accessibility Information in Traditional Chinese
-@property (nonatomic, strong, nullable) NSString *accessibilityDetail_zh;
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_zh DEPRECATED_MSG_ATTRIBUTE("Please use `accessibilityDetailMap.zh_Hant` instead.");
 /// Accessibility Information in Japanese
-@property (nonatomic, strong, nullable) NSString *accessibilityDetail_ja;
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_ja DEPRECATED_MSG_ATTRIBUTE("Please use `accessibilityDetailMap.ja` instead.");
 /// Accessibility Information in Korean
-@property (nonatomic, strong, nullable) NSString *accessibilityDetail_ko;
+@property (nonatomic, strong, nullable) NSString *accessibilityDetail_ko DEPRECATED_MSG_ATTRIBUTE("Please use `accessibilityDetailMap.ko` instead.");
 /// Opening hours, use openstreetmap opening_hours format
 @property (nonatomic, strong, nullable) NSString *openingHours;
 /// The phone number of the POI
@@ -382,7 +402,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *buildingId;
 /// The ID of the floor in which this instruction is located
 @property (nonatomic, strong, nullable) NSString *floorId;
-@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
+@property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId` instead.");
 /// The ordinal of the floor in which this instruction is located
 @property (nonatomic, strong, nullable) MXMOrdinal *ordinal;
 /// Name of the road being taken

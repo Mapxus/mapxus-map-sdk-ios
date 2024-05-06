@@ -109,6 +109,8 @@
 		89865FF229E9345B00E984A1 /* Mapbox.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89865FF129E9345B00E984A1 /* Mapbox.xcframework */; };
 		898E9BF72B2056FC00345D0C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 898E9BF62B2056FC00345D0C /* PrivacyInfo.xcprivacy */; };
 		89AAF5952BDB837F00CB6B33 /* NSString+MXMUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 89AAF5942BDB837F00CB6B33 /* NSString+MXMUtils.h */; };
+		89AAF59C2BDDE4D000CB6B33 /* MXMultilingualObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AAF59B2BDDE4D000CB6B33 /* MXMultilingualObject.m */; };
+		89AAF59D2BDDE4D000CB6B33 /* MXMultilingualObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 89AAF59A2BDDE4D000CB6B33 /* MXMultilingualObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89B2EB7C2A284E1200A369E4 /* MXMSite.h in Headers */ = {isa = PBXBuildFile; fileRef = 89B2EB7A2A284E1200A369E4 /* MXMSite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89B2EB7D2A284E1200A369E4 /* MXMSite.m in Sources */ = {isa = PBXBuildFile; fileRef = 89B2EB7B2A284E1200A369E4 /* MXMSite.m */; };
 		89C29CA42AE10F9200A3E841 /* NSObject+MXMThrottle.h in Headers */ = {isa = PBXBuildFile; fileRef = 89C29CA22AE10F9200A3E841 /* NSObject+MXMThrottle.h */; };
@@ -256,6 +258,8 @@
 		89865FF129E9345B00E984A1 /* Mapbox.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Mapbox.xcframework; path = Pods/MapxusRenderSDK/Mapbox.xcframework; sourceTree = "<group>"; };
 		898E9BF62B2056FC00345D0C /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		89AAF5942BDB837F00CB6B33 /* NSString+MXMUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MXMUtils.h"; sourceTree = "<group>"; };
+		89AAF59A2BDDE4D000CB6B33 /* MXMultilingualObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMultilingualObject.h; sourceTree = "<group>"; };
+		89AAF59B2BDDE4D000CB6B33 /* MXMultilingualObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMultilingualObject.m; sourceTree = "<group>"; };
 		89B2EB7A2A284E1200A369E4 /* MXMSite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSite.h; sourceTree = "<group>"; };
 		89B2EB7B2A284E1200A369E4 /* MXMSite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMSite.m; sourceTree = "<group>"; };
 		89C29CA22AE10F9200A3E841 /* NSObject+MXMThrottle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+MXMThrottle.h"; sourceTree = "<group>"; };
@@ -450,6 +454,8 @@
 				89865F4229E9262700E984A1 /* MXMSearchObj.m */,
 				89865F4129E9262700E984A1 /* MXMSearchAPI.h */,
 				89865F4329E9262700E984A1 /* MXMSearchAPI.m */,
+				89AAF59A2BDDE4D000CB6B33 /* MXMultilingualObject.h */,
+				89AAF59B2BDDE4D000CB6B33 /* MXMultilingualObject.m */,
 			);
 			path = SearchKit;
 			sourceTree = "<group>";
@@ -611,6 +617,7 @@
 				89AAF5952BDB837F00CB6B33 /* NSString+MXMUtils.h in Headers */,
 				89C9E1B72A39968F00D93569 /* MXMFloorSelectorBar.h in Headers */,
 				89C9E1CA2A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h in Headers */,
+				89AAF59D2BDDE4D000CB6B33 /* MXMultilingualObject.h in Headers */,
 				89865F9229E9262700E984A1 /* MXMCommonObj.h in Headers */,
 				89C9E1C32A3AE20500D93569 /* MXMSDKBundle.h in Headers */,
 				89865F8F29E9262700E984A1 /* MXMSearchAPI.h in Headers */,
@@ -890,6 +897,7 @@
 				890831042A80CBD9006DBD89 /* MXMSearchVenueOperation.m in Sources */,
 				89865FB829E9262700E984A1 /* MXMGeoCodeSearchResult.m in Sources */,
 				890B25052A89C3B100954692 /* MXMSearchFloorOperation.m in Sources */,
+				89AAF59C2BDDE4D000CB6B33 /* MXMultilingualObject.m in Sources */,
 				89C9E1B42A39966A00D93569 /* MXMFloorBarHeaderFooterView.m in Sources */,
 				89C9E1C82A3AE3FE00D93569 /* UIImage+MXMSdk.m in Sources */,
 				89C9E1B82A39968F00D93569 /* MXMFloorSelectorBar.m in Sources */,

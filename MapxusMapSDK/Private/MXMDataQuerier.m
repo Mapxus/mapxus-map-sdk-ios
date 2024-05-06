@@ -196,17 +196,9 @@
   for (id <MGLFeature> feature in features) {
     NSString *theId = [feature attributeForKey:@"osm:ref"];
     if (theId) {
-      // 解析POI经纬度
+      // 解析POI
       NSDictionary *geoDic = feature.geoJSONDictionary;
-      NSDictionary *geometry = DecodeDicFromDic(geoDic, @"geometry");
-      NSArray *coordList = DecodeArrayFromDic(geometry, @"coordinates");
-      NSNumber *lon = coordList.firstObject;
-      NSNumber *lat = coordList.lastObject;
-      CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(lat.doubleValue, lon.doubleValue);
-      
-      MXMGeoPOI *poi = [MXMGeoPOI yy_modelWithJSON:feature.attributes];
-      poi.coordinate = coord;
-      
+      MXMGeoPOI *poi = [MXMGeoPOI yy_modelWithJSON:geoDic];
       resultPOIs[theId] = poi;
     }
   }

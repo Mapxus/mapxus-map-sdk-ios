@@ -16,18 +16,8 @@
   MXMGeoVenue * copyedModel = [[self.class allocWithZone:zone] init];
   copyedModel.identifier = self.identifier;
   copyedModel.category = self.category;
-  copyedModel.name = self.name;
-  copyedModel.name_en = self.name_en;
-  copyedModel.name_cn = self.name_cn;
-  copyedModel.name_zh = self.name_zh;
-  copyedModel.name_ja = self.name_ja;
-  copyedModel.name_ko = self.name_ko;
-  copyedModel.address = [self.address copy];
-  copyedModel.address_en = [self.address_en copy];
-  copyedModel.address_cn = [self.address_cn copy];
-  copyedModel.address_zh = [self.address_zh copy];
-  copyedModel.address_ja = [self.address_ja copy];
-  copyedModel.address_ko = [self.address_ko copy];
+  copyedModel.nameMap = [self.nameMap copy];
+  copyedModel.addressMap = [self.addressMap copy];
   copyedModel.bbox = [self.bbox copy];
   copyedModel.buildingIds = self.buildingIds;
   copyedModel.defaultDisplayedBuildingId = self.defaultDisplayedBuildingId;
@@ -35,15 +25,14 @@
   return copyedModel;
 }
 
++ (NSArray *)modelPropertyBlacklist {
+  return @[@"defaultDisplayedOrdinal"];
+}
+
 + (NSDictionary *)modelCustomPropertyMapper {
   return @{
     @"identifier": @[@"identifier", @"id"],
     @"category": @[@"category", @"venue"],
-    @"name_cn": @[@"name_cn", @"name:zh-Hans"],
-    @"name_en": @[@"name_en", @"name:en"],
-    @"name_zh": @[@"name_zh", @"name:zh-Hant"],
-    @"name_ja": @[@"name_ja", @"name:ja"],
-    @"name_ko": @[@"name_ko", @"name:ko"],
     @"defaultDisplayedBuildingId": @[@"defaultDisplayedBuildingId", @"default_displayed_building"]
   };
 }
@@ -59,94 +48,67 @@
     _defaultDisplayedOrdinal.level = [ordinalNum integerValue];
   }
   
-  // address_default
-  if (dic[@"addr:street"]) {
-    if (self.address == nil) {
-      self.address = [[MXMAddress alloc] init];
-    }
-    self.address.street = [NSString stringWithFormat:@"%@", dic[@"addr:street"]];
-  }
   
-  if (dic[@"addr:housenumber"]) {
-    if (self.address == nil) {
-      self.address = [[MXMAddress alloc] init];
-    }
-    self.address.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber"]];
+  self.nameMap.Default = DecodeStringFromDic(dic, @"name");
+  self.nameMap.en = DecodeStringFromDic(dic, @"name:en");
+  self.nameMap.zh_Hans = DecodeStringFromDic(dic, @"name:zh-Hans");
+  self.nameMap.zh_Hant = DecodeStringFromDic(dic, @"name:zh-Hant");
+  self.nameMap.ja = DecodeStringFromDic(dic, @"name:ja");
+  self.nameMap.ko = DecodeStringFromDic(dic, @"name:ko");
+  
+  
+  // address_default
+  NSString *street = DecodeStringFromDic(dic, @"addr:street");
+  NSString *houseNumber = DecodeStringFromDic(dic, @"addr:housenumber");
+  if (street || houseNumber) {
+    self.addressMap.Default = [[MXMAddress alloc] init];
+    self.addressMap.Default.street = street;
+    self.addressMap.Default.housenumber = houseNumber;
   }
   
   // address_en
-  if (dic[@"addr:street:en"]) {
-    if (self.address_en == nil) {
-      self.address_en = [[MXMAddress alloc] init];
-    }
-    self.address_en.street = [NSString stringWithFormat:@"%@", dic[@"addr:street:en"]];
-  }
-  
-  if (dic[@"addr:housenumber:en"]) {
-    if (self.address_en == nil) {
-      self.address_en = [[MXMAddress alloc] init];
-    }
-    self.address_en.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber:en"]];
+  street = DecodeStringFromDic(dic, @"addr:street:en");
+  houseNumber = DecodeStringFromDic(dic, @"addr:housenumber:en");
+  if (street || houseNumber) {
+    self.addressMap.en = [[MXMAddress alloc] init];
+    self.addressMap.en.street = street;
+    self.addressMap.en.housenumber = houseNumber;
   }
   
   // address_cn
-  if (dic[@"addr:street:zh-Hans"]) {
-    if (self.address_cn == nil) {
-      self.address_cn = [[MXMAddress alloc] init];
-    }
-    self.address_cn.street = [NSString stringWithFormat:@"%@", dic[@"addr:street:zh-Hans"]];
-  }
-  
-  if (dic[@"addr:housenumber:zh-Hans"]) {
-    if (self.address_cn == nil) {
-      self.address_cn = [[MXMAddress alloc] init];
-    }
-    self.address_cn.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber:zh-Hans"]];
+  street = DecodeStringFromDic(dic, @"addr:street:zh-Hans");
+  houseNumber = DecodeStringFromDic(dic, @"addr:housenumber:zh-Hans");
+  if (street || houseNumber) {
+    self.addressMap.zh_Hans = [[MXMAddress alloc] init];
+    self.addressMap.zh_Hans.street = street;
+    self.addressMap.zh_Hans.housenumber = houseNumber;
   }
   
   // address_zh
-  if (dic[@"addr:street:zh-Hant"]) {
-    if (self.address_zh == nil) {
-      self.address_zh = [[MXMAddress alloc] init];
-    }
-    self.address_zh.street = [NSString stringWithFormat:@"%@", dic[@"addr:street:zh-Hant"]];
-  }
-  
-  if (dic[@"addr:housenumber:zh-Hant"]) {
-    if (self.address_zh == nil) {
-      self.address_zh = [[MXMAddress alloc] init];
-    }
-    self.address_zh.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber:zh-Hant"]];
+  street = DecodeStringFromDic(dic, @"addr:street:zh-Hant");
+  houseNumber = DecodeStringFromDic(dic, @"addr:housenumber:zh-Hant");
+  if (street || houseNumber) {
+    self.addressMap.zh_Hant = [[MXMAddress alloc] init];
+    self.addressMap.zh_Hant.street = street;
+    self.addressMap.zh_Hant.housenumber = houseNumber;
   }
   
   // address_ja
-  if (dic[@"addr:street:ja"]) {
-    if (self.address_ja == nil) {
-      self.address_ja = [[MXMAddress alloc] init];
-    }
-    self.address_ja.street = [NSString stringWithFormat:@"%@", dic[@"addr:street:ja"]];
-  }
-  
-  if (dic[@"addr:housenumber:ja"]) {
-    if (self.address_ja == nil) {
-      self.address_ja = [[MXMAddress alloc] init];
-    }
-    self.address_ja.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber:ja"]];
+  street = DecodeStringFromDic(dic, @"addr:street:ja");
+  houseNumber = DecodeStringFromDic(dic, @"addr:housenumber:ja");
+  if (street || houseNumber) {
+    self.addressMap.ja = [[MXMAddress alloc] init];
+    self.addressMap.ja.street = street;
+    self.addressMap.ja.housenumber = houseNumber;
   }
   
   // address_ko
-  if (dic[@"addr:street:ko"]) {
-    if (self.address_ko == nil) {
-      self.address_ko = [[MXMAddress alloc] init];
-    }
-    self.address_ko.street = [NSString stringWithFormat:@"%@", dic[@"addr:street:ko"]];
-  }
-  
-  if (dic[@"addr:housenumber:ko"]) {
-    if (self.address_ko == nil) {
-      self.address_ko = [[MXMAddress alloc] init];
-    }
-    self.address_ko.housenumber = [NSString stringWithFormat:@"%@", dic[@"addr:housenumber:ko"]];
+  street = DecodeStringFromDic(dic, @"addr:street:ko");
+  houseNumber = DecodeStringFromDic(dic, @"addr:housenumber:ko");
+  if (street || houseNumber) {
+    self.addressMap.ko = [[MXMAddress alloc] init];
+    self.addressMap.ko.street = street;
+    self.addressMap.ko.housenumber = houseNumber;
   }
   
   return YES;
@@ -173,6 +135,116 @@
 
 - (void)setVenueType:(NSString *)venueType {
   self.category = venueType;
+}
+
+- (NSString *)name {
+  return self.nameMap.Default;
+}
+
+- (void)setName:(NSString *)name {
+  self.nameMap.Default = name;
+}
+
+- (NSString *)name_en {
+  return self.nameMap.en;
+}
+
+- (void)setName_en:(NSString *)name_en {
+  self.nameMap.en = name_en;
+}
+
+- (NSString *)name_cn {
+  return self.nameMap.zh_Hans;
+}
+
+- (void)setName_cn:(NSString *)name_cn {
+  self.nameMap.zh_Hans = name_cn;
+}
+
+- (NSString *)name_zh {
+  return self.nameMap.zh_Hant;
+}
+
+- (void)setName_zh:(NSString *)name_zh {
+  self.nameMap.zh_Hant = name_zh;
+}
+
+- (NSString *)name_ja {
+  return self.nameMap.ja;
+}
+
+- (void)setName_ja:(NSString *)name_ja {
+  self.nameMap.ja = name_ja;
+}
+
+- (NSString *)name_ko {
+  return self.nameMap.ko;
+}
+
+- (void)setName_ko:(NSString *)name_ko {
+  self.nameMap.ko = name_ko;
+}
+
+- (MXMAddress *)address {
+  return self.addressMap.Default;
+}
+
+- (void)setAddress:(MXMAddress *)address {
+  self.addressMap.Default = address;
+}
+
+- (MXMAddress *)address_en {
+  return self.addressMap.en;
+}
+
+- (void)setAddress_en:(MXMAddress *)address_en {
+  self.addressMap.en = address_en;
+}
+
+- (MXMAddress *)address_cn {
+  return self.addressMap.zh_Hans;
+}
+
+- (void)setAddress_cn:(MXMAddress *)address_cn {
+  self.addressMap.zh_Hans = address_cn;
+}
+
+- (MXMAddress *)address_zh {
+  return self.addressMap.zh_Hant;
+}
+
+- (void)setAddress_zh:(MXMAddress *)address_zh {
+  self.addressMap.zh_Hant = address_zh;
+}
+
+- (MXMAddress *)address_ja {
+  return self.addressMap.ja;
+}
+
+- (void)setAddress_ja:(MXMAddress *)address_ja {
+  self.addressMap.ja = address_ja;
+}
+
+- (MXMAddress *)address_ko {
+  return self.addressMap.ko;
+}
+
+- (void)setAddress_ko:(MXMAddress *)address_ko {
+  self.addressMap.ko = address_ko;
+}
+
+- (MXMultilingualObject<NSString *> *)nameMap {
+  if (!_nameMap) {
+    _nameMap = [[MXMultilingualObject alloc] init];
+  }
+  return _nameMap;
+}
+
+- (MXMultilingualObject<MXMAddress *> *)addressMap {
+  if (!_addressMap) {
+    _addressMap = [[MXMultilingualObject alloc] init];
+  }
+  return _addressMap;
 }
 
 - (NSArray<NSString *> *)buildingIds {

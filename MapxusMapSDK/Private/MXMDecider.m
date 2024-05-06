@@ -1047,13 +1047,8 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
   MXMGeoBuilding *geoBuilding = [[MXMGeoBuilding alloc] init];
   geoBuilding.identifier = netBuilding.buildingId;
   geoBuilding.venueId = netBuilding.venueId;
-  geoBuilding.category = netBuilding.type;
-  geoBuilding.name = netBuilding.name_default;
-  geoBuilding.name_cn = netBuilding.name_cn;
-  geoBuilding.name_en = netBuilding.name_en;
-  geoBuilding.name_zh = netBuilding.name_zh;
-  geoBuilding.name_ja = netBuilding.name_ja;
-  geoBuilding.name_ko = netBuilding.name_ko;
+  geoBuilding.category = netBuilding.category;
+  geoBuilding.nameMap = netBuilding.nameMap;
   geoBuilding.floors = [netBuilding.floors valueForKey:@"floor"];
   geoBuilding.groundFloor = netBuilding.groundFloor;
   geoBuilding.defaultDisplayedFloorId = netBuilding.defaultDisplayedFloorId;
@@ -1065,19 +1060,9 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
   if (netVenue == nil) { return nil; }
   MXMGeoVenue *geoVenue = [[MXMGeoVenue alloc] init];
   geoVenue.identifier = netVenue.venueId;
-  geoVenue.category = netVenue.type;
-  geoVenue.name = netVenue.name_default;
-  geoVenue.name_cn = netVenue.name_cn;
-  geoVenue.name_en = netVenue.name_en;
-  geoVenue.name_ja = netVenue.name_ja;
-  geoVenue.name_ko = netVenue.name_ko;
-  geoVenue.name_zh = netVenue.name_zh;
-  geoVenue.address = netVenue.address_default;
-  geoVenue.address_cn = netVenue.address_cn;
-  geoVenue.address_en = netVenue.address_en;
-  geoVenue.address_ja = netVenue.address_ja;
-  geoVenue.address_ko = netVenue.address_ko;
-  geoVenue.address_zh = netVenue.address_zh;
+  geoVenue.category = netVenue.category;
+  geoVenue.nameMap = netVenue.nameMap;
+  geoVenue.addressMap = netVenue.addressMap;
   geoVenue.bbox = netVenue.bbox;
   geoVenue.buildingIds = [netVenue.buildings valueForKey:@"buildingId"];
   geoVenue.defaultDisplayedBuildingId = netVenue.defaultDisplayedBuildingId;
@@ -1088,19 +1073,9 @@ shouldChangeTrackingMode:(BOOL)changeTrackingMode
   if (netBuilding == nil) { return nil; }
   MXMGeoVenue *geoVenue = [[MXMGeoVenue alloc] init];
   geoVenue.identifier = netBuilding.venueId;
-  geoVenue.category = netBuilding.type;
-  geoVenue.name = netBuilding.venueName_default;
-  geoVenue.name_cn = netBuilding.venueName_cn;
-  geoVenue.name_en = netBuilding.venueName_en;
-  geoVenue.name_ja = netBuilding.venueName_ja;
-  geoVenue.name_ko = netBuilding.venueName_ko;
-  geoVenue.name_zh = netBuilding.venueName_zh;
-  geoVenue.address = netBuilding.address_default;
-  geoVenue.address_cn = netBuilding.address_cn;
-  geoVenue.address_en = netBuilding.address_en;
-  geoVenue.address_ja = netBuilding.address_ja;
-  geoVenue.address_ko = netBuilding.address_ko;
-  geoVenue.address_zh = netBuilding.address_zh;
+  geoVenue.category = netBuilding.category;
+  geoVenue.nameMap = netBuilding.venueNameMap;
+  geoVenue.addressMap = netBuilding.addressMap;
   return geoVenue;
 }
 
