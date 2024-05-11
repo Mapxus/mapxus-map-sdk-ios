@@ -13,7 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MGLPolygon (MXMFuction)
 
-- (BOOL)contains:(CLLocationCoordinate2D)coordinate ignoreBoundary:(BOOL)ignoreBoundary;
+// 计算落在外框的面上
+- (BOOL)mxmRingContains:(CLLocationCoordinate2D)coordinate ignoreBoundary:(BOOL)ignoreBoundary;
+
+// 计算落在外框与孔间的面上，落在边框上也算
+- (BOOL)mxmContains:(CLLocationCoordinate2D)coordinate;
 
 @end
 

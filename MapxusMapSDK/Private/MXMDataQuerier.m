@@ -248,16 +248,15 @@
     
     if ([feature isKindOfClass:[MGLPolygon class]]) {
       MGLPolygon *polygon = (MGLPolygon *)feature;
-      if ([self polygon:polygon containsPoint:point]) {
+      if ([polygon mxmContains:point]) {
         [list addObject:feature];
       }
     }
-    
     else if ([feature isKindOfClass:[MGLMultiPolygon class]]) {
       MGLMultiPolygon *multiPolygon = (MGLMultiPolygon *)feature;
       BOOL inMultiPolygon = NO;
       for (MGLPolygon *polygon in multiPolygon.polygons) {
-        if ([self polygon:polygon containsPoint:point]) {
+        if ([polygon mxmContains:point]) {
           inMultiPolygon = YES;
           break;
         }
@@ -270,18 +269,5 @@
   }
   return [list copy];
 }
-
-- (BOOL)polygon:(MGLPolygon *)polygon containsPoint:(CLLocationCoordinate2D)point {
-  BOOL inOuter = [polygon contains:point ignoreBoundary:NO];
-  BOOL inInner = NO;
-  for (MGLPolygon *p in polygon.interiorPolygons) {
-    if ([p contains:point ignoreBoundary:YES]) {
-      inInner = YES;
-      break;
-    }
-  }
-  return inOuter && !inInner;
-}
-
 
 @end

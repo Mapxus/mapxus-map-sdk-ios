@@ -18,7 +18,7 @@
  *
  * Ported from: https://github.com/Turfjs/turf/blob/e53677b0931da9e38bb947da448ee7404adc369d/packages/turf-boolean-point-in-polygon/index.ts#L77-L108
  */
-- (BOOL)contains:(CLLocationCoordinate2D)coordinate ignoreBoundary:(BOOL)ignoreBoundary {
+- (BOOL)mxmRingContains:(CLLocationCoordinate2D)coordinate ignoreBoundary:(BOOL)ignoreBoundary {
   NSMutableArray<MXMGeoPoint *> *points = [NSMutableArray array];
   for (int i=0; i<self.pointCount; i++) {
     CLLocationCoordinate2D loc = self.coordinates[i];
@@ -58,6 +58,18 @@
     i = i + 1;
   }
   return isInside;
+}
+
+- (BOOL)mxmContains:(CLLocationCoordinate2D)coordinate {
+  BOOL inOuter = [self mxmRingContains:coordinate ignoreBoundary:NO];
+  BOOL inInner = NO;
+  for (MGLPolygon *p in self.interiorPolygons) {
+    if ([p mxmRingContains:coordinate ignoreBoundary:YES]) {
+      inInner = YES;
+      break;
+    }
+  }
+  return inOuter && !inInner;
 }
 
 @end
