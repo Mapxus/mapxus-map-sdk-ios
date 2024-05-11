@@ -797,7 +797,7 @@
 
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
   
-  NSDictionary *descriptionDic = DecodeDicFromDic(dic, @"description");
+  NSDictionary *descriptionDic = DecodeDicFromDic(dic, @"descriptions");
   if (descriptionDic) {
     self.descriptionMap.Default = DecodeStringFromDic(descriptionDic, @"default");
     self.descriptionMap.en = DecodeStringFromDic(descriptionDic, @"en");
