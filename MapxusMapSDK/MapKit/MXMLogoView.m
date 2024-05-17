@@ -10,7 +10,7 @@
 
 @interface MXMLogoView ()
 @property (nonatomic, strong) UIImageView *mapxusIcon;
-@property (nonatomic, strong) UILabel *mapxusLabel;
+//@property (nonatomic, strong) UILabel *mapxusLabel;
 @end
 
 @implementation MXMLogoView
@@ -29,9 +29,14 @@
 
 - (void)addViews {
   [self addArrangedSubview:self.mapxusIcon];
-  [self addArrangedSubview:self.mapxusLabel];
-  [self.mapxusIcon.widthAnchor constraintEqualToConstant:26.5].active = YES;
-  [self.mapxusIcon.heightAnchor constraintEqualToConstant:18.5].active = YES;
+  //  [self addArrangedSubview:self.mapxusLabel];
+  if ([ENV_NAME isEqualToString:@"kawasaki"]) {
+    [self.mapxusIcon.widthAnchor constraintEqualToConstant:100].active = YES;
+    [self.mapxusIcon.heightAnchor constraintEqualToConstant:37.5].active = YES;
+  } else {
+    [self.mapxusIcon.widthAnchor constraintEqualToConstant:95].active = YES;
+    [self.mapxusIcon.heightAnchor constraintEqualToConstant:19].active = YES;
+  }
 }
 
 - (UIImageView *)mapxusIcon {
@@ -43,16 +48,16 @@
   return _mapxusIcon;
 }
 
-- (UILabel *)mapxusLabel {
-  if (!_mapxusLabel) {
-    _mapxusLabel = [[UILabel alloc] init];
-    _mapxusLabel.text = @"Mapxus";
-    _mapxusLabel.font = [UIFont boldSystemFontOfSize:17];
-    _mapxusLabel.textColor = [UIColor colorWithRed:31/255.0 green:31/255.0 blue:31/255.0 alpha:1];
-    _mapxusLabel.userInteractionEnabled = NO;
-    _mapxusLabel.translatesAutoresizingMaskIntoConstraints = NO;
-  }
-  return _mapxusLabel;
-}
+//- (UILabel *)mapxusLabel {
+//  if (!_mapxusLabel) {
+//    _mapxusLabel = [[UILabel alloc] init];
+//    _mapxusLabel.text = @"Mapxus";
+//    _mapxusLabel.font = [UIFont boldSystemFontOfSize:17];
+//    _mapxusLabel.textColor = [UIColor colorWithRed:31/255.0 green:31/255.0 blue:31/255.0 alpha:1];
+//    _mapxusLabel.userInteractionEnabled = NO;
+//    _mapxusLabel.translatesAutoresizingMaskIntoConstraints = NO;
+//  }
+//  return _mapxusLabel;
+//}
 
 @end

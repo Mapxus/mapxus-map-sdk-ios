@@ -1,18 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "mapxus_icon@2x.jpg",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "mapxus_icon@3x.jpg",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "mapxus_icon.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

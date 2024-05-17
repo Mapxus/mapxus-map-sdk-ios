@@ -98,6 +98,12 @@ elif [[ $COM == "-kawasaki" ]]; then
 fi
 
 
+############## 资源替换 ##############
+
+# 配置使用不同的资源，按照正规做法应该用target来组织使用的文件
+bash "./ResourceManagement.sh" ${PWD} $COM
+
+
 ############## 编译 SDK 放在工程目录 ##############
 ## Generate the build number using current date and time
 buildNumber=$(date "+%y.%m.%d.%H.%M")

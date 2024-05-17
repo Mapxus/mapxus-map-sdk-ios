@@ -164,6 +164,7 @@
 		8952F9682AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGLNetworkConfiguration+MXMSwizzle.h"; sourceTree = "<group>"; };
 		8952F9692AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MGLNetworkConfiguration+MXMSwizzle.m"; sourceTree = "<group>"; };
 		8952F96C2AE7C8BC00D3DBA6 /* MXMURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXMURLProtocol.h; sourceTree = "<group>"; };
+		895A209E2BF72CC7001975AA /* ResourceManagement.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ResourceManagement.sh; sourceTree = "<group>"; };
 		896BD7F729F2610300ED8D9F /* MXMAlertController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMAlertController.m; sourceTree = "<group>"; };
 		896BD7F929F2614500ED8D9F /* MXMAlertController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMAlertController.h; sourceTree = "<group>"; };
 		896BD8582A0BA21000ED8D9F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -356,6 +357,7 @@
 				89865FCD29E9273F00E984A1 /* README.md */,
 				89865FD029E9273F00E984A1 /* BuildConfig */,
 				89865FDB29E9273F00E984A1 /* AutoBuild.sh */,
+				895A209E2BF72CC7001975AA /* ResourceManagement.sh */,
 				89865FCF29E9273F00E984A1 /* document.sh */,
 				89865FDC29E9273F00E984A1 /* IOS-Universal-Framework_aggregate.sh */,
 				89865FDA29E9273F00E984A1 /* UploadCocoapods.sh */,
