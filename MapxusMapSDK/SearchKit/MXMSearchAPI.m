@@ -12,8 +12,8 @@
 #import "MXMConstants.h"
 #import "JXJsonFunctionDefine.h"
 #import "NSString+MXMUtils.h"
+#import <MapxusBaseSDK/MXMErrorDefined.h>
 
-NSString * const MXMParamErrorDomain = @"com.mapxus.param.error";
 
 @implementation MXMSearchAPI
 
