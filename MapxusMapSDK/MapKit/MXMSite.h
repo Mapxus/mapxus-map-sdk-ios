@@ -12,24 +12,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- Specify the details of a location
- */
+/// This class represents a specific location, known as a site.
 @interface MXMSite : NSObject
 
-/**
- The information of the floor at this site.
- */
+
+/// The floor information for this site.
 @property (nonatomic, strong) MXMFloor *floor;
 
-/**
- The information of the building at this site.
- */
+
+/// The building information for this site.
 @property (nonatomic, strong) MXMGeoBuilding *building;
 
-/**
- The information of the venue at this site.
- */
+
+/// The venue information for this site.
 @property (nonatomic, strong) MXMGeoVenue *venue;
 
 @end

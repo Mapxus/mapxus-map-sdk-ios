@@ -11,18 +11,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- Reverse geo search result
- */
+/// `MXMReverseGeoCodeSearchResult` is a class that encapsulates the results of a reverse geocoding search.
 @interface MXMReverseGeoCodeSearchResult : NSObject
 
-/// The information of the floor where you are located
+
+/// The `floor` property represents the floor where the user is currently located.
+/// It is an instance of the `MXMFloor` class.
 @property (nonatomic, strong) MXMFloor *floor;
 
-/// The information of the building where you are located, returning only the buildingId and name information.
+
+/// The `building` property represents the building where the user is currently located.
+/// It is an instance of the `MXMBuilding` class.
+/// This property only returns the `buildingId` and `nameMap` of the building.
 @property (nonatomic, strong) MXMBuilding *building;
 
-/// The information of the venue where you are located, returning only the venueId and name information.
+
+/// The `venue` property represents the venue where the user is currently located.
+/// It is an instance of the `MXMVenue` class.
+/// This property only returns the `venueId` and `nameMap` of the venue.
 @property (nonatomic, strong) MXMVenue *venue;
 
 @end

@@ -10,14 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- Search Service Base Class
- */
+/// `MXMSearchBase` is a base class that provides common functionality for search services.
 @interface MXMSearchBase : NSObject
-/**
- Cancellation of network requests with the given id
- @param taskId The id of the network request
- */
+
+
+/// Cancels the network request with the given id.
+///
+/// @param taskId The id of the network request to be cancelled.
 - (void)cancelTaskById:(NSInteger)taskId;
 
 @end

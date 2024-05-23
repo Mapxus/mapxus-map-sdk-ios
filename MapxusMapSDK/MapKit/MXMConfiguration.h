@@ -11,43 +11,60 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// MapxusMap initial configuration.
+/// This class is used for the initial configuration of MapxusMap.
 @interface MXMConfiguration : NSObject
 
-/// Whether to display the outdoor map,  NO is default.
+
+/// A boolean value indicating whether to display the outdoor map. The default is NO.
 @property (nonatomic) BOOL outdoorHidden;
 
-/// Initialize regular map style, configurable with other conditions except `defaultStyleName`, MXMStyleMAPXUS is default.
+
+/// The default style for the map. 
+///
+/// @discussion This can be configured with other conditions except `defaultStyleName`. The default is MXMStyleMAPXUS.
 @property (nonatomic) MXMStyle defaultStyle;
 
-/// Initialize the custom map style, when this parameter is set to a non-null value, the `defaultStyle` is ignored, nil is default.
+
+/// The name of the custom map style. 
+///
+/// @discussion When this parameter is set to a non-null value, the `defaultStyle` is ignored. The default is nil.
 @property (nonatomic, copy, nullable) NSString *defaultStyleName;
 
-/// Utilize the poiId for the initialization of the map.
-/// @discussion Once this value is set to a non-nil, the `floorId`, `buildingId`, and `venueId` will be disregarded. The map initialization will then
+
+/// The poiId used for the initialization of the map.
+///
+/// @discussion If this value is set to a non-nil, the `floorId`, `buildingId`, and `venueId` will be disregarded. The map initialization will then
 /// reposition the map’s center to the coordinates of the specified point of POI.
 @property (nonatomic, copy, nullable) NSString *poiId;
 
-/// Initialize the initial zoom level of the map with poiId, 19 is default.
+
+/// The initial zoom level of the map with poiId. The default is 19.
 @property (nonatomic, assign) double zoomLevel;
 
-/// Utilize the floorId for the initialization of the map.
-/// @discussion Once this value is set to a non-nil, the `buildingId` and `venueId` will be disregarded. Upon initialization, the map will adjust
+
+/// The floorId used for the initialization of the map.
+///
+/// @discussion If this value is set to a non-nil, the `buildingId` and `venueId` will be disregarded. Upon initialization, the map will adjust
 /// the mapView’s viewport to fit the bbox of the building to which the floor belongs, with additional padding included on each side.
 @property (nonatomic, copy, nullable) NSString *floorId;
 
 @property (nonatomic, copy, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId`");
 
-/// Utilize the buildingId for the initialization of the map.
-/// @discussion Once this value is set to a non-nil, the `venueId` will be disregarded. The map initialization will then changes the mapView's viewport to fit
+
+/// The buildingId used for the initialization of the map.
+///
+/// @discussion If this value is set to a non-nil, the `venueId` will be disregarded. The map initialization will then change the mapView's viewport to fit
 /// the bbox with some additional padding on each side.
 @property (nonatomic, copy, nullable) NSString *buildingId;
 
-/// Utilize the venueId for the initialization of the map.
-/// @discussion Once this value is set to a non-nil. Upon initialization, the map will adjust the mapView’s viewport to fit the bounding box of
+
+/// The venueId used for the initialization of the map.
+///
+/// @discussion If this value is set to a non-nil. Upon initialization, the map will adjust the mapView’s viewport to fit the bounding box of
 /// the venue’s default display building, with additional padding included on each side. If there is no default display building, the first building from
 /// the venue’s building list will be used.
 @property (nonatomic, copy, nullable) NSString *venueId;
+
 
 /// Adaptive margins when initializing a map by floorId, buildingId or revenueId. Default value is UIEdgeInsetsZero.
 @property (nonatomic, assign) UIEdgeInsets zoomInsets;

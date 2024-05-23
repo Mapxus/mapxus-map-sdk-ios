@@ -10,12 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- For creating indoor annotations
- */
+/// This class is used for creating indoor annotations.
 @interface MXMPointAnnotation : MGLPointAnnotation
 
-/// The floorId indicates the location of the annotation. The marker will only be displayed when the floorId matches the currently selected floor.
+
+/// The floorId property indicates the location of the annotation. The marker will only be displayed when the floorId matches the currently selected floor.
 /// If it is set to nil, it signifies that the annotation is outdoors and will be displayed at all times.
 @property (nonatomic, strong, nullable) NSString *floorId;
 

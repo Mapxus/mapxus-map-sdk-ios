@@ -15,17 +15,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- Category details
- */
+/// `MXMCategory` is a class that encapsulates the details of a category.
 @interface MXMCategory : NSObject
-/// Category key name
+/// The key name of the category.
 @property (nonatomic, strong) NSString *category;
-/// Category id
+/// The unique identifier of the category.
 @property (nonatomic, strong) NSString *categoryId;
-/// Description of the category
+/// A description of the category. This property is optional and can be `nil`.
 @property (nonatomic, strong, nullable) NSString *categoryDescription;
-
+/// A map that contains the title of the category in multiple languages.
 @property (nonatomic, strong) MXMultilingualObject<NSString *> *titleMap;
 /// English name for category
 @property (nonatomic, strong, nullable) NSString *title_en DEPRECATED_MSG_ATTRIBUTE("Please use `titleMap.en` instead.");
@@ -37,57 +35,48 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-
-/**
- Earth's latitude and longitude coordinates
- */
+/// `MXMGeoPoint` is a class that encapsulates the geographical coordinates on Earth.
 @interface MXMGeoPoint : NSObject
-/// Latitude (vertical)
+/// The latitude of the geographical point.
 @property (nonatomic, assign) double latitude;
-/// Longitude (horizontal)
+/// The longitude of the geographical point.
 @property (nonatomic, assign) double longitude;
-/// Elevation (vertical)
+/// The elevation of the geographical point.
 @property (nonatomic, assign) double elevation;
-/**
- MXMGeoPoint factory methods
- @param lat Latitude (vertical)
- @param lng Longitude (horizontal)
- @return MXMGeoPoint object
- */
+
+/// A factory method that creates an `MXMGeoPoint` object with the specified latitude and longitude.
+///
+/// @param lat The latitude of the geographical point.
+/// @param lng The longitude of the geographical point.
+/// @return An `MXMGeoPoint` object with the specified latitude and longitude.
 + (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng;
-/**
- MXMGeoPoint factory method
- @param lat Latitude (vertical)
- @param lng Longitude (horizontal)
- @param ele Elevation (vertical)
- @return MXMGeoPoint object
- */
+
+/// A factory method that creates an `MXMGeoPoint` object with the specified latitude, longitude, and elevation.
+///
+/// @param lat The latitude of the geographical point.
+/// @param lng The longitude of the geographical point.
+/// @param ele The elevation of the geographical point.
+/// @return An `MXMGeoPoint` object with the specified latitude, longitude, and elevation.
 + (MXMGeoPoint *)locationWithLatitude:(double)lat longitude:(double)lng elevation:(double)ele;
 @end
 
 
 
-
-/**
- Indoor point
- */
+/// Represents an indoor point.
 @interface MXMIndoorPoint : MXMGeoPoint
-/// The ID of building in which it is located
+/// The ID of the building in which the point is located.
 @property (nonatomic, strong, nullable) NSString *buildingId;
-
-/// The ID of floor on which it is located
+/// The ID of the floor on which the point is located.
 @property (nonatomic, strong, nullable) NSString *floorId;
-
 @property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId` instead.");
 
-/**
- MXMIndoorPoint factory method
- @param lat Latitude (vertical)
- @param lng Longitude (horizontal)
- @param buildingId The ID of building where it is located
- @param floorId The ID of the floor where it is located
- @return MXMIndoorPoint object
- */
+/// Factory method to create an MXMIndoorPoint instance.
+///
+/// @param lat The latitude.
+/// @param lng The longitude.
+/// @param buildingId The ID of the building where the point is located.
+/// @param floorId The ID of the floor where the point is located.
+/// @return An instance of MXMIndoorPoint.
 + (MXMIndoorPoint *)locationWithLatitude:(double)lat
                                longitude:(double)lng
                               buildingId:(nullable NSString *)buildingId
@@ -103,113 +92,104 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-/**
- Rectangular area formed by the intersection of the lines of latitude and longitude of two points
- */
+///  Represents a rectangular area formed by the intersection of the lines of latitude and longitude of two points.
 @interface MXMBoundingBox : NSObject <NSCopying>
-/// Lower left latitude
+/// The latitude of the lower left point.
 @property (nonatomic, assign) double min_latitude;
-/// Lower left Longitude
+/// The longitude of the lower left point.
 @property (nonatomic, assign) double min_longitude;
-/// Top right latitude
+/// The latitude of the top right point.
 @property (nonatomic, assign) double max_latitude;
-/// Top right Longitude
+/// The longitude of the top right point.
 @property (nonatomic, assign) double max_longitude;
-/**
- MXMBoundingBox factory method
- @param min_lat Lower left latitude
- @param min_lng Lower left Longitude
- @param max_lat Top right latitude
- @param max_lng Top right Longitude
- @return MXMBoundingBox object
- */
+
+/// Factory method to create an MXMBoundingBox instance with specified latitude and longitude values.
+///
+/// @param min_lat The latitude of the lower left point.
+/// @param min_lng The longitude of the lower left point.
+/// @param max_lat The latitude of the top right point.
+/// @param max_lng The longitude of the top right point.
+/// @return An instance of MXMBoundingBox.
 + (MXMBoundingBox *)boundingBoxWithMinLatitude:(double)min_lat
                                   minLongitude:(double)min_lng
                                    maxLatitude:(double)max_lat
                                   maxLongitude:(double)max_lng;
 
-
+/// Factory method to create an MXMBoundingBox instance from an array of MXMGeoPoint instances.
+///
+/// @param points An array of MXMGeoPoint instances.
+/// @return An instance of MXMBoundingBox or nil if the bounding box cannot be created.
 + (nullable MXMBoundingBox *)boundingBoxWithPoints:(NSArray<MXMGeoPoint *> *)points;
 
+/// Checks if a given coordinate is contained within the bounding box.
+///
+/// @param coordinate The coordinate to check.
+/// @param ignoreBoundary Whether to ignore the boundary of the bounding box.
+/// @return YES if the coordinate is contained within the bounding box, NO otherwise.
 - (BOOL)contains:(CLLocationCoordinate2D)coordinate ignoreBoundary:(BOOL)ignoreBoundary;
-
 
 @end
 
 
 
-
-/**
- Building address
- */
+/// Represents a building or venue address.
 @interface MXMAddress : NSObject <NSCopying>
-/// House number
+/// Represents the house number of the address.
 @property (nonatomic, strong, nullable) NSString *housenumber;
-/// Street name
+/// Represents the street name of the address.
 @property (nonatomic, strong, nullable) NSString *street;
 @end
 
 
 
-/**
- Floor level model, use this class to ensure that the value of level is obtained with the correct type
- */
+/// Represents a floor level model. This class ensures that the value of the level is obtained with the correct type.
 @interface MXMOrdinal : NSObject <NSCopying>
-/// Level values represent logical levels above or below ground level and are not intended to correspond to any numbering scheme in use by the building itself.
-/// The ground floor of a building is always represented by the value 0. Floors above the ground floor are represented by positive integers, so a value of 1
-/// represents the floor above ground level, a value of 2 represents two floors above ground level, and so on. Floors below the ground floor are represented by
-/// corresponding negative integers, with a value of -1 representing the floor immediately below ground level and so on. It is erroneous to use the user’s level in
-/// a building as an estimate of altitude.
+/// Represents the level values which indicate logical levels above or below ground level. These values do not correspond to any numbering scheme in use by 
+/// the building itself. The ground floor is always represented by the value 0. Floors above the ground floor are represented by positive integers, and floors below
+/// the ground floor are represented by negative integers. It is erroneous to use the user’s level in a building as an estimate of altitude.
 @property (nonatomic, assign) NSInteger level;
 @end
 
 
 
-/**
- Floor detail
- */
+/// Represents the details of a floor.
 @interface MXMFloor : NSObject <NSCopying>
-/// Floor ID
+/// Represents the ID of the floor.
 @property (nonatomic, strong) NSString *floorId;
-/// Floor name
+/// Represents the name of the floor.
 @property (nonatomic, strong) NSString *code;
-/// Floor level, `nil` means no ordinal information is recorded
+/// Represents the level of the floor. If this is `nil`, it means no ordinal information is recorded.
 @property (nonatomic, strong, nullable) MXMOrdinal *ordinal;
 @end
 
 
 
-/**
- Floor detail and the information associated with it
- */
+/// Represents the details of a floor and the information associated with it.
 @interface MXMFloorInfo: NSObject
-/// Floor detail
+/// Represents the details of the floor.
 @property (nonatomic, strong) MXMFloor *floor;
-/// Whether the floor have visual map data
+/// Indicates whether the floor has visual map data.
 @property (nonatomic, assign) BOOL hasVisualMap;
-/// Whether the floor have signal map data
+/// Indicates whether the floor has signal map data.
 @property (nonatomic, assign) BOOL hasSignalMap;
 @end
 
 
 
-/**
- Building information
- */
+///  Represents building information.
 @interface MXMBuilding : NSObject
-/// A string that uniquely identifies the building in the mapxus system.
+/// A unique identifier for the building in the Mapxus system.
 @property (nonatomic, strong) NSString *buildingId;
-/// The ID of venue where the building is located
+/// The ID of the venue where the building is located.
 @property (nonatomic, strong) NSString *venueId;
-
+/// The map of building names in multiple languages.
 @property (nonatomic, strong) MXMultilingualObject<NSString *> *nameMap;
-/// The building name without venueName
+/// The building name without the venue name.
 @property (nonatomic, strong) MXMultilingualObject<NSString *> *buildingNameMap;
-
+/// The map of venue names in multiple languages.
 @property (nonatomic, strong) MXMultilingualObject<NSString *> *venueNameMap;
-
+/// The map of building addresses in multiple languages.
 @property (nonatomic, strong) MXMultilingualObject<MXMAddress *> *addressMap;
-
 /// The default name of venue where the building is located
 @property (nonatomic, strong, nullable) NSString *venueName_default DEPRECATED_MSG_ATTRIBUTE("Please use `venueNameMap.Default` instead.");
 /// The English name of venue where the building is located
@@ -246,41 +226,39 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMAddress *address_ja DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.ja` instead.");
 /// Building address in Korean
 @property (nonatomic, strong, nullable) MXMAddress *address_ko DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.ko` instead.");
-/// Building category, indicating the classification of the building, e.g. residential, commercial, retail, industrial, transportation, etc.
+/// The category of the building, indicating its classification (e.g., residential, commercial, retail, industrial, transportation, etc.).
 @property (nonatomic, strong, nullable) NSString *category;
 @property (nonatomic, strong, nullable) NSString *type DEPRECATED_MSG_ATTRIBUTE("Please use `category` instead.");
-/// External rectangular area where the building is located
+/// The external rectangular area where the building is located.
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
-/// The longitude and latitude of the building name label
+/// The longitude and latitude of the building name label.
 @property (nonatomic, strong, nullable) MXMGeoPoint *labelCenter;
-/// All floors information of the building
+/// All floor information of the building.
 @property (nonatomic, strong) NSArray<MXMFloorInfo *> *floors;
-/// The default floor ID in this building, which can be used as the basis for selecting floor by default when building is selected.
+/// The default floor ID in this building, which can be used as the basis for selecting the floor by default when the building is selected.
 @property (nonatomic, strong, nullable) NSString *defaultDisplayedFloorId;
 @property (nonatomic, strong, nullable) NSString *groundFloor DEPRECATED_MSG_ATTRIBUTE("Will be removed");
-/// The contry where the building is located
+/// The country where the building is located.
 @property (nonatomic, strong, nullable) NSString *country;
-/// The region where the building is located
+/// The region where the building is located.
 @property (nonatomic, strong, nullable) NSString *region;
-/// The city where the building is located
+/// The city where the building is located.
 @property (nonatomic, strong, nullable) NSString *city;
-/// Whether the building have visual map data
+/// Indicates whether the building has visual map data.
 @property (nonatomic, assign) BOOL hasVisualMap;
-/// Whether the building have signal map data
+/// Indicates whether the building has signal map data.
 @property (nonatomic, assign) BOOL hasSignalMap;
 @end
 
 
 
-/**
- Venue information
- */
+/// Represents venue information.
 @interface MXMVenue : NSObject
-/// A string that uniquely identifies the venue in the mapxus system.
+/// A unique identifier for the venue in the Mapxus system.
 @property (nonatomic, strong) NSString *venueId;
-
+/// The map of venue names in multiple languages.
 @property (nonatomic, strong) MXMultilingualObject<NSString *> *nameMap;
-
+/// The map of venue addresses in multiple languages.
 @property (nonatomic, strong) MXMultilingualObject<MXMAddress *> *addressMap;
 /// Venue name in default language
 @property (nonatomic, strong, nullable) NSString *name_default DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.Default` instead.");
@@ -306,65 +284,50 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) MXMAddress *address_ja DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.ja` instead.");
 /// Venue address in Korean
 @property (nonatomic, strong, nullable) MXMAddress *address_ko DEPRECATED_MSG_ATTRIBUTE("Please use `addressMap.ko` instead.");
-/// Venue category, indicating the classification of the building, e.g. residential, commercial, retail, industrial, transportation, etc.
+/// The category of the venue, indicating its classification (e.g., residential, commercial, retail, industrial, transportation, etc.).
 @property (nonatomic, strong, nullable) NSString *category;
 @property (nonatomic, strong, nullable) NSString *type DEPRECATED_MSG_ATTRIBUTE("Please use `category` instead.");
-/// External rectangular area where the venue is located
+/// The external rectangular area where the venue is located.
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
-/// The longitude and latitude of the venue name label
+/// The longitude and latitude of the venue name label.
 @property (nonatomic, strong, nullable) MXMGeoPoint *labelCenter;
-/// All buildings information of the venue
+/// All building information of the venue.
 @property (nonatomic, strong) NSArray<MXMBuilding *> *buildings;
-/// The contry where the venue is located
+/// The country where the venue is located.
 @property (nonatomic, strong, nullable) NSString *country;
-/// The region where the venue is located
+/// The region where the venue is located.
 @property (nonatomic, strong, nullable) NSString *region;
-/// The default building id in this venue, which can be used as the basis for selecting building by default when venue is selected.
+/// The default building ID in this venue, which can be used as the basis for selecting the building by default when the venue is selected.
 @property (nonatomic, strong, nullable) NSString *defaultDisplayedBuildingId;
-/// Whether the venue have visual map data
+/// Indicates whether the venue has visual map data.
 @property (nonatomic, assign) BOOL hasVisualMap;
-/// Whether the venue have signal map data
+/// Indicates whether the venue has signal map data.
 @property (nonatomic, assign) BOOL hasSignalMap;
 @end
 
 
 
-/**
- POI information
- */
+/// Represents Point of Interest (POI) information.
 @interface MXMPOI : NSObject
-/// A string that uniquely identifies the POI in the mapxus system.
+/// A unique identifier for the POI in the Mapxus system.
 @property (nonatomic, strong) NSString *poiId;
-/// The ID of building where the POI is located
+/// The ID of the building where the POI is located.
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// The ID of venue where the POI is located
+/// The ID of the venue where the POI is located.
 @property (nonatomic, strong, nullable) NSString *venueId;
-/// The floor detail where the POI is located
+/// The floor detail where the POI is located.
 @property (nonatomic, strong, nullable) MXMFloor *floor;
-/// Longitude and latitude of POI
+/// Longitude and latitude of the POI.
 @property (nonatomic, strong, nullable) MXMGeoPoint *location;
-/// List of categories to which POI belongs
+/// List of categories to which the POI belongs.
 @property (nonatomic, strong) NSArray<NSString *> *category;
 /// The description of the POI
 @property (nonatomic, strong, nullable) NSString *introduction DEPRECATED_MSG_ATTRIBUTE("Please use `descriptionMap.Default` instead.");
-/// The description of the POI.
-///
-/// @discussion
-/// This is an `MXMultilingualObject` that stores a multilingual mapping of `NSString` type.
-/// This mapping allows us to retrieve the corresponding string value based on different language environments.
-/// This attribute will only have a value returned when using the POI ID for precision searches.
+/// The description of the POI in multiple languages.
 @property (nonatomic, strong) MXMultilingualObject<NSString *> *descriptionMap;
-/// The name of the POI.
-///
-/// @discussion
-/// This is an `MXMultilingualObject` that stores a multilingual mapping of `NSString` type.
-/// This mapping allows us to retrieve the corresponding string value based on different language environments.
+/// The name of the POI in multiple languages.
 @property (nonatomic, strong) MXMultilingualObject<NSString *> *nameMap;
-/// The accessibility detail of the POI.
-///
-/// @discussion
-/// This is an `MXMultilingualObject` that stores a multilingual mapping of `NSString` type.
-/// This mapping allows us to retrieve the corresponding string value based on different language environments.
+/// The accessibility detail of the POI in multiple languages.
 @property (nonatomic, strong) MXMultilingualObject<NSString *> *accessibilityDetailMap;
 /// POI name in default language
 @property (nonatomic, strong, nullable) NSString *name_default DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.Default` instead.");
@@ -390,83 +353,74 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_ja DEPRECATED_MSG_ATTRIBUTE("Please use `accessibilityDetailMap.ja` instead.");
 /// Accessibility Information in Korean
 @property (nonatomic, strong, nullable) NSString *accessibilityDetail_ko DEPRECATED_MSG_ATTRIBUTE("Please use `accessibilityDetailMap.ko` instead.");
-/// Opening hours, use openstreetmap opening_hours format
+/// Opening hours of the POI, using the openstreetmap opening_hours format.
 @property (nonatomic, strong, nullable) NSString *openingHours;
-/// The phone number of the POI
+/// The phone number of the POI.
 @property (nonatomic, strong, nullable) NSString *phone;
-/// The Email of POI
+/// The Email of the POI.
 @property (nonatomic, strong, nullable) NSString *email;
-/// The website of the POI
+/// The website of the POI.
 @property (nonatomic, strong, nullable) NSString *website;
-/// Distance from the request centre, only valid for the centre search
+/// Distance from the request center, only valid for the center search.
 @property (nonatomic, assign) double distance;
-/// Clockwise angle of the phone pointing and the line connecting from the POI point to the centre of the request
+/// Clockwise angle of the phone pointing and the line connecting from the POI point to the center of the request.
 @property (nonatomic, assign) NSUInteger angle;
 @end
 
 
 
-
-/**
- Key instruction for the route
- */
+/// Represents key instruction for the route.
 @interface MXMInstruction : NSObject
-/// The ID of the venue in which this instruction is located
+/// The ID of the venue where this instruction is located.
 @property (nonatomic, strong, nullable) NSString *venueId;
-/// The ID of the building in which this instruction is located
+/// The ID of the building where this instruction is located.
 @property (nonatomic, strong, nullable) NSString *buildingId;
-/// The ID of the floor in which this instruction is located
+/// The ID of the floor where this instruction is located.
 @property (nonatomic, strong, nullable) NSString *floorId;
 @property (nonatomic, strong, nullable) NSString *floor DEPRECATED_MSG_ATTRIBUTE("Please use `floorId` instead.");
-/// The ordinal of the floor in which this instruction is located
+/// The ordinal of the floor where this instruction is located.
 @property (nonatomic, strong, nullable) MXMOrdinal *ordinal;
-/// Name of the road being taken
+/// Name of the road being taken.
 @property (nonatomic, strong, nullable) NSString *streetName;
-/// Distance of this instruction in metres (m)
+/// Distance of this instruction in metres (m).
 @property (nonatomic, assign) double distance;
-/// The direction, clockwise of the northward angle is given as between 0 and 360 degrees
+/// The direction, clockwise of the northward angle is given as between 0 and 360 degrees.
 @property (nonatomic, assign) double heading;
-/// Command symbols
+/// Command symbols.
 @property (nonatomic, assign) MXMRouteSign sign;
-/// An array containing the first and last indexes (relative to path[n].points) of the points of this instruction. Indicates which part of the route the instruction matches
+/// An array containing the first and last indexes (relative to path[n].points) of the points of this instruction. Indicates which part of the route the instruction matches.
 @property (nonatomic, strong) NSArray<NSNumber *> *interval;
 /// Describes what the user must do to follow the route. The language depends on the locale parameter.
 @property (nonatomic, strong, nullable) NSString *text;
-/// Duration of this instruction in ms
+/// Duration of this instruction in ms.
 @property (nonatomic, assign) NSUInteger time;
-/// Connection type, only returned if sign is `MXMDownstairs` and `MXMUpstairs`, possible values are elevator_customer, elevator_good, escalator, ramp, stairs
+/// Connection type, only returned if sign is `MXMDownstairs` and `MXMUpstairs`, possible values are elevator_customer, elevator_good, escalator, ramp, stairs.
 @property (nonatomic, strong, nullable) NSString *type;
 @end
 
 
 
-
-/**
- The coordinates information of the route
- */
+/// Represents the coordinates information of the route.
 @interface MXMGeometry : NSObject
-/// Types of route geometries
+/// The types of route geometries.
 @property (nonatomic, strong, nullable) NSString *type;
-/// An array of coordinates for the route
+/// An array of coordinates for the route.
 @property (nonatomic, strong) NSArray<MXMGeoPoint *> *coordinates;
 @end
 
 
 
-
-/**
- Route information
- */
+/// Represents the route information.
 @interface MXMPath : NSObject
-/// Total distance of the route in metres (m)
+/// The total distance of the route in metres (m).
 @property (nonatomic, assign) double distance;
-/// Total time spent on the route in milliseconds (ms)
+/// The total time spent on the route in milliseconds (ms).
 @property (nonatomic, assign) NSUInteger time;
-/// The enclosing box for the route
+/// The enclosing box for the route.
 @property (nonatomic, strong, nullable) MXMBoundingBox *bbox;
-/// Information on the coordinates of the route
+/// Information on the coordinates of the route.
 @property (nonatomic, strong, nullable) MXMGeometry *points;
-/// The instruction information group for the route
+/// The group of instruction information for the route.
 @property (nonatomic, strong) NSArray<MXMInstruction *> *instructions;
 @end
 

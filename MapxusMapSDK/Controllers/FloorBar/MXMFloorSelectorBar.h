@@ -10,58 +10,49 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- Visual tool for users to select floors
- */
+/// A visual tool for users to select floors.
 @interface MXMFloorSelectorBar : UIView
 
-/**
- Floor selector bar folded state.
- 
- When the floor selector needs to be folded, set to YES, otherwise set to NO, the default value is NO.
- */
+
+/// The folded state of the floor selector bar.
+///
+/// Set to YES when the floor selector needs to be folded, otherwise set to NO. The default value is NO.
 @property (nonatomic, assign) BOOL isFolded;
 
-/**
- The font color that indicates the selected floor on the floor selector bar.
- 
- Default color is 0xFFFFFF.
- */
+
+/// The font color that indicates the selected floor on the floor selector bar.
+///
+/// The default color is 0xFFFFFF.
 @property (nonatomic, strong) UIColor *selectFontColor UI_APPEARANCE_SELECTOR;
 
-/**
- The box color that indicates the selected floor on the floor selector bar.
- 
- Default color is 0x074769.
- */
+
+/// The box color that indicates the selected floor on the floor selector bar.
+///
+/// The default color is 0x074769.
 @property (nonatomic, strong) UIColor *selectBoxColor UI_APPEARANCE_SELECTOR;
 
-/**
- The font color that indicates the unselected floor on the floor selector bar.
- 
- Default color is 0x8C8C8C.
- */
+
+/// The font color that indicates the unselected floor on the floor selector bar.
+///
+/// The default color is 0x8C8C8C.
 @property (nonatomic, strong) UIColor *fontColor UI_APPEARANCE_SELECTOR;
 
-/**
- The box color that indicates the unselected floor on the floor selector bar.
- 
- Default color is 0xFFFFFF.
- */
+
+/// The box color that indicates the unselected floor on the floor selector bar.
+///
+/// The default color is 0xFFFFFF.
 @property (nonatomic, strong) UIColor *boxColor UI_APPEARANCE_SELECTOR;
 
-/**
- Rounded corner radius of floor selector bar.
- 
- The default radius is 8.
- */
+
+/// The corner radius of the floor selector bar.
+///
+/// The default radius is 8.
 @property (nonatomic, assign) CGFloat cornerRadius UI_APPEARANCE_SELECTOR;
 
-/**
- Maximum number of visible floors for floor selector bar.
- 
- The default number is 5.
- */
+
+/// The maximum number of visible floors for the floor selector bar.
+///
+/// The default number is 5.
 @property (nonatomic, assign) NSUInteger maxVisibleFloors UI_APPEARANCE_SELECTOR;
 
 @end

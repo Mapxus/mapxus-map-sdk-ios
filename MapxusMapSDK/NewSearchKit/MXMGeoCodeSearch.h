@@ -14,38 +14,38 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol MXMGeoCodeSearchDelegate;
 
-/**
- geo search services
- */
+
+
+/// `MXMGeoCodeSearch` is a class that provides geo search services. It inherits from `MXMSearchBase`.
 @interface MXMGeoCodeSearch : MXMSearchBase
 
-/// Handle to the object which processing result
+
+/// The `delegate` property is a weak reference to the object that will handle the search results.
+/// This object must conform to the `MXMGeoCodeSearchDelegate` protocol.
 @property (nonatomic, weak, nullable) id<MXMGeoCodeSearchDelegate> delegate;
 
-/**
- Get address information based on geographic coordinates
- 
- Asynchronous function, return results in MXMGeoCodeSearchDelegate's onGetReverseGeoCode:result:error:notification
- @param reverseGeoCodeOption Reverse geo search parameters
- @return The id of the network request, which can be used to cancel the corresponding task
- */
+
+/// The `reverseGeoCode:` method retrieves address information based on geographic coordinates.
+/// This is an asynchronous function, and it returns results via the `onGetReverseGeoCode:result:error:` method of the `MXMGeoCodeSearchDelegate`.
+///
+/// @param reverseGeoCodeOption The parameters for the reverse geo search.
+/// @return The id of the network request, which can be used to cancel the corresponding task.
 - (NSInteger)reverseGeoCode:(MXMReverseGeoCodeSearchOption *)reverseGeoCodeOption;
 
 @end
 
 
-/**
- Search delegate for search results
- */
+
+/// `MXMGeoCodeSearchDelegate` is a protocol that defines the delegate method for receiving reverse geocoding search results.
 @protocol MXMGeoCodeSearchDelegate <NSObject>
 
+
 @optional
-/**
- Return reverse geocoding search results
- @param searcher Search by
- @param result Search results
- @param error Error message
- */
+/// The `onGetReverseGeoCode:result:error:` method is called when the reverse geocoding search results are available.
+/// 
+/// @param searcher The `MXMGeoCodeSearch` object that performed the search.
+/// @param result The search results, encapsulated in a `MXMReverseGeoCodeSearchResult` object.
+/// @param error An `NSError` object that describes any error that occurred during the search.
 - (void)onGetReverseGeoCode:(MXMGeoCodeSearch *)searcher
                      result:(nullable MXMReverseGeoCodeSearchResult *)result
                       error:(nullable NSError *)error;

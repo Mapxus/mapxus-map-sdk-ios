@@ -10,15 +10,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- Reverse geo search parameters
- */
+/// `MXMReverseGeoCodeSearchOption` is a class that encapsulates the parameters for a reverse geocoding search.
 @interface MXMReverseGeoCodeSearchOption : NSObject
 
-/// Latitude and longitude coordinates to be resolved (mandatory)
+
+/// The `location` property represents the latitude and longitude coordinates to be resolved.
+/// This property is mandatory for the reverse geocoding search.
 @property (nonatomic, assign) CLLocationCoordinate2D location;
 
-/// Level values of floor, corresponding to floor.level in CLLocation
+
+/// The `floorOrdinal` property represents the level values of the floor, corresponding to `floor.level` in `CLLocation`.
 @property (nonatomic, strong) NSNumber *floorOrdinal;
 
 @property (nonatomic, strong) NSNumber *ordinalFloor DEPRECATED_MSG_ATTRIBUTE("Please use `floorOrdinal`");

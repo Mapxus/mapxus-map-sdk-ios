@@ -10,198 +10,107 @@
 #define MXMDefine_h
 #import <Foundation/Foundation.h>
 
-/**
- MapxusMap map appearance
- */
+/// MapxusMap map appearance
 typedef NS_ENUM(NSUInteger, MXMStyle) {
-  /**
-   MAPXUSMAP style
-   */
+  /// MAPXUSMAP style
   MXMStyleMAPXUS,
-  /**
-   COMMON style
-   */
+  /// COMMON style
   MXMStyleCOMMON,
-  /**
-   Christmas style
-   */
+  /// Christmas style
   MXMStyleCHRISTMAS,
-  /**
-   Halloween style
-   */
+  /// Halloween style
   MXMStyleHALLOWMAS,
-  /**
-   MAPPYBEE style
-   */
+  /// MAPPYBEE style
   MXMStyleMAPPYBEE,
 };
 
 
-
-/**
- Floor controller locations
- */
+/// Floor controller locations
 typedef NS_ENUM(NSInteger, MXMSelectorPosition) {
-  /**
-   In the middle of the left-hand side of the screen
-   */
+  /// In the middle of the left-hand side of the screen
   MXMSelectorPositionCenterLeft,
-  /**
-   In the middle of the right-hand side of the screen
-   */
+  /// In the middle of the right-hand side of the screen
   MXMSelectorPositionCenterRight,
-  /**
-   In the bottom left corner of the screen
-   */
+  /// In the bottom left corner of the screen
   MXMSelectorPositionBottomLeft,
-  /**
-   In the bottom right corner of the screen
-   */
+  /// In the bottom right corner of the screen
   MXMSelectorPositionBottomRight,
-  /**
-   In the top left corner of the screen
-   */
+  /// In the top left corner of the screen
   MXMSelectorPositionTopLeft,
-  /**
-   In the top right corner of the screen
-   */
+  /// In the top right corner of the screen
   MXMSelectorPositionTopRight,
 };
 
 
-/**
- Zoom method
- */
+/// Zoom method indicating whether to modify the camera of the map
 typedef NS_ENUM(NSInteger, MXMZoomMode) {
-  /**
-   No zoom
-   */
+  /// No zoom, i.e., the camera of the map remains unchanged
   MXMZoomDisable,
-  /**
-   Zoom by animation
-   */
+  /// Zoom by animation, i.e., the camera of the map is modified with an animation
   MXMZoomAnimated,
-  /**
-   No animated zoom
-   */
+  /// No animated zoom, i.e., the camera of the map is modified directly without an animation
   MXMZoomDirect
 };
 
 
-/**
- The floor switch mode.
- */
+/// The mode for switching floors.
 typedef NS_ENUM(NSInteger, MXMFloorSwitchMode) {
-  /**
-   When user switch the floor of the selected building, the floor of the other buildings in the same venue will also switch to the same ordinal.
-   */
+  /// When the user switches the floor of the selected building, the floors of the other buildings in the same venue will also switch to the same ordinal.
   MXMSwitchedByVenue,
-  /**
-   Only the floor of the selected building will change.
-   */
+  /// Only the floor of the selected building will change.
   MXMSwitchedByBuilding
 };
 
 
-/**
- Routing Instructions
- */
+/// Routing Instructions
 typedef NS_ENUM(NSInteger, MXMRouteSign) {
-  /**
-   Downstairs
-   */
+  /// Indicates going downstairs
   MXMDownstairs = -100,
-  /**
-   Make a U-Turn on left
-   */
+  /// Indicates making a U-Turn to the left
   MXMLeftUTurn = -8,
-  /**
-   Keep to the left
-   */
+  /// Indicates keeping to the left
   MXMKeepLeft = -7,
-  /**
-   Turn sharp left
-   */
+  /// Indicates making a sharp left turn
   MXMTurnSharpLeft = -3,
-  /**
-   Turn left
-   */
+  /// Indicates making a left turn
   MXMTurnLeft = -2,
-  /**
-   Slight left turn
-   */
+  /// Indicates making a slight left turn
   MXMTurnSlightLeft = -1,
-  /**
-   Moving forward
-   */
+  /// Indicates moving forward
   MXMContinueOnStreet = 0,
-  /**
-   Slight right turn
-   */
+  /// Indicates making a slight right turn
   MXMTurnSlightRight = 1,
-  /**
-   Turn right
-   */
+  /// Indicates making a right turn
   MXMTurnRight = 2,
-  /**
-   Sharp turn to the right
-   */
+  /// Indicates making a sharp right turn
   MXMTurnSharpRight = 3,
-  /**
-   Complete
-   */
+  /// Indicates reaching the destination
   MXMFinish = 4,
-  /**
-   Arrival at the via
-   */
+  /// Indicates arrival at a waypoint
   MXMReachedVia = 5,
-  /**
-   Walk on the right
-   */
+  /// Indicates keeping to the right
   MXMKeepRight = 7,
-  /**
-   Make a U-Turn on right
-   */
+  /// Indicates making a U-Turn to the right
   MXMRightUTurn = 8,
-  /**
-   Upstairs
-   */
+  /// Indicates going upstairs
   MXMUpstairs = 100,
-  /**
-   On the road by shuttle bus
-   */
+  /// Indicates being on the road by shuttle bus
   MXMShuttleBus = 104,
-  /**
-   Waiting for shuttle bus
-   */
+  /// Indicates waiting for the shuttle bus
   MXMShuttleBusWaiting = 105,
-  /**
-   Via shuttle bus station when taking a shuttle bus
-   */
+  /// Indicates being at a shuttle bus station
   MXMShuttleBusStation = 106,
-  /**
-   Get off at shuttle bus station
-   */
+  /// Indicates getting off at a shuttle bus station
   MXMShuttleBusEndTrip = 107,
-  /**
-   Leave the building
-   */
+  /// Indicates leaving a building
   MXMLeaveBuilding = 200,
-  /**
-   Enter the building
-   */
+  /// Indicates entering a building
   MXMEnterBuilding = 201,
-  /**
-   Pass gateline, such as subway gate
-   */
+  /// Indicates passing a gate line, such as a subway gate
   MXMPassGateline = 202,
-  /**
-   From one building to another building
-   */
+  /// Indicates moving from one building to another through a connecting corridor
   MXMThroughConnectingCorridor = 300,
-  /**
-   Pass area, the area define with the instruction type
-   */
+  /// Indicates passing an area, the area is defined with the instruction type
   MXMPassArea = 301,
 };
 
