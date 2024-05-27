@@ -1,22 +1,96 @@
 # CHANGELOG
 
-## v6.7.0 (2024-03-29)
+## v6.8.0 (2024-05-27)
 
 ### 🎉 New
 
-* Introduced an emergency mode for route search. To use this, pass the string "emergency" in the `vehicle` property of `MXMRouteSearchRequest`.
-* Enhanced route planning with a new multi-point navigation feature. Use the `points` property of `MXMRouteSearchRequest` to input up to 5 points for route planning. Please note that `fromBuildingId`, `fromFloorId`, `fromLon`, `fromLat`, `toBuildingId`, `toFloorId`, `toLon`, and `toLat` will be deprecated. In the returned result, the `MXMRouteSign` enum will include `MXMReachedVia` to signify arrival at the via point.
-* Improved POI search functionality. You can now use the `orderBy` property of `MXMPOISearchRequest` to sort the returned POI list in ascending order based on "DefaultName".
-* Added a feature to exclude unwanted POI types during a POI search. Use the `excludeCategories` property of `MXMPOISearchRequest` to filter out these categories.
+* In the `MXMBuilding` class, a new return attribute called `buildingNameMap` has been introduced. This multilingual object differs from `nameMap` in its value. Specifically, while `nameMap` incorporates the venue name in its value, `buildingNameMap` does not include venue name.
 
-### 🐛 Fixes
+### 📝 Changes
 
-* Resolved an issue where the floorBar occasionally failed to display floors when minimized.
+* Update the display effect of the outdoor map in the `MXMStyleMAPXUS` style.
 
-### 🚀 Optimization
+* Moved the definition of `MXMParamErrorDomain` to the MXMErrorDefined.h file in MapxusBaseSDK.
 
-* Enhanced map rendering performance for a smoother user experience.
+* `MXMPOI` will no longer return information about the 'description' in fuzzy searches. Information about the 'description' will only be returned when searching through the POI ID, and it will be stored using the `descriptionMap`.
 
-### ❌ will be deleted soon
+* The multilingual attributes are stored using the generic type `MXMultilingualObject`.
 
-* The `toDoor` property in the route planning parameter class `MXMRouteSearchRequest` is set to be deprecated. All routes in the search results will terminate at the POI's door.
+| Class | Deprecated function/parameter | New function/parameter |
+| --- | --- | --- |
+| MXMGeoVenue | name | nameMap.Default |
+|  | name_en | nameMap.en |
+|  | name_cn | nameMap.zh_Hans |
+|  | name_zh | nameMap.zh_Hant |
+|  | name_ja | nameMap.ja |
+|  | name_ko | nameMap.ko |
+|  | address | addressMap.Default |
+|  | address_en | addressMap.en |
+|  | address_cn | addressMap.zh_Hans |
+|  | address_zh | addressMap.zh_Hant |
+|  | address_ja | addressMap.ja |
+|  | address_ko | addressMap.ko |
+| MXMGeoBuilding | name | nameMap.Default |
+|  | name_en | nameMap.en |
+|  | name_cn | nameMap.zh_Hans |
+|  | name_zh | nameMap.zh_Hant |
+|  | name_ja | nameMap.ja |
+|  | name_ko | nameMap.ko |
+| MXMGeoPOI | name | nameMap.Default |
+|  | name_en | nameMap.en |
+|  | name_cn | nameMap.zh_Hans |
+|  | name_zh | nameMap.zh_Hant |
+|  | name_ja | nameMap.ja |
+|  | name_ko | nameMap.ko |
+|  | accessibilityDetail | accessibilityDetailMap.Default |
+|  | accessibilityDetail_en | accessibilityDetailMap.en |
+|  | accessibilityDetail_cn | accessibilityDetailMap.zh_Hans |
+|  | accessibilityDetail_zh | accessibilityDetailMap.zh_Hant |
+|  | accessibilityDetail_ja | accessibilityDetailMap.ja |
+|  | accessibilityDetail_ko | accessibilityDetailMap.ko |
+| MXMCategory | title_en | titleMap.en |
+|  | title_cn | titleMap.zh_Hans |
+|  | title_zh | titleMap.zh_Hant |
+| MXMVenue | name_default | nameMap.Default |
+|  | name_en | nameMap.en |
+|  | name_cn | nameMap.zh_Hans |
+|  | name_zh | nameMap.zh_Hant |
+|  | name_ja | nameMap.ja |
+|  | name_ko | nameMap.ko |
+|  | address_default | addressMap.Default |
+|  | address_en | addressMap.en |
+|  | address_cn | addressMap.zh_Hans |
+|  | address_zh | addressMap.zh_Hant |
+|  | address_ja | addressMap.ja |
+|  | address_ko | addressMap.ko |
+| MXMBuilding | venueName_default | venueNameMap.Default |
+|  | venueName_en | venueNameMap.en |
+|  | venueName_cn | venueNameMap.zh_Hans |
+|  | venueName_zh | venueNameMap.zh_Hant |
+|  | venueName_ja | venueNameMap.ja |
+|  | venueName_ko | venueNameMap.ko |
+|  | name_default | nameMap.Default |
+|  | name_en | nameMap.en |
+|  | name_cn | nameMap.zh_Hans |
+|  | name_zh | nameMap.zh_Hant |
+|  | name_ja | nameMap.ja |
+|  | name_ko | nameMap.ko |
+|  | address_default | addressMap.Default |
+|  | address_en | addressMap.en |
+|  | address_cn | addressMap.zh_Hans |
+|  | address_zh | addressMap.zh_Hant |
+|  | address_ja | addressMap.ja |
+|  | address_ko | addressMap.ko |
+| MXMPOI | name_default | nameMap.Default |
+|  | name_en | nameMap.en |
+|  | name_cn | nameMap.zh_Hans |
+|  | name_zh | nameMap.zh_Hant |
+|  | name_ja | nameMap.ja |
+|  | name_ko | nameMap.ko |
+|  | accessibilityDetail | accessibilityDetailMap.Default |
+|  | accessibilityDetail_en | accessibilityDetailMap.en |
+|  | accessibilityDetail_cn | accessibilityDetailMap.zh_Hans |
+|  | accessibilityDetail_zh | accessibilityDetailMap.zh_Hant |
+|  | accessibilityDetail_ja | accessibilityDetailMap.ja |
+|  | accessibilityDetail_ko | accessibilityDetailMap.ko |
+|  | introduction | descriptionMap.Default |
