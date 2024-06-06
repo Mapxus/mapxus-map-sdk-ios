@@ -152,9 +152,9 @@
 - (void)clickOnOsmBtn {
   [self dismissViewControllerAnimated:NO completion:nil];
   if (@available(iOS 10.0, *)) {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:ABOUT_SOURCE_URL] options:@{} completionHandler:nil];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:SOURCE_COPYRIGHT_URL] options:@{} completionHandler:nil];
   } else {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:ABOUT_SOURCE_URL]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:SOURCE_COPYRIGHT_URL]];
   }
 }
 

@@ -775,7 +775,11 @@ didChangeIndoorSiteAccess:_isIndoor
 
 - (void)showOpenStreeSourceWeb
 {
-  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:SOURCE_COPYRIGHT_URL]];
+  if (@available(iOS 10.0, *)) {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:SOURCE_COPYRIGHT_URL] options:@{} completionHandler:nil];
+  } else {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:SOURCE_COPYRIGHT_URL]];
+  }
 }
 
 - (void)logoOnClickAction:(UIButton *)sender
