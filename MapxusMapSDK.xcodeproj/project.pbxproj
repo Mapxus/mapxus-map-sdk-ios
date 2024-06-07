@@ -22,6 +22,8 @@
 
 /* Begin PBXBuildFile section */
 		1C4A9D2057A7A29341284FA7 /* Pods_MapxusMapSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3F5BA4C07AEC8BE19BCEE18 /* Pods_MapxusMapSDK.framework */; };
+		8905A97F2C12EA2000ED7D65 /* NSBundle+MXMSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 8905A97D2C12EA2000ED7D65 /* NSBundle+MXMSwizzle.h */; };
+		8905A9802C12EA2000ED7D65 /* NSBundle+MXMSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8905A97E2C12EA2000ED7D65 /* NSBundle+MXMSwizzle.m */; };
 		8906E9D12AFA39130062418E /* MGLPolygon+MXMFuction.h in Headers */ = {isa = PBXBuildFile; fileRef = 8906E9CF2AFA39130062418E /* MGLPolygon+MXMFuction.h */; };
 		8906E9D22AFA39130062418E /* MGLPolygon+MXMFuction.m in Sources */ = {isa = PBXBuildFile; fileRef = 8906E9D02AFA39130062418E /* MGLPolygon+MXMFuction.m */; };
 		890831032A80CBD9006DBD89 /* MXMSearchVenueOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 890831012A80CBD9006DBD89 /* MXMSearchVenueOperation.h */; };
@@ -149,6 +151,8 @@
 /* Begin PBXFileReference section */
 		04F3A1DB5EB6BB5F6C6A7566 /* Pods_MapxusMapSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapxusMapSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D22435475B5222BB8270E9F /* Pods-MapxusMapSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapxusMapSDKTests.release.xcconfig"; path = "Target Support Files/Pods-MapxusMapSDKTests/Pods-MapxusMapSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		8905A97D2C12EA2000ED7D65 /* NSBundle+MXMSwizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBundle+MXMSwizzle.h"; sourceTree = "<group>"; };
+		8905A97E2C12EA2000ED7D65 /* NSBundle+MXMSwizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+MXMSwizzle.m"; sourceTree = "<group>"; };
 		8906E9CF2AFA39130062418E /* MGLPolygon+MXMFuction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGLPolygon+MXMFuction.h"; sourceTree = "<group>"; };
 		8906E9D02AFA39130062418E /* MGLPolygon+MXMFuction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MGLPolygon+MXMFuction.m"; sourceTree = "<group>"; };
 		890831012A80CBD9006DBD89 /* MXMSearchVenueOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMSearchVenueOperation.h; sourceTree = "<group>"; };
@@ -487,6 +491,8 @@
 				89C29CA32AE10F9200A3E841 /* NSObject+MXMThrottle.m */,
 				8906E9CF2AFA39130062418E /* MGLPolygon+MXMFuction.h */,
 				8906E9D02AFA39130062418E /* MGLPolygon+MXMFuction.m */,
+				8905A97D2C12EA2000ED7D65 /* NSBundle+MXMSwizzle.h */,
+				8905A97E2C12EA2000ED7D65 /* NSBundle+MXMSwizzle.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -616,6 +622,7 @@
 				89865FB929E9262700E984A1 /* MXMGeoCodeSearchOption.h in Headers */,
 				89AAF5952BDB837F00CB6B33 /* NSString+MXMUtils.h in Headers */,
 				89C9E1B72A39968F00D93569 /* MXMFloorSelectorBar.h in Headers */,
+				8905A97F2C12EA2000ED7D65 /* NSBundle+MXMSwizzle.h in Headers */,
 				89C9E1CA2A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h in Headers */,
 				89AAF59D2BDDE4D000CB6B33 /* MXMultilingualObject.h in Headers */,
 				89865F9229E9262700E984A1 /* MXMCommonObj.h in Headers */,
@@ -876,6 +883,7 @@
 				89865F9529E9262700E984A1 /* MXMLevelModel.m in Sources */,
 				89865FC429E9262700E984A1 /* MapxusMap.m in Sources */,
 				89865FC629E9262700E984A1 /* MXMGeoPOI.m in Sources */,
+				8905A9802C12EA2000ED7D65 /* NSBundle+MXMSwizzle.m in Sources */,
 				89C29CA52AE10F9200A3E841 /* NSObject+MXMThrottle.m in Sources */,
 				89C9E1B02A39963800D93569 /* MXMFloorFoldButton.m in Sources */,
 				89865F9729E9262700E984A1 /* MXMDecider.m in Sources */,
