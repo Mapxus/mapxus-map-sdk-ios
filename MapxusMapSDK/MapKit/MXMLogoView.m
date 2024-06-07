@@ -31,8 +31,8 @@
   [self addArrangedSubview:self.mapxusIcon];
   //  [self addArrangedSubview:self.mapxusLabel];
   if ([ENV_NAME isEqualToString:@"kawasaki"]) {
-    [self.mapxusIcon.widthAnchor constraintEqualToConstant:100].active = YES;
-    [self.mapxusIcon.heightAnchor constraintEqualToConstant:37.5].active = YES;
+    [self.mapxusIcon.widthAnchor constraintEqualToConstant:104].active = YES;
+    [self.mapxusIcon.heightAnchor constraintEqualToConstant:39].active = YES;
   } else {
     [self.mapxusIcon.widthAnchor constraintEqualToConstant:95].active = YES;
     [self.mapxusIcon.heightAnchor constraintEqualToConstant:19].active = YES;

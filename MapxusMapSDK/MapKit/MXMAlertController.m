@@ -55,7 +55,7 @@
   
   NSLayoutConstraint *boxWidth = [self.box.widthAnchor constraintEqualToConstant:359];
   boxWidth.priority = UILayoutPriorityDefaultHigh;
-
+  
   NSLayoutConstraint *boxLeading = [self.box.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.view.leadingAnchor constant:8];
   boxLeading.priority = UILayoutPriorityRequired;
   
@@ -96,7 +96,7 @@
     
     [self.mapxusView.centerXAnchor constraintEqualToAnchor:self.mapxusBtn.centerXAnchor],
     [self.mapxusView.centerYAnchor constraintEqualToAnchor:self.mapxusBtn.centerYAnchor],
-
+    
     [self.osmLabel.centerXAnchor constraintEqualToAnchor:self.osmBtn.centerXAnchor],
     [self.osmLabel.centerYAnchor constraintEqualToAnchor:self.osmBtn.centerYAnchor],
   ];
@@ -159,13 +159,17 @@
 }
 
 - (void)clickOnCancelBtn {
-    [self dismissViewControllerAnimated:YES completion:nil];
+  [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (UIView *)boxShadow {
   if (!_boxShadow) {
     _boxShadow = [[UIView alloc] init];
-    _boxShadow.backgroundColor = [UIColor whiteColor];
+    if ([ENV_NAME isEqualToString:@"kawasaki"]) {
+      _boxShadow.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
+    } else {
+      _boxShadow.backgroundColor = [UIColor whiteColor];
+    }
     _boxShadow.layer.shadowColor = [UIColor blackColor].CGColor;
     _boxShadow.layer.shadowOffset = CGSizeMake(0, 5);
     _boxShadow.layer.cornerRadius = 12;
@@ -180,7 +184,11 @@
   if (!_box) {
     _box = [[UIView alloc] init];
     _box.layer.cornerRadius = 12;
-    _box.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.1];
+    if ([ENV_NAME isEqualToString:@"kawasaki"]) {
+      _box.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.3];
+    } else {
+      _box.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.1];
+    }
     _box.clipsToBounds = YES;
     _box.translatesAutoresizingMaskIntoConstraints = NO;
   }
@@ -199,7 +207,11 @@
 - (UIButton *)mapxusBtn {
   if (!_mapxusBtn) {
     _mapxusBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _mapxusBtn.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
+    if ([ENV_NAME isEqualToString:@"kawasaki"]) {
+      _mapxusBtn.backgroundColor = [UIColor colorWithRed:191/255.0 green:191/255.0 blue:191/255.0 alpha:0.5];
+    } else {
+      _mapxusBtn.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
+    }
     [_mapxusBtn addTarget:self action:@selector(clickOnMapxusBtn) forControlEvents:UIControlEventTouchUpInside];
     _mapxusBtn.translatesAutoresizingMaskIntoConstraints = NO;
   }
@@ -221,7 +233,11 @@
 - (UIButton *)osmBtn {
   if (!_osmBtn) {
     _osmBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _osmBtn.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
+    if ([ENV_NAME isEqualToString:@"kawasaki"]) {
+      _osmBtn.backgroundColor = [UIColor colorWithRed:191/255.0 green:191/255.0 blue:191/255.0 alpha:0.5];
+    } else {
+      _osmBtn.backgroundColor = [UIColor colorWithRed:242/255.0 green:242/255.0 blue:242/255.0 alpha:1];
+    }
     [_osmBtn addTarget:self action:@selector(clickOnOsmBtn) forControlEvents:UIControlEventTouchUpInside];
     _osmBtn.translatesAutoresizingMaskIntoConstraints = NO;
   }
@@ -232,7 +248,11 @@
   if (!_cancelBtn) {
     NSString *cancelStr = MXMLocalizedString(@"Cancel");
     _cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _cancelBtn.backgroundColor = [UIColor whiteColor];
+    if ([ENV_NAME isEqualToString:@"kawasaki"]) {
+      _cancelBtn.backgroundColor = [UIColor colorWithRed:134/255.0 green:134/255.0 blue:134/255.0 alpha:0.65];
+    } else {
+      _cancelBtn.backgroundColor = [UIColor whiteColor];
+    }
     [_cancelBtn setTitle:cancelStr forState:UIControlStateNormal];
     [_cancelBtn setTitleColor:[UIColor colorWithRed:32/255.0 green:115/255.0 blue:236/255.0 alpha:1]
                      forState:UIControlStateNormal];
@@ -248,7 +268,11 @@
 - (UIView *)cancelShadow {
   if (!_cancelShadow) {
     _cancelShadow = [[UIView alloc] init];
-    _cancelShadow.backgroundColor = [UIColor whiteColor];
+    if ([ENV_NAME isEqualToString:@"kawasaki"]) {
+      _cancelShadow.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.8];
+    } else {
+      _cancelShadow.backgroundColor = [UIColor whiteColor];
+    }
     _cancelShadow.layer.shadowColor = [UIColor blackColor].CGColor;
     _cancelShadow.layer.shadowOffset = CGSizeMake(0, 5);
     _cancelShadow.layer.cornerRadius = 12;
