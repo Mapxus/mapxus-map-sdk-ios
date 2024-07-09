@@ -263,7 +263,7 @@
     if (list.count < 2) { // 当points有值且点数小于2时，报错
       if (self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
         NSError *error = [NSError errorWithDomain:MXMParamErrorDomain
-                                             code:-1601
+                                             code:kParameterOutOfRange
                                          userInfo:@{NSLocalizedDescriptionKey: @"Minimum of 2 incoming points."}];
         [self.delegate MXMSearchRequest:request didFailWithError:error];
       }
@@ -271,7 +271,7 @@
     } else if (list.count > 5) { // 当points数量大于5时，报错
       if (self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
         NSError *error = [NSError errorWithDomain:MXMParamErrorDomain
-                                             code:-1601
+                                             code:kParameterOutOfRange
                                          userInfo:@{NSLocalizedDescriptionKey: @"Maximum of 5 incoming points."}];
         [self.delegate MXMSearchRequest:request didFailWithError:error];
       }
