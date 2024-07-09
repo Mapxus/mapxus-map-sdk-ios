@@ -23,7 +23,20 @@
 
     NSMutableDictionary *dic = nil;
     if (request.venueIds.count) {
-        NSString *ids = [request.venueIds componentsJoinedByString:@","];
+        // 过滤掉空字符串
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self != ''"];
+        NSArray<NSString *> *filteredArray = [request.venueIds filteredArrayUsingPredicate:predicate];
+      
+        // 过滤后如果没有id,立刻返回
+        if (!filteredArray.count && self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
+          NSError *error = [NSError errorWithDomain:MXMParamErrorDomain
+                                               code:kParameterEinval
+                                           userInfo:@{NSLocalizedDescriptionKey: @"The `venueIds` array must contain at least one id that is not null."}];
+          [self.delegate MXMSearchRequest:request didFailWithError:error];
+          return;
+        }
+
+        NSString *ids = [filteredArray componentsJoinedByString:@","];
         url = [url stringByAppendingString:[NSString stringWithFormat:@"/%@", ids]];
     } else {
         dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
@@ -63,7 +76,20 @@
 
     NSMutableDictionary *dic = nil;
     if (request.buildingIds.count) {
-        NSString *ids = [request.buildingIds componentsJoinedByString:@","];
+        // 过滤掉空字符串
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self != ''"];
+        NSArray<NSString *> *filteredArray = [request.buildingIds filteredArrayUsingPredicate:predicate];
+      
+        // 过滤后如果没有id,立刻返回
+        if (!filteredArray.count && self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
+          NSError *error = [NSError errorWithDomain:MXMParamErrorDomain
+                                               code:kParameterEinval
+                                           userInfo:@{NSLocalizedDescriptionKey: @"The `buildingIds` array must contain at least one id that is not null."}];
+          [self.delegate MXMSearchRequest:request didFailWithError:error];
+          return;
+        }
+        
+        NSString *ids = [filteredArray componentsJoinedByString:@","];
         url = [url stringByAppendingString:[NSString stringWithFormat:@"/%@", ids]];
     } else {
         dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
@@ -125,7 +151,20 @@
 
     NSMutableDictionary *dic = nil;
     if (request.POIIds.count) {
-        NSString *ids = [request.POIIds componentsJoinedByString:@","];
+        // 过滤掉空字符串
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self != ''"];
+        NSArray<NSString *> *filteredArray = [request.POIIds filteredArrayUsingPredicate:predicate];
+      
+        // 过滤后如果没有id,立刻返回
+        if (!filteredArray.count && self.delegate && [self.delegate respondsToSelector:@selector(MXMSearchRequest:didFailWithError:)]) {
+          NSError *error = [NSError errorWithDomain:MXMParamErrorDomain
+                                               code:kParameterEinval
+                                           userInfo:@{NSLocalizedDescriptionKey: @"The `POIIds` array must contain at least one id that is not null."}];
+          [self.delegate MXMSearchRequest:request didFailWithError:error];
+          return;
+        }
+        
+        NSString *ids = [filteredArray componentsJoinedByString:@","];
         url = [NSString stringWithFormat:@"%@%@%@", MXMAPIHOSTURL, @"/bms/api/v4/pois/", ids];
     } else {
         dic = [NSMutableDictionary dictionaryWithDictionary:[request yy_modelToJSONObject]];
