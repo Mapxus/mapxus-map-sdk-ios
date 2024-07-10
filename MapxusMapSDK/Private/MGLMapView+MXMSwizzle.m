@@ -164,7 +164,20 @@
   // 修改地图语言
   NSArray *languages = [NSLocale preferredLanguages];
   NSString *currentLanguage = [languages objectAtIndex:0];
-  [style MXMlocalizeLabelsIntoLocale:currentLanguage];
+  if ([currentLanguage containsString:@"en"]) {
+    currentLanguage = @"en";
+  } else if ([currentLanguage containsString:@"zh-Hant"]) {
+    currentLanguage = @"zh-Hant";
+  } else if ([currentLanguage containsString:@"zh-Hans"]) {
+    currentLanguage = @"zh-Hans";
+  } else if ([currentLanguage containsString:@"ja"]) {
+    currentLanguage = @"ja";
+  } else if ([currentLanguage containsString:@"ko"]) {
+    currentLanguage = @"ko";
+  } else {
+    currentLanguage = @"default";
+  }
+  [mapView.mxmMap setMapLanguage:currentLanguage];
   [self hook_mapView:mapView didFinishLoadingStyle:style];
 }
 - (void)mapView:(MGLMapView *)mapView didFinishLoadingStyle:(MGLStyle *)style

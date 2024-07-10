@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
   NSDictionary<NSString *, MXMGeoBuilding *> *_buildings;
   NSDictionary<NSString *, MXMGeoBuilding *> *_innerbuildings;
   
+  NSString *_language;
+  
   MGLMapView *_mapView;
   MXMLogoButton *_MXMLogo;
   UIButton *_openStreetSourceBtn;
