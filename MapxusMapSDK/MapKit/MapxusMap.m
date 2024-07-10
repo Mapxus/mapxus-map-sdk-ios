@@ -178,6 +178,22 @@
   }
 }
 
+- (NSString *)chooseLanguageWith:(MXMultilingualObject<NSString *> *)object {
+//  en, zh-Hant, zh-Hans, ja, ko, default.
+  NSString *name = nil;
+  if ([_language isEqualToString:@"en"]) {
+    name = object.en;
+  } else if ([_language isEqualToString:@"zh-Hant"]) {
+    name = object.zh_Hant;
+  } else if ([_language isEqualToString:@"zh-Hans"]) {
+    name = object.zh_Hans;
+  } else if ([_language isEqualToString:@"ja"]) {
+    name = object.ja;
+  } else if ([_language isEqualToString:@"ko"]) {
+    name = object.ko;
+  }
+  return name ? : object.Default;
+}
 
 #pragma mark - 手势响应
 
@@ -210,7 +226,35 @@
   if (self.flying) {
     return;
   }
+  
+  if ([KxMenu menuViewShowing] && self.decider.visibleBuildings.count > 1 && _mapView.zoomLevel>15.7) {
+    NSTextAlignment alig = NSTextAlignmentLeft;
+    switch (self.selectorPosition) {
+      case MXMSelectorPositionTopRight:
+      case MXMSelectorPositionCenterRight:
+      case MXMSelectorPositionBottomRight:
+        alig = NSTextAlignmentRight;
+        break;
+      default:
+        break;
+    }
     
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.decider.visibleBuildings.count];
+    for (MXMGeoBuilding *b in [self.decider.visibleBuildings allValues]) {
+      KxMenuItem *item = [KxMenuItem menuItem:[self chooseLanguageWith:b.nameMap]
+                                   identifier:b.identifier
+                                        image:nil
+                                       target:self
+                                       action:@selector(chooseItem:)];
+      item.alignment = alig;
+      [arr addObject:item];
+    }
+    [KxMenu setDefaultItemIdentifier:self.decider.selectedBuildingId];
+    [KxMenu updateMenuInView:self.buildingSelectButton.superview fromRect:self.buildingSelectButton.frame menuItems:arr];
+  } else {
+    [KxMenu dismissMenu];
+  }
+      
   if (!self.autoChangeBuilding) {
     // TODO: 因为找不到选中建筑也需要重置一次，如果已选中floor在屏外，会导致无用的floorId search building接口调用，需要进行优化。使用新接口
     //    [self.decider specifyTheFloorId:self.decider.selectedFloor.floorId zoomMode:MXMZoomDisable edgePadding:UIEdgeInsetsZero shouldChangeTrackingMode:NO];
@@ -551,7 +595,7 @@ didChangeIndoorSiteAccess:_isIndoor
   
   NSMutableArray *arr = [NSMutableArray arrayWithCapacity:self.decider.visibleBuildings.count];
   for (MXMGeoBuilding *b in [self.decider.visibleBuildings allValues]) {
-    KxMenuItem *item = [KxMenuItem menuItem:b.name
+    KxMenuItem *item = [KxMenuItem menuItem:[self chooseLanguageWith:b.nameMap]
                                  identifier:b.identifier
                                       image:nil
                                      target:self
@@ -950,6 +994,7 @@ didChangeIndoorSiteAccess:_isIndoor
 
 - (void)setMapLanguage:(NSString *)language
 {
+  _language = language;
   [_mapView.style MXMlocalizeLabelsIntoLocale:language];
 }
 

@@ -59,15 +59,20 @@
                fromRect:(CGRect)rect
               menuItems:(NSArray *)menuItems;
 
++ (BOOL)menuViewShowing;
++ (void)updateMenuInView:(UIView *)view
+                fromRect:(CGRect)rect
+               menuItems:(NSArray *)menuItems;
+
 + (NSString *)defaultItemIdentifier;
 + (void)setDefaultItemIdentifier:(NSString *)identifier;
 
-+ (void) dismissMenu;
++ (void)dismissMenu;
 
-+ (UIColor *) tintColor;
-+ (void) setTintColor: (UIColor *) tintColor;
++ (UIColor *)tintColor;
++ (void)setTintColor: (UIColor *) tintColor;
 
-+ (UIFont *) titleFont;
-+ (void) setTitleFont: (UIFont *) titleFont;
++ (UIFont *)titleFont;
++ (void)setTitleFont: (UIFont *) titleFont;
 
 @end
