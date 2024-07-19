@@ -1,11 +1,11 @@
 # CHANGELOG
 
-## v6.9.0 (2024-06-18)
+## v6.10.0 (2024-07-19)
 
 ### 📝 Changes
 
-* Refreshed the copyright style.
+* Implemented a filter for null ID values in the Venue, Building, and POI when conducting an ID-based search.
 
 ### 🐛 Fixes
 
-* Fixed a bug that prevented developers from changing the font of CJK characters in map tiles in previous versions.
+* Resolved an issue where the BuildingSelect list displayed incorrect information after the map was relocated.
