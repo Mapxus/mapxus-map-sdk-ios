@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// This method is the in-building POI category search interface.
 ///
 /// @param request The query options. Refer to the `MXMPOICategorySearchRequest` class for specific property fields.
-- (void)MXMPOICategorySearch:(MXMPOICategorySearchRequest *)request;
+- (void)MXMPOICategorySearch:(MXMPOICategorySearchRequest *)request DEPRECATED_MSG_ATTRIBUTE("Please make use of the class `MXMCategorySearch` instead.");
 
 
 /// This method is the in-building POI information search interface.
