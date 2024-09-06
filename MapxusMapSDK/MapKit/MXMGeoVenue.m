@@ -55,8 +55,12 @@
   self.nameMap.zh_Hant = DecodeStringFromDic(dic, @"name:zh-Hant");
   self.nameMap.ja = DecodeStringFromDic(dic, @"name:ja");
   self.nameMap.ko = DecodeStringFromDic(dic, @"name:ko");
-  
-  
+  self.nameMap.fil = DecodeStringFromDic(dic, @"name:fil");
+  self.nameMap._id = DecodeStringFromDic(dic, @"name:id");
+  self.nameMap.pt = DecodeStringFromDic(dic, @"name:pt");
+  self.nameMap.th = DecodeStringFromDic(dic, @"name:th");
+  self.nameMap.vi = DecodeStringFromDic(dic, @"name:vi");
+
   // address_default
   NSString *street = DecodeStringFromDic(dic, @"addr:street");
   NSString *houseNumber = DecodeStringFromDic(dic, @"addr:housenumber");
@@ -109,6 +113,51 @@
     self.addressMap.ko = [[MXMAddress alloc] init];
     self.addressMap.ko.street = street;
     self.addressMap.ko.housenumber = houseNumber;
+  }
+  
+  // address_fil
+  street = DecodeStringFromDic(dic, @"addr:street:fil");
+  houseNumber = DecodeStringFromDic(dic, @"addr:housenumber:fil");
+  if (street || houseNumber) {
+    self.addressMap.fil = [[MXMAddress alloc] init];
+    self.addressMap.fil.street = street;
+    self.addressMap.fil.housenumber = houseNumber;
+  }
+
+  // address_id
+  street = DecodeStringFromDic(dic, @"addr:street:id");
+  houseNumber = DecodeStringFromDic(dic, @"addr:housenumber:id");
+  if (street || houseNumber) {
+    self.addressMap._id = [[MXMAddress alloc] init];
+    self.addressMap._id.street = street;
+    self.addressMap._id.housenumber = houseNumber;
+  }
+
+  // address_pt
+  street = DecodeStringFromDic(dic, @"addr:street:pt");
+  houseNumber = DecodeStringFromDic(dic, @"addr:housenumber:pt");
+  if (street || houseNumber) {
+    self.addressMap.pt = [[MXMAddress alloc] init];
+    self.addressMap.pt.street = street;
+    self.addressMap.pt.housenumber = houseNumber;
+  }
+
+  // address_th
+  street = DecodeStringFromDic(dic, @"addr:street:th");
+  houseNumber = DecodeStringFromDic(dic, @"addr:housenumber:th");
+  if (street || houseNumber) {
+    self.addressMap.th = [[MXMAddress alloc] init];
+    self.addressMap.th.street = street;
+    self.addressMap.th.housenumber = houseNumber;
+  }
+
+  // address_vi
+  street = DecodeStringFromDic(dic, @"addr:street:vi");
+  houseNumber = DecodeStringFromDic(dic, @"addr:housenumber:vi");
+  if (street || houseNumber) {
+    self.addressMap.vi = [[MXMAddress alloc] init];
+    self.addressMap.vi.street = street;
+    self.addressMap.vi.housenumber = houseNumber;
   }
   
   return YES;

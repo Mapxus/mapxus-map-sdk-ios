@@ -53,14 +53,24 @@
   self.nameMap.zh_Hant = DecodeStringFromDic(properties, @"name:zh-Hant");
   self.nameMap.ja = DecodeStringFromDic(properties, @"name:ja");
   self.nameMap.ko = DecodeStringFromDic(properties, @"name:ko");
-  
+  self.nameMap.fil = DecodeStringFromDic(dic, @"name:fil");
+  self.nameMap._id = DecodeStringFromDic(dic, @"name:id");
+  self.nameMap.pt = DecodeStringFromDic(dic, @"name:pt");
+  self.nameMap.th = DecodeStringFromDic(dic, @"name:th");
+  self.nameMap.vi = DecodeStringFromDic(dic, @"name:vi");
+
   self.accessibilityDetailMap.Default = DecodeStringFromDic(properties, @"accessibility_detail");
   self.accessibilityDetailMap.en = DecodeStringFromDic(properties, @"accessibility_detail:en");
   self.accessibilityDetailMap.zh_Hans = DecodeStringFromDic(properties, @"accessibility_detail:zh-Hans");
   self.accessibilityDetailMap.zh_Hant = DecodeStringFromDic(properties, @"accessibility_detail:zh-Hant");
   self.accessibilityDetailMap.ja = DecodeStringFromDic(properties, @"accessibility_detail:ja");
   self.accessibilityDetailMap.ko = DecodeStringFromDic(properties, @"accessibility_detail:ko");
-  
+  self.accessibilityDetailMap.fil = DecodeStringFromDic(dic, @"accessibility_detail:fil");
+  self.accessibilityDetailMap._id = DecodeStringFromDic(dic, @"accessibility_detail:id");
+  self.accessibilityDetailMap.pt = DecodeStringFromDic(dic, @"accessibility_detail:pt");
+  self.accessibilityDetailMap.th = DecodeStringFromDic(dic, @"accessibility_detail:th");
+  self.accessibilityDetailMap.vi = DecodeStringFromDic(dic, @"accessibility_detail:vi");
+
   NSString *categoryStr = DecodeStringFromDic(properties, @"place");
   if (categoryStr) {
     _category = [categoryStr componentsSeparatedByString:@","];

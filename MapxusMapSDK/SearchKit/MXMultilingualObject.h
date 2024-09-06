@@ -24,7 +24,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) ObjectType ja;
 /// The object in Korean.
 @property (nonatomic, copy, nullable) ObjectType ko;
-
+/// The object in Filipino.
+@property (nonatomic, copy, nullable) ObjectType fil;
+/// The object in Indonesian.
+@property (nonatomic, copy, nullable) ObjectType _id NS_SWIFT_NAME(id);
+/// The object in Portuguese.
+@property (nonatomic, copy, nullable) ObjectType pt;
+/// The object in Thai.
+@property (nonatomic, copy, nullable) ObjectType th;
+/// The object in Vietnamese.
+@property (nonatomic, copy, nullable) ObjectType vi;
 @end
 
 NS_ASSUME_NONNULL_END
