@@ -164,6 +164,7 @@
 		891BDBF92ABC26A90053767E /* MXMFilterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMFilterModel.m; sourceTree = "<group>"; };
 		8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMBorderStyle.h; sourceTree = "<group>"; };
 		8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMBorderStyle.m; sourceTree = "<group>"; };
+		892FE0632C8E9BAA00C6EB66 /* stem.prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = stem.prod.xcconfig; sourceTree = "<group>"; };
 		89446B542BB69DED005B0D17 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		8952F9682AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGLNetworkConfiguration+MXMSwizzle.h"; sourceTree = "<group>"; };
 		8952F9692AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MGLNetworkConfiguration+MXMSwizzle.m"; sourceTree = "<group>"; };
@@ -594,6 +595,7 @@
 				89865FD229E9273F00E984A1 /* kawasaki.prod.xcconfig */,
 				89865FD529E9273F00E984A1 /* mapxus.prod.xcconfig */,
 				89865FD629E9273F00E984A1 /* landsd.prod.xcconfig */,
+				892FE0632C8E9BAA00C6EB66 /* stem.prod.xcconfig */,
 				89865FD729E9273F00E984A1 /* mapxus.test.xcconfig */,
 				89865FD829E9273F00E984A1 /* landsd.test.xcconfig */,
 			);
