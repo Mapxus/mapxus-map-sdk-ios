@@ -104,7 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @discussion 
 /// If attribution has been set to `MXMSwitchingByVenue`, switching floor will synchronize the floor ordinal for all buildings on the same venue;
 /// If the attribution has been set to `MXMSwitchingByBuilding`, only the current building’s floor will change. The default is `MXMSwitchingByVenue`.
-@property (nonatomic, assign) MXMFloorSwitchMode floorSwitchMode;
+@property (nonatomic, assign) MXMFloorSwitchMode floorSwitchMode DEPRECATED_MSG_ATTRIBUTE("It will be removed and always switch according to the venue.");
 
 
 /// Configuring the mask state for an unselected site.
