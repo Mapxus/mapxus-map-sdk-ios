@@ -34,6 +34,12 @@
 		891BDBFB2ABC26A90053767E /* MXMFilterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 891BDBF92ABC26A90053767E /* MXMFilterModel.m */; };
 		892933202A247AF8003C0DE6 /* MXMBorderStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = 8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		892933212A247AF8003C0DE6 /* MXMBorderStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */; };
+		892FE03A2C86A42C00C6EB66 /* MXMCategorySearch.h in Headers */ = {isa = PBXBuildFile; fileRef = 892FE0382C86A42C00C6EB66 /* MXMCategorySearch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		892FE03B2C86A42C00C6EB66 /* MXMCategorySearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 892FE0392C86A42C00C6EB66 /* MXMCategorySearch.m */; };
+		892FE03F2C86A49600C6EB66 /* MXMCategorySearchOption.h in Headers */ = {isa = PBXBuildFile; fileRef = 892FE03D2C86A49600C6EB66 /* MXMCategorySearchOption.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		892FE0402C86A49600C6EB66 /* MXMCategorySearchOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 892FE03E2C86A49600C6EB66 /* MXMCategorySearchOption.m */; };
+		892FE0432C86A5CA00C6EB66 /* MXMCategorySearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 892FE0412C86A5CA00C6EB66 /* MXMCategorySearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		892FE0442C86A5CA00C6EB66 /* MXMCategorySearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 892FE0422C86A5CA00C6EB66 /* MXMCategorySearchResult.m */; };
 		8952F96A2AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 8952F9682AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.h */; };
 		8952F96B2AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 8952F9692AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.m */; };
 		8952F96D2AE7C8BC00D3DBA6 /* MXMURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 8952F96C2AE7C8BC00D3DBA6 /* MXMURLProtocol.h */; };
@@ -165,6 +171,12 @@
 		8929331E2A247AF8003C0DE6 /* MXMBorderStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMBorderStyle.h; sourceTree = "<group>"; };
 		8929331F2A247AF8003C0DE6 /* MXMBorderStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMBorderStyle.m; sourceTree = "<group>"; };
 		892FE0632C8E9BAA00C6EB66 /* stem.prod.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = stem.prod.xcconfig; sourceTree = "<group>"; };
+		892FE0382C86A42C00C6EB66 /* MXMCategorySearch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMCategorySearch.h; sourceTree = "<group>"; };
+		892FE0392C86A42C00C6EB66 /* MXMCategorySearch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMCategorySearch.m; sourceTree = "<group>"; };
+		892FE03D2C86A49600C6EB66 /* MXMCategorySearchOption.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMCategorySearchOption.h; sourceTree = "<group>"; };
+		892FE03E2C86A49600C6EB66 /* MXMCategorySearchOption.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMCategorySearchOption.m; sourceTree = "<group>"; };
+		892FE0412C86A5CA00C6EB66 /* MXMCategorySearchResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MXMCategorySearchResult.h; sourceTree = "<group>"; };
+		892FE0422C86A5CA00C6EB66 /* MXMCategorySearchResult.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MXMCategorySearchResult.m; sourceTree = "<group>"; };
 		89446B542BB69DED005B0D17 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		8952F9682AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MGLNetworkConfiguration+MXMSwizzle.h"; sourceTree = "<group>"; };
 		8952F9692AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "MGLNetworkConfiguration+MXMSwizzle.m"; sourceTree = "<group>"; };
@@ -334,6 +346,32 @@
 				1D22435475B5222BB8270E9F /* Pods-MapxusMapSDKTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		892FE0372C86A3E100C6EB66 /* CategorySearch */ = {
+			isa = PBXGroup;
+			children = (
+				892FE0382C86A42C00C6EB66 /* MXMCategorySearch.h */,
+				892FE0392C86A42C00C6EB66 /* MXMCategorySearch.m */,
+				892FE03D2C86A49600C6EB66 /* MXMCategorySearchOption.h */,
+				892FE03E2C86A49600C6EB66 /* MXMCategorySearchOption.m */,
+				892FE0412C86A5CA00C6EB66 /* MXMCategorySearchResult.h */,
+				892FE0422C86A5CA00C6EB66 /* MXMCategorySearchResult.m */,
+			);
+			path = CategorySearch;
+			sourceTree = "<group>";
+		};
+		892FE03C2C86A43200C6EB66 /* GeoCodeSearch */ = {
+			isa = PBXGroup;
+			children = (
+				89865F7229E9262700E984A1 /* MXMGeoCodeSearch.h */,
+				89865F7629E9262700E984A1 /* MXMGeoCodeSearch.m */,
+				89865F7129E9262700E984A1 /* MXMGeoCodeSearchOption.h */,
+				89865F7529E9262700E984A1 /* MXMGeoCodeSearchOption.m */,
+				89865F7429E9262700E984A1 /* MXMGeoCodeSearchResult.h */,
+				89865F7029E9262700E984A1 /* MXMGeoCodeSearchResult.m */,
+			);
+			path = GeoCodeSearch;
 			sourceTree = "<group>";
 		};
 		893FDBD92A39692C006218D0 /* FloorBar */ = {
@@ -542,12 +580,8 @@
 			children = (
 				89865F6F29E9262700E984A1 /* MXMSearchBase.h */,
 				89865F7329E9262700E984A1 /* MXMSearchBase.m */,
-				89865F7429E9262700E984A1 /* MXMGeoCodeSearchResult.h */,
-				89865F7029E9262700E984A1 /* MXMGeoCodeSearchResult.m */,
-				89865F7129E9262700E984A1 /* MXMGeoCodeSearchOption.h */,
-				89865F7529E9262700E984A1 /* MXMGeoCodeSearchOption.m */,
-				89865F7229E9262700E984A1 /* MXMGeoCodeSearch.h */,
-				89865F7629E9262700E984A1 /* MXMGeoCodeSearch.m */,
+				892FE03C2C86A43200C6EB66 /* GeoCodeSearch */,
+				892FE0372C86A3E100C6EB66 /* CategorySearch */,
 			);
 			path = NewSearchKit;
 			sourceTree = "<group>";
@@ -623,10 +657,13 @@
 				89C9E1BB2A3996BE00D93569 /* MXMFloorBarCell.h in Headers */,
 				89865FBC29E9262700E984A1 /* MXMGeoCodeSearchResult.h in Headers */,
 				89865FC829E9262700E984A1 /* MapxusMapDelegate.h in Headers */,
+				892FE03A2C86A42C00C6EB66 /* MXMCategorySearch.h in Headers */,
 				89865FB929E9262700E984A1 /* MXMGeoCodeSearchOption.h in Headers */,
 				89AAF5952BDB837F00CB6B33 /* NSString+MXMUtils.h in Headers */,
 				89C9E1B72A39968F00D93569 /* MXMFloorSelectorBar.h in Headers */,
 				8905A97F2C12EA2000ED7D65 /* NSBundle+MXMSwizzle.h in Headers */,
+				892FE0432C86A5CA00C6EB66 /* MXMCategorySearchResult.h in Headers */,
+				892FE03F2C86A49600C6EB66 /* MXMCategorySearchOption.h in Headers */,
 				89C9E1CA2A3C58BB00D93569 /* MXMFloorSelectorBar+Private.h in Headers */,
 				89AAF59D2BDDE4D000CB6B33 /* MXMultilingualObject.h in Headers */,
 				89865F9229E9262700E984A1 /* MXMCommonObj.h in Headers */,
@@ -904,6 +941,7 @@
 				89C9E1C02A39998500D93569 /* MXMFloorBarModel.m in Sources */,
 				89865FBE29E9262700E984A1 /* MXMGeoCodeSearch.m in Sources */,
 				89865FA529E9262700E984A1 /* MGLStyle+MXMFilter.m in Sources */,
+				892FE0442C86A5CA00C6EB66 /* MXMCategorySearchResult.m in Sources */,
 				896BD85D2A0C7C0700ED8D9F /* MXMLogoView.m in Sources */,
 				89865F9129E9262700E984A1 /* MXMSearchAPI.m in Sources */,
 				890831042A80CBD9006DBD89 /* MXMSearchVenueOperation.m in Sources */,
@@ -918,6 +956,7 @@
 				89865F9929E9262700E984A1 /* MXMCacheManager.m in Sources */,
 				89865FAF29E9262700E984A1 /* KxMenu.m in Sources */,
 				89C9E1C42A3AE20500D93569 /* MXMSDKBundle.m in Sources */,
+				892FE03B2C86A42C00C6EB66 /* MXMCategorySearch.m in Sources */,
 				8906E9D22AFA39130062418E /* MGLPolygon+MXMFuction.m in Sources */,
 				89865FC529E9262700E984A1 /* MXMPointAnnotation.m in Sources */,
 				89865F9C29E9262700E984A1 /* MXMAnnotationsHolder.m in Sources */,
@@ -927,6 +966,7 @@
 				8952F96B2AE7C6AC00D3DBA6 /* MGLNetworkConfiguration+MXMSwizzle.m in Sources */,
 				89865FB429E9262700E984A1 /* MXMSearchPOIOperation.m in Sources */,
 				891BDBFB2ABC26A90053767E /* MXMFilterModel.m in Sources */,
+				892FE0402C86A49600C6EB66 /* MXMCategorySearchOption.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
