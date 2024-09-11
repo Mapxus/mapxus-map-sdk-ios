@@ -27,6 +27,11 @@
   self.titleMap.zh_Hant = DecodeStringFromDic(titleDic, @"zh-Hant");
   self.titleMap.ja = DecodeStringFromDic(titleDic, @"ja");
   self.titleMap.ko = DecodeStringFromDic(titleDic, @"ko");
+  self.titleMap.fil = DecodeStringFromDic(titleDic, @"fil");
+  self.titleMap._id = DecodeStringFromDic(titleDic, @"id");
+  self.titleMap.pt = DecodeStringFromDic(titleDic, @"pt");
+  self.titleMap.th = DecodeStringFromDic(titleDic, @"th");
+  self.titleMap.vi = DecodeStringFromDic(titleDic, @"vi");
   return YES;
 }
 
@@ -359,7 +364,12 @@
   self.buildingNameMap.zh_Hant = DecodeStringFromDic(buildingNameDic, @"zh-Hant");
   self.buildingNameMap.ja = DecodeStringFromDic(buildingNameDic, @"ja");
   self.buildingNameMap.ko = DecodeStringFromDic(buildingNameDic, @"ko");
-  
+  self.buildingNameMap.fil = DecodeStringFromDic(buildingNameDic, @"fil");
+  self.buildingNameMap._id = DecodeStringFromDic(buildingNameDic, @"id");
+  self.buildingNameMap.pt = DecodeStringFromDic(buildingNameDic, @"pt");
+  self.buildingNameMap.th = DecodeStringFromDic(buildingNameDic, @"th");
+  self.buildingNameMap.vi = DecodeStringFromDic(buildingNameDic, @"vi");
+
   NSDictionary *nameDic = DecodeDicFromDic(dic, @"name");
   self.nameMap.Default = DecodeStringFromDic(nameDic, @"default");
   self.nameMap.en = DecodeStringFromDic(nameDic, @"en");
@@ -367,7 +377,12 @@
   self.nameMap.zh_Hant = DecodeStringFromDic(nameDic, @"zh-Hant");
   self.nameMap.ja = DecodeStringFromDic(nameDic, @"ja");
   self.nameMap.ko = DecodeStringFromDic(nameDic, @"ko");
-  
+  self.nameMap.fil = DecodeStringFromDic(nameDic, @"fil");
+  self.nameMap._id = DecodeStringFromDic(nameDic, @"id");
+  self.nameMap.pt = DecodeStringFromDic(nameDic, @"pt");
+  self.nameMap.th = DecodeStringFromDic(nameDic, @"th");
+  self.nameMap.vi = DecodeStringFromDic(nameDic, @"vi");
+
   NSDictionary *venueNameDic = DecodeDicFromDic(dic, @"venueName");
   self.venueNameMap.Default = DecodeStringFromDic(venueNameDic, @"default");
   self.venueNameMap.en = DecodeStringFromDic(venueNameDic, @"en");
@@ -375,7 +390,12 @@
   self.venueNameMap.zh_Hant = DecodeStringFromDic(venueNameDic, @"zh-Hant");
   self.venueNameMap.ja = DecodeStringFromDic(venueNameDic, @"ja");
   self.venueNameMap.ko = DecodeStringFromDic(venueNameDic, @"ko");
-  
+  self.venueNameMap.fil = DecodeStringFromDic(venueNameDic, @"fil");
+  self.venueNameMap._id = DecodeStringFromDic(venueNameDic, @"id");
+  self.venueNameMap.pt = DecodeStringFromDic(venueNameDic, @"pt");
+  self.venueNameMap.th = DecodeStringFromDic(venueNameDic, @"th");
+  self.venueNameMap.vi = DecodeStringFromDic(venueNameDic, @"vi");
+
   NSDictionary *addressDic = DecodeDicFromDic(dic, @"address");
   self.addressMap.Default = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"default")];
   self.addressMap.en = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"en")];
@@ -383,7 +403,12 @@
   self.addressMap.zh_Hant = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"zh-Hant")];
   self.addressMap.ja = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"ja")];
   self.addressMap.ko = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"ko")];
-  
+  self.addressMap.fil = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"fil")];
+  self.addressMap._id = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"id")];
+  self.addressMap.pt = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"pt")];
+  self.addressMap.th = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"th")];
+  self.addressMap.vi = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"vi")];
+
   return YES;
 }
 
@@ -626,7 +651,12 @@
   self.nameMap.zh_Hant = DecodeStringFromDic(nameDic, @"zh-Hant");
   self.nameMap.ja = DecodeStringFromDic(nameDic, @"ja");
   self.nameMap.ko = DecodeStringFromDic(nameDic, @"ko");
-  
+  self.nameMap.fil = DecodeStringFromDic(nameDic, @"fil");
+  self.nameMap._id = DecodeStringFromDic(nameDic, @"id");
+  self.nameMap.pt = DecodeStringFromDic(nameDic, @"pt");
+  self.nameMap.th = DecodeStringFromDic(nameDic, @"th");
+  self.nameMap.vi = DecodeStringFromDic(nameDic, @"vi");
+
   NSDictionary *addressDic = DecodeDicFromDic(dic, @"address");
   self.addressMap.Default = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"default")];
   self.addressMap.en = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"en")];
@@ -634,7 +664,12 @@
   self.addressMap.zh_Hant = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"zh-Hant")];
   self.addressMap.ja = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"ja")];
   self.addressMap.ko = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"ko")];
-  
+  self.addressMap.fil = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"fil")];
+  self.addressMap._id = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"id")];
+  self.addressMap.pt = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"pt")];
+  self.addressMap.th = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"th")];
+  self.addressMap.vi = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"vi")];
+
   for (MXMBuilding *building in self.buildings) {
     building.venueId = self.venueId;
     building.category = self.category;
@@ -805,7 +840,12 @@
     self.descriptionMap.zh_Hant = DecodeStringFromDic(descriptionDic, @"zh-Hant");
     self.descriptionMap.ja = DecodeStringFromDic(descriptionDic, @"ja");
     self.descriptionMap.ko = DecodeStringFromDic(descriptionDic, @"ko");
-    
+    self.descriptionMap.fil = DecodeStringFromDic(descriptionDic, @"fil");
+    self.descriptionMap._id = DecodeStringFromDic(descriptionDic, @"id");
+    self.descriptionMap.pt = DecodeStringFromDic(descriptionDic, @"pt");
+    self.descriptionMap.th = DecodeStringFromDic(descriptionDic, @"th");
+    self.descriptionMap.vi = DecodeStringFromDic(descriptionDic, @"vi");
+
     self.introduction = self.descriptionMap.Default;
   } else {
     self.introduction = DecodeStringFromDic(dic, @"description");
@@ -818,7 +858,12 @@
   self.nameMap.zh_Hant = DecodeStringFromDic(nameDic, @"zh-Hant");
   self.nameMap.ja = DecodeStringFromDic(nameDic, @"ja");
   self.nameMap.ko = DecodeStringFromDic(nameDic, @"ko");
-  
+  self.nameMap.fil = DecodeStringFromDic(nameDic, @"fil");
+  self.nameMap._id = DecodeStringFromDic(nameDic, @"id");
+  self.nameMap.pt = DecodeStringFromDic(nameDic, @"pt");
+  self.nameMap.th = DecodeStringFromDic(nameDic, @"th");
+  self.nameMap.vi = DecodeStringFromDic(nameDic, @"vi");
+
   NSDictionary *accessibilityDetailDic = DecodeDicFromDic(dic, @"accessibilityDetail");
   self.accessibilityDetailMap.Default = DecodeStringFromDic(accessibilityDetailDic, @"default");
   self.accessibilityDetailMap.en = DecodeStringFromDic(accessibilityDetailDic, @"en");
@@ -826,7 +871,12 @@
   self.accessibilityDetailMap.zh_Hant = DecodeStringFromDic(accessibilityDetailDic, @"zh-Hant");
   self.accessibilityDetailMap.ja = DecodeStringFromDic(accessibilityDetailDic, @"ja");
   self.accessibilityDetailMap.ko = DecodeStringFromDic(accessibilityDetailDic, @"ko");
-  
+  self.accessibilityDetailMap.fil = DecodeStringFromDic(accessibilityDetailDic, @"fil");
+  self.accessibilityDetailMap._id = DecodeStringFromDic(accessibilityDetailDic, @"id");
+  self.accessibilityDetailMap.pt = DecodeStringFromDic(accessibilityDetailDic, @"pt");
+  self.accessibilityDetailMap.th = DecodeStringFromDic(accessibilityDetailDic, @"th");
+  self.accessibilityDetailMap.vi = DecodeStringFromDic(accessibilityDetailDic, @"vi");
+
   _floor = [[MXMFloor alloc] init];
   _floor.floorId = DecodeStringFromDic(dic, @"floorId");
   _floor.code = DecodeStringFromDic(dic, @"floor");

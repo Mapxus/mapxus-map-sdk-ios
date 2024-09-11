@@ -18,6 +18,11 @@
   copyedModel.zh_Hant = self.zh_Hant;
   copyedModel.ja = self.ja;
   copyedModel.ko = self.ko;
+  copyedModel.fil = self.fil;
+  copyedModel._id = self._id;
+  copyedModel.pt = self.pt;
+  copyedModel.th = self.th;
+  copyedModel.vi = self.vi;
   return copyedModel;
 }
 

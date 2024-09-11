@@ -49,7 +49,12 @@
   self.nameMap.zh_Hant = DecodeStringFromDic(dic, @"name:zh-Hant");
   self.nameMap.ja = DecodeStringFromDic(dic, @"name:ja");
   self.nameMap.ko = DecodeStringFromDic(dic, @"name:ko");
-  
+  self.nameMap.fil = DecodeStringFromDic(dic, @"name:fil");
+  self.nameMap._id = DecodeStringFromDic(dic, @"name:id");
+  self.nameMap.pt = DecodeStringFromDic(dic, @"name:pt");
+  self.nameMap.th = DecodeStringFromDic(dic, @"name:th");
+  self.nameMap.vi = DecodeStringFromDic(dic, @"name:vi");
+
   NSArray *floorIds = nil;
   if ([dic[@"level_ids"] isKindOfClass:[NSString class]]) {
     floorIds = [dic[@"level_ids"] componentsSeparatedByString:@","];
