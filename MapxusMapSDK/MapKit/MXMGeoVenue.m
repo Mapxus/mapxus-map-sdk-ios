@@ -60,6 +60,7 @@
   self.nameMap.pt = DecodeStringFromDic(dic, @"name:pt");
   self.nameMap.th = DecodeStringFromDic(dic, @"name:th");
   self.nameMap.vi = DecodeStringFromDic(dic, @"name:vi");
+  self.nameMap.ar = DecodeStringFromDic(dic, @"name:ar");
 
   // address_default
   NSString *street = DecodeStringFromDic(dic, @"addr:street");
@@ -158,6 +159,15 @@
     self.addressMap.vi = [[MXMAddress alloc] init];
     self.addressMap.vi.street = street;
     self.addressMap.vi.housenumber = houseNumber;
+  }
+  
+  // address_ar
+  street = DecodeStringFromDic(dic, @"addr:street:ar");
+  houseNumber = DecodeStringFromDic(dic, @"addr:housenumber:ar");
+  if (street || houseNumber) {
+    self.addressMap.ar = [[MXMAddress alloc] init];
+    self.addressMap.ar.street = street;
+    self.addressMap.ar.housenumber = houseNumber;
   }
   
   return YES;

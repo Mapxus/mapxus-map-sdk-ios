@@ -23,6 +23,7 @@
   copyedModel.pt = self.pt;
   copyedModel.th = self.th;
   copyedModel.vi = self.vi;
+  copyedModel.ar = self.ar;
   return copyedModel;
 }
 

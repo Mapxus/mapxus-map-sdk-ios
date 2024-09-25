@@ -34,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) ObjectType th;
 /// The object in Vietnamese.
 @property (nonatomic, copy, nullable) ObjectType vi;
+/// The object in Arabic.
+@property (nonatomic, copy, nullable) ObjectType ar;
 @end
 
 NS_ASSUME_NONNULL_END
