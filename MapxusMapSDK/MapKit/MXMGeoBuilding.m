@@ -54,6 +54,7 @@
   self.nameMap.pt = DecodeStringFromDic(dic, @"name:pt");
   self.nameMap.th = DecodeStringFromDic(dic, @"name:th");
   self.nameMap.vi = DecodeStringFromDic(dic, @"name:vi");
+  self.nameMap.ar = DecodeStringFromDic(dic, @"name:ar");
 
   NSArray *floorIds = nil;
   if ([dic[@"level_ids"] isKindOfClass:[NSString class]]) {

@@ -32,6 +32,7 @@
   self.titleMap.pt = DecodeStringFromDic(titleDic, @"pt");
   self.titleMap.th = DecodeStringFromDic(titleDic, @"th");
   self.titleMap.vi = DecodeStringFromDic(titleDic, @"vi");
+  self.titleMap.ar = DecodeStringFromDic(titleDic, @"ar");
   return YES;
 }
 
@@ -369,6 +370,7 @@
   self.buildingNameMap.pt = DecodeStringFromDic(buildingNameDic, @"pt");
   self.buildingNameMap.th = DecodeStringFromDic(buildingNameDic, @"th");
   self.buildingNameMap.vi = DecodeStringFromDic(buildingNameDic, @"vi");
+  self.buildingNameMap.ar = DecodeStringFromDic(buildingNameDic, @"ar");
 
   NSDictionary *nameDic = DecodeDicFromDic(dic, @"name");
   self.nameMap.Default = DecodeStringFromDic(nameDic, @"default");
@@ -382,6 +384,7 @@
   self.nameMap.pt = DecodeStringFromDic(nameDic, @"pt");
   self.nameMap.th = DecodeStringFromDic(nameDic, @"th");
   self.nameMap.vi = DecodeStringFromDic(nameDic, @"vi");
+  self.nameMap.ar = DecodeStringFromDic(nameDic, @"ar");
 
   NSDictionary *venueNameDic = DecodeDicFromDic(dic, @"venueName");
   self.venueNameMap.Default = DecodeStringFromDic(venueNameDic, @"default");
@@ -395,6 +398,7 @@
   self.venueNameMap.pt = DecodeStringFromDic(venueNameDic, @"pt");
   self.venueNameMap.th = DecodeStringFromDic(venueNameDic, @"th");
   self.venueNameMap.vi = DecodeStringFromDic(venueNameDic, @"vi");
+  self.venueNameMap.ar = DecodeStringFromDic(venueNameDic, @"ar");
 
   NSDictionary *addressDic = DecodeDicFromDic(dic, @"address");
   self.addressMap.Default = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"default")];
@@ -408,6 +412,7 @@
   self.addressMap.pt = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"pt")];
   self.addressMap.th = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"th")];
   self.addressMap.vi = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"vi")];
+  self.addressMap.ar = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"ar")];
 
   return YES;
 }
@@ -656,6 +661,7 @@
   self.nameMap.pt = DecodeStringFromDic(nameDic, @"pt");
   self.nameMap.th = DecodeStringFromDic(nameDic, @"th");
   self.nameMap.vi = DecodeStringFromDic(nameDic, @"vi");
+  self.nameMap.ar = DecodeStringFromDic(nameDic, @"ar");
 
   NSDictionary *addressDic = DecodeDicFromDic(dic, @"address");
   self.addressMap.Default = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"default")];
@@ -669,6 +675,7 @@
   self.addressMap.pt = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"pt")];
   self.addressMap.th = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"th")];
   self.addressMap.vi = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"vi")];
+  self.addressMap.ar = [MXMAddress yy_modelWithJSON:DecodeDicFromDic(addressDic, @"ar")];
 
   for (MXMBuilding *building in self.buildings) {
     building.venueId = self.venueId;
@@ -845,6 +852,7 @@
     self.descriptionMap.pt = DecodeStringFromDic(descriptionDic, @"pt");
     self.descriptionMap.th = DecodeStringFromDic(descriptionDic, @"th");
     self.descriptionMap.vi = DecodeStringFromDic(descriptionDic, @"vi");
+    self.descriptionMap.ar = DecodeStringFromDic(descriptionDic, @"ar");
 
     self.introduction = self.descriptionMap.Default;
   } else {
@@ -863,6 +871,7 @@
   self.nameMap.pt = DecodeStringFromDic(nameDic, @"pt");
   self.nameMap.th = DecodeStringFromDic(nameDic, @"th");
   self.nameMap.vi = DecodeStringFromDic(nameDic, @"vi");
+  self.nameMap.ar = DecodeStringFromDic(nameDic, @"ar");
 
   NSDictionary *accessibilityDetailDic = DecodeDicFromDic(dic, @"accessibilityDetail");
   self.accessibilityDetailMap.Default = DecodeStringFromDic(accessibilityDetailDic, @"default");
@@ -876,6 +885,7 @@
   self.accessibilityDetailMap.pt = DecodeStringFromDic(accessibilityDetailDic, @"pt");
   self.accessibilityDetailMap.th = DecodeStringFromDic(accessibilityDetailDic, @"th");
   self.accessibilityDetailMap.vi = DecodeStringFromDic(accessibilityDetailDic, @"vi");
+  self.accessibilityDetailMap.ar = DecodeStringFromDic(accessibilityDetailDic, @"ar");
 
   _floor = [[MXMFloor alloc] init];
   _floor.floorId = DecodeStringFromDic(dic, @"floorId");

@@ -58,6 +58,7 @@
   self.nameMap.pt = DecodeStringFromDic(dic, @"name:pt");
   self.nameMap.th = DecodeStringFromDic(dic, @"name:th");
   self.nameMap.vi = DecodeStringFromDic(dic, @"name:vi");
+  self.nameMap.ar = DecodeStringFromDic(dic, @"name:ar");
 
   self.accessibilityDetailMap.Default = DecodeStringFromDic(properties, @"accessibility_detail");
   self.accessibilityDetailMap.en = DecodeStringFromDic(properties, @"accessibility_detail:en");
@@ -70,6 +71,7 @@
   self.accessibilityDetailMap.pt = DecodeStringFromDic(dic, @"accessibility_detail:pt");
   self.accessibilityDetailMap.th = DecodeStringFromDic(dic, @"accessibility_detail:th");
   self.accessibilityDetailMap.vi = DecodeStringFromDic(dic, @"accessibility_detail:vi");
+  self.accessibilityDetailMap.ar = DecodeStringFromDic(dic, @"accessibility_detail:ar");
 
   NSString *categoryStr = DecodeStringFromDic(properties, @"place");
   if (categoryStr) {
