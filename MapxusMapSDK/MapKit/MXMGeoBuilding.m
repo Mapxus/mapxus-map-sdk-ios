@@ -184,7 +184,7 @@
   self.nameMap.ko = name_ko;
 }
 
-- (MXMultilingualObject<NSString *> *)nameMap {
+- (MXMultilingualObjectString *)nameMap {
   if (!_nameMap) {
     _nameMap = [[MXMultilingualObject alloc] init];
   }

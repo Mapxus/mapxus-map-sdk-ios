@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// A description of the category. This property is optional and can be `nil`.
 @property (nonatomic, strong, nullable) NSString *categoryDescription;
 /// A map that contains the title of the category in multiple languages.
-@property (nonatomic, strong) MXMultilingualObject<NSString *> *titleMap;
+@property (nonatomic, strong) MXMultilingualObjectString *titleMap;
 /// English name for category
 @property (nonatomic, strong, nullable) NSString *title_en DEPRECATED_MSG_ATTRIBUTE("Please use `titleMap.en` instead.");
 /// Simplified Chinese name for category
@@ -183,13 +183,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// The ID of the venue where the building is located.
 @property (nonatomic, strong) NSString *venueId;
 /// The map of building names in multiple languages.
-@property (nonatomic, strong) MXMultilingualObject<NSString *> *nameMap;
+@property (nonatomic, strong) MXMultilingualObjectString *nameMap;
 /// The building name without the venue name.
-@property (nonatomic, strong) MXMultilingualObject<NSString *> *buildingNameMap;
+@property (nonatomic, strong) MXMultilingualObjectString *buildingNameMap;
 /// The map of venue names in multiple languages.
-@property (nonatomic, strong) MXMultilingualObject<NSString *> *venueNameMap;
+@property (nonatomic, strong) MXMultilingualObjectString *venueNameMap;
 /// The map of building addresses in multiple languages.
-@property (nonatomic, strong) MXMultilingualObject<MXMAddress *> *addressMap;
+@property (nonatomic, strong) MXMultilingualObjectAddress *addressMap;
 /// The default name of venue where the building is located
 @property (nonatomic, strong, nullable) NSString *venueName_default DEPRECATED_MSG_ATTRIBUTE("Please use `venueNameMap.Default` instead.");
 /// The English name of venue where the building is located
@@ -257,9 +257,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// A unique identifier for the venue in the Mapxus system.
 @property (nonatomic, strong) NSString *venueId;
 /// The map of venue names in multiple languages.
-@property (nonatomic, strong) MXMultilingualObject<NSString *> *nameMap;
+@property (nonatomic, strong) MXMultilingualObjectString *nameMap;
 /// The map of venue addresses in multiple languages.
-@property (nonatomic, strong) MXMultilingualObject<MXMAddress *> *addressMap;
+@property (nonatomic, strong) MXMultilingualObjectAddress *addressMap;
 /// Venue name in default language
 @property (nonatomic, strong, nullable) NSString *name_default DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.Default` instead.");
 /// Venue name in English
@@ -324,11 +324,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// The description of the POI
 @property (nonatomic, strong, nullable) NSString *introduction DEPRECATED_MSG_ATTRIBUTE("Please use `descriptionMap.Default` instead.");
 /// The description of the POI in multiple languages.
-@property (nonatomic, strong) MXMultilingualObject<NSString *> *descriptionMap;
+@property (nonatomic, strong) MXMultilingualObjectString *descriptionMap;
 /// The name of the POI in multiple languages.
-@property (nonatomic, strong) MXMultilingualObject<NSString *> *nameMap;
+@property (nonatomic, strong) MXMultilingualObjectString *nameMap;
 /// The accessibility detail of the POI in multiple languages.
-@property (nonatomic, strong) MXMultilingualObject<NSString *> *accessibilityDetailMap;
+@property (nonatomic, strong) MXMultilingualObjectString *accessibilityDetailMap;
 /// POI name in default language
 @property (nonatomic, strong, nullable) NSString *name_default DEPRECATED_MSG_ATTRIBUTE("Please use `nameMap.Default` instead.");
 /// POI name in English

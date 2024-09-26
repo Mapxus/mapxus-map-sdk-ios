@@ -178,7 +178,7 @@
   }
 }
 
-- (NSString *)chooseLanguageWith:(MXMultilingualObject<NSString *> *)object {
+- (NSString *)chooseLanguageWith:(MXMultilingualObjectString *)object {
 //  en, zh-Hant, zh-Hans, ja, ko, default.
   NSString *name = nil;
   if ([_language isEqualToString:@"en"]) {

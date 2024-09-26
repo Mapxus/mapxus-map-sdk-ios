@@ -54,7 +54,7 @@
   return _venueId;
 }
 
-- (MXMultilingualObject<NSString *> *)venueNameMap {
+- (MXMultilingualObjectString *)venueNameMap {
   if (!_venueNameMap) {
     _venueNameMap = [[MXMultilingualObject alloc] init];
   }
@@ -89,6 +89,12 @@
     categoryEx.category.titleMap.zh_Hant = DecodeStringFromDic(titleDic, @"zh-Hant");
     categoryEx.category.titleMap.ja = DecodeStringFromDic(titleDic, @"ja");
     categoryEx.category.titleMap.ko = DecodeStringFromDic(titleDic, @"ko");
+    categoryEx.category.titleMap.fil = DecodeStringFromDic(titleDic, @"fil");
+    categoryEx.category.titleMap._id = DecodeStringFromDic(titleDic, @"id");
+    categoryEx.category.titleMap.pt = DecodeStringFromDic(titleDic, @"pt");
+    categoryEx.category.titleMap.th = DecodeStringFromDic(titleDic, @"th");
+    categoryEx.category.titleMap.vi = DecodeStringFromDic(titleDic, @"vi");
+    categoryEx.category.titleMap.ar = DecodeStringFromDic(titleDic, @"ar");
     
     categoryEx.category.categoryId = DecodeStringFromDic(pDic, @"id");
     categoryEx.category.category = DecodeStringFromDic(pDic, @"category");
@@ -96,7 +102,7 @@
     
     categoryEx.venueId = DecodeStringFromDic(pDic, @"venueId");
     
-    MXMultilingualObject<NSString *> *venueName = venueDic[categoryEx.venueId];
+    MXMultilingualObjectString *venueName = venueDic[categoryEx.venueId];
     
     if (venueName) {
       categoryEx.venueNameMap = venueName;
@@ -108,6 +114,12 @@
       categoryEx.venueNameMap.zh_Hant = DecodeStringFromDic(venueNameDic, @"zh-Hant");
       categoryEx.venueNameMap.ja = DecodeStringFromDic(venueNameDic, @"ja");
       categoryEx.venueNameMap.ko = DecodeStringFromDic(venueNameDic, @"ko");
+      categoryEx.venueNameMap.fil = DecodeStringFromDic(venueNameDic, @"fil");
+      categoryEx.venueNameMap._id = DecodeStringFromDic(venueNameDic, @"id");
+      categoryEx.venueNameMap.pt = DecodeStringFromDic(venueNameDic, @"pt");
+      categoryEx.venueNameMap.th = DecodeStringFromDic(venueNameDic, @"th");
+      categoryEx.venueNameMap.vi = DecodeStringFromDic(venueNameDic, @"vi");
+      categoryEx.venueNameMap.ar = DecodeStringFromDic(venueNameDic, @"ar");
       
       venueDic[categoryEx.venueId] = categoryEx.venueNameMap;
     }

@@ -292,14 +292,14 @@
   self.addressMap.ko = address_ko;
 }
 
-- (MXMultilingualObject<NSString *> *)nameMap {
+- (MXMultilingualObjectString *)nameMap {
   if (!_nameMap) {
     _nameMap = [[MXMultilingualObject alloc] init];
   }
   return _nameMap;
 }
 
-- (MXMultilingualObject<MXMAddress *> *)addressMap {
+- (MXMultilingualObjectAddress *)addressMap {
   if (!_addressMap) {
     _addressMap = [[MXMultilingualObject alloc] init];
   }

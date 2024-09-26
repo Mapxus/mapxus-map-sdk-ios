@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @discussion
 /// This is an `MXMultilingualObject` that stores a multilingual mapping of `NSString` type.
 /// This mapping allows us to retrieve the corresponding string value based on different language environments.
-@property (nonatomic, strong) MXMultilingualObject<NSString *> *nameMap;
+@property (nonatomic, strong) MXMultilingualObjectString *nameMap;
 
 
 /// Building name in default language.

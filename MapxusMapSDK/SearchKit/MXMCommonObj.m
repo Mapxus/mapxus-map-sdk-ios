@@ -74,7 +74,7 @@
   return _category;
 }
 
-- (MXMultilingualObject<NSString *> *)titleMap {
+- (MXMultilingualObjectString *)titleMap {
   if (!_titleMap) {
     _titleMap = [[MXMultilingualObject alloc] init];
   }
@@ -586,28 +586,28 @@
   return _venueId;
 }
 
-- (MXMultilingualObject<NSString *> *)buildingNameMap {
+- (MXMultilingualObjectString *)buildingNameMap {
   if (!_buildingNameMap) {
     _buildingNameMap = [[MXMultilingualObject alloc] init];
   }
   return _buildingNameMap;
 }
 
-- (MXMultilingualObject<NSString *> *)nameMap {
+- (MXMultilingualObjectString *)nameMap {
   if (!_nameMap) {
     _nameMap = [[MXMultilingualObject alloc] init];
   }
   return _nameMap;
 }
 
-- (MXMultilingualObject<NSString *> *)venueNameMap {
+- (MXMultilingualObjectString *)venueNameMap {
   if (!_venueNameMap) {
     _venueNameMap = [[MXMultilingualObject alloc] init];
   }
   return _venueNameMap;
 }
 
-- (MXMultilingualObject<MXMAddress *> *)addressMap {
+- (MXMultilingualObjectAddress *)addressMap {
   if (!_addressMap) {
     _addressMap = [[MXMultilingualObject alloc] init];
   }
@@ -784,14 +784,14 @@
   self.addressMap.ko = address_ko;
 }
 
-- (MXMultilingualObject<NSString *> *)nameMap {
+- (MXMultilingualObjectString *)nameMap {
   if (!_nameMap) {
     _nameMap = [[MXMultilingualObject alloc] init];
   }
   return _nameMap;
 }
 
-- (MXMultilingualObject<MXMAddress *> *)addressMap {
+- (MXMultilingualObjectAddress *)addressMap {
   if (!_addressMap) {
     _addressMap = [[MXMultilingualObject alloc] init];
   }
@@ -901,7 +901,7 @@
   return YES;
 }
 
-- (MXMultilingualObject<NSString *> *)descriptionMap {
+- (MXMultilingualObjectString *)descriptionMap {
   if (!_descriptionMap) {
     _descriptionMap = [[MXMultilingualObject alloc] init];
   }
@@ -956,7 +956,7 @@
   self.nameMap.ko = name_ko;
 }
 
-- (MXMultilingualObject<NSString *> *)nameMap {
+- (MXMultilingualObjectString *)nameMap {
   if (!_nameMap) {
     _nameMap = [[MXMultilingualObject alloc] init];
   }
@@ -1011,7 +1011,7 @@
   self.accessibilityDetailMap.ko = accessibilityDetail_ko;
 }
 
-- (MXMultilingualObject<NSString *> *)accessibilityDetailMap {
+- (MXMultilingualObjectString *)accessibilityDetailMap {
   if (!_accessibilityDetailMap) {
     _accessibilityDetailMap = [[MXMultilingualObject alloc] init];
   }

@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class MXMAddress;
+
 NS_ASSUME_NONNULL_BEGIN
 
 ///  This is a generic multilingual object class, designed to store and manage objects in different languages.
 @interface MXMultilingualObject<ObjectType> : NSObject <NSCopying>
 ///  The default object, which can be used when a specific language object is not available.
-@property (nonatomic, copy, nullable) ObjectType Default;
+@property (nonatomic, copy, nullable) ObjectType Default NS_SWIFT_NAME(default);
 ///  The object in English.
 @property (nonatomic, copy, nullable) ObjectType en;
 /// The object in Simplified Chinese.
@@ -37,5 +39,15 @@ NS_ASSUME_NONNULL_BEGIN
 /// The object in Arabic.
 @property (nonatomic, copy, nullable) ObjectType ar;
 @end
+
+
+
+/// Defines a type alias for MXMultilingualObject with NSString as the generic parameter.
+typedef MXMultilingualObject<NSString *> MXMultilingualObjectString;
+
+
+
+/// Defines a type alias for MXMultilingualObject with MXMAddress as the generic parameter.
+typedef MXMultilingualObject<MXMAddress *> MXMultilingualObjectAddress;
 
 NS_ASSUME_NONNULL_END

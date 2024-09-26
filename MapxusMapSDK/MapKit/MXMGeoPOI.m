@@ -150,7 +150,7 @@
   self.nameMap.ko = name_ko;
 }
 
-- (MXMultilingualObject<NSString *> *)nameMap {
+- (MXMultilingualObjectString *)nameMap {
   if (!_nameMap) {
     _nameMap = [[MXMultilingualObject alloc] init];
   }
@@ -205,7 +205,7 @@
   self.accessibilityDetailMap.ko = accessibilityDetail_ko;
 }
 
-- (MXMultilingualObject<NSString *> *)accessibilityDetailMap {
+- (MXMultilingualObjectString *)accessibilityDetailMap {
   if (!_accessibilityDetailMap) {
     _accessibilityDetailMap = [[MXMultilingualObject alloc] init];
   }

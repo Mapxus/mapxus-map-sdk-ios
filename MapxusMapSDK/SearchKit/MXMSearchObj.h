@@ -85,6 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Represents the parameters for a Point of Interest (POI) category search.
 /// All categories within the specified site will be queried. The first non-null value will be requested, following the order of `floorId`, `buildingId`, and `venueId`.
+DEPRECATED_MSG_ATTRIBUTE("Please use `MXMPoiCategoryFloorSearchOption`, `MXMPoiCategoryBuildingSearchOption` or `MXMPoiCategoryVenueSearchOption` instead.")
 @interface MXMPOICategorySearchRequest : NSObject
 /// Specifies the ID of the floor to search.
 @property (nonatomic, strong, nullable) NSString *floorId;
@@ -98,6 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /// Represents the results of a Point of Interest (POI) category search.
+DEPRECATED_MSG_ATTRIBUTE("Please use `MXMPoiCategorySearchResult` instead.")
 @interface MXMPOICategorySearchResponse : NSObject
 /// A list of `MXMCategory` objects representing the search results.
 @property (nonatomic, strong) NSArray<MXMCategory *> *category;

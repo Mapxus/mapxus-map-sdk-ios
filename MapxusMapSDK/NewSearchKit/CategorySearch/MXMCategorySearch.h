@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /// Searches POI categories by floor option. 
-/// This is an asynchronous function, and it returns results via the `categorySearcher:didReceivePoiCategoryWithResult:error:` method of
+/// This is an asynchronous function, and it returns results via the `- [categorySearcher:didReceivePoiCategoryWithResult:error:]` method of
 /// the `MXMCategorySearchDelegate`.
 ///
 /// @param floorOption The floor search option.
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /// Searches POI categories by building option. 
-/// This is an asynchronous function, and it returns results via the `categorySearcher:didReceivePoiCategoryWithResult:error:` method of
+/// This is an asynchronous function, and it returns results via the `- [categorySearcher:didReceivePoiCategoryWithResult:error:]` method of
 /// the `MXMCategorySearchDelegate`.
 ///
 /// @param buildingOption The building search option.
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /// Searches POI categories by venue option.
-/// This is an asynchronous function, and it returns results via the `categorySearcher:didReceivePoiCategoryWithResult:error:` method of
+/// This is an asynchronous function, and it returns results via the `- [categorySearcher:didReceivePoiCategoryWithResult:error:]` method of
 /// the `MXMCategorySearchDelegate`.
 ///
 /// @param venueOption The venue search option.
@@ -53,7 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /// Searches POI categories in a bounding box.
-/// This is an asynchronous function, and it returns results via the `categorySearcher:didReceivePoiCategoryInBoundingBoxWithResult:error:` 
+/// This is an asynchronous function, and it returns results via the `- [categorySearcher:didReceivePoiCategoryInBoundingBoxWithResult:error:]`
 /// method of the `MXMCategorySearchDelegate`.
 ///
 /// @param bboxOption The bounding box search option.

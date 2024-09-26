@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /// A multilingual map of venue names within which the POI category is present.
-@property (nonatomic, strong) MXMultilingualObject<NSString *> *venueNameMap;
+@property (nonatomic, strong) MXMultilingualObjectString *venueNameMap;
 
 @end
 

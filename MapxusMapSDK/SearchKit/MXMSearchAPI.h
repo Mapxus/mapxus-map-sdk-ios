@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// This method is the in-building POI category search interface.
 ///
 /// @param request The query options. Refer to the `MXMPOICategorySearchRequest` class for specific property fields.
-- (void)MXMPOICategorySearch:(MXMPOICategorySearchRequest *)request DEPRECATED_MSG_ATTRIBUTE("Please make use of the class `MXMCategorySearch` instead.");
+- (void)MXMPOICategorySearch:(MXMPOICategorySearchRequest *)request DEPRECATED_MSG_ATTRIBUTE("Please use `- [MXMCategorySearch searchPoiCategoriesByFloor:]`, `- [MXMCategorySearch searchPoiCategoriesByBuilding:]` or `- [MXMCategorySearch searchPoiCategoriesByVenue:]` instead.");
 
 
 /// This method is the in-building POI information search interface.
@@ -92,7 +92,8 @@ NS_ASSUME_NONNULL_BEGIN
 ///
 /// @param request The query options. Refer to the `MXMPOICategorySearchRequest` class for specific property fields.
 /// @param response The query results. Refer to the `MXMPOICategorySearchResponse` class for specific property fields.
-- (void)onPOICategorySearchDone:(MXMPOICategorySearchRequest *)request response:(MXMPOICategorySearchResponse *)response;
+- (void)onPOICategorySearchDone:(MXMPOICategorySearchRequest *)request response:(MXMPOICategorySearchResponse *)response DEPRECATED_MSG_ATTRIBUTE("Please  use `- [MXMCategorySearchDelegate categorySearcher:didReceivePoiCategoryWithResult:]` instead.")
+;
 
 
 /// This method is a callback for POI queries within the building.
