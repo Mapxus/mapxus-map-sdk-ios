@@ -1,11 +1,17 @@
 # CHANGELOG
 
-## v6.10.0 (2024-07-19)
+## v6.11.0 (2024-09-27)
+
+### 🎉 New
+
+* Added a method `- [MXMCategorySearch searchPoiCategoriesInBoundingBox:]` to query all POI categories within a specified bounding box that contain specified keywords.
+
+* Added support for fil, id, pt, th, vi, and ar languages in the `MXMultilingualObject` class.
 
 ### 📝 Changes
 
-* Implemented a filter for null ID values in the Venue, Building, and POI when conducting an ID-based search.
+* Replaced `- [MXMSearchAPI MXMPOICategorySearch:]` with `- [MXMCategorySearch searchPoiCategoriesByFloor:]`, `- [MXMCategorySearch searchPoiCategoriesByBuilding:]`, and `- [MXMCategorySearch searchPoiCategoriesByVenue:]` for indoor POI category queries.
 
-### 🐛 Fixes
+### ❌ will be deleted soon
 
-* Resolved an issue where the BuildingSelect list displayed incorrect information after the map was relocated.
+* `MapxusMap.floorSwitchMode` will be removed, and always switch according to the venue.
