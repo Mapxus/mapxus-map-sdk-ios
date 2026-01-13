@@ -3,7 +3,7 @@
 
 import PackageDescription
 
-let version = "8.1.1"
+let version = "8.5.1"
 
 let package = Package(
   name: "MapxusMapSDK",
@@ -19,7 +19,7 @@ let package = Package(
     .binaryTarget(
       name: "MapxusMapSDK",
       url: "https://nexus3.mapxus.com/repository/ios-sdk/\(version)/mapxus-map-sdk-ios.zip",
-      checksum: "0e08a5b042160a5444de51968e15d601980aaf5b22e9214ec094217946f16272"
+      checksum: "a5c9f86b25afae3bdc4e0a460fa9c86052b95fbc1ccfb0f3c033263f9062b5ac"
     )
   ]
 )
